@@ -1060,13 +1060,14 @@ namespace TJAPlayer3
 
             int i選曲バーX座標 = 673; //選曲バーの座標用
             int i選択曲バーX座標 = 665; //選択曲バーの座標用
-
+			
 			if( !this.b登場アニメ全部完了 )
 			{
-                if( this.n現在のスクロールカウンタ == 0 )
-                {
-                    if( TJAPlayer3.Tx.SongSelect_Bar_Center != null )
-                        TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画( TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
+				if (this.n現在のスクロールカウンタ == 0)
+				{
+						int nnGenreBack = this.nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル);
+					if (TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack] != null)
+						TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
                     switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:
@@ -1312,9 +1313,10 @@ namespace TJAPlayer3
 
                 if( this.n現在のスクロールカウンタ == 0 )
                 {
-                    if( TJAPlayer3.Tx.SongSelect_Bar_Center != null )
-                        TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画( TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
-                    switch (r現在選択中の曲.eノード種別)
+						int nnGenreBack = this.nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル);
+						if (TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
+					switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:
                             {
@@ -1559,8 +1561,6 @@ namespace TJAPlayer3
                 if( TJAPlayer3.Tx.SongSelect_GenreText != null )
                     TJAPlayer3.Tx.SongSelect_GenreText.t2D描画( TJAPlayer3.app.Device, 496, TJAPlayer3.Skin.SongSelect_Overall_Y-64, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );
             }
-
-
 
 
 			return 0;
@@ -2060,7 +2060,45 @@ namespace TJAPlayer3
             return nGenre;
         }
 
-        private TitleTextureKey ttk曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor)
+		private int nStrジャンルtoNumN2(string strジャンル)
+		{
+			int nGenre = 8;
+			switch (strジャンル)
+			{
+				case "J-POP":
+					nGenre = 1;
+					break;
+				case "アニメ":
+					nGenre = 2;
+					break;
+				case "ゲームミュージック":
+					nGenre = 3;
+					break;
+				case "ナムコオリジナル":
+					nGenre = 4;
+					break;
+				case "クラシック":
+					nGenre = 5;
+					break;
+				case "バラエティ":
+					nGenre = 6;
+					break;
+				case "どうよう":
+					nGenre = 7;
+					break;
+				case "ボーカロイド":
+				case "VOCALOID":
+					nGenre = 8;
+					break;
+				default:
+					nGenre = 0;
+					break;
+
+			}
+
+			return nGenre;
+		}
+		private TitleTextureKey ttk曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor)
         {
             return new TitleTextureKey(str文字, pfMusicName, forecolor, backcolor, 410);
         }
