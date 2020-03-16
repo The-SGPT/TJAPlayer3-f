@@ -91,9 +91,9 @@ namespace TJAPlayer3
 					this.list進行文字列.Add( "Release: " + TJAPlayer3.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]" );
 
                     this.list進行文字列.Add("");
-                    this.list進行文字列.Add("TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
-                    this.list進行文字列.Add("TJAPlayer3 edited by AioiLight(@aioilight)");
-                    this.list進行文字列.Add("");
+					this.list進行文字列.Add("TJAPlayer3-f forked TJAPlayer3 (Aioilight)");
+					this.list進行文字列.Add("TJAPlayer3-f edited by Mr-Ojii(@Mr_Ojii)");
+					this.list進行文字列.Add("");
 
                     es = new CEnumSongs();
 					es.StartEnumFromCache();										// 曲リスト取得(別スレッドで実行される)

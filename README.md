@@ -1,3 +1,8 @@
+#TJAPlayer3-f
+TJAPlayer3をForkして、趣味程度に改造してます。
+
+##以下AioiLight様作成のReadmeです
+
 # TJAPlayer3
 DTXManiaをいじってtja再生プログラムにしちゃった[TJAPlayer2fPC](https://github.com/kairera0467/TJAP2fPC)をForkして本家風に改造したアレ。
 
