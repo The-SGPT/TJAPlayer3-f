@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>slimdx_aioilight.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Mr-Ojii.pfx</AssemblyOriginatorKeyFile>
     <ApplicationIcon>
     </ApplicationIcon>
     <FileUpgradeFlags>
@@ -166,6 +166,7 @@
     <Content Include="コード\01.フレームワーク\Resources\sdx_icon_black.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Mr-Ojii.pfx" />
     <None Include="packages.config" />
     <None Include="slimdx_aioilight.snk" />
   </ItemGroup>

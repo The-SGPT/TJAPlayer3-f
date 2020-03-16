@@ -23,7 +23,8 @@ namespace TJAPlayer3
     /// とか
     /// CPrivateFont prvFont = new CPrivateFont( new FontFamily("MS UI Gothic"), 36, FontStyle.Bold );		// システムフォント
     /// とかした上で、
-    /// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
+    /// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.
+    /// , Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
     /// とか
     /// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
     /// とかして、
