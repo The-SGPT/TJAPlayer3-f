@@ -26,7 +26,7 @@ namespace TJAPlayer3
 		{
 			this.Title = "";
 			this.Genre = "";
-            ForeColor = Color.Black;
+            ForeColor = Color.White;
             BackColor = Color.Black;
 
 		}
