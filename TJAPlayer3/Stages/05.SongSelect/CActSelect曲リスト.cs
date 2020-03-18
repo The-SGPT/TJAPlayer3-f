@@ -1067,8 +1067,10 @@ namespace TJAPlayer3
 				{
 						int nnGenreBack = this.nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル);
 					if (TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
-                    switch (r現在選択中の曲.eノード種別)
+						TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y-69);
+					if (TJAPlayer3.Tx.SongSelect_Bar_Center != null)
+						TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
+					switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:
                             {
@@ -1315,7 +1317,9 @@ namespace TJAPlayer3
                 {
 						int nnGenreBack = this.nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル);
 						if (TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack] != null)
-							TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
+							TJAPlayer3.Tx.SongSelect_Bar_Center_Genre[nnGenreBack].t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y-69);
+					if (TJAPlayer3.Tx.SongSelect_Bar_Center != null)
+						TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
 					switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:

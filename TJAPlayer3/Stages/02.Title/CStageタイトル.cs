@@ -18,9 +18,9 @@ namespace TJAPlayer3
 		{
 			base.eステージID = CStage.Eステージ.タイトル;
 			base.b活性化してない = true;
-			base.list子Activities.Add( this.actFIfromSetup = new CActFIFOWhite() );
-			base.list子Activities.Add( this.actFI = new CActFIFOWhite() );
-			base.list子Activities.Add( this.actFO = new CActFIFOWhite() );
+			base.list子Activities.Add(this.actFIfromSetup = new CActFIFOWhite());
+			base.list子Activities.Add(this.actFI = new CActFIFOWhite());
+			base.list子Activities.Add(this.actFO = new CActFIFOWhite());
 		}
 
 
@@ -28,13 +28,13 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			Trace.TraceInformation( "タイトルステージを活性化します。" );
+			Trace.TraceInformation("タイトルステージを活性化します。");
 			Trace.Indent();
 			try
 			{
-				for( int i = 0; i < 4; i++ )
+				for (int i = 0; i < 4; i++)
 				{
-					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, TJAPlayer3.Timer );
+					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 				}
 				this.ct上移動用 = new CCounter();
 				this.ct下移動用 = new CCounter();
@@ -43,19 +43,19 @@ namespace TJAPlayer3
 			}
 			finally
 			{
-				Trace.TraceInformation( "タイトルステージの活性化を完了しました。" );
+				Trace.TraceInformation("タイトルステージの活性化を完了しました。");
 				Trace.Unindent();
 			}
 		}
 		public override void On非活性化()
 		{
-			Trace.TraceInformation( "タイトルステージを非活性化します。" );
+			Trace.TraceInformation("タイトルステージを非活性化します。");
 			Trace.Indent();
 			try
 			{
-				for( int i = 0; i < 4; i++ )
+				for (int i = 0; i < 4; i++)
 				{
-					this.ctキー反復用[ i ] = null;
+					this.ctキー反復用[i] = null;
 				}
 				this.ct上移動用 = null;
 				this.ct下移動用 = null;
@@ -63,7 +63,7 @@ namespace TJAPlayer3
 			}
 			finally
 			{
-				Trace.TraceInformation( "タイトルステージの非活性化を完了しました。" );
+				Trace.TraceInformation("タイトルステージの非活性化を完了しました。");
 				Trace.Unindent();
 			}
 			base.On非活性化();
@@ -88,13 +88,13 @@ namespace TJAPlayer3
 		}
 		public override int On進行描画()
 		{
-			if( !base.b活性化してない )
+			if (!base.b活性化してない)
 			{
 				#region [ 初めての進行描画 ]
 				//---------------------
-				if( base.b初めての進行描画 )
+				if (base.b初めての進行描画)
 				{
-					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stage起動 )
+					if (TJAPlayer3.r直前のステージ == TJAPlayer3.stage起動)
 					{
 						this.actFIfromSetup.tフェードイン開始();
 						base.eフェーズID = CStage.Eフェーズ.タイトル_起動画面からのフェードイン;
@@ -104,10 +104,10 @@ namespace TJAPlayer3
 						this.actFI.tフェードイン開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
 					}
-					this.ctカーソルフラッシュ用.t開始( 0, 700, 5, TJAPlayer3.Timer );
+					this.ctカーソルフラッシュ用.t開始(0, 700, 5, TJAPlayer3.Timer);
 					this.ctカーソルフラッシュ用.n現在の値 = 100;
 					base.b初めての進行描画 = false;
-                }
+				}
 				//---------------------
 				#endregion
 
@@ -115,10 +115,10 @@ namespace TJAPlayer3
 
 				#region [ カーソル上移動 ]
 				//---------------------
-				if( this.ct上移動用.b進行中 )
+				if (this.ct上移動用.b進行中)
 				{
 					this.ct上移動用.t進行();
-					if( this.ct上移動用.b終了値に達した )
+					if (this.ct上移動用.b終了値に達した)
 					{
 						this.ct上移動用.t停止();
 					}
@@ -127,10 +127,10 @@ namespace TJAPlayer3
 				#endregion
 				#region [ カーソル下移動 ]
 				//---------------------
-				if( this.ct下移動用.b進行中 )
+				if (this.ct下移動用.b進行中)
 				{
 					this.ct下移動用.t進行();
-					if( this.ct下移動用.b終了値に達した )
+					if (this.ct下移動用.b終了値に達した)
 					{
 						this.ct下移動用.t停止();
 					}
@@ -145,25 +145,25 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態		// 通常状態、かつ
-					&& TJAPlayer3.act現在入力を占有中のプラグイン == null )	// プラグインの入力占有がない
+				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態        // 通常状態、かつ
+					&& TJAPlayer3.act現在入力を占有中のプラグイン == null)    // プラグインの入力占有がない
 				{
-					if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) Key.Escape ) )
-						return (int) E戻り値.EXIT;
+					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)Key.Escape))
+						return (int)E戻り値.EXIT;
 
-					this.ctキー反復用.Up.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDX.DirectInput.Key.UpArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
-					this.ctキー反復用.R.tキー反復( TJAPlayer3.Pad.b押されているGB( Eパッド.HH ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
-					if( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.SD ) )
+					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.UpArrow), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
+					this.ctキー反復用.R.tキー反復(TJAPlayer3.Pad.b押されているGB(Eパッド.HH), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
+					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.SD))
 						this.tカーソルを上へ移動する();
 
-					this.ctキー反復用.Down.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDX.DirectInput.Key.DownArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
-					this.ctキー反復用.B.tキー反復( TJAPlayer3.Pad.b押されているGB( Eパッド.BD ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
-					if( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LT ) )
+					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.DownArrow), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
+					this.ctキー反復用.B.tキー反復(TJAPlayer3.Pad.b押されているGB(Eパッド.BD), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
+					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LT))
 						this.tカーソルを下へ移動する();
 
-					if( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Return ) ) ) )
+					if ((TJAPlayer3.Pad.b押されたDGB(Eパッド.CY) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RD)) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LC) || (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Return))))
 					{
-						if ( ( this.n現在のカーソル行 == (int) E戻り値.GAMESTART - 1 ) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功 )
+						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{
 							TJAPlayer3.Skin.soundゲーム開始音.t再生する();
 						}
@@ -171,28 +171,28 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Skin.sound決定音.t再生する();
 						}
-						if( this.n現在のカーソル行 == (int)E戻り値.EXIT - 1 )
+						if (this.n現在のカーソル行 == (int)E戻り値.EXIT - 1)
 						{
 							return (int)E戻り値.EXIT;
 						}
 						this.actFO.tフェードアウト開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 					}
-//					if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.Space ) )
-//						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
+					//					if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.Space ) )
+					//						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
 				}
 
-                // 描画
+				// 描画
 
-                if (TJAPlayer3.Tx.Title_Background != null )
-                    TJAPlayer3.Tx.Title_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+				if (TJAPlayer3.Tx.Title_Background != null)
+					TJAPlayer3.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
                 string strCreator = "https://github.com/Mr-Ojii/TJAPlayer3";
-                AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
+		AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
-                TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.Eフォント種別.白,"DEBUG BUILD?");
+		TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.Eフォント種別.白,"DEBUG BUILD?");
 #else
 				TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.Eフォント種別.白, "RELEASE BUILD");
 #endif
@@ -200,9 +200,8 @@ namespace TJAPlayer3
                 TJAPlayer3.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, "Skin:" + TJAPlayer3.Skin.Skin_Name + " Ver." + TJAPlayer3.Skin.Skin_Version + " (" + TJAPlayer3.Skin.Skin_Creator + ")");
                 //CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, strSubTitle);
                 TJAPlayer3.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.Eフォント種別.白, "TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
-                #endregion
-
-                
+			#endregion
+				                
 				if( TJAPlayer3.Tx.Title_Menu != null )
 				{
 					int x = MENU_X;
