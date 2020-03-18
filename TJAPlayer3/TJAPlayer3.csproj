@@ -9,10 +9,10 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TJAPlayer3</RootNamespace>
-    <AssemblyName>TJAPlayer3</AssemblyName>
+    <AssemblyName>TJAPlayer3-f</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>Resources\TJAPlayer3.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\TJAPlayer3-f.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dtx.ico" />
+    <Content Include="Resources\TJAPlayer3-f.ico" />
     <None Include="Resources\TJAPlayer3.ico" />
   </ItemGroup>
   <ItemGroup>
