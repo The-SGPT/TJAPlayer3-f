@@ -118,8 +118,8 @@ namespace TJAPlayer3
 
 			this.CommandHistory = new CCommandHistory();		// #24063 2011.1.16 yyagi
 		}
-		
-		
+
+
 		// メソッド
 
 		public void t選択曲変更通知()
@@ -374,10 +374,13 @@ namespace TJAPlayer3
 				//this.actArtistComment.On進行描画();
                 this.act演奏履歴パネル.On進行描画();
 				//this.actオプションパネル.On進行描画();
-				this.actShowCurrentPosition.On進行描画();								// #27648 2011.3.28 yyagi
+				this.actShowCurrentPosition.On進行描画();                               // #27648 2011.3.28 yyagi
 
-                //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
-                TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画( TJAPlayer3.app.Device, 980, 30, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
+				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
+				if (r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BOX)
+				{
+					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 980, 30, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
+				}
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
