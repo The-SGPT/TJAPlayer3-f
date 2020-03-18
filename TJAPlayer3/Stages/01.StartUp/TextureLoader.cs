@@ -110,7 +110,6 @@ namespace TJAPlayer3
             SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
             SongSelect_Score_Select = TxC(SONGSELECT + @"Score_Select.png");
             //SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
-            //SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
             SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
             for (int i = 0; i < SongSelect_Bar_Genre.Length; i++)
@@ -558,7 +557,6 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_BackBox);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Random);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
-            //TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreText);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_JPOPText);
@@ -878,7 +876,6 @@ namespace TJAPlayer3
             SongSelect_Frame_Random,
             SongSelect_Score_Select,
             SongSelect_Bar_Center,
-            //SongSelect_GenreText,
             SongSelect_Cursor_Left,
             SongSelect_Cursor_Right,
             SongSelect_ScoreWindow_Text,
