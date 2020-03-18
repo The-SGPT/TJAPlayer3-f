@@ -195,6 +195,7 @@ namespace TJAPlayer3
 		private List<C曲リストノード> GetSongListWithinMe( C曲リストノード song )
 		{
 			if ( song.r親ノード == null )					// root階層のノートだったら
+
 			{
 				return TJAPlayer3.Songs管理.list曲ルート;	// rootのリストを返す
 			}
@@ -641,6 +642,7 @@ namespace TJAPlayer3
                 //this.t曲名バーの生成(i, this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
                 this.stバー情報[ i ].ttkタイトル = this.ttk曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
             }
+			
 
 			int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 			#region [ Songs not found画像 ]
@@ -1168,7 +1170,7 @@ namespace TJAPlayer3
                         case C曲リストノード.Eノード種別.BOX:
                             if (TJAPlayer3.Tx.SongSelect_Frame_Box != null)
                                 TJAPlayer3.Tx.SongSelect_Frame_Box.t2D描画(TJAPlayer3.app.Device, 450, TJAPlayer3.Skin.SongSelect_Overall_Y);
-                            break;
+							break;
 
                         case C曲リストノード.Eノード種別.BACKBOX:
                             if (TJAPlayer3.Tx.SongSelect_Frame_BackBox != null)
@@ -1560,11 +1562,13 @@ namespace TJAPlayer3
 			tアイテム数の描画();
 			#endregion
 
-            if( this.e曲のバー種別を返す( this.r現在選択中の曲 ) == Eバー種別.Score && this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) != 8 )
+            if( this.e曲のバー種別を返す( this.r現在選択中の曲 ) == Eバー種別.Score && this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) != 8 || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 8)
             {
-                if( TJAPlayer3.Tx.SongSelect_GenreText != null )
+				if (TJAPlayer3.Tx.SongSelect_GenreText != null)
+					Debug.Print(this.r現在選択中の曲.strジャンル.ToString());
                     TJAPlayer3.Tx.SongSelect_GenreText.t2D描画( TJAPlayer3.app.Device, 496, TJAPlayer3.Skin.SongSelect_Overall_Y-64, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );
-            }
+				//this.vocaltext.t2D描画(TJAPlayer3.app.Device, 0, 0);
+			}
 
 
 			return 0;
@@ -2136,9 +2140,10 @@ namespace TJAPlayer3
 
 	            return tx文字テクスチャ;
 	        }
-	    }
+		}
 
-	    private static void OnTitleTexturesOnItemUpdated(
+
+		private static void OnTitleTexturesOnItemUpdated(
 	        KeyValuePair<TitleTextureKey, CTexture> previous, KeyValuePair<TitleTextureKey, CTexture> next)
 	    {
             previous.Value.Dispose();
