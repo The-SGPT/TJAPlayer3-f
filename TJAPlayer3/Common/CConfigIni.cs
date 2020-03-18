@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing;
 using FDK;
 using FDK.ExtensionMethods;
 
@@ -724,7 +725,8 @@ namespace TJAPlayer3
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
         public string FontName;
-        public bool bBranchGuide;
+		public string FontNamed;
+		public bool bBranchGuide;
         public int nScoreMode;
         public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
@@ -1277,6 +1279,7 @@ namespace TJAPlayer3
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
+			this.FontNamed = "MS UI Gothic";
 		    this.ApplyLoudnessMetadata = true;
 
 		    // 2018-08-28 twopointzero:
@@ -1559,7 +1562,7 @@ namespace TJAPlayer3
             #region [ フォント ]
             sw.WriteLine("; フォントレンダリングに使用するフォント名");
             sw.WriteLine("; Font name used for font rendering.");
-            sw.WriteLine("FontName={0}", this.FontName);
+            sw.WriteLine("FontName={0}", this.FontNamed);
             sw.WriteLine();
             #endregion
             #region [ フレーム処理関連(VSync, フレーム毎のsleep) ]
@@ -1994,6 +1997,7 @@ namespace TJAPlayer3
 
 			sw.Close();
 		}
+
 		public void tファイルから読み込み( string iniファイル名 )
 		{
 			this.ConfigIniファイル名 = iniファイル名;
@@ -2249,7 +2253,27 @@ namespace TJAPlayer3
                                             else if (str3.Equals("FontName"))
                                             {
                                                 this.FontName = str4;
-                                            }
+												this.FontNamed = str4;
+												//InstalledFontCollectionオブジェクトの取得
+												System.Drawing.Text.InstalledFontCollection ifc =
+													new System.Drawing.Text.InstalledFontCollection();
+												//インストールされているすべてのフォントファミリアを取得
+												FontFamily[] ffs = ifc.Families;
+												bool hanntei = false;
+												foreach (FontFamily ff in ffs)
+												{
+													Font fnt = new Font(ff, 8);
+													if (fnt.Name == this.FontName) {
+														hanntei = true;
+													}
+														//リソースを解放する
+														fnt.Dispose();
+													
+												}
+												if (hanntei == false) {
+													this.FontName = "MS UI Gothic";
+												}
+											}
                                             #endregion
 
                                             else if ( str3.Equals( "VSyncWait" ) )
