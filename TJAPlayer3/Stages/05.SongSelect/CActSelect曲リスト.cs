@@ -2273,6 +2273,8 @@ namespace TJAPlayer3
 
 		private static CTexture GenerateGenreTexture(TitleTextureKey titleTextureKey)
 		{
+
+
 			//描画先とするImageオブジェクトを作成する
 			var bmp = new Bitmap(800, 200);
 			//ImageオブジェクトのGraphicsオブジェクトを作成する

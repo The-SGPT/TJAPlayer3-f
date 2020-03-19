@@ -81,6 +81,8 @@ namespace TJAPlayer3
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
             Title_Menu = TxC(TITLE + @"Menu.png");
+            Title_AcBar = TxC(TITLE + @"ActiveBar.png");
+            Title_InBar = TxC(TITLE + @"InactiveBar.png");
             #endregion
 
             #region 2_コンフィグ画面
@@ -513,6 +515,8 @@ namespace TJAPlayer3
         {
             TJAPlayer3.tテクスチャの解放(ref Title_Background);
             TJAPlayer3.tテクスチャの解放(ref Title_Menu);
+            TJAPlayer3.tテクスチャの解放(ref Title_AcBar);
+            TJAPlayer3.tテクスチャの解放(ref Title_InBar);
             #region 共通
             TJAPlayer3.tテクスチャの解放(ref Tile_Black);
             TJAPlayer3.tテクスチャの解放(ref Menu_Title);
@@ -529,6 +533,8 @@ namespace TJAPlayer3
             #region 1_タイトル画面
             TJAPlayer3.tテクスチャの解放(ref Title_Background);
             TJAPlayer3.tテクスチャの解放(ref Title_Menu);
+            TJAPlayer3.tテクスチャの解放(ref Title_AcBar);
+            TJAPlayer3.tテクスチャの解放(ref Title_InBar);
             #endregion
 
             #region 2_コンフィグ画面
@@ -847,7 +853,9 @@ namespace TJAPlayer3
         #endregion
         #region 1_タイトル画面
         public CTexture Title_Background,
-            Title_Menu;
+            Title_Menu,
+            Title_AcBar,
+            Title_InBar;
         #endregion
 
         #region 2_コンフィグ画面
