@@ -17,7 +17,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// キャッシュ容量
 		/// </summary>
-		private const int MAXCACHESIZE = 128;
+		private const int MAXCACHESIZE = 256;
 
 		private struct FontCache
 		{
@@ -266,14 +266,14 @@ namespace TJAPlayer3
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
-				delegate( FontCache fontcache )
+				delegate (FontCache fontcache)
 				{
 					return (
 						drawstr == fontcache.drawstr &&
 						fontColor == fontcache.fontColor &&
 						edgeColor == fontcache.edgeColor &&
 						bVertical == true
-						// _font == fontcache.font
+					// _font == fontcache.font
 					);
 				}
 			);
@@ -290,7 +290,7 @@ namespace TJAPlayer3
 				fc.rectStrings = RectStrings;
 				fc.ptOrigin = PtOrigin;
 				listFontCache.Add( fc );
-				 Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
+				Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
 				#endregion
 				#region [ もしキャッシュがあふれたら、最も古いキャッシュを破棄する ]
 				if ( listFontCache.Count > MAXCACHESIZE )

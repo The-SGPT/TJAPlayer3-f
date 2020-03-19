@@ -1100,16 +1100,19 @@ namespace TJAPlayer3
 						{
 							if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
 							{
-								this.ResolveGenreTexture(genretext[8].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+								kari = this.ResolveGenreTexture(genretext[8].TtktGenre);
+								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 							}
 							else if(r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BACKBOX)
 							{
-								this.ResolveGenreTexture(genretext[9].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+								kari = this.ResolveGenreTexture(genretext[9].TtktGenre);
+								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 							}
 						}
 						else
 						{
-							this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 					}
 					switch (r現在選択中の曲.eノード種別)
@@ -1372,17 +1375,20 @@ namespace TJAPlayer3
 						{
 							if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
 							{
-								this.ResolveGenreTexture(genretext[8].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+								kari = this.ResolveGenreTexture(genretext[8].TtktGenre);
+								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 							}
 							else if(r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BACKBOX)
 							{
-								this.ResolveGenreTexture(genretext[9].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+								kari = this.ResolveGenreTexture(genretext[9].TtktGenre);
+								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 
 							}
 						}
 						else
 						{
-							this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 					}
 					switch (r現在選択中の曲.eノード種別)
@@ -1765,12 +1771,13 @@ namespace TJAPlayer3
         private EFIFOモード mode;
         private CPrivateFastFont pfMusicName;
         private CPrivateFastFont pfSubtitle;
+		private CTexture kari;
 
-	    // 2018-09-17 twopointzero: I can scroll through 2300 songs consuming approx. 200MB of memory.
-	    //                          I have set the title texture cache size to a nearby round number (2500.)
-        //                          If we'd like title textures to take up no more than 100MB, for example,
-        //                          then a cache size of 1000 would be roughly correct.
-	    private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
+		// 2018-09-17 twopointzero: I can scroll through 2300 songs consuming approx. 200MB of memory.
+		//                          I have set the title texture cache size to a nearby round number (2500.)
+		//                          If we'd like title textures to take up no more than 100MB, for example,
+		//                          then a cache size of 1000 would be roughly correct.
+		private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
 	        new LurchTable<TitleTextureKey, CTexture>(LurchTableOrder.Access, 2500);
 
 		private E楽器パート e楽器パート;
@@ -2103,7 +2110,9 @@ namespace TJAPlayer3
                     break;
 			}
 		}
-        private int nStrジャンルtoNum( string strジャンル )
+
+
+		private int nStrジャンルtoNum( string strジャンル )
         {
             int nGenre = 8;
             switch( strジャンル )
