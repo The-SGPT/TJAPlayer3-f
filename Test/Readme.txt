@@ -5,6 +5,7 @@ TJAPlayer3 Readme.txt
 更新日:2020/03/16(Mr-Ojii)
 
 このTJAPlayer3はMr-Ojiiによる改造版です。
+AioiLight様作成のSimpleStyleに互換性を保ちながら、改造しているつもりです。
 
 以下はAioiLight様作成のReadmeです。
 
