@@ -339,6 +339,7 @@ namespace TJAPlayer3
 								return (int)E戻り値.GAMESTART;
 
 							case (int)E戻り値.CONFIG - 1:
+								TJAPlayer3.Tx.Kyo_mae = 3;
 								return (int)E戻り値.CONFIG;
 
 							case (int)E戻り値.EXIT - 1:
