@@ -127,9 +127,13 @@ namespace TJAPlayer3
             {
                 SongSelect_Bar_Genre[i] = TxC(SONGSELECT + @"Bar_Genre_" + i.ToString() + ".png");
             }
-            for (int i = 0; i < SongSelect_Bar_Center_Genre.Length; i++)
+            for (int i = 0; i <  SongSelect_Box_Center_Genre.Length; i++)
             {
-                SongSelect_Bar_Center_Genre[i] = TxC(SONGSELECT + @"Bar_Center_Genre_" + i.ToString() + ".png");
+                 SongSelect_Box_Center_Genre[i] = TxC(SONGSELECT + @"Box_Center_Genre_" + i.ToString() + ".png");
+            }
+            for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
+            {
+                SongSelect_Bar_Center_Back_Genre[i] = TxC(SONGSELECT + @"Bar_Center_Background_Genre_" + i.ToString() + ".png");
             }
             for (int i = 0; i < (int)Difficulty.Total; i++)
             {
@@ -582,6 +586,14 @@ namespace TJAPlayer3
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
             }
+            for (int i = 0; i < SongSelect_Box_Center_Genre.Length; i++)
+            {
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_Box_Center_Genre[i]);
+            }
+            for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
+            {
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Center_Back_Genre[i]);
+            }
             for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
@@ -961,7 +973,8 @@ namespace TJAPlayer3
             SongSelect_ScoreWindow_Text;
         public CTexture[] SongSelect_GenreBack = new CTexture[9],
             SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
-            SongSelect_Bar_Center_Genre = new CTexture[9],
+            SongSelect_Box_Center_Genre = new CTexture[9],
+            SongSelect_Bar_Center_Back_Genre = new CTexture[9],
             SongSelect_Bar_Genre = new CTexture[9],
             SongSelect_NamePlate = new CTexture[1];
         #endregion

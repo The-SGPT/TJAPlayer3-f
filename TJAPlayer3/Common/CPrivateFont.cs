@@ -395,18 +395,18 @@ namespace TJAPlayer3
 		}
 
         /// <summary>
-		/// 文字列を描画したテクスチャを返す(メイン処理)
-		/// </summary>
-		/// <param name="rectDrawn">描画された領域</param>
-		/// <param name="ptOrigin">描画文字列</param>
-		/// <param name="drawstr">描画文字列</param>
-		/// <param name="drawmode">描画モード</param>
-		/// <param name="fontColor">描画色</param>
-		/// <param name="edgeColor">縁取色</param>
-		/// <param name="gradationTopColor">グラデーション 上側の色</param>
-		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
-		/// <returns>描画済テクスチャ</returns>
-		protected Bitmap DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+        /// 文字列を描画したテクスチャを返す(メイン処理)
+        /// </summary>
+        /// <param name="rectDrawn">描画された領域</param>
+        /// <param name="ptOrigin">描画文字列</param>
+        /// <param name="drawstr">描画文字列</param>
+        /// <param name="drawmode">描画モード</param>
+        /// <param name="fontColor">描画色</param>
+        /// <param name="edgeColor">縁取色</param>
+        /// <param name="gradationTopColor">グラデーション 上側の色</param>
+        /// <param name="gradationBottomColor">グラデーション 下側の色</param>
+        /// <returns>描画済テクスチャ</returns>
+        protected Bitmap DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" )
 			{
@@ -455,6 +455,14 @@ namespace TJAPlayer3
                 //できるだけ正確な値を計算しておきたい...!
                 Bitmap bmpDummy = new Bitmap( 150, 150 ); //とりあえず150
                 Graphics gCal = Graphics.FromImage( bmpDummy );
+
+
+                if (this._font == null)
+                {
+                    this._font = new Font(TJAPlayer3.ConfigIni.FontName,28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
+                }
+
+
                 Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
                 int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
@@ -702,7 +710,7 @@ namespace TJAPlayer3
         //    string[] strName = new string[] { "焼","肉","定","食", "X", "G", "t", "e", "s", "t" };
         //    strName = new string[ drawstr.Length ];
         //    for( int i = 0; i < drawstr.Length; i++ ) strName[i] = drawstr.Substring(i, 1);
-            
+
 
         //    Bitmap bmpCambus = new Bitmap( 48, ( drawstr.Length * 31 ) );
         //    Graphics Gcambus = Graphics.FromImage( bmpCambus );
@@ -802,7 +810,7 @@ namespace TJAPlayer3
 
 
         //        //stream.WriteLine( "黒無しサイズ{0},余白{1},黒あり予測サイズ{2},ポ↑ジ↓{3}",rect正確なサイズ.Height, n余白サイズ, rect正確なサイズ.Height + 6, nNowPos );
-                
+
         //    }
         //    //stream.Close();
 
@@ -839,9 +847,12 @@ namespace TJAPlayer3
             //文字列の描かれていない部分の色を取得する
             Color backColor = bmp.GetPixel(0, 0);
             //実際にBitmapに文字列を描画する
+
+            //  Debug.Print("Font=" + font.ToString());
             bmpGraphics.DrawString(text, font, Brushes.Black,
                 new RectangleF(0f, 0f, proposedSize.Width, proposedSize.Height),
                 stringFormat);
+
             bmpGraphics.Dispose();
             //文字列が描画されている範囲を計測する
             Rectangle resultRect = MeasureForegroundArea(bmp, backColor);
