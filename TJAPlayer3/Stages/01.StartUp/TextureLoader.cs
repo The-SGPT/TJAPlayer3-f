@@ -144,6 +144,10 @@ namespace TJAPlayer3
             {
                 SongSelect_GenreBack[i] = TxC(SONGSELECT + @"GenreBackground_" + i.ToString() + ".png");
             }
+            for (int i = 0; i < SongSelect_Counter_Back.Length; i++)
+            {
+                SongSelect_Counter_Back[i] = TxC(SONGSELECT + @"Counter_Background_" + i.ToString() + ".png");
+            }
             SongSelect_ScoreWindow_Text = TxC(SONGSELECT + @"ScoreWindow_Text.png");
             #endregion
 
@@ -582,6 +586,7 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Tempcounter);
             for (int i = 0; i < SongSelect_Bar_Genre.Length; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
@@ -602,6 +607,10 @@ namespace TJAPlayer3
             for (int i = 0; i < SongSelect_GenreBack.Length; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreBack[i]);
+            }
+            for (int i = 0; i < SongSelect_Counter_Back.Length; i++)
+            { 
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_Counter_Back[i]);
             }
             TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
             #endregion
@@ -970,13 +979,16 @@ namespace TJAPlayer3
             SongSelect_Bar_Center,
             SongSelect_Cursor_Left,
             SongSelect_Cursor_Right,
-            SongSelect_ScoreWindow_Text;
+            SongSelect_ScoreWindow_Text,
+            SongSelect_Tempcounter;
         public CTexture[] SongSelect_GenreBack = new CTexture[9],
             SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
             SongSelect_Box_Center_Genre = new CTexture[9],
             SongSelect_Bar_Center_Back_Genre = new CTexture[9],
             SongSelect_Bar_Genre = new CTexture[9],
-            SongSelect_NamePlate = new CTexture[1];
+            SongSelect_NamePlate = new CTexture[1],
+            SongSelect_Counter_Back = new CTexture[2];
+        public int SongSelect_Counter_BTime = 100;
         #endregion
 
         #region 4_読み込み画面

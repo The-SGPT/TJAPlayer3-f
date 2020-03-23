@@ -1400,7 +1400,7 @@ namespace TJAPlayer3
             this.nDefaultCourse = 3;
             this.nBranchAnime = 1;
 
-            this.b大音符判定 = false;
+            this.b大音符判定 = true;
             this.n両手判定の待ち時間 = 50;
 
             this.bJudgeCountDisplay = false;

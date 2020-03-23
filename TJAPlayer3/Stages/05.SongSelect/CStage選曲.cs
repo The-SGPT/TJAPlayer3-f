@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using FDK;
+using CSharpTest.Net.Collections;
 
 namespace TJAPlayer3
 {
@@ -242,6 +243,7 @@ namespace TJAPlayer3
                 //this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
                 //this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
                 this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width, 30, TJAPlayer3.Timer);
+				this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -271,9 +273,10 @@ namespace TJAPlayer3
 			if( !base.b活性化してない )
 			{
 			this.ct背景スクロール用タイマー.t進行Loop();
+			this.ctカウントダウン用タイマー.t進行Loop();
 				#region [ 初めての進行描画 ]
 				//---------------------
-				if( base.b初めての進行描画 )
+				if ( base.b初めての進行描画 )
 				{
 					this.ct登場時アニメ用共通 = new CCounter( 0, 100, 3, TJAPlayer3.Timer );
 					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stage結果 )
@@ -362,11 +365,32 @@ namespace TJAPlayer3
                     TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON");
                 else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
                     TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON");
-                #endregion
+				#endregion
 
-                //this.actステータスパネル.On進行描画();
+				if (100-this.ctカウントダウン用タイマー.n現在の値 >= 10) {
+					if (TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null)
+						TJAPlayer3.Tx.SongSelect_Counter_Back[0].t2D描画(TJAPlayer3.app.Device, 880, 0);
+					This_counter = new TitleTextureKey((100-this.ctカウントダウン用タイマー.n現在の値).ToString(), new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 70), Color.Black, Color.Black, 410);
+				}
+				else
+				{
+					if (TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null)
+						TJAPlayer3.Tx.SongSelect_Counter_Back[1].t2D描画(TJAPlayer3.app.Device, 880, 0);
+					This_counter = new TitleTextureKey((100-this.ctカウントダウン用タイマー.n現在の値).ToString(), new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 70), Color.White, Color.White, 410);
+				}
+				if (this.ctカウントダウン用タイマー.n現在の値 != TJAPlayer3.Tx.SongSelect_Counter_BTime)
+				{
+					TJAPlayer3.Tx.SongSelect_Tempcounter = ResolveGenreTexture(This_counter);
+				}
+				if (TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null)
+				{
+					TJAPlayer3.Tx.SongSelect_Tempcounter.t2D中央基準描画(TJAPlayer3.app.Device, 1325, 150);
+					TJAPlayer3.Tx.SongSelect_Counter_BTime = this.ctカウントダウン用タイマー.n現在の値;
+				}
 
-                this.actPresound.On進行描画();
+				//this.actステータスパネル.On進行描画();
+
+				this.actPresound.On進行描画();
 				//if( this.txコメントバー != null )
 				{
 					//this.txコメントバー.t2D描画( CDTXMania.app.Device, 484, 314 );
@@ -379,7 +403,7 @@ namespace TJAPlayer3
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
 				if (r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BOX)
 				{
-					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 980, 30, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
+					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
 				}
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
@@ -492,7 +516,6 @@ namespace TJAPlayer3
 						#endregion
 						if ( this.act曲リスト.r現在選択中の曲 != null )
 						{
-							string ae = "aaa";
                             #region [ Decide ]
                             if ((TJAPlayer3.Pad.b押されたDGB(Eパッド.Decide) || (TJAPlayer3.Pad.b押されたDGB(Eパッド.LRed) || TJAPlayer3.Pad.b押されたDGB(Eパッド.RRed)) ||
                                     ((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Return)))))
@@ -765,6 +788,7 @@ namespace TJAPlayer3
 		private STキー反復用カウンタ ctキー反復用;
 		public CCounter ct登場時アニメ用共通;
 		private CCounter ct背景スクロール用タイマー;
+		private CCounter ctカウントダウン用タイマー;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private Font ftフォント;
 		//private CTexture tx下部パネル;
@@ -1015,7 +1039,137 @@ namespace TJAPlayer3
 			}
 		}
 
-        private int nStrジャンルtoNum( string strジャンル )
+		private sealed class TitleTextureKey
+		{
+			public readonly string str文字;
+			public readonly CPrivateFastFont cPrivateFastFont;
+			public readonly Color forecolor;
+			public readonly Color backcolor;
+			public readonly int maxHeight;
+
+			public TitleTextureKey(string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
+			{
+				this.str文字 = str文字;
+				this.cPrivateFastFont = cPrivateFastFont;
+				this.forecolor = forecolor;
+				this.backcolor = backcolor;
+				this.maxHeight = maxHeight;
+			}
+
+			private bool Equals(TitleTextureKey other)
+			{
+				return string.Equals(str文字, other.str文字) &&
+					   cPrivateFastFont.Equals(other.cPrivateFastFont) &&
+					   forecolor.Equals(other.forecolor) &&
+					   backcolor.Equals(other.backcolor) &&
+					   maxHeight == other.maxHeight;
+			}
+
+			public override bool Equals(object obj)
+			{
+				if (ReferenceEquals(null, obj)) return false;
+				if (ReferenceEquals(this, obj)) return true;
+				return obj is TitleTextureKey other && Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				unchecked
+				{
+					var hashCode = str文字.GetHashCode();
+					hashCode = (hashCode * 397) ^ cPrivateFastFont.GetHashCode();
+					hashCode = (hashCode * 397) ^ forecolor.GetHashCode();
+					hashCode = (hashCode * 397) ^ backcolor.GetHashCode();
+					hashCode = (hashCode * 397) ^ maxHeight;
+					return hashCode;
+				}
+			}
+
+			public static bool operator ==(TitleTextureKey left, TitleTextureKey right)
+			{
+				return Equals(left, right);
+			}
+
+			public static bool operator !=(TitleTextureKey left, TitleTextureKey right)
+			{
+				return !Equals(left, right);
+			}
+		}
+		private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
+	new LurchTable<TitleTextureKey, CTexture>(LurchTableOrder.Access, 2500);
+
+		private TitleTextureKey This_counter;
+
+		private CTexture ResolveGenreTexture(TitleTextureKey titleTextureKey)
+		{
+			if (!_titleTextures.TryGetValue(titleTextureKey, out var texture))
+			{
+				texture = GenerateGenreTexture(titleTextureKey);
+				_titleTextures.Add(titleTextureKey, texture);
+			}
+
+			return texture;
+		}
+
+		private static CTexture GenerateGenreTexture(TitleTextureKey titleTextureKey)
+		{
+
+
+			//描画先とするImageオブジェクトを作成する
+			var bmp = new Bitmap(600, 200);
+			//ImageオブジェクトのGraphicsオブジェクトを作成する
+			Graphics g = Graphics.FromImage(bmp);
+			StringFormat sf = new StringFormat();
+			//フォントオブジェクトの作成
+			int fontsize = 100;
+			Font fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
+			SizeF stringSize = g.MeasureString(titleTextureKey.str文字, fnt, 1000, sf);
+			for (; stringSize.Width > 1000; fontsize--)
+			{
+				fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
+				stringSize = g.MeasureString(titleTextureKey.str文字, fnt, 1000, sf);
+			}
+			//文字列を位置(0,0)、黒色で表示
+			//	g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+			//	g.DrawString(titleTextureKey.str文字, fnt, Brushes.Black, 300 - ((int)stringSize.Width) / 2, 80 - (int)stringSize.Height / 2);
+			/////////////////////////////
+			float emSize = (float)fnt.Height * fnt.FontFamily.GetEmHeight(fnt.Style) / fnt.FontFamily.GetLineSpacing(fnt.Style);
+			//GraphicsPathオブジェクトの作成
+			System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+			//GraphicsPathに文字列を追加する
+			gp.AddString(titleTextureKey.str文字, fnt.FontFamily, (int)fnt.Style, emSize,
+				new Point(290 - ((int)stringSize.Width) / 2, 80 - (int)stringSize.Height / 2), StringFormat.GenericDefault);
+
+			//文字列の中を塗りつぶす
+			SolidBrush nakamib = new SolidBrush(titleTextureKey.forecolor/*, 300 / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical*/);
+			//文字列の縁を描画する
+			Pen nakamip = new Pen(titleTextureKey.backcolor, 1);
+			nakamip.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+			g.DrawPath(nakamip, gp);
+			g.FillPath(nakamib, gp);
+
+
+
+			/////////////////////////////
+			//リソースを解放する
+			fnt.Dispose();
+			g.Dispose();
+			sf.Dispose();
+
+			/*using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
+				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
+			{*/
+			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
+			bmp.Dispose();
+
+			tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
+			tx文字テクスチャ.vc拡大縮小倍率.X = 0.5f;
+
+			return tx文字テクスチャ;
+			//	}
+		}
+
+		private int nStrジャンルtoNum( string strジャンル )
         {
             int nGenre = 8;
             switch( strジャンル )
