@@ -243,6 +243,7 @@ namespace TJAPlayer3
 			//Trace.TraceInformation( "Skin現pt: " + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(false) );
 			//Trace.TraceInformation( "Skin指定: " + CSkin.GetSkinName( this.r現在選択中の曲.strSkinPath ) );
 			//Trace.TraceInformation( "Skinpath: " + this.r現在選択中の曲.strSkinPath );
+			
 			bool ret = false;
 			if (CSkin.GetSkinName(TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false)) != CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)
 				&& CSkin.bUseBoxDefSkin)
@@ -1886,6 +1887,7 @@ namespace TJAPlayer3
 		//private CTexture tx譜面分岐中央パネル用;
 
 		private long n矢印スクロール用タイマ値;
+		private CCounter ctフォルダ展開用タイマー;
 
 		private int nCurrentPosition = 0;
 		private int nNumOfItems = 0;
@@ -2210,7 +2212,7 @@ namespace TJAPlayer3
 			return nGenre;
 		}
 
-		private int nStrジャンルtoNumN2(string strジャンル)
+		public int nStrジャンルtoNumN2(string strジャンル)
 		{
 			int nGenre = 8;
 			switch (strジャンル)
@@ -2338,6 +2340,8 @@ namespace TJAPlayer3
 				return tx文字テクスチャ;
 			}
 		}
+
+
 
 		private static CTexture GenerateGenreTexture(TitleTextureKey titleTextureKey)
 		{
