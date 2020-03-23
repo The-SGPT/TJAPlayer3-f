@@ -163,7 +163,7 @@ namespace TJAPlayer3
                             MessageBoxIcon.Asterisk);
                         if(result == DialogResult.Yes)
                         {
-                            Process.Start("https://docs.google.com/forms/d/e/1FAIpQLScr_Oqs9WKnonQyxpEVt7gZYPcjjIfN3SjgqWPvxfw95nAQ6g/viewform?usp=pp_url&entry.60593436=" + System.Web.HttpUtility.UrlEncode(e.ToString()));
+                            Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?usp=pp_url&entry.1025217940=" + System.Web.HttpUtility.UrlEncode(e.ToString()));
                         }
 
 					}
