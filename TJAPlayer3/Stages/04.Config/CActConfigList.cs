@@ -603,10 +603,10 @@ namespace TJAPlayer3
 			this.iDrumsScrollSpeed = new CItemInteger( "ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums,
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
-				"x0.5 ～ x1000.0 を指定可能です。",
+				"x0.1 ～ x200.0 を指定可能です。",
 				"To change the scroll speed for the\n" +
 				"drums lanes.\n" +
-				"You can set it from x0.5 to x1000.0.\n" +
+				"You can set it from x0.1 to x200.0.\n" +
 				"(ScrollSpeed=x0.5 means half speed)" );
 			this.list項目リスト.Add( this.iDrumsScrollSpeed );
 
@@ -1873,7 +1873,7 @@ namespace TJAPlayer3
 						}
 						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
 						{
-							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.5f;
+							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.1f;
 							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = f.ToString( "x0.0" );
 						}

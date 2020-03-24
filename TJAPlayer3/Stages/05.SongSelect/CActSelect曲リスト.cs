@@ -53,6 +53,7 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
+
 		public C曲リストノード r現在選択中の曲
 		{
 			get;
@@ -323,6 +324,22 @@ namespace TJAPlayer3
 			if (this.r現在選択中の曲 != null)
 			{
 				this.n目標のスクロールカウンタ -= 100;
+			}
+			this.b選択曲が変更された = true;
+		}
+		public void tかなり次に移動()
+		{
+			if (this.r現在選択中の曲 != null)
+			{
+				this.n目標のスクロールカウンタ += 500;
+			}
+			this.b選択曲が変更された = true;
+		}
+		public void tかなり前に移動()
+		{
+			if (this.r現在選択中の曲 != null)
+			{
+				this.n目標のスクロールカウンタ -= 500;
 			}
 			this.b選択曲が変更された = true;
 		}
@@ -900,137 +917,139 @@ namespace TJAPlayer3
 
 					if (this.n現在のスクロールカウンタ >= 100)      // １行＝100カウント。
 					{
-						#region [ パネルを１行上にシフトする。]
-						//-----------------
+							#region [ パネルを１行上にシフトする。]
+							//-----------------
 
-						// 選択曲と選択行を１つ下の行に移動。
+							// 選択曲と選択行を１つ下の行に移動。
 
-						this.r現在選択中の曲 = this.r次の曲(this.r現在選択中の曲);
-						this.n現在の選択行 = (this.n現在の選択行 + 1) % 13;
-
-
-						// 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
-
-						C曲リストノード song = this.r現在選択中の曲;
-						for (int i = 0; i < 7; i++)
-							song = this.r次の曲(song);
-
-						int index = (this.n現在の選択行 + 7) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[index].strタイトル文字列 = song.strタイトル;
-						this.stバー情報[index].ForeColor = song.ForeColor;
-						this.stバー情報[index].BackColor = song.BackColor;
-						this.stバー情報[index].strジャンル = song.strジャンル;
-						this.stバー情報[index].strサブタイトル = song.strサブタイトル;
-						this.stバー情報[index].ar難易度 = song.nLevel;
-						for (int f = 0; f < (int)Difficulty.Total; f++)
-						{
-							if (song.arスコア[f] != null)
-								this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
-						}
+							this.r現在選択中の曲 = this.r次の曲(this.r現在選択中の曲);
+							this.n現在の選択行 = (this.n現在の選択行 + 1) % 13;
 
 
-						// stバー情報[] の内容を1行ずつずらす。
+							// 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
 
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for (int i = 0; i < 5; i++)
-							song2 = this.r前の曲(song2);
+							C曲リストノード song = this.r現在選択中の曲;
+							for (int i = 0; i < 7; i++)
+								song = this.r次の曲(song);
 
-						for (int i = 0; i < 13; i++)
-						{
-							int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
-							this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
-							song2 = this.r次の曲(song2);
-							this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-
-						}
-
-
-						// 新しく最下部に表示されるパネル用のスキル値を取得。
-
-						for (int i = 0; i < 3; i++)
-							this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
+							int index = (this.n現在の選択行 + 7) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
+							this.stバー情報[index].strタイトル文字列 = song.strタイトル;
+							this.stバー情報[index].ForeColor = song.ForeColor;
+							this.stバー情報[index].BackColor = song.BackColor;
+							this.stバー情報[index].strジャンル = song.strジャンル;
+							this.stバー情報[index].strサブタイトル = song.strサブタイトル;
+							this.stバー情報[index].ar難易度 = song.nLevel;
+							for (int f = 0; f < (int)Difficulty.Total; f++)
+							{
+								if (song.arスコア[f] != null)
+									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
+							}
 
 
-						// 1行(100カウント)移動完了。
+							// stバー情報[] の内容を1行ずつずらす。
 
-						this.n現在のスクロールカウンタ -= 100;
-						this.n目標のスクロールカウンタ -= 100;
+							C曲リストノード song2 = this.r現在選択中の曲;
+							for (int i = 0; i < 5; i++)
+								song2 = this.r前の曲(song2);
 
-						this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
+							for (int i = 0; i < 13; i++)
+							{
+								int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
+								this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
+								song2 = this.r次の曲(song2);
+								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
-
-
-						if (this.n目標のスクロールカウンタ == 0)
-							TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
-
-						//-----------------
-						#endregion
-					}
-					else if (this.n現在のスクロールカウンタ <= -100)
-					{
-						#region [ パネルを１行下にシフトする。]
-						//-----------------
-
-						// 選択曲と選択行を１つ上の行に移動。
-
-						this.r現在選択中の曲 = this.r前の曲(this.r現在選択中の曲);
-						this.n現在の選択行 = ((this.n現在の選択行 - 1) + 13) % 13;
+							}
 
 
-						// 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
+							// 新しく最下部に表示されるパネル用のスキル値を取得。
 
-						C曲リストノード song = this.r現在選択中の曲;
-						for (int i = 0; i < 5; i++)
-							song = this.r前の曲(song);
-
-						int index = ((this.n現在の選択行 - 5) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[index].strタイトル文字列 = song.strタイトル;
-						this.stバー情報[index].ForeColor = song.ForeColor;
-						this.stバー情報[index].BackColor = song.BackColor;
-						this.stバー情報[index].strサブタイトル = song.strサブタイトル;
-						this.stバー情報[index].strジャンル = song.strジャンル;
-						this.stバー情報[index].ar難易度 = song.nLevel;
-						for (int f = 0; f < (int)Difficulty.Total; f++)
-						{
-							if (song.arスコア[f] != null)
-								this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
-						}
-
-						// stバー情報[] の内容を1行ずつずらす。
-
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for (int i = 0; i < 5; i++)
-							song2 = this.r前の曲(song2);
-
-						for (int i = 0; i < 13; i++)
-						{
-							int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
-							this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
-							song2 = this.r次の曲(song2);
-							this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-						}
+							for (int i = 0; i < 3; i++)
+								this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
 
 
-						// 新しく最上部に表示されるパネル用のスキル値を取得。
+							// 1行(100カウント)移動完了。
 
-						for (int i = 0; i < 3; i++)
-							this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
+							this.n現在のスクロールカウンタ -= 100;
+							this.n目標のスクロールカウンタ -= 100;
 
-
-						// 1行(100カウント)移動完了。
-
-						this.n現在のスクロールカウンタ += 100;
-						this.n目標のスクロールカウンタ += 100;
-
-						this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
+							this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
 
 						this.ttk選択している曲の曲名 = null;
 						this.ttk選択している曲のサブタイトル = null;
 
+
 						if (this.n目標のスクロールカウンタ == 0)
-							TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
-																//-----------------
-						#endregion
+								TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
+
+							//-----------------
+							#endregion
+					}
+					else if (this.n現在のスクロールカウンタ <= -100)
+					{
+							#region [ パネルを１行下にシフトする。]
+							//-----------------
+
+							// 選択曲と選択行を１つ上の行に移動。
+
+							this.r現在選択中の曲 = this.r前の曲(this.r現在選択中の曲);
+							this.n現在の選択行 = ((this.n現在の選択行 - 1) + 13) % 13;
+
+
+							// 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
+
+							C曲リストノード song = this.r現在選択中の曲;
+							for (int i = 0; i < 5; i++)
+								song = this.r前の曲(song);
+
+							int index = ((this.n現在の選択行 - 5) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
+							this.stバー情報[index].strタイトル文字列 = song.strタイトル;
+							this.stバー情報[index].ForeColor = song.ForeColor;
+							this.stバー情報[index].BackColor = song.BackColor;
+							this.stバー情報[index].strサブタイトル = song.strサブタイトル;
+							this.stバー情報[index].strジャンル = song.strジャンル;
+							this.stバー情報[index].ar難易度 = song.nLevel;
+							for (int f = 0; f < (int)Difficulty.Total; f++)
+							{
+								if (song.arスコア[f] != null)
+									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
+							}
+
+							// stバー情報[] の内容を1行ずつずらす。
+
+							C曲リストノード song2 = this.r現在選択中の曲;
+							for (int i = 0; i < 5; i++)
+								song2 = this.r前の曲(song2);
+
+							for (int i = 0; i < 13; i++)
+							{
+								int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
+								this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
+								song2 = this.r次の曲(song2);
+								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
+							}
+
+
+							// 新しく最上部に表示されるパネル用のスキル値を取得。
+
+							for (int i = 0; i < 3; i++)
+								this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
+
+
+							// 1行(100カウント)移動完了。
+
+							this.n現在のスクロールカウンタ += 100;
+							this.n目標のスクロールカウンタ += 100;
+
+							this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
+
+							this.ttk選択している曲の曲名 = null;
+							this.ttk選択している曲のサブタイトル = null;
+
+							if (this.n目標のスクロールカウンタ == 0)
+								TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
+																	//-----------------
+							#endregion
 					}
 
 					if (this.b選択曲が変更された && n現在のスクロールカウンタ == 0)
@@ -1283,7 +1302,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null) {
 									if (this.ttk選択している曲の曲名 != null)
 									{
-										if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && !this.ttk選択している曲の曲名.str文字.Contains(this.r現在選択中の曲.strジャンル))
+										if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
 											ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 									}
 								}
@@ -1298,7 +1317,7 @@ namespace TJAPlayer3
 								{
 									if (this.ttk選択している曲の曲名 != null)
 									{
-										if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && !this.ttk選択している曲の曲名.str文字.Contains(this.r現在選択中の曲.strジャンル))
+										if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
 											ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 									}
 								}
@@ -1630,7 +1649,7 @@ namespace TJAPlayer3
 							if ( TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null) {
 								if (this.ttk選択している曲の曲名 != null)
 								{
-									if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && !this.ttk選択している曲の曲名.str文字.Contains(this.r現在選択中の曲.strジャンル))
+									if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
 										ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 								}
 							}
@@ -1645,7 +1664,7 @@ namespace TJAPlayer3
 							{
 								if (this.ttk選択している曲の曲名 != null)
 								{
-									if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && !this.ttk選択している曲の曲名.str文字.Contains(this.r現在選択中の曲.strジャンル))
+									if (this.r現在選択中の曲.strジャンル == "" || this.r現在選択中の曲.strジャンル == "段位道場" || this.e曲のバー種別を返す(this.r現在選択中の曲) != Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box && nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
 										ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 								}
 							}

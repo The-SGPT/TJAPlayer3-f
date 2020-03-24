@@ -726,6 +726,7 @@ namespace TJAPlayer3
 		public string str曲データ検索パス;
         public string FontName;
 		public string FontNamed;
+		public bool RandomPresence;
 		public bool bBranchGuide;
         public int nScoreMode;
         public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -1280,7 +1281,8 @@ namespace TJAPlayer3
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
 			this.FontNamed = "MS UI Gothic";
-		    this.ApplyLoudnessMetadata = true;
+			this.RandomPresence = true;
+			this.ApplyLoudnessMetadata = true;
 
 		    // 2018-08-28 twopointzero:
             // There exists a particular large, well-known, well-curated, and
@@ -1558,9 +1560,13 @@ namespace TJAPlayer3
 			sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
 			sw.WriteLine( "BackSleep={0}", this.n非フォーカス時スリープms );		// そのまま引用（苦笑）
 			sw.WriteLine();                                                             //
-            #endregion
-            #region [ フォント ]
-            sw.WriteLine("; フォントレンダリングに使用するフォント名");
+			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
+			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
+			sw.WriteLine();
+			#endregion
+			#region [ フォント ]
+			sw.WriteLine("; フォントレンダリングに使用するフォント名");
             sw.WriteLine("; Font name used for font rendering.");
             sw.WriteLine("FontName={0}", this.FontNamed);
             sw.WriteLine();
@@ -1866,7 +1872,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "; TIGHT mode. 0=OFF, 1=ON " );
 			sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.5, 1:x1.0, 2:x1.5,…,1999:x1000.0)" );
+			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 10:x1.0, 20:x2.0,…,1999:x200.0)" );
 			sw.WriteLine( "DrumsScrollSpeed={0}", this.n譜面スクロール速度.Drums );
 			sw.WriteLine();
 			sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );
@@ -2230,6 +2236,10 @@ namespace TJAPlayer3
 											{
 												string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
 												this.nASIODevice = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, asiodev.Length - 1, this.nASIODevice );
+											}
+											else if (str3.Equals("EnableRandomSongSelect"))
+											{
+												this.RandomPresence = C変換.bONorOFF(str4[0]);
 											}
 											//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
 											//{

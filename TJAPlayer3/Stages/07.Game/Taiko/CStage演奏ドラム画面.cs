@@ -1368,7 +1368,7 @@ namespace TJAPlayer3
 
                     if ( pChip.nノーツ移動開始時刻ms != 0 && ( nPlayTime < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
                     {
-                        x = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                        x = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /*628.7*/3143.5 );
                     }
                     else
                     {
@@ -1437,7 +1437,7 @@ namespace TJAPlayer3
                     {
                         y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
                         if( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.Normal )
-                            y += (int) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL_Y * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                            y += (int) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL_Y * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /*628.7*/3143.5 );
                         else if( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
                             y += pChip.nバーからの距離dot.Taiko;
                     }
@@ -1659,8 +1659,8 @@ namespace TJAPlayer3
 
                     if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
                     {
-                        nノート座標 = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
-                        nノート末端座標 = (int)( ( ( pChip.nノーツ終了時刻ms - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                        nノート座標 = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /*628.7*/3143.5 );
+                        nノート末端座標 = (int)( ( ( pChip.nノーツ終了時刻ms - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /*628.7*/3143.5 );
                     }
                     else
                     {
@@ -1689,7 +1689,7 @@ namespace TJAPlayer3
                     //そうしなければ連打先頭と連打末端の移動開始時刻にズレが出てしまう。
                     if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) )
                     {
-                        nノート座標 = (int)( ( ( pChip.n発声時刻ms - ( n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                        nノート座標 = (int)( ( ( pChip.n発声時刻ms - ( n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /* 628.7*/3143.5 );
                     }
                     else
                     {
@@ -2005,7 +2005,7 @@ namespace TJAPlayer3
             if( pChip.dbSCROLL_Y != 0.0 )
             {
                 y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
-                y += (int) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL_Y * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                y += (int) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL_Y * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / /*628.7*/3143.5 );
             }
 
 			if ( !pChip.bHit && pChip.n発声時刻ms > CSound管理.rc演奏用タイマ.n現在時刻 )

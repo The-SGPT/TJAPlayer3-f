@@ -947,8 +947,9 @@ namespace TJAPlayer3
 		private void t曲リストへ後処理を適用する( List<C曲リストノード> ノードリスト )
 		{
 			#region [ リストに１つ以上の曲があるなら RANDOM BOX を入れる ]
+
 			//-----------------------------
-			if( ノードリスト.Count > 0 )
+			if (ノードリスト.Count > 0 && TJAPlayer3.ConfigIni.RandomPresence)
 			{
 				C曲リストノード itemRandom = new C曲リストノード();
 				itemRandom.eノード種別 = C曲リストノード.Eノード種別.RANDOM;
