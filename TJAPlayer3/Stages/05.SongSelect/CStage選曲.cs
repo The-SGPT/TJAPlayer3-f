@@ -590,6 +590,14 @@ namespace TJAPlayer3
 							{
 								this.tカーソルを下へ移動する(); 
 							}
+							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.PageDown))
+							{
+								this.tカーソルをかなり下へ移動する();
+							}
+							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.PageUp))
+							{
+								this.tカーソルをかなり上へ移動する();
+							}
 							#endregion
 							#region [ Upstairs ]
 							if ( ( ( this.act曲リスト.r現在選択中の曲 != null ) && ( this.act曲リスト.r現在選択中の曲.r親ノード != null ) ) && ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.FT ) || TJAPlayer3.Pad.b押されたGB( Eパッド.Cancel ) ) )
@@ -903,6 +911,22 @@ namespace TJAPlayer3
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 			this.act曲リスト.t前に移動();
 
+		}
+		private void tカーソルをかなり下へ移動する()
+		{
+			if (this.r現在選択中の曲.r親ノード != null)
+			{
+				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+				this.act曲リスト.tかなり次に移動();
+			}
+		}
+		private void tカーソルをかなり上へ移動する()
+		{
+			if (this.r現在選択中の曲.r親ノード != null)
+			{
+				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+				this.act曲リスト.tかなり前に移動();
+			}
 		}
 		private void t曲をランダム選択する()
 		{
