@@ -1,6 +1,7 @@
 # TJAPlayer3-f
 
 TJAPlayer3をForkして、趣味程度に改造してます。
+
 実装してほしいものがあればGitHubのIssuesまで。
 
 Ver.1.5.8 : より本家風っぽく。
