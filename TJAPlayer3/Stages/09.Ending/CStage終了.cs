@@ -29,6 +29,7 @@ namespace TJAPlayer3
 			try
 			{
 				this.ct時間稼ぎ = new CCounter();
+				Discord.UpdatePresence("", "Ending", TJAPlayer3.StartupTime);
 				base.On活性化();
 			}
 			finally

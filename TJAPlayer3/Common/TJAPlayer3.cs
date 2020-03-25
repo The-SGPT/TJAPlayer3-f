@@ -1856,7 +1856,7 @@ for (int i = 0; i < 3; i++) {
 			{
 				try
 				{
-					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3.log" ), false, Encoding.GetEncoding( "Shift_JIS" ) ) ) );
+					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3-f.log" ), false, Encoding.GetEncoding( "Shift_JIS" ) ) ) );
 				}
 				catch ( System.UnauthorizedAccessException )			// #24481 2011.2.20 yyagi
 				{
@@ -2306,7 +2306,7 @@ for (int i = 0; i < 3; i++) {
             #endregion
 
             #region Discordの処理
-            Discord.Initialize("428233983025741855");
+            Discord.Initialize("665111276372099072");
             StartupTime = Discord.GetUnixTime();
             Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
             #endregion

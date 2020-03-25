@@ -41,6 +41,7 @@ namespace TJAPlayer3
 				this.ct下移動用 = new CCounter();
 				this.ctカーソルフラッシュ用 = new CCounter();
 				base.On活性化();
+				Discord.UpdatePresence("", "Title", TJAPlayer3.StartupTime);
 			}
 			finally
 			{
