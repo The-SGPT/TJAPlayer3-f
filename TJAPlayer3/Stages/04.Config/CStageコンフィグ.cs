@@ -73,6 +73,7 @@ namespace TJAPlayer3
 				}																				//
 				this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
 				this.eItemPanelモード = EItemPanelモード.パッド一覧;
+				Discord.UpdatePresence("", "Config", TJAPlayer3.StartupTime);
 			}
 			finally
 			{

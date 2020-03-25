@@ -1329,7 +1329,7 @@ namespace TJAPlayer3
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
 				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
-				this.n譜面スクロール速度[ i ] = 1;
+				this.n譜面スクロール速度[ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
 				this.eInvisible[ i ] = EInvisible.OFF;
 				this.nViewerScrollSpeed[ i ] = 1;
@@ -1369,7 +1369,7 @@ namespace TJAPlayer3
 			this.bIsAutoResultCapture = false;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能ON/OFF
 
 			this.bバッファ入力を行う = true;
-			this.bIsAllowedDoubleClickFullscreen = true;	// #26752 2011.11.26 ダブルクリックでのフルスクリーンモード移行を許可
+			this.bIsAllowedDoubleClickFullscreen = false;	// #26752 2011.11.26 ダブルクリックでのフルスクリーンモード移行を許可 2020.03.24初期値をfalseにした。 Mr-Ojii
 			this.nPoliphonicSounds = 4;					// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 														// #24820 2013.1.15 yyagi 初期値を4から2に変更。BASS.net使用時の負荷軽減のため。
 														// #24820 2013.1.17 yyagi 初期値を4に戻した。動的なミキサー制御がうまく動作しているため。
@@ -1872,7 +1872,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "; TIGHT mode. 0=OFF, 1=ON " );
 			sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 10:x1.0, 20:x2.0,…,1999:x200.0)" );
+			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 19:x2.0,…,1999:x200.0)" );
 			sw.WriteLine( "DrumsScrollSpeed={0}", this.n譜面スクロール速度.Drums );
 			sw.WriteLine();
 			sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );

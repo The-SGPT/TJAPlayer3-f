@@ -168,7 +168,6 @@
   <ItemGroup>
     <None Include="Mr-Ojii.pfx" />
     <None Include="packages.config" />
-    <None Include="slimdx_aioilight.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
