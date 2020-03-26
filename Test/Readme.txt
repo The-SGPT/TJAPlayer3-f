@@ -1,5 +1,5 @@
 ﻿############
-TJAPlayer3 Readme.txt
+TJAPlayer3-f Readme.txt
 ############
 公開日:2018/5/5
 更新日:2020/03/16(Mr-Ojii)
