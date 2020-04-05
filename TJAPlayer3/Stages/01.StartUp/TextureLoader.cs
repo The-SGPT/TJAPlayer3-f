@@ -988,7 +988,8 @@ namespace TJAPlayer3
             SongSelect_Bar_Genre = new CTexture[9],
             SongSelect_NamePlate = new CTexture[1],
             SongSelect_Counter_Back = new CTexture[2];
-        public int SongSelect_Counter_BTime = 100;
+        public int SongSelect_Counter_BTime = 100,
+                   SongSelect_MaeGenre = 8;
         #endregion
 
         #region 4_読み込み画面

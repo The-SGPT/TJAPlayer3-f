@@ -244,6 +244,7 @@ namespace TJAPlayer3
                 //this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
                 this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width, 30, TJAPlayer3.Timer);
 				this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
+				this.ct背景フェード用タイマー = new CCounter(0, 1000, 1, TJAPlayer3.Timer);
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -308,9 +309,21 @@ namespace TJAPlayer3
                     }
                     if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
                     {
-                        for( int i = 0 ; i <(1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++ )
-                            if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
-                                    TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
+						for (int i = 0; i < (1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++)
+						{
+							if (TJAPlayer3.Tx.SongSelect_GenreBack[TJAPlayer3.Tx.SongSelect_MaeGenre] != null)
+							{
+								TJAPlayer3.Tx.SongSelect_GenreBack[TJAPlayer3.Tx.SongSelect_MaeGenre].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
+							}
+
+							if (TJAPlayer3.Tx.SongSelect_MaeGenre != nGenreBack && TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null && !TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.LeftArrow) && !TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.RightArrow))
+							{
+								TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
+								TJAPlayer3.Tx.SongSelect_MaeGenre = nGenreBack;
+							}
+
+						}
+
 					}
                 }
 
@@ -528,12 +541,14 @@ namespace TJAPlayer3
                                     switch (this.act曲リスト.r現在選択中の曲.eノード種別)
                                     {
                                         case C曲リストノード.Eノード種別.SCORE:
-                                            if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
+											if (this.n現在選択中の曲の難易度 != 6 || TJAPlayer3.ConfigIni.nPlayerCount != 2)
+											{
+												if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
                                                 TJAPlayer3.Skin.sound曲決定音.t再生する();
                                             else
                                                 TJAPlayer3.Skin.sound決定音.t再生する();
-
-                                            this.t曲を選択する();
+												this.t曲を選択する();
+											}
                                             break;
                                         case C曲リストノード.Eノード種別.BOX:
                                             {
@@ -800,6 +815,7 @@ namespace TJAPlayer3
 		public CCounter ct登場時アニメ用共通;
 		private CCounter ct背景スクロール用タイマー;
 		private CCounter ctカウントダウン用タイマー;
+		private CCounter ct背景フェード用タイマー;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private Font ftフォント;
 		//private CTexture tx下部パネル;

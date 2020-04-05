@@ -62,7 +62,7 @@ namespace TJAPlayer3
 		[STAThread] 
 		private static void Main()
 		{
-			mutex二重起動防止用 = new Mutex( false, "DTXManiaMutex" );
+			mutex二重起動防止用 = new Mutex( false, "TJAPlayer3-f" );
 
 			if ( mutex二重起動防止用.WaitOne( 0, false ) )
 			{
