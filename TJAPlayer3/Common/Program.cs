@@ -184,7 +184,27 @@ namespace TJAPlayer3
 			}
 			else		// DTXManiaが既に起動中
 			{
-				
+				Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\tjaplayer3f");
+				int times = (int)regkey.GetValue("Times", 0);
+				times++;
+				if (times >= 20) {
+					times = 0;
+				}
+				regkey.SetValue("Times", times);
+				string hyoujimoji = "一応の文字";
+				if (times >= 10)
+				{
+					hyoujimoji = "何回も言わせるんじゃないよ。\nこのスカポンタン。\n多重起動はできないって言ってるでしょ。";
+				}
+				else if(times >= 5)
+				{
+					hyoujimoji = "何回言えばいいんでしょうか。\n多重起動はできませんよ。";
+				}
+				else
+				{
+					hyoujimoji = "多重起動はできないよ。";
+				}
+				MessageBox.Show(hyoujimoji, "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				// → 引数が0個の時はそのまま終了
 				// 1個( コンパクトモード or DTXV -S) か2個 (DTXV -Nxxx ファイル名)のときは、そのプロセスにコマンドラインを丸々投げて終了する
 

@@ -1,10 +1,15 @@
 # TJAPlayer3-f
 
 TJAPlayer3をForkして、趣味程度に改造してます。
+ちょっとした機能のためにレジストリを使います。
+まぁ、普通に使っている分には、レジストリが保存されることはないと思います。
 
 実装してほしいものがあればGitHubのIssuesまで。
 
 Ver.1.5.8 : より本家風っぽく。
+
+## 開発環境
+VisualStudio Community 2019
 
 ## 以下AioiLight様作成のReadmeです
 
