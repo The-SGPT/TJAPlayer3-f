@@ -184,6 +184,7 @@ namespace TJAPlayer3
 			}
 			else		// DTXManiaが既に起動中
 			{
+				//多重起動の回数の記録のためだけにレジストリを使っています。2020.04.07 Mr-Ojii
 				Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\tjaplayer3f");
 				int times = (int)regkey.GetValue("Times", 0);
 				times++;
