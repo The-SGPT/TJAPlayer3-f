@@ -368,7 +368,7 @@ namespace TJAPlayer3
             //this.txネームプレート.t2D描画( CDTXMania.app.Device, 254, 93 );
 
             #region 段位認定モード用
-            if(TJAPlayer3.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan)
+            if (TJAPlayer3.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan)
             {
                 TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stage結果.st演奏記録.Drums.Dan_C);
                 switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録.Drums.Dan_C))
@@ -387,6 +387,30 @@ namespace TJAPlayer3
                 }
                 // Dan_Plate
                 Dan_Plate?.t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_Plate_XY[0], TJAPlayer3.Skin.Result_Dan_Plate_XY[1]);
+            }
+            else {
+                int i;
+                if (TJAPlayer3.stage結果.st演奏記録.Drums.fゲージ < 80)
+                {
+                    i = 0;
+                }
+                else if (TJAPlayer3.stage結果.st演奏記録.Drums.nMiss数_Auto含まない != 0)
+                {
+                    i = 1;
+                }
+                else if (TJAPlayer3.stage結果.st演奏記録.Drums.nGreat数_Auto含まない != 0)
+                {
+                    i = 2;
+                }
+                else
+                {
+                    i = 3;
+                }
+                if (i != 0 && TJAPlayer3.Tx.Crown_t != null) {
+                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 2.0f;
+                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 2.0f;
+                    TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device,  350, 200, new Rectangle(i * 50, 0, 50, 50));
+                }
             }
             #endregion
 

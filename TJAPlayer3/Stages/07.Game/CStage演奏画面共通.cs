@@ -107,7 +107,7 @@ namespace TJAPlayer3
                     {
                         if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] < 3)
                             Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] = 3;
-                    }                    
+                    }
 
                 }
                 var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
