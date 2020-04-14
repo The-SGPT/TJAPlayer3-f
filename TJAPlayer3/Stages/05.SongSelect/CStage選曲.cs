@@ -1155,7 +1155,7 @@ namespace TJAPlayer3
 
 
 			//描画先とするImageオブジェクトを作成する
-			var bmp = new Bitmap(600, 200);
+			Bitmap bmp = new Bitmap(600, 200);
 			//ImageオブジェクトのGraphicsオブジェクトを作成する
 			Graphics g = Graphics.FromImage(bmp);
 			StringFormat sf = new StringFormat();
@@ -1201,8 +1201,16 @@ namespace TJAPlayer3
 			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
 			bmp.Dispose();
 
-			tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
-			tx文字テクスチャ.vc拡大縮小倍率.X = 0.5f;
+			if (tx文字テクスチャ != null)
+			{
+				tx文字テクスチャ.vc拡大縮小倍率.X = 0.5f;
+				tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
+			}
+			else {
+				bmp = new Bitmap(1, 1);
+				tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
+				bmp.Dispose();
+			}
 
 			return tx文字テクスチャ;
 			//	}

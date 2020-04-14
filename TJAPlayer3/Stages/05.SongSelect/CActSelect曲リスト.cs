@@ -941,8 +941,10 @@ namespace TJAPlayer3
 							this.stバー情報[index].ar難易度 = song.nLevel;
 							for (int f = 0; f < (int)Difficulty.Total; f++)
 							{
-								if (song.arスコア[f] != null)
+								if (song.arスコア[f] != null) { 
 									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
+									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
+								}
 							}
 
 
@@ -1012,7 +1014,10 @@ namespace TJAPlayer3
 							for (int f = 0; f < (int)Difficulty.Total; f++)
 							{
 								if (song.arスコア[f] != null)
+								{
 									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
+									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
+								}
 							}
 
 							// stバー情報[] の内容を1行ずつずらす。
@@ -1355,8 +1360,13 @@ namespace TJAPlayer3
 							if (this.stバー情報[nパネル番号].ttkタイトル != null)
 								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 
-							/*if (TJAPlayer3.Tx.Crown_t != null && i != 5)
-								TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 25, 100, new Rectangle(50, 0, 50, 50));*/
+							if (TJAPlayer3.Tx.Crown_t != null && i != 5 && this.stバー情報[nパネル番号].eバー種別 == Eバー種別.Score)
+							{
+								TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 1.0f;
+								TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 1.0f;
+								if(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] != 0 && TJAPlayer3.Tx.Crown_t != null)
+									TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 25, 100, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 50, 0, 50, 50));
+							}
 							#endregion
 						}
 					}
@@ -1412,8 +1422,13 @@ namespace TJAPlayer3
 							this.t小文字表示(xAnime + 65 + nX補正, 559, this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度].ToString());
 						}
 						//-----------------						
-						/*if (TJAPlayer3.Tx.Crown_t != null && n見た目の行番号 != 5 )
-							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, 100, new Rectangle(50, 0, 50, 50));*/
+						if (TJAPlayer3.Tx.Crown_t != null && n見た目の行番号 != 5 /*&& this.stバー情報[nパネル番号].eバー種別 == Eバー種別.Score*/)
+						{
+							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 1.0f;
+							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 1.0f;
+							if(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] != 0 && TJAPlayer3.Tx.Crown_t != null)
+								TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, 100, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 50, 0, 50, 50));
+						}
 					}
 					#endregion
 				}
@@ -1803,6 +1818,7 @@ namespace TJAPlayer3
 			public string strジャンル;
 			public string strサブタイトル;
 			public TitleTextureKey ttkタイトル;
+			public int[] n王冠;
 		}
 
 		private struct GenreText
@@ -2055,8 +2071,10 @@ namespace TJAPlayer3
 
 				for (int f = 0; f < (int)Difficulty.Total; f++)
 				{
-					if (song.arスコア[f] != null)
+					if (song.arスコア[f] != null) {
 						this.stバー情報[i].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
+						this.stバー情報[i].n王冠 = song.arスコア[f].譜面情報.n王冠;
+						}
 				}
 
 				for (int j = 0; j < 3; j++)
