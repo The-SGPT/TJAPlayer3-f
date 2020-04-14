@@ -407,9 +407,9 @@ namespace TJAPlayer3
                     i = 3;
                 }
                 if (i != 0 && TJAPlayer3.Tx.Crown_t != null) {
-                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 2.0f;
-                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 2.0f;
-                    TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device,  350, 200, new Rectangle(i * 50, 0, 50, 50));
+                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 1.0f;
+                    TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 1.0f;
+                    TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device,  350, 200, new Rectangle(i * 100, 0, 100, 100));
                 }
             }
             #endregion
