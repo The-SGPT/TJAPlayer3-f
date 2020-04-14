@@ -214,7 +214,8 @@ namespace TJAPlayer3
             public int[] n不可 = new int[(int)Difficulty.Total];
             public int[] n連打 = new int[(int)Difficulty.Total];
             public int[] nハイスコア = new int[(int)Difficulty.Total];
-            public Dan_C[] Dan_C;
+			public int[] n王冠 = new int[(int)Difficulty.Total];
+			public Dan_C[] Dan_C;
 
 			public C演奏記録()
 			{
@@ -1161,13 +1162,31 @@ namespace TJAPlayer3
                                             else if ( item.Equals( "HiScore4" ) )
                                             {
                                                 c演奏記録.nハイスコア[ 3 ] = int.Parse( para );
-                                            }
-                                            //else if ( item.Equals( "HiScore5" ) )
-                                            //{
-                                            //    c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
-                                            //}
-
-
+											}
+											//else if ( item.Equals( "HiScore5" ) )
+											//{
+											//    c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
+											//}
+											else if (item.Equals("Crown1"))
+											{
+												c演奏記録.n王冠[0] = int.Parse(para);
+											}
+											else if (item.Equals("Crown2"))
+											{
+												c演奏記録.n王冠[1] = int.Parse(para);
+											}
+											else if (item.Equals("Crown3"))
+											{
+												c演奏記録.n王冠[2] = int.Parse(para);
+											}
+											else if (item.Equals("Crown4"))
+											{
+												c演奏記録.n王冠[3] = int.Parse(para);
+											}
+											else if (item.Equals("Crown5"))
+											{
+												c演奏記録.n王冠[4] = int.Parse(para);
+											}
 										}
 									}
 								}
@@ -1291,6 +1310,11 @@ namespace TJAPlayer3
                 writer.WriteLine( "Roll3={0}", this.stセクション[ i ].n連打[ 2 ] );
                 writer.WriteLine( "Roll4={0}", this.stセクション[ i ].n連打[ 3 ] );
                 writer.WriteLine( "Roll5={0}", this.stセクション[ i ].n連打[ 4 ] );
+				writer.WriteLine( "Crown1={0}", this.stセクション[ i ].n王冠[ 0 ] );
+				writer.WriteLine( "Crown2={0}", this.stセクション[ i ].n王冠[ 1 ] );
+				writer.WriteLine( "Crown3={0}", this.stセクション[ i ].n王冠[ 2 ] );
+				writer.WriteLine( "Crown4={0}", this.stセクション[ i ].n王冠[ 3 ] );
+				writer.WriteLine( "Crown5={0}", this.stセクション[ i ].n王冠[ 4 ] );
 			}
 
 			writer.Close();

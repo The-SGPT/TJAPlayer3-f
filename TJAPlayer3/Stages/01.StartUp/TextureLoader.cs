@@ -76,6 +76,7 @@ namespace TJAPlayer3
             Enum_Song = TxC(@"Enum_Song.png");
             Scanning_Loudness = TxC(@"Scanning_Loudness.png");
             Overlay = TxC(@"Overlay.png");
+            Crown_t = TxC(@"Crown.png");
             NamePlate = new CTexture[2];
             NamePlate[0] = TxC(@"1P_NamePlate.png");
             NamePlate[1] = TxC(@"2P_NamePlate.png");
@@ -541,6 +542,7 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref Enum_Song);
             TJAPlayer3.tテクスチャの解放(ref Scanning_Loudness);
             TJAPlayer3.tテクスチャの解放(ref Overlay);
+            TJAPlayer3.tテクスチャの解放(ref Crown_t);
             for (int i = 0; i < 2; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref NamePlate[i]);
@@ -939,7 +941,8 @@ namespace TJAPlayer3
             Menu_Highlight,
             Enum_Song,
             Scanning_Loudness,
-            Overlay;
+            Overlay,
+            Crown_t;
         public CTexture[] NamePlate;
         #endregion
         #region 1_タイトル画面
@@ -988,8 +991,7 @@ namespace TJAPlayer3
             SongSelect_Bar_Genre = new CTexture[9],
             SongSelect_NamePlate = new CTexture[1],
             SongSelect_Counter_Back = new CTexture[2];
-        public int SongSelect_Counter_BTime = 100,
-                   SongSelect_MaeGenre = 8;
+        public int SongSelect_Counter_BTime = 100;
         #endregion
 
         #region 4_読み込み画面

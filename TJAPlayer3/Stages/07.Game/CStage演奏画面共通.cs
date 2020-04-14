@@ -83,8 +83,32 @@ namespace TJAPlayer3
                 if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )
                 {
                     Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-                    if( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
+                    if ( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
                         Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
+
+                    Drums.n王冠 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠;
+
+                    if (Drums.fゲージ < 80)
+                    {
+                        if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] < 0)
+                            Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] = 0;
+                    }
+                    else if (Drums.nMiss数_Auto含まない != 0)
+                    {
+                        if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] < 1)
+                            Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] = 1;
+                    }
+                    else if (Drums.nGreat数_Auto含まない != 0)
+                    {
+                        if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] < 2)
+                            Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] = 2;
+                    }
+                    else
+                    {
+                        if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] < 3)
+                            Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度] = 3;
+                    }                    
+
                 }
                 var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
                 for (int i = 0; i < danC.Length; i++)

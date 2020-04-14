@@ -76,7 +76,8 @@ namespace TJAPlayer3
             public bool[] b譜面分岐;
             public int ハイスコア;
             public int[] nハイスコア;
-            public string strサブタイトル;
+			public int[] n王冠;
+			public string strサブタイトル;
             public int[] nレベル;
 
 			[Serializable]
@@ -304,7 +305,8 @@ namespace TJAPlayer3
             this.譜面情報.b譜面分岐 = new bool[(int)Difficulty.Total];
             this.譜面情報.ハイスコア = 0;
             this.譜面情報.nハイスコア = new int[(int)Difficulty.Total];
-            this.譜面情報.strサブタイトル = "";
+			this.譜面情報.n王冠 = new int[(int)Difficulty.Total];
+			this.譜面情報.strサブタイトル = "";
             this.譜面情報.nレベル = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
 		}
 	}
