@@ -763,10 +763,17 @@ namespace TJAPlayer3
             cスコア.譜面情報.nレベル[4] = br.ReadInt32();
             cスコア.譜面情報.nレベル[5] = br.ReadInt32();
             cスコア.譜面情報.nレベル[6] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[0] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[1] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[2] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[3] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[4] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[5] = br.ReadInt32();
+			cスコア.譜面情報.n王冠[6] = br.ReadInt32();
 
 
-            //Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
-            return cスコア;
+			//Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
+			return cスコア;
 		}
 		//-----------------
 		#endregion
@@ -1190,7 +1197,7 @@ namespace TJAPlayer3
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[4] );
                     bw.Write(node.arスコア[i].譜面情報.nハイスコア[5]);
                     bw.Write(node.arスコア[i].譜面情報.nハイスコア[6]);
-                    bw.Write( node.arスコア[ i ].譜面情報.strサブタイトル );
+					bw.Write( node.arスコア[ i ].譜面情報.strサブタイトル );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[2] );
@@ -1198,7 +1205,14 @@ namespace TJAPlayer3
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[4] );
                     bw.Write(node.arスコア[i].譜面情報.nレベル[5]);
                     bw.Write(node.arスコア[i].譜面情報.nレベル[6]);
-                    this.nSongsDBへ出力できたスコア数++;
+					bw.Write(node.arスコア[i].譜面情報.n王冠[0]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[1]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[2]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[3]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[4]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[5]);
+					bw.Write(node.arスコア[i].譜面情報.n王冠[6]);
+					this.nSongsDBへ出力できたスコア数++;
 				}
 			}
 		}
@@ -1633,7 +1647,8 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
                     for( int i = 0; i < (int)Difficulty.Total; i++ )
                     {
                         score.譜面情報.nハイスコア[ i ] = (int)ini.stセクション.HiScoreDrums.nハイスコア[ i ];
-                    }
+						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScoreDrums.n王冠[i];
+					}
 				}
 				score.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
 				score.譜面情報.演奏回数.Guitar = ini.stファイル.PlayCountGuitar;

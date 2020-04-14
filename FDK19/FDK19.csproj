@@ -13,7 +13,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>Mr-Ojii.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <ApplicationIcon>
     </ApplicationIcon>
     <FileUpgradeFlags>
@@ -166,7 +167,6 @@
     <Content Include="コード\01.フレームワーク\Resources\sdx_icon_black.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Mr-Ojii.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

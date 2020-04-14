@@ -311,15 +311,11 @@ namespace TJAPlayer3
                     {
 						for (int i = 0; i < (1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++)
 						{
-							if (TJAPlayer3.Tx.SongSelect_GenreBack[TJAPlayer3.Tx.SongSelect_MaeGenre] != null)
-							{
-								TJAPlayer3.Tx.SongSelect_GenreBack[TJAPlayer3.Tx.SongSelect_MaeGenre].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
-							}
 
-							if (TJAPlayer3.Tx.SongSelect_MaeGenre != nGenreBack && TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null && !TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.LeftArrow) && !TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.RightArrow))
+
+							if ( TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null)
 							{
 								TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
-								TJAPlayer3.Tx.SongSelect_MaeGenre = nGenreBack;
 							}
 
 						}

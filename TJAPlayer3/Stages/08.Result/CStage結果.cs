@@ -182,7 +182,7 @@ namespace TJAPlayer3
                     }
                     //---------------------------------------------------------------------/
 				}
-                if( TJAPlayer3.ConfigIni.bScoreIniを出力する )
+				if( TJAPlayer3.ConfigIni.bScoreIniを出力する )
 				    ini.t書き出し( str );
 				//---------------------
 				#endregion
