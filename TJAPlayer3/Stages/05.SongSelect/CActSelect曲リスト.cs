@@ -1372,9 +1372,11 @@ namespace TJAPlayer3
 											if (this.stバー情報[nパネル番号].n王冠[j] != 0)
 											{
 												TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 25, TJAPlayer3.Skin.SongSelect_Overall_Y - 23, new Rectangle(this.stバー情報[nパネル番号].n王冠[j] * 100, 0, 100, 100));
-												TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.X = 0.4f;
-												TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.Y = 0.4f;
-												TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 40, TJAPlayer3.Skin.SongSelect_Overall_Y - 15, new Rectangle(j * 100, 0, 100, 100));
+												if (TJAPlayer3.Tx.Difficulty_Icons != null) {
+													TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.X = 0.4f;
+													TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.Y = 0.4f;
+													TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 40, TJAPlayer3.Skin.SongSelect_Overall_Y - 15, new Rectangle(j * 100, 0, 100, 100)); 
+												}
 												break;
 											}
 										}
@@ -1453,9 +1455,12 @@ namespace TJAPlayer3
 										if (this.stバー情報[nパネル番号].n王冠[j] != 0)
 										{
 											TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, TJAPlayer3.Skin.SongSelect_Overall_Y - 23, new Rectangle(this.stバー情報[nパネル番号].n王冠[j] * 100, 0, 100, 100));
-											TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.X = 0.4f;
-											TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.Y = 0.4f;
-											TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40, TJAPlayer3.Skin.SongSelect_Overall_Y - 15, new Rectangle(j * 100, 0, 100, 100));
+											if (TJAPlayer3.Tx.Difficulty_Icons != null)
+											{
+												TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.X = 0.4f;
+												TJAPlayer3.Tx.Difficulty_Icons.vc拡大縮小倍率.Y = 0.4f;
+												TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40, TJAPlayer3.Skin.SongSelect_Overall_Y - 15, new Rectangle(j * 100, 0, 100, 100));
+											}
 											break;
 										}
 									}
