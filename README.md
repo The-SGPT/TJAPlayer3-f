@@ -16,6 +16,16 @@ Ver.1.5.8 : より本家っぽく。
 ## 開発環境
 VisualStudio Community 2019
 
+## バグ報告のお願い
+  
+改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を最近、初めて触りました。
+
+この改造をしながら、C#を勉強しているため、結構バグを含んでいると思います。
+
+バグを見つけたら、TJAPlayer3-fから開かれたフォームまたは、Issuesで報告してもらえると、
+
+自分の勉強もはかどるのでよろしくお願いします。
+
 ## 以下AioiLight様作成のReadmeです
 
 > # TJAPlayer3

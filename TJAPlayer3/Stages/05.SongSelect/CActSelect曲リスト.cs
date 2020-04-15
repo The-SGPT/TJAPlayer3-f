@@ -1365,7 +1365,7 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 0.5f;
 								TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 5.0f;
 								if(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] != 0 && TJAPlayer3.Tx.Crown_t != null)
-									TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 25, 100, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 100, 0, 100, 100));
+									TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 25, TJAPlayer3.Skin.SongSelect_Overall_Y - 23, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 100, 0, 100, 100));
 							}
 							#endregion
 						}
@@ -1427,7 +1427,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 0.5f;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 0.5f;
 							if(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] != 0 && TJAPlayer3.Tx.Crown_t != null)
-								TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, 100, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 100, 0, 100, 100));
+								TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, TJAPlayer3.Skin.SongSelect_Overall_Y - 23, new Rectangle(this.stバー情報[nパネル番号].n王冠[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] * 100, 0, 100, 100));
 						}
 					}
 					#endregion
@@ -1610,7 +1610,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Crown_t != null && this.r現在選択中のスコア.譜面情報.n王冠[i] >= 0 && this.r現在選択中のスコア.譜面情報.n王冠[i] <= 3 && this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0) {
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 0.25f;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 0.25f;
-							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * 60 + 482, 180, new Rectangle((this.r現在選択中のスコア.譜面情報.n王冠[i]) * 100, 0, 100, 100)); 
+							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * 60 + 482, TJAPlayer3.Skin.SongSelect_Overall_Y + 57, new Rectangle((this.r現在選択中のスコア.譜面情報.n王冠[i]) * 100, 0, 100, 100)); 
 						}
 					}
 

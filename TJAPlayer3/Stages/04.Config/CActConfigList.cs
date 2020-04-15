@@ -71,7 +71,7 @@ namespace TJAPlayer3
 
 			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-			this.iSystemReturnToMenu = new CItemBase( "<< ReturnTo Menu", CItemBase.Eパネル種別.その他,
+			this.iSystemReturnToMenu = new CItemBase( "<< Return To Menu", CItemBase.Eパネル種別.その他,
 				"左側のメニューに戻ります。",
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iSystemReturnToMenu );
