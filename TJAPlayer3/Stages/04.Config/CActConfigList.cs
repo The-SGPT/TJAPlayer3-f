@@ -435,6 +435,15 @@ namespace TJAPlayer3
 				"");
 			this.list項目リスト.Add(this.iRandomPresence);
 
+			iCrownDispAC = new CItemToggle("CrownDispAC", TJAPlayer3.ConfigIni.CrownDispAC,
+			"選曲画面の王冠をAC風にするかCS風にするか\n"+
+			"(Off:CS風 On:AC風)",
+			"Whether the crown of the song selection screen\n" + 
+			"is AC style or CS style.\n" +
+			"(Off:CS Style On:AC Style)" +
+			"");
+			this.list項目リスト.Add(this.iCrownDispAC);
+
 
 			ShowChara = new CItemToggle("ShowChara", TJAPlayer3.ConfigIni.ShowChara,
                 "キャラクター画像を表示するかどうか\n",
@@ -2222,7 +2231,8 @@ namespace TJAPlayer3
         private CItemToggle iTaikoBigNotesJudge;
         private CItemInteger iTaikoPlayerCount;
 		private CItemToggle iRandomPresence;
-        CItemToggle ShowChara;
+		private CItemToggle iCrownDispAC;
+		CItemToggle ShowChara;
         CItemToggle ShowDancer;
         CItemToggle ShowRunner;
         CItemToggle ShowMob;
@@ -2387,6 +2397,7 @@ namespace TJAPlayer3
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;
+			TJAPlayer3.ConfigIni.CrownDispAC = this.iCrownDispAC.bON;
 			TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
             TJAPlayer3.ConfigIni.ShowDancer = this.ShowDancer.bON;
             TJAPlayer3.ConfigIni.ShowRunner = this.ShowRunner.bON;

@@ -136,9 +136,8 @@ namespace TJAPlayer3
 
 					// BEGIN #23670 2010.11.13 from: キャッチされない例外は放出せずに、ログに詳細を出力する。
 					// BEGIM #24606 2011.03.08 from: DEBUG 時は例外発生箇所を直接デバッグできるようにするため、例外をキャッチしないようにする。
-#if !DEBUG
+					//2020.04.15 Mr-Ojii DEBUG 時も例外をキャッチするようにした。
 					try
-#endif
 					{
 						using ( var mania = new TJAPlayer3() )
 							mania.Run();
@@ -146,7 +145,6 @@ namespace TJAPlayer3
 						Trace.WriteLine( "" );
 						Trace.WriteLine( "遊んでくれてありがとう！" );
 					}
-#if !DEBUG
 					catch( Exception e )
 					{
 						Trace.WriteLine( "" );
@@ -167,7 +165,6 @@ namespace TJAPlayer3
                         }
 
 					}
-#endif
 					// END #24606 2011.03.08 from
 					// END #23670 2010.11.13 from
 

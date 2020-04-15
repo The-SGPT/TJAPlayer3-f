@@ -726,7 +726,6 @@ namespace TJAPlayer3
 		public string str曲データ検索パス;
         public string FontName;
 		public string FontNamed;
-		public bool RandomPresence;
 		public bool bBranchGuide;
         public int nScoreMode;
         public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -742,8 +741,11 @@ namespace TJAPlayer3
 
         public bool bJudgeCountDisplay;
 
-        // 各画像の表示・非表示設定
-        public bool ShowChara;
+		public bool RandomPresence;
+		public bool CrownDispAC = true;
+
+		// 各画像の表示・非表示設定
+		public bool ShowChara;
         public bool ShowDancer;
         public bool ShowRunner;
         public bool ShowFooter;
@@ -1657,10 +1659,6 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine( "; 曲選択からプレビュー画像表示までのウェイト[ms]" );
 			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
-			sw.WriteLine();                                                             //
-			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
-			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
-			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
 			#endregion
 			//sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
@@ -1815,8 +1813,16 @@ namespace TJAPlayer3
 
 			#region [ PlayOption ]
 			sw.WriteLine( "[PlayOption]" );
+			sw.WriteLine();                                                             //
+			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
+			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
-            sw.WriteLine("; 各画像の表示設定");
+			sw.WriteLine("; 選曲画面での王冠の表示方法(0:CS風,1:AC風)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:CS Style, 1:AC Style)");     //
+			sw.WriteLine("CrownDispAC={0}", this.CrownDispAC ? 1 : 0);    //
+			sw.WriteLine();
+			sw.WriteLine("; 各画像の表示設定");
             sw.WriteLine("; キャラクター画像を表示する (0:OFF, 1:ON)");
             sw.WriteLine("ShowChara={0}", ShowChara ? 1 : 0);
             sw.WriteLine("; ダンサー画像を表示する (0:OFF, 1:ON)");
@@ -2325,10 +2331,6 @@ namespace TJAPlayer3
 											{
 												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 											}
-											else if (str3.Equals("EnableRandomSongSelect"))
-											{
-												this.RandomPresence = C変換.bONorOFF(str4[0]);
-											}
 											#endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
 											//{
@@ -2579,7 +2581,15 @@ namespace TJAPlayer3
 									//-----------------------------
 									case Eセクション種別.PlayOption:
 										{
-                                            if (str3.Equals("ShowChara"))
+											if (str3.Equals("EnableRandomSongSelect"))
+											{
+												this.RandomPresence = C変換.bONorOFF(str4[0]);
+											}
+											else if (str3.Equals("CrownDispAC"))
+											{
+												this.CrownDispAC = C変換.bONorOFF(str4[0]);
+											}
+											else if (str3.Equals("ShowChara"))
                                             {
                                                 ShowChara = C変換.bONorOFF(str4[0]);
                                             }
