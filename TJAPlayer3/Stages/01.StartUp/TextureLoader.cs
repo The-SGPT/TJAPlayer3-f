@@ -80,6 +80,7 @@ namespace TJAPlayer3
             NamePlate = new CTexture[2];
             NamePlate[0] = TxC(@"1P_NamePlate.png");
             NamePlate[1] = TxC(@"2P_NamePlate.png");
+            Difficulty_Icons = TxC(@"Difficulty Icons.png");
             #endregion
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
@@ -543,6 +544,7 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref Scanning_Loudness);
             TJAPlayer3.tテクスチャの解放(ref Overlay);
             TJAPlayer3.tテクスチャの解放(ref Crown_t);
+            TJAPlayer3.tテクスチャの解放(ref Difficulty_Icons);
             for (int i = 0; i < 2; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref NamePlate[i]);
@@ -942,7 +944,8 @@ namespace TJAPlayer3
             Enum_Song,
             Scanning_Loudness,
             Overlay,
-            Crown_t;
+            Crown_t,
+            Difficulty_Icons;
         public CTexture[] NamePlate;
         #endregion
         #region 1_タイトル画面
