@@ -425,8 +425,18 @@ namespace TJAPlayer3
 			);
 			this.list項目リスト.Add( this.iSystemSoundTimerType );
 
+			iRandomPresence = new CItemToggle("UseRandom", TJAPlayer3.ConfigIni.RandomPresence,
+				"ランダム選曲を使うかどうか\n" +
+				"(この変更後に曲の再読み込みを"+
+				" する必要があります。)\n",
+				"Use RandomSongSelect.\n" +
+				"(You will need to reload the song \n" +
+				" after this change.)\n" +
+				"");
+			this.list項目リスト.Add(this.iRandomPresence);
 
-            ShowChara = new CItemToggle("ShowChara", TJAPlayer3.ConfigIni.ShowChara,
+
+			ShowChara = new CItemToggle("ShowChara", TJAPlayer3.ConfigIni.ShowChara,
                 "キャラクター画像を表示するかどうか\n",
                 "Show Character Images.\n" +
                 "");
@@ -2211,6 +2221,7 @@ namespace TJAPlayer3
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
         private CItemInteger iTaikoPlayerCount;
+		private CItemToggle iRandomPresence;
         CItemToggle ShowChara;
         CItemToggle ShowDancer;
         CItemToggle ShowRunner;
@@ -2368,14 +2379,15 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.nASIODevice = this.iSystemASIODevice.n現在選択されている項目番号;			// #24820 2013.1.17 yyagi
 			TJAPlayer3.ConfigIni.bUseOSTimer = this.iSystemSoundTimerType.bON;								// #33689 2014.6.17 yyagi
 
-			TJAPlayer3.ConfigIni.bTimeStretch = this.iSystemTimeStretch.bON;									// #23664 2013.2.24 yyagi
-//Trace.TraceInformation( "saved" );
-//Trace.TraceInformation( "Skin現在Current : " + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(true) );
-//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
-//Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
+			TJAPlayer3.ConfigIni.bTimeStretch = this.iSystemTimeStretch.bON;                                    // #23664 2013.2.24 yyagi
+			//Trace.TraceInformation( "saved" );
+			//Trace.TraceInformation( "Skin現在Current : " + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(true) );
+			//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
+			//Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
-            TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
+			TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;
+			TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
             TJAPlayer3.ConfigIni.ShowDancer = this.ShowDancer.bON;
             TJAPlayer3.ConfigIni.ShowRunner = this.ShowRunner.bON;
             TJAPlayer3.ConfigIni.ShowMob = this.ShowMob.bON;
