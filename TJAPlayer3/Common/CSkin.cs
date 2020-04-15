@@ -2252,6 +2252,10 @@ namespace TJAPlayer3
                             {
                                 Result_Dan_Plate_XY = strParam.Split(',').Select(int.Parse).ToArray();
                             }
+                            else if(strCommand == nameof(Result_Crown_XY))
+                            {
+                                Result_Crown_XY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
 
                             #endregion
                             #region Font
@@ -2721,6 +2725,8 @@ namespace TJAPlayer3
         public int[] Result_Dan = new int[] { 500, 500 };
         public int[] Result_Dan_XY = new int[] { 100, 0 };
         public int[] Result_Dan_Plate_XY = new int[] { 149, 416 };
+
+        public int[] Result_Crown_XY = new int[] { 350, 200};
         #endregion
         #region Font
         public int Font_Edge_Ratio = 30;

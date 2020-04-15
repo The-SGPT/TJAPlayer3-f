@@ -389,7 +389,8 @@ namespace TJAPlayer3
 				}
 				if (this.ctカウントダウン用タイマー.n現在の値 != TJAPlayer3.Tx.SongSelect_Counter_BTime)
 				{
-					TJAPlayer3.Tx.SongSelect_Tempcounter = ResolveGenreTexture(This_counter);
+					if(This_counter != null)
+						TJAPlayer3.Tx.SongSelect_Tempcounter = ResolveGenreTexture(This_counter);
 				}
 				if (TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null)
 				{
@@ -412,10 +413,7 @@ namespace TJAPlayer3
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
 				if (r現在選択中の曲 != null)
 				{
-					if (r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BOX)
-					{
-						TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
-					}
+					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
 				}
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )

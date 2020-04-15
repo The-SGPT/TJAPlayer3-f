@@ -253,14 +253,14 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Title_Txt[2] = ResolveTitleTexture(titleTextureKey[2]);
 						}
 					}
-				
-						for (int i = 0; i < 3; i++)
-						{
+
+					for (int i = 0; i < 3; i++)
+					{
 
 						TJAPlayer3.Tx.Title_Txt[i].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.Tx.Title_Txt[i].szテクスチャサイズ.Width / 2, MENU_YT + 30);
 						TJAPlayer3.Tx.Kyo_mae = this.n現在のカーソル行;
-						
-						}
+
+					}
 				}
 				else
 				{

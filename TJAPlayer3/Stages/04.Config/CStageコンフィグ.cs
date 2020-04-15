@@ -200,7 +200,7 @@ namespace TJAPlayer3
 				Rectangle rectangle;
                 TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
 				int x = 110;
-				int y = (int)( 145.5 + ( this.n現在のメニュー番号 * 37.5 ) );
+				int y = (int)( 140 + ( this.n現在のメニュー番号 * 38 ) );
 				int num3 = 340;
                 TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
                 TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
