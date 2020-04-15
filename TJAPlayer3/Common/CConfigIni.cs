@@ -1559,10 +1559,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 非フォーカス時のsleep値[ms]" );	    			    // #23568 2011.11.04 ikanick add
 			sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
 			sw.WriteLine( "BackSleep={0}", this.n非フォーカス時スリープms );		// そのまま引用（苦笑）
-			sw.WriteLine();                                                             //
-			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
-			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
-			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
 			#endregion
 			#region [ フォント ]
@@ -1661,6 +1657,10 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine( "; 曲選択からプレビュー画像表示までのウェイト[ms]" );
 			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
+			sw.WriteLine();                                                             //
+			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
+			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
 			#endregion
 			//sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
@@ -2221,10 +2221,10 @@ namespace TJAPlayer3
 											{
 												this.n非フォーカス時スリープms = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 50, this.n非フォーカス時スリープms );
 											}
-                                            #endregion
+											#endregion
 
-                                            #region [ WASAPI/ASIO関係 ]
-                                            else if ( str3.Equals( "SoundDeviceType" ) )
+											#region [ WASAPI/ASIO関係 ]
+											else if ( str3.Equals( "SoundDeviceType" ) )
 											{
 												this.nSoundDeviceType = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nSoundDeviceType );
 											}
@@ -2236,10 +2236,6 @@ namespace TJAPlayer3
 											{
 												string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
 												this.nASIODevice = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, asiodev.Length - 1, this.nASIODevice );
-											}
-											else if (str3.Equals("EnableRandomSongSelect"))
-											{
-												this.RandomPresence = C変換.bONorOFF(str4[0]);
 											}
 											//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
 											//{
@@ -2328,6 +2324,10 @@ namespace TJAPlayer3
 											else if( str3.Equals( "PreviewImageWait" ) )
 											{
 												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
+											}
+											else if (str3.Equals("EnableRandomSongSelect"))
+											{
+												this.RandomPresence = C変換.bONorOFF(str4[0]);
 											}
 											#endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
