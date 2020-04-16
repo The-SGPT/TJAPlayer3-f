@@ -387,13 +387,12 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.SongSelect_Counter_Back[1].t2D描画(TJAPlayer3.app.Device, 880, 0);
 					This_counter = new TitleTextureKey((100-this.ctカウントダウン用タイマー.n現在の値).ToString(), new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 70), Color.White, Color.White, 410);
 				}
-				if (this.ctカウントダウン用タイマー.n現在の値 != TJAPlayer3.Tx.SongSelect_Counter_BTime)
-				{
-					if(This_counter != null)
-						TJAPlayer3.Tx.SongSelect_Tempcounter = ResolveGenreTexture(This_counter);
-				}
 				if (TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null)
 				{
+					if (this.ctカウントダウン用タイマー.n現在の値 != TJAPlayer3.Tx.SongSelect_Counter_BTime && This_counter != null)
+					{
+						TJAPlayer3.Tx.SongSelect_Tempcounter = ResolveGenreTexture(This_counter);
+					}
 					TJAPlayer3.Tx.SongSelect_Tempcounter.t2D中央基準描画(TJAPlayer3.app.Device, 1325, 150);
 					TJAPlayer3.Tx.SongSelect_Counter_BTime = this.ctカウントダウン用タイマー.n現在の値;
 				}
@@ -1199,16 +1198,8 @@ namespace TJAPlayer3
 			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
 			bmp.Dispose();
 
-			if (tx文字テクスチャ != null)
-			{
 				tx文字テクスチャ.vc拡大縮小倍率.X = 0.5f;
 				tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
-			}
-			else {
-				bmp = new Bitmap(1, 1);
-				tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
-				bmp.Dispose();
-			}
 
 			return tx文字テクスチャ;
 			//	}
