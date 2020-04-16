@@ -104,8 +104,7 @@ namespace TJAPlayer3.Properties {
                 return ResourceManager.GetString("Stage_SongSelect", resourceCulture);
             }
         }
-
-
+        
         /// <summary>
         ///   Startup に類似しているローカライズされた文字列を検索します。
         /// </summary>
