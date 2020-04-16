@@ -1331,7 +1331,7 @@ namespace TJAPlayer3
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
 				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
-				this.n譜面スクロール速度[ i ] = 9;
+				this.n譜面スクロール速度[ i ] = 1;
 				this.nJudgeLinePosOffset[ i ] = 0;
 				this.eInvisible[ i ] = EInvisible.OFF;
 				this.nViewerScrollSpeed[ i ] = 1;

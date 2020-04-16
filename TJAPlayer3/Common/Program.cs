@@ -154,8 +154,8 @@ namespace TJAPlayer3
                         AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
                         MessageBox.Show( "エラーが発生しました。\n" +
                             "原因がわからない場合は、以下のエラー文を添えて、エラー送信フォームに送信してください。\n" + 
-                            e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );	// #23670 2011.2.28 yyagi to show error dialog
-                        DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)",
+                            e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );    // #23670 2011.2.28 yyagi to show error dialog
+						DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)",
                             asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Asterisk);
@@ -163,7 +163,6 @@ namespace TJAPlayer3
                         {
                             Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?usp=pp_url&entry.1025217940=" + System.Web.HttpUtility.UrlEncode(e.ToString()));
                         }
-
 					}
 					// END #24606 2011.03.08 from
 					// END #23670 2010.11.13 from
@@ -208,7 +207,7 @@ namespace TJAPlayer3
 
 				for ( int i = 0; i < 5; i++ )		// 検索結果のハンドルがZeroになることがあるので、200ms間隔で5回リトライする
 				{
-					#region [ 既に起動中のDTXManiaプロセスを検索する。]
+#region [ 既に起動中のDTXManiaプロセスを検索する。]
 					// このやり方だと、ShowInTaskbar=falseでタスクバーに表示されないパターンの時に検索に失敗するようだが
 					// DTXManiaでそのパターンはない？のでこのままいく。
 					// FindWindowを使えばこのパターンにも対応できるが、C#でビルドするアプリはウインドウクラス名を自前指定できないので、これは使わない。
@@ -229,9 +228,9 @@ namespace TJAPlayer3
 							}
 						}
 					}
-					#endregion
+#endregion
 
-					#region [ 起動中のDTXManiaがいれば、そのプロセスにコマンドラインを投げる ]
+#region [ 起動中のDTXManiaがいれば、そのプロセスにコマンドラインを投げる ]
 					if ( target != null )
 					{
 						string[] commandLineArgs = Environment.GetCommandLineArgs();
@@ -259,7 +258,7 @@ namespace TJAPlayer3
 						}
 						break;
 					}
-					#endregion
+#endregion
 					else
 					{
 						Trace.TraceInformation( "メッセージ送信先のプロセスが見つからず。5回リトライします。" );

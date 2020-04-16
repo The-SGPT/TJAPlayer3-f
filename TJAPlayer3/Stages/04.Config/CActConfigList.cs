@@ -2371,7 +2371,7 @@ namespace TJAPlayer3
 		    TJAPlayer3.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.n現在の値;
             TJAPlayer3.ConfigIni.MusicPreTimeMs = this.MusicPreTimeMs.n現在の値;
 
-			TJAPlayer3.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
+		TJAPlayer3.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
 
 			//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
