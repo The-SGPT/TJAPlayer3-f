@@ -2,33 +2,43 @@
 
 TJAPlayer3をForkして、趣味程度に改造してます。
 
-ちょっとした機能のためにレジストリを使います。
-
+ちょっとした機能のためにレジストリを使います。  
 まぁ、普通に使っている分には、レジストリが保存されることはないと思います。
 
-実装してほしいものがあればGitHubのIssuesまで。
-
+実装してほしいものがあればGitHubのIssuesまで。  
 趣味程度の改造なので、時間はかかりますが、実装要望があったものは、なるべく実装したいと考えています。
+
+## 推奨環境
+Windows7以降  
+まぁ、Windows10で動作確認をしているので、Windows10が一番安定してるかと...
 
 ## 開発状況
 Ver.1.5.8.0 : より本家っぽく。
 
 Ver.1.5.8.1 : 王冠機能の搭載(かんたん～おに & Edit(実質裏鬼))
 
+Ver.1.5.8.2 : .NET Framework 4.0にフレームワークをアップデート
+
 ## 開発環境
+Windows 10(Ver.1909)  
 VisualStudio Community 2019
 
 ## バグ報告のお願い
   
-改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を最近、初めて触りました。
-
-この改造をしながら、C#を勉強しているため、結構バグを含んでいると思います。
-
-バグを見つけたら、TJAPlayer3-fから開かれたフォームまたは、Issuesで報告してもらえると、
-
+改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を最近、初めて触りました。  
+この改造をしながら、C#を勉強しているため、結構バグを含んでいると思います。  
+バグを見つけたら、TJAPlayer3-fから開かれたフォームまたは、Issuesで報告してもらえると、  
 自分の勉強もはかどるのでよろしくお願いします。
 
-## 以下AioiLight様作成のReadmeです
+## 謝辞
+このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  
+有名な方々に感謝の意を表し、お名前を上げさせていただきたいと思います。
+
+- FROM/yyagi様
+- kairera0467様
+- AioiLight様
+
+# 以下AioiLight様作成のReadmeです
 
 > # TJAPlayer3
 > DTXManiaをいじってtja再生プログラムにしちゃった[TJAPlayer2fPC](https://github.com/kairera0467/TJAP2fPC)をForkして本家風に改造したアレ。
