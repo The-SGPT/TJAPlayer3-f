@@ -1105,13 +1105,13 @@ namespace FDK
 			t再生位置を先頭に戻す();
 			tサウンドを再生する();
 		}
-		public void t再生を開始する( bool bループする )
+		public void t再生を開始する( bool bループする)
 		{
 			if ( bBASSサウンドである )
 			{
 				if ( bループする )
 				{
-					Bass.BASS_ChannelFlags( this.hBassStream, BASSFlag.BASS_SAMPLE_LOOP, BASSFlag.BASS_SAMPLE_LOOP );
+					Bass.BASS_ChannelFlags(this.hBassStream, BASSFlag.BASS_SAMPLE_LOOP, BASSFlag.BASS_SAMPLE_LOOP);
 				}
 				else
 				{
@@ -1119,7 +1119,7 @@ namespace FDK
 				}
 			}
 			t再生位置を先頭に戻す();
-			tサウンドを再生する( bループする );
+			tサウンドを再生する( bループする);
 		}
 		public void t再生を停止する()
 		{
@@ -1204,9 +1204,9 @@ namespace FDK
 		}
 		public void tサウンドを再生する()
 		{
-			tサウンドを再生する( false );
+			tサウンドを再生する(false);
 		}
-		private void tサウンドを再生する( bool bループする )
+		private void tサウンドを再生する( bool bループする)
 		{
 			if ( this.bBASSサウンドである )			// BASSサウンド時のループ処理は、t再生を開始する()側に実装。ここでは「bループする」は未使用。
 			{
@@ -1244,7 +1244,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			}
 			else if( this.bDirectSoundである )
 			{
-				PlayFlags pf = ( bループする ) ? PlayFlags.Looping : PlayFlags.None;
+				PlayFlags pf = ( bループする) ? PlayFlags.Looping : PlayFlags.None;
 				this.Buffer.Play( 0, pf );
 			}
 		}
@@ -1837,9 +1837,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		}
 
 
-// mixer への追加
-		
-		public bool tBASSサウンドをミキサーに追加する()
+		// mixer への追加
+			public bool tBASSサウンドをミキサーに追加する()
 		{
 			if ( BassMix.BASS_Mixer_ChannelGetMixer( hBassStream ) == 0 )
 			{
@@ -1848,7 +1847,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 				// preloadされることを期待して、敢えてflagからはBASS_MIXER_PAUSEを外してAddChannelした上で、すぐにPAUSEする
 				// -> ChannelUpdateでprebufferできることが分かったため、BASS_MIXER_PAUSEを使用することにした
-
 				bool b1 = BassMix.BASS_Mixer_StreamAddChannel( this.hMixer, this.hBassStream, bf );
 				//bool b2 = BassMix.BASS_Mixer_ChannelPause( this.hBassStream );
 				t再生位置を先頭に戻す();	// StreamAddChannelの後で再生位置を戻さないとダメ。逆だと再生位置が変わらない。

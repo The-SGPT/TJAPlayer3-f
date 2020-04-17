@@ -398,7 +398,6 @@ namespace TJAPlayer3
 				}
 
 				//this.actステータスパネル.On進行描画();
-
 				this.actPresound.On進行描画();
 				//if( this.txコメントバー != null )
 				{
