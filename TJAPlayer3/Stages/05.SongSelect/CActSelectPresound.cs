@@ -113,15 +113,17 @@ namespace TJAPlayer3
                     }
                     else
                     {
-                        this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
-                    }
-                    if (this.long再生位置 >= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) - 1 && this.long再生位置 <= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) + 0)
-                        this.long再生位置 = -1;
+                    this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
+					if(this.long再生位置 >= this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) //2020.04.18 Mr-Ojii #DEMOSTARTから何度も再生するために追加
+						this.long再生位置 = -1;
+					}
+					//if (this.long再生位置 >= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) - 1 && this.long再生位置 <= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) + 0)
+					//this.long再生位置 = -1;
 
 
-                    //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.long再生位置.ToString() );
-                    //CDTXMania.act文字コンソール.tPrint( 0, 20, C文字コンソール.Eフォント種別.白, (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット).ToString() );
-                }
+					//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.long再生位置.ToString() );
+					//CDTXMania.act文字コンソール.tPrint( 0, 20, C文字コンソール.Eフォント種別.白, (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット).ToString() );
+				}
 			}
 			return 0;
 		}
@@ -168,24 +170,24 @@ namespace TJAPlayer3
                     strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
                     this.sound = TJAPlayer3.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
 
-                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
-                    //                           Initialization, song enumeration, and/or interactions may have
-                    //                           caused background scanning and the metadata may now be available.
-                    //                           If is not yet available then we wish to queue scanning.
-                    var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
+					// 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+					//                           Initialization, song enumeration, and/or interactions may have
+					//                           caused background scanning and the metadata may now be available.
+					//                           If is not yet available then we wish to queue scanning.
+					var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
                                            ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
                     TJAPlayer3.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
 
-                    this.sound.t再生を開始する( true );
-                    if( long再生位置 == -1 )
+					this.sound.t再生を開始する(true);
+                    if( this.long再生位置 == -1 )
                     {
                         this.long再生開始時のシステム時刻 = CSound管理.rc演奏用タイマ.nシステム時刻ms;
                         this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
                         this.sound.t再生位置を変更する( cスコア.譜面情報.nデモBGMオフセット );
                         this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
                     }
-                    //if( long再生位置 == this.sound.n総演奏時間ms - 10 )
-                    //    this.long再生位置 = -1;
+                    /*if( long再生位置 == this.sound.n総演奏時間ms - 10 )
+                        this.long再生位置 = -1;*/
 
                     this.str現在のファイル名 = strPreviewFilename;
                     this.tBGMフェードアウト開始();
