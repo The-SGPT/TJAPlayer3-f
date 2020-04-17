@@ -1315,6 +1315,11 @@ namespace TJAPlayer3
 				writer.WriteLine( "Crown3={0}", this.stセクション[ i ].n王冠[ 2 ] );
 				writer.WriteLine( "Crown4={0}", this.stセクション[ i ].n王冠[ 3 ] );
 				writer.WriteLine( "Crown5={0}", this.stセクション[ i ].n王冠[ 4 ] );
+				Debug.Print("0="+this.stセクション[i].n王冠[0].ToString());
+				Debug.Print("1="+this.stセクション[i].n王冠[1].ToString());
+				Debug.Print("2="+this.stセクション[i].n王冠[2].ToString());
+				Debug.Print("3="+this.stセクション[i].n王冠[3].ToString());
+				Debug.Print("4="+this.stセクション[i].n王冠[4].ToString());
 			}
 
 			writer.Close();

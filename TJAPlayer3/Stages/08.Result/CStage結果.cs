@@ -139,7 +139,7 @@ namespace TJAPlayer3
 					}
 
 					// 新記録スコアチェック
-					if( ( this.st演奏記録[ i ].nスコア > ini.stセクション[ i * 2 ].nスコア ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )
+					if( ( this.st演奏記録[ i ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
 					{
 						this.b新記録スコア[ i ] = true;
 						ini.stセクション[ i * 2 ] = this.st演奏記録[ i ];
