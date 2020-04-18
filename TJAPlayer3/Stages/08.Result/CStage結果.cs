@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 using FDK;
 
 namespace TJAPlayer3
@@ -182,13 +183,31 @@ namespace TJAPlayer3
                     }
                     //---------------------------------------------------------------------/
 				}
-				if( TJAPlayer3.ConfigIni.bScoreIniを出力する )
-				    ini.t書き出し( str );
+				if (TJAPlayer3.ConfigIni.bScoreIniを出力する)
+				{
+					ini.t書き出し(str);
+
+					//2020.04.19 Mr-Ojii これ追加すれば記録されるんじゃね。って感じでテキトーに置きました、すみません。
+					if (TJAPlayer3.EnumSongs.IsEnumerating)
+					{
+						// Debug.WriteLine( "バックグラウンドでEnumeratingSongs中だったので、一旦中断します。" );
+						TJAPlayer3.EnumSongs.Abort();
+						TJAPlayer3.actEnumSongs.On非活性化();
+					}
+
+					TJAPlayer3.EnumSongs.StartEnumFromDisk();
+					TJAPlayer3.EnumSongs.ChangeEnumeratePriority(ThreadPriority.Normal);
+					TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 = true;
+					TJAPlayer3.actEnumSongs.On活性化(); 
+					TJAPlayer3.actEnumSongs.On非活性化();
+					//ここで曲データの再読み込みをすると記録が定着する。
+					//一時的に、データが保存されない問題の解決策として、ここにこのコードを置く。不思議だね。
+				}
 				//---------------------
 				#endregion
 
 				#region [ リザルト画面への演奏回数の更新 #24281 2011.1.30 yyagi]
-                if( TJAPlayer3.ConfigIni.bScoreIniを出力する )
+				if ( TJAPlayer3.ConfigIni.bScoreIniを出力する )
                 {
                     this.n演奏回数.Drums = ini.stファイル.PlayCountDrums;
                     this.n演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
