@@ -1187,6 +1187,14 @@ namespace TJAPlayer3
 											{
 												c演奏記録.n王冠[4] = int.Parse(para);
 											}
+											else if (item.Equals("Crown6"))
+											{
+												c演奏記録.n王冠[5] = int.Parse(para);
+											}
+											else if (item.Equals("Crown7"))
+											{
+												c演奏記録.n王冠[6] = int.Parse(para);
+											}
 										}
 									}
 								}
@@ -1305,16 +1313,22 @@ namespace TJAPlayer3
                 writer.WriteLine( "HiScore3={0}", this.stセクション[ i ].nハイスコア[ 2 ] );
                 writer.WriteLine( "HiScore4={0}", this.stセクション[ i ].nハイスコア[ 3 ] );
                 writer.WriteLine( "HiScore5={0}", this.stセクション[ i ].nハイスコア[ 4 ] );
-                writer.WriteLine( "Roll1={0}", this.stセクション[ i ].n連打[ 0 ] );
+				writer.WriteLine("HiScore6={0}", this.stセクション[i].nハイスコア[5]);
+				writer.WriteLine("HiScore7={0}", this.stセクション[i].nハイスコア[6]);
+				writer.WriteLine( "Roll1={0}", this.stセクション[ i ].n連打[ 0 ] );
                 writer.WriteLine( "Roll2={0}", this.stセクション[ i ].n連打[ 1 ] );
                 writer.WriteLine( "Roll3={0}", this.stセクション[ i ].n連打[ 2 ] );
                 writer.WriteLine( "Roll4={0}", this.stセクション[ i ].n連打[ 3 ] );
                 writer.WriteLine( "Roll5={0}", this.stセクション[ i ].n連打[ 4 ] );
+				writer.WriteLine("Roll6={0}", this.stセクション[i].n連打[5]);
+				writer.WriteLine("Roll7={0}", this.stセクション[i].n連打[6]);
 				writer.WriteLine( "Crown1={0}", this.stセクション[ i ].n王冠[ 0 ] );
 				writer.WriteLine( "Crown2={0}", this.stセクション[ i ].n王冠[ 1 ] );
 				writer.WriteLine( "Crown3={0}", this.stセクション[ i ].n王冠[ 2 ] );
 				writer.WriteLine( "Crown4={0}", this.stセクション[ i ].n王冠[ 3 ] );
 				writer.WriteLine( "Crown5={0}", this.stセクション[ i ].n王冠[ 4 ] );
+				writer.WriteLine("Crown6={0}", this.stセクション[i].n王冠[5]);
+				writer.WriteLine("Crown7={0}", this.stセクション[i].n王冠[6]);
 			}
 
 			writer.Close();
