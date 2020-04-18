@@ -70,7 +70,6 @@ namespace TJAPlayer3
 		// (前と同じ曲なら選択曲変更に掛かる再計算を省略して高速化するため)
 		private C曲リストノード song_last = null;
 
-
 		// コンストラクタ
 
 		public CActSelect曲リスト()
@@ -587,6 +586,7 @@ namespace TJAPlayer3
 			this.tバーの初期化();
 
 			this.ct三角矢印アニメ = new CCounter();
+			this.ct分岐フェード用タイマー = new CCounter(0, 628, 10, TJAPlayer3.Timer);
 
 			base.On活性化();
 
@@ -807,6 +807,7 @@ namespace TJAPlayer3
 
 				this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
 				this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.Timer);
+				this.ct分岐フェード用タイマー.t進行();
 				base.b初めての進行描画 = false;
 			}
 			//-----------------
@@ -821,12 +822,13 @@ namespace TJAPlayer3
 
 			// 本ステージは、(1)登場アニメフェーズ → (2)通常フェーズ　と二段階にわけて進む。
 
+			//追加
+			if (n現在のスクロールカウンタ == 0)	this.ct分岐フェード用タイマー.t進行Loop();
+			else this.ct分岐フェード用タイマー.n現在の値 = 0;
 
 			// 進行。
 			if (n現在のスクロールカウンタ == 0) ct三角矢印アニメ.t進行Loop();
 			else ct三角矢印アニメ.n現在の値 = 0;
-
-
 
 
 			if (!this.b登場アニメ全部完了)
@@ -1273,7 +1275,7 @@ namespace TJAPlayer3
 							//    break;
 					}
 
-					if (TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度])
+					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度])
 						TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 
 				}
@@ -1640,8 +1642,35 @@ namespace TJAPlayer3
 					}
 					//if( CDTXMania.Tx.SongSelect_Level != null )
 					//    CDTXMania.Tx.SongSelect_Level.t2D描画( CDTXMania.app.Device, 518, 169 );
-					if (TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度])
+					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度])
 						TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
+
+					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW != null)
+					{
+						double opatmp = Math.Cos(ct分岐フェード用タイマー.n現在の値 / 100.0) + 0.5;
+						opatmp = Math.Max(opatmp, 0.0);
+						opatmp = Math.Min(opatmp, 1.0);
+
+						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)(opatmp * 1000.0);
+
+						for (int i = 0; i < 4; i++)
+						{
+							if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
+							{
+								if (TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[4])
+								{
+									TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.t2D描画(TJAPlayer3.app.Device, i * 60 + 479, TJAPlayer3.Skin.SongSelect_Overall_Y + 234, new Rectangle(32, 0, 32, 180));
+								}
+							}
+							else
+							{
+								if (TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[i])
+								{
+									TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.t2D描画(TJAPlayer3.app.Device, i * 60 + 479, TJAPlayer3.Skin.SongSelect_Overall_Y + 234, new Rectangle(0, 0, 32, 180));
+								}
+							}
+						}
+					}
 					for (int i=0; i < 4; i++) {
 						if (TJAPlayer3.Tx.Crown_t != null && this.r現在選択中のスコア.譜面情報.n王冠[i] >= 0 && this.r現在選択中のスコア.譜面情報.n王冠[i] <= 3 && this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
 						{
@@ -1918,6 +1947,7 @@ namespace TJAPlayer3
 		private CCounter[] ct登場アニメ用 = new CCounter[13];
 		private CCounter ct三角矢印アニメ;
 		private CCounter counter;
+		private CCounter ct分岐フェード用タイマー;
 		private EFIFOモード mode;
 		private CPrivateFastFont pfMusicName;
 		private CPrivateFastFont pfSubtitle;

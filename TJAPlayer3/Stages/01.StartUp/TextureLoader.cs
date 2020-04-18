@@ -116,6 +116,7 @@ namespace TJAPlayer3
             SongSelect_Level = TxC(SONGSELECT + @"Level.png");
             SongSelect_Branch = TxC(SONGSELECT + @"Branch.png");
             SongSelect_Branch_Text = TxC(SONGSELECT + @"Branch_Text.png");
+            SongSelect_Branch_Text_NEW = TxC(SONGSELECT + @"Branch_Text_NEW.png");
             SongSelect_Bar_Center = TxC(SONGSELECT + @"Bar_Center.png");
             SongSelect_Frame_Score = TxC(SONGSELECT + @"Frame_Score.png");
             SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
@@ -582,6 +583,7 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Level);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Branch);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Branch_Text);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Branch_Text_NEW);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Center);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Score);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Box);
@@ -977,6 +979,7 @@ namespace TJAPlayer3
             SongSelect_Level,
             SongSelect_Branch,
             SongSelect_Branch_Text,
+            SongSelect_Branch_Text_NEW,
             SongSelect_Frame_Score,
             SongSelect_Frame_Box,
             SongSelect_Frame_BackBox,
