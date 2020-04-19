@@ -56,10 +56,10 @@ namespace TJAPlayer3
 			l.Add( new CItemInteger( "ばいそく", 0, 1999, TJAPlayer3.ConfigIni.n譜面スクロール速度[ nInst ],
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
-				"x0.5 ～ x1000.0 を指定可能です。",
+				"x0.1 ～ x200.0 を指定可能です。",
 				"To change the scroll speed for the\n" +
 				"drums lanes.\n" +
-				"You can set it from x0.5 to x1000.0.\n" +
+				"You can set it from x0.1 to x200.0.\n" +
 				"(ScrollSpeed=x0.5 means half speed)" ) );
 			#endregion
 			#region [ 共通 Dark/Risky/PlaySpeed ]
