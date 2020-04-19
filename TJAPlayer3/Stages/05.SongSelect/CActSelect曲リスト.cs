@@ -1441,7 +1441,7 @@ namespace TJAPlayer3
 							this.t小文字表示(xAnime + 65 + nX補正, 559, this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度].ToString());
 						}
 						//-----------------						
-						if (TJAPlayer3.Tx.Crown_t != null && n見た目の行番号 != 5)
+						if (TJAPlayer3.Tx.Crown_t != null && n見た目の行番号 != 5 && this.stバー情報[n見た目の行番号].eバー種別 == Eバー種別.Score)
 						{
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 0.5f;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 0.5f;
@@ -1671,7 +1671,7 @@ namespace TJAPlayer3
 							}
 						}
 					}
-					if (TJAPlayer3.Tx.Crown_t != null　&& TJAPlayer3.Tx.DanC_Crown_t != null)
+					if (TJAPlayer3.Tx.Crown_t != null && TJAPlayer3.Tx.DanC_Crown_t != null && this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score)
 					{
 						TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 0.25f;
 						TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 0.25f;
@@ -1679,7 +1679,7 @@ namespace TJAPlayer3
 						{
 							for (int i = 0; i < 4; i++)
 							{
-								if (TJAPlayer3.Tx.Crown_t != null && this.r現在選択中のスコア.譜面情報.n王冠[i] >= 0 && this.r現在選択中のスコア.譜面情報.n王冠[i] <= 3 && this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
+								if (TJAPlayer3.Tx.Crown_t != null && this.r現在選択中のスコア.譜面情報.n王冠[i] >= 0 && this.r現在選択中のスコア.譜面情報.n王冠[i] <= 3  && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
 								{
 									if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
 									{
@@ -1692,7 +1692,7 @@ namespace TJAPlayer3
 								}
 							}
 						}
-						else if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == (int)Difficulty.Tower)
+						else if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == (int)Difficulty.Tower && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[5] >= 0)
 						{
 							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, 482, TJAPlayer3.Skin.SongSelect_Overall_Y + 57, new Rectangle((this.r現在選択中のスコア.譜面情報.n王冠[5]) * 100, 0, 100, 100));
 						}
@@ -1700,7 +1700,7 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Tx.DanC_Crown_t.vc拡大縮小倍率.X = 0.5f;
 							TJAPlayer3.Tx.DanC_Crown_t.vc拡大縮小倍率.Y = 0.5f;
-							if (this.r現在選択中のスコア.譜面情報.n王冠[6] != 0)
+							if (this.r現在選択中のスコア.譜面情報.n王冠[6] != 0 && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nレベル[6] >= 0)
 								TJAPlayer3.Tx.DanC_Crown_t.t2D描画(TJAPlayer3.app.Device, 482, TJAPlayer3.Skin.SongSelect_Overall_Y + 57, new Rectangle((this.r現在選択中のスコア.譜面情報.n王冠[6]-1) * 50, 0, 50, 100));
 						}
 					}
