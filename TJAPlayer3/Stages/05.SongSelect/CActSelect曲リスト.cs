@@ -1651,7 +1651,7 @@ namespace TJAPlayer3
 						opatmp = Math.Max(opatmp, 0.0);
 						opatmp = Math.Min(opatmp, 1.0);
 
-						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)(opatmp * 1000.0);
+						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)(opatmp * 255.0);
 
 						for (int i = 0; i < 4; i++)
 						{
