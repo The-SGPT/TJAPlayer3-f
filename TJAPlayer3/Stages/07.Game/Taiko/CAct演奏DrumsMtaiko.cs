@@ -72,14 +72,12 @@ namespace TJAPlayer3
             //    this.txコースシンボル[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( this.strCourseSymbolFileName[ i ] ) );
             //}
             this.ctレベルアップダウン = new CCounter[ 4 ];
-            this.ct譜面分岐カウント = new CCounter[4];
             this.After = new int[ 4 ];
             this.Before = new int[ 4 ];
             for( int i = 0; i < 4; i++ )
             {
                 //this.ctレベルアップダウン = new CCounter( 0, 1000, 1, CDTXMania.Timer );
                 this.ctレベルアップダウン[ i ] = new CCounter();
-                this.ct譜面分岐カウント[i] = new CCounter();
             }
 
 
@@ -203,19 +201,6 @@ namespace TJAPlayer3
                     if( this.ctレベルアップダウン[ i ].b終了値に達した ) {
                         this.ctレベルアップダウン[ i ].t停止();
                     }
-                }
-
-                if (!this.ct譜面分岐カウント[i].b停止中)
-                {
-                    this.ct譜面分岐カウント[i].t進行();
-                    if (this.ct譜面分岐カウント[i].b終了値に達した)
-                    {
-                        this.ct譜面分岐カウント[i].t停止();
-                    }
-                }
-
-                if (!this.ct譜面分岐カウント[i].b進行中 && TJAPlayer3.stage演奏ドラム画面.nさっきまでのコース[i] != TJAPlayer3.stage演奏ドラム画面.n現在のコース[i]) {
-                    TJAPlayer3.stage演奏ドラム画面.nさっきまでのコース[i] = TJAPlayer3.stage演奏ドラム画面.n現在のコース[i];//2020.04.20 現在のコースが変更されてから、1小節たってからさっきまでのコースを変更することで、譜面分岐がうまくいく。もっと、いい案が浮かんだら、変更する。
                 }
 
                 if( ( this.ctレベルアップダウン[ i ].b進行中 && ( TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null ) ) && !TJAPlayer3.ConfigIni.bNoInfo )
@@ -437,7 +422,6 @@ namespace TJAPlayer3
         {
             if( After != Before )
                 this.ctレベルアップダウン[ player ] = new CCounter( 0, 1000, 1, TJAPlayer3.Timer );
-                this.ct譜面分岐カウント[player]= new CCounter(0, 1, (int)(60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 4000.0) - TJAPlayer3.ConfigIni.nヒット範囲ms.Poor, TJAPlayer3.Timer);//2020.04.20 Mr-Ojii 1小節数えてもらうためのタイマー
 
             this.After[ player ] = After;
             this.Before[ player ] = Before;
@@ -481,7 +465,6 @@ namespace TJAPlayer3
 
         //譜面分岐
         private CCounter[] ctレベルアップダウン;
-        private CCounter[] ct譜面分岐カウント; //2020.04.20 Mr-Ojii 譜面が分岐されたときにここが呼び出されるから、ここに置いておく。
         private int[] After;
         private int[] Before;
         //private CTexture txレベルアップ;
