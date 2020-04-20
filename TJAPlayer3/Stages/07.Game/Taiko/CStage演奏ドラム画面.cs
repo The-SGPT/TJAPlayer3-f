@@ -430,7 +430,7 @@ namespace TJAPlayer3
                     this.actFooter.On進行描画();
 
                 //this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
-
+                
 
                 //this.t進行描画_DANGER();
                 //this.t進行描画_判定ライン();

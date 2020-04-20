@@ -718,6 +718,7 @@ namespace TJAPlayer3
 
         public bool[] bIsGOGOTIME = new bool[ 4 ];
         public bool[] bUseBranch = new bool[ 4 ];
+        public int[] nさっきまでのコース = new int[4];
         public int[] n現在のコース = new int[ 4 ]; //0:普通譜面 1:玄人譜面 2:達人譜面
         public int[] n次回のコース = new int[ 4 ];
         protected bool[] b譜面分岐中 = new bool[] { false, false, false, false };
@@ -2380,38 +2381,79 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if(!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
+
+                if (n現在のコース[player] == nさっきまでのコース[player])
                 {
-                    if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
-                        || processingChip.nチャンネル番号 == 0x1A
-                        || processingChip.nチャンネル番号 == 0x1B
-                        || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
+                    if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符 //2020.04.20 Mr-Ojii ここの現在コースが分岐の時だけ違うから、判定から抜ける。
                     {
-                        var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Miss)
+                        if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                            || processingChip.nチャンネル番号 == 0x1A
+                            || processingChip.nチャンネル番号 == 0x1B
+                            || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                         {
-                            // 判定が見過ごし不可ではない(=たたいて不可以上)
-                            // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
-                            afterChip = processingChip;
-                            continue;
+                            var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
+                                afterChip = processingChip;
+                                continue;
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
+                                pastChip = afterChip;
+                                break; // 検索終わり
+                            }
                         }
-                        else
+                    }
+                    if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
+                    {
+                        if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
                         {
-                            // 判定が不可だった
-                            // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
-                            pastChip = afterChip;
-                            break; // 検索終わり
+                            if (processingChip.nノーツ終了時刻ms > nowTime)
+                            {
+                                pastChip = processingChip;
+                                break;
+                            }
                         }
                     }
                 }
-                if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
-                {
-                    if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
+                else {
+                    if (!processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // まだ判定されてない音符
                     {
-                        if (processingChip.nノーツ終了時刻ms > nowTime)
+                        if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                            || processingChip.nチャンネル番号 == 0x1A
+                            || processingChip.nチャンネル番号 == 0x1B
+                            || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                         {
-                            pastChip = processingChip;
-                            break;
+                            var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
+                                afterChip = processingChip;
+                                continue;
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
+                                pastChip = afterChip;
+                                break; // 検索終わり
+                            }
+                        }
+                    }
+                    if (processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // 連打
+                    {
+                        if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
+                        {
+                            if (processingChip.nノーツ終了時刻ms > nowTime)
+                            {
+                                pastChip = processingChip;
+                                break;
+                            }
                         }
                     }
                 }
@@ -2427,27 +2469,57 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[futureNote];
-                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
+
+                if (n現在のコース[player] == nさっきまでのコース[player])
                 {
-                    if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
-                        || processingChip.nチャンネル番号 == 0x1A
-                        || processingChip.nチャンネル番号 == 0x1B
-                        || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
+                    if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                     {
-                        var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Miss)
+                        if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                            || processingChip.nチャンネル番号 == 0x1A
+                            || processingChip.nチャンネル番号 == 0x1B
+                            || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                         {
-                            // 判定が見過ごし不可ではない(=たたいて不可以上)
-                            // そのノートを処理すべきなので、検索終わり。
-                            futureChip = processingChip;
-                            break; // 検索終わり
+                            var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // そのノートを処理すべきなので、検索終わり。
+                                futureChip = processingChip;
+                                break; // 検索終わり
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // つまり未来に処理すべきノートはないので、検索終わり。
+                                futureChip = null; // 今処理中のノート
+                                break; // 検索終わり
+                            }
                         }
-                        else
+                    }
+                }
+                else {
+                    if (!processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // まだ判定されてない音符
+                    {
+                        if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                            || processingChip.nチャンネル番号 == 0x1A
+                            || processingChip.nチャンネル番号 == 0x1B
+                            || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                         {
-                            // 判定が不可だった
-                            // つまり未来に処理すべきノートはないので、検索終わり。
-                            futureChip = null; // 今処理中のノート
-                            break; // 検索終わり
+                            var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // そのノートを処理すべきなので、検索終わり。
+                                futureChip = processingChip;
+                                break; // 検索終わり
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // つまり未来に処理すべきノートはないので、検索終わり。
+                                futureChip = null; // 今処理中のノート
+                                break; // 検索終わり
+                            }
                         }
                     }
                 }
@@ -2535,35 +2607,73 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
+
+                if (n現在のコース[player] == nさっきまでのコース[player])
                 {
-                    if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
+                    if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                     {
-                        var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Miss)
+                        if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                         {
-                            // 判定が見過ごし不可ではない(=たたいて不可以上)
-                            // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
-                            afterChip = processingChip;
-                            continue;
+                            var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
+                                afterChip = processingChip;
+                                continue;
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
+                                pastChip = afterChip;
+                                break; // 検索終わり
+                            }
                         }
-                        else
+                    }
+                    if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
+                    {
+                        if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
                         {
-                            // 判定が不可だった
-                            // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
-                            pastChip = afterChip;
-                            break; // 検索終わり
+                            if (processingChip.nノーツ終了時刻ms > nowTime)
+                            {
+                                pastChip = processingChip;
+                                break;
+                            }
                         }
                     }
                 }
-                if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
-                {
-                    if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
+                else {
+                    if (!processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // まだ判定されてない音符
                     {
-                        if (processingChip.nノーツ終了時刻ms > nowTime)
+                        if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                         {
-                            pastChip = processingChip;
-                            break;
+                            var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
+                                afterChip = processingChip;
+                                continue;
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
+                                pastChip = afterChip;
+                                break; // 検索終わり
+                            }
+                        }
+                    }
+                    if (processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // 連打
+                    {
+                        if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
+                        {
+                            if (processingChip.nノーツ終了時刻ms > nowTime)
+                            {
+                                pastChip = processingChip;
+                                break;
+                            }
                         }
                     }
                 }
@@ -2579,24 +2689,51 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[futureNote];
-                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
+
+                if (n現在のコース[player] == nさっきまでのコース[player])
                 {
-                    if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
+                    if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                     {
-                        var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Miss)
+                        if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                         {
-                            // 判定が見過ごし不可ではない(=たたいて不可以上)
-                            // そのノートを処理すべきなので、検索終わり。
-                            futureChip = processingChip;
-                            break; // 検索終わり
+                            var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // そのノートを処理すべきなので、検索終わり。
+                                futureChip = processingChip;
+                                break; // 検索終わり
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // つまり未来に処理すべきノートはないので、検索終わり。
+                                futureChip = null; // 今処理中のノート
+                                break; // 検索終わり
+                            }
                         }
-                        else
+                    }
+                }
+                else {
+                    if (!processingChip.IsHitted && processingChip.nコース == nさっきまでのコース[player]) // まだ判定されてない音符
+                    {
+                        if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                         {
-                            // 判定が不可だった
-                            // つまり未来に処理すべきノートはないので、検索終わり。
-                            futureChip = null; // 今処理中のノート
-                            break; // 検索終わり
+                            var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                            if (thisChipJudge != E判定.Miss)
+                            {
+                                // 判定が見過ごし不可ではない(=たたいて不可以上)
+                                // そのノートを処理すべきなので、検索終わり。
+                                futureChip = processingChip;
+                                break; // 検索終わり
+                            }
+                            else
+                            {
+                                // 判定が不可だった
+                                // つまり未来に処理すべきノートはないので、検索終わり。
+                                futureChip = null; // 今処理中のノート
+                                break; // 検索終わり
+                            }
                         }
                     }
                 }
@@ -3190,7 +3327,11 @@ namespace TJAPlayer3
 
                     var dbSCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 
+
+
+
                     pChip.nバーからの距離dot.Taiko = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * ( db現在の譜面スクロール速度.Drums + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+
                     if ( pChip.nノーツ終了時刻ms != 0 )
                         pChip.nバーからのノーツ末端距離dot.Taiko = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( db現在の譜面スクロール速度.Drums + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
                 }
