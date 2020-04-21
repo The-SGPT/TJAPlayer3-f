@@ -1649,8 +1649,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW != null)
 					{
 						double opatmp = Math.Cos(ct分岐フェード用タイマー.n現在の値 / 100.0) + 0.5;
-						opatmp = Math.Max(opatmp, 0.0);
-						opatmp = Math.Min(opatmp, 1.0);
+						opatmp = C変換.db値を文字列から取得して範囲内に丸めて返す(opatmp.ToString(), 0.0, 1.0, opatmp);
 
 						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)(opatmp * 255.0);
 
