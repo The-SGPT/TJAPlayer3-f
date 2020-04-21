@@ -2884,7 +2884,7 @@ namespace TJAPlayer3
 				{	// escape (exit)
                     this.t演奏中止();
 				}
-                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D1 ) )
+                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D1 ) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)
                 {
                     if (!TJAPlayer3.DTX.bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度]) return;
 
@@ -2896,7 +2896,7 @@ namespace TJAPlayer3
                     this.n次回のコース[ 0 ] = 0;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
-                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D2 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D2) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
                     if (!TJAPlayer3.DTX.bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度]) return;
 
@@ -2908,7 +2908,7 @@ namespace TJAPlayer3
                     this.n次回のコース[ 0 ] = 1;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
-                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D3 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+                else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D3) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
                     if (!TJAPlayer3.DTX.bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度]) return;
 
@@ -2920,6 +2920,39 @@ namespace TJAPlayer3
                     this.n次回のコース[ 0 ] = 2;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
+                else if (keyboard.bキーが押された((int)SlimDX.DirectInput.Key.PageUp) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)		// 2020.04.20 Mr-Ojii なんかつけたくなったから。PgUpで一個↑
+                {
+                    if (!TJAPlayer3.DTX.bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度]) return;
+
+                    int tugi = this.n現在のコース[0] + 1;
+                    tugi = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す(tugi.ToString(), 0, 2, tugi);
+                    if (tugi == n現在のコース[0]) return;
+
+                    if (this.n分岐した回数[0] < TJAPlayer3.DTX.listBRANCH.Count)
+                        this.t分岐処理(2, TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[0]].n命令時のChipList番号, 0);
+                    TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(this.n現在のコース[0], tugi, 0);
+                    TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(this.n現在のコース[0], tugi, 0);
+                    this.n現在のコース[0] = tugi;
+                    this.n次回のコース[0] = tugi;
+                    this.b強制的に分岐させた[0] = true;
+                }
+                else if (keyboard.bキーが押された((int)SlimDX.DirectInput.Key.PageDown) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)		// 2020.04.21 Mr-Ojii なんかつけたくなったから。PgDnで一個↓
+                {
+                    if (!TJAPlayer3.DTX.bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度]) return;
+
+                    int tugi = this.n現在のコース[0] - 1;
+                    tugi = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す(tugi.ToString(), 0, 2, tugi);
+                    if (tugi == n現在のコース[0]) return;
+
+                    if (this.n分岐した回数[0] < TJAPlayer3.DTX.listBRANCH.Count)
+                        this.t分岐処理(2, TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[0]].n命令時のChipList番号, 0);
+                    TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(this.n現在のコース[0], tugi, 0);
+                    TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(this.n現在のコース[0], tugi, 0);
+                    this.n現在のコース[0] = tugi;
+                    this.n次回のコース[0] = tugi;
+                    this.b強制的に分岐させた[0] = true;
+                }
+
                 //else if (keyboard.bキーが押された((int)SlimDX.DirectInput.Key.D1))
                 //{
                 //    if (this.n分岐した回数[1] < CDTXMania.DTX.listBRANCH.Count)
@@ -2951,7 +2984,7 @@ namespace TJAPlayer3
                 //    this.b強制的に分岐させた = true;
                 //}
 
-				if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
+                if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
 				{
                     if( TJAPlayer3.ConfigIni.bJudgeCountDisplay == false )
                         TJAPlayer3.ConfigIni.bJudgeCountDisplay = true;
