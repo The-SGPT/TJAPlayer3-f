@@ -386,6 +386,8 @@ namespace TJAPlayer3
             public int nList上の位置;
             public bool IsFixedSENote;
             public bool IsHitted = false;
+            public double n条件数値A;
+            public double n条件数値B;
             public bool bBPMチップである
             {
                 get
@@ -3638,6 +3640,8 @@ namespace TJAPlayer3
                 //chip.n発声時刻ms = (int)this.dbLastTime;
                 chip.dbSCROLL = this.dbNowScroll;
                 chip.dbBPM = this.dbNowBPM;
+                chip.n条件数値A = nNum[0];
+                chip.n条件数値B = nNum[1];
                 chip.n整数値_内部番号 = this.n内部番号BRANCH1to;
 
                 // チップを配置。

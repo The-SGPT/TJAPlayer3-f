@@ -198,7 +198,7 @@ namespace TJAPlayer3
                 if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
                 {
                     #region[ 動いていない ]
-                    switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
+                    switch (TJAPlayer3.stage演奏ドラム画面.nレーン用表示コース[i])
                     {
                         case 0:
                             if (TJAPlayer3.Tx.Lane_Base[0] != null)
