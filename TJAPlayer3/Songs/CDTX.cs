@@ -3655,6 +3655,8 @@ namespace TJAPlayer3
                 chip2.n発声時刻ms = (int)this.dbNowTime;
                 chip2.dbSCROLL = this.dbNowScroll;
                 chip2.dbBPM = this.dbNowBPM;
+                chip2.n条件数値A = nNum[0];
+                chip2.n条件数値B = nNum[1];
                 chip2.n整数値_内部番号 = this.n内部番号BRANCH1to;
 
                 this.listChip.Add(chip2);
@@ -4056,7 +4058,7 @@ namespace TJAPlayer3
 
                                 if (nObjectNum == 7 || nObjectNum == 9)
                                 {
-                                    switch (this.n現在のコース)
+                                    switch (chip.nコース)
                                     {
                                         case 0:
                                             if (this.listBalloon_Normal.Count == 0)
