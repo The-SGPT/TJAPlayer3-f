@@ -2902,7 +2902,10 @@ namespace TJAPlayer3
                         this.t分岐処理(this.b強制分岐譜面[0], this.n現在のコース[0], 0, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.nレーン用表示コース[ 0 ], 0, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.nレーン用表示コース[ 0 ], 0, 0 );
-                    this.n現在のコース[ 0 ] = 0;
+                    if (this.b強制分岐譜面[0])
+                        this.n現在のコース[0] = N強制コース元[0];
+                    else
+                        this.n現在のコース[ 0 ] = 0;
                     this.n次回のコース[ 0 ] = 0;
                     this.nレーン用表示コース[0] = 0;
                     this.b強制的に分岐させた[ 0 ] = true;
@@ -2915,7 +2918,10 @@ namespace TJAPlayer3
                         this.t分岐処理(this.b強制分岐譜面[0], this.n現在のコース[0] ,1, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.nレーン用表示コース[ 0 ], 1, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.nレーン用表示コース[ 0 ], 1, 0 );
-                    this.n現在のコース[ 0 ] = 1;
+                    if (this.b強制分岐譜面[0])
+                        this.n現在のコース[0] = N強制コース元[0];
+                    else
+                        this.n現在のコース[ 0 ] = 1;
                     this.n次回のコース[ 0 ] = 1;
                     this.nレーン用表示コース[ 0 ] = 1;
                     this.b強制的に分岐させた[ 0 ] = true;
@@ -2928,7 +2934,10 @@ namespace TJAPlayer3
                         this.t分岐処理(this.b強制分岐譜面[0], this.n現在のコース[0] ,2, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.nレーン用表示コース[ 0 ], 2, 0 );
                     TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.nレーン用表示コース[ 0 ], 2, 0 );
-                    this.n現在のコース[ 0 ] = 2;
+                    if (this.b強制分岐譜面[0])
+                        this.n現在のコース[0] = N強制コース元[0];
+                    else
+                        this.n現在のコース[ 0 ] = 2;
                     this.n次回のコース[ 0 ] = 2;
                     this.nレーン用表示コース[ 0 ] = 2;
                     this.b強制的に分岐させた[ 0 ] = true;
@@ -2945,7 +2954,10 @@ namespace TJAPlayer3
                         this.t分岐処理(this.b強制分岐譜面[0], this.n現在のコース[0], tugi, TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[0]].n命令時のChipList番号, 0);
                     TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(this.nレーン用表示コース[0], tugi, 0);
                     TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(this.nレーン用表示コース[0], tugi, 0);
-                    this.n現在のコース[0] = tugi;
+                    if (this.b強制分岐譜面[0])
+                        this.n現在のコース[0] = N強制コース元[0];
+                    else
+                        this.n現在のコース[0] = tugi;
                     this.n次回のコース[0] = tugi;
                     this.nレーン用表示コース[0] = tugi;
                     this.b強制的に分岐させた[0] = true;
@@ -2962,7 +2974,10 @@ namespace TJAPlayer3
                         this.t分岐処理(this.b強制分岐譜面[0], this.n現在のコース[0],tugi, TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[0]].n命令時のChipList番号, 0);
                     TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(this.nレーン用表示コース[0], tugi, 0);
                     TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(this.nレーン用表示コース[0], tugi, 0);
-                    this.n現在のコース[0] = tugi;
+                    if (this.b強制分岐譜面[0])
+                        this.n現在のコース[0] = N強制コース元[0];
+                    else
+                        this.n現在のコース[0] = tugi;
                     this.n次回のコース[0] = tugi;
                     this.nレーン用表示コース[0] = tugi;
                     this.b強制的に分岐させた[0] = true;
@@ -3952,7 +3967,7 @@ namespace TJAPlayer3
                             TJAPlayer3.stage演奏ドラム画面.bUseBranch[ nPlayer ] = true;
                             if( !this.bLEVELHOLD[ nPlayer ] )
                             {
-                                this.t強制用条件かを判断する(pChip.n条件数値A, pChip.n条件数値B, nPlayer);
+                                this.t強制用条件かを判断する(pChip.n条件数値A, pChip.n条件数値B, nPlayer, this.n現在のコース[nPlayer]);
 
 
                             
@@ -3969,6 +3984,9 @@ namespace TJAPlayer3
                                 if (!this.b強制分岐譜面[nPlayer])
                                 {
                                     this.n現在のコース[nPlayer] = this.n次回のコース[nPlayer];
+                                }
+                                else {
+                                    this.n現在のコース[nPlayer] = this.N強制コース元[nPlayer];
                                 }
                             }
                                 this.n分岐した回数[ nPlayer ]++;
@@ -3988,6 +4006,7 @@ namespace TJAPlayer3
                             if (this.b強制分岐譜面[nPlayer])
                             {
                                 this.nレーン用表示コース[nPlayer] = this.n次回のコース[nPlayer];
+                                this.n現在のコース[nPlayer] = this.N強制コース元[nPlayer];
                             }
                             else
                             {
@@ -4251,7 +4270,8 @@ namespace TJAPlayer3
 
         //2020.04.23 Mr-Ojii akasokoさんの分岐方法を参考にして、追加
         private int[] N強制コース = new int[4];
-        private void t強制用条件かを判断する(double db条件A, double db条件B, int nPlayer)
+        private int[] N強制コース元 = new int[4];
+        private void t強制用条件かを判断する(double db条件A, double db条件B, int nPlayer,int n現在)
         {
             //Wiki参考
             //成仏
@@ -4259,16 +4279,19 @@ namespace TJAPlayer3
             if (db条件A == 101 && db条件B == 102) //強制普通譜面
             {
                 N強制コース[nPlayer] = 0;
+                N強制コース元[nPlayer] = n現在;
                 this.b強制分岐譜面[nPlayer] = true;
             }
             else if (db条件A == -1 && db条件B == 101)  //強制玄人譜面
             {
                 N強制コース[nPlayer] = 1;
+                N強制コース元[nPlayer] = n現在;
                 this.b強制分岐譜面[nPlayer] = true;
             }
             else if (db条件A == -2 && db条件B == -1)   //強制達人譜面
             {
                 N強制コース[nPlayer] = 2;
+                N強制コース元[nPlayer] = n現在;
                 this.b強制分岐譜面[nPlayer] = true;
             }
             else
