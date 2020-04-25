@@ -164,12 +164,12 @@ namespace TJAPlayer3
                             {
                                 dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
                             }
-                            dbDamageRate = 0.625f;
+                            dbDamageRate = 1.6f;
                         }
                         else
                         {
                             dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
-                            dbDamageRate = 0.625f;
+                            dbDamageRate = 1.6f;
                         }
                         break;
                     }
@@ -184,12 +184,10 @@ namespace TJAPlayer3
                             {
                                 dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
                             }
-                            dbDamageRate = 0.625f;
                         }
                         else
                         {
                             dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
-                            dbDamageRate = 0.625f;
                         }
                         break;
                     }
