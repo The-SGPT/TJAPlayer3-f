@@ -11,15 +11,15 @@ namespace TJAPlayer3
 {
 	internal class CActSelectQuickConfig : CActSelectPopupMenu
 	{
-		private readonly string QuickCfgTitle = "Quick Config";
+		private readonly string QuickCfgTitle = "P Quick Config";
 		// コンストラクタ
 
 		public CActSelectQuickConfig()
 		{
-			CActSelectQuickConfigMain();
+			CActSelectQuickConfigMain(0);
 		}
 
-		private void CActSelectQuickConfigMain()
+		private void CActSelectQuickConfigMain(int nPlayer)
 		{
 /*
 •Target: Drums/Guitar/Bass 
@@ -40,14 +40,17 @@ namespace TJAPlayer3
 				for ( int nInst = 0; nInst < 3; nInst++ )
 				{
 					lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
-					lci[ nConfSet ][ nInst ] = MakeListCItemBase( nConfSet, nInst );
+					lci[ nConfSet ][ nInst ] = MakeListCItemBase( nConfSet, nInst ,nPlayer);
 				}
 			}
-			base.Initialize( lci[ nCurrentConfigSet ][ 0 ], true, QuickCfgTitle, 0 );	// ConfSet=0, nInst=Drums
+			base.Initialize( lci[ 0 ][ 0 ], true, (nPlayer+1).ToString() + QuickCfgTitle, 0 );	// ConfSet=0, nInst=Drums
 		}
 
-		private List<CItemBase> MakeListCItemBase( int nConfigSet, int nInst )
+
+
+		private List<CItemBase> MakeListCItemBase( int nConfigSet, int nInst,int nPlayer )
 		{
+			this.nPlayer = nPlayer;
 			List<CItemBase> l = new List<CItemBase>();
 
 			#region [ 共通 Target/AutoMode/AutoLane ]
@@ -79,7 +82,7 @@ namespace TJAPlayer3
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
-            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH,
+            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
 				"",
 				new string[] { "OFF", "ドロン", "ステルス" } ) );
             l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eGameMode,
@@ -104,11 +107,12 @@ namespace TJAPlayer3
 		}
 
 		// メソッド
-		public override void tActivatePopupMenu( E楽器パート einst )
+		public override void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
 		{
-			this.CActSelectQuickConfigMain();
-			base.tActivatePopupMenu( einst );
+			this.CActSelectQuickConfigMain(nPlayer);
+			base.tActivatePopupMenu( einst ,nPlayer);
 		}
+
 		//public void tDeativatePopupMenu()
 		//{
 		//	base.tDeativatePopupMenu();
@@ -126,7 +130,6 @@ namespace TJAPlayer3
 				case (int) EOrder.ScrollSpeed:
 					TJAPlayer3.ConfigIni.n譜面スクロール速度[ nCurrentTarget ] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
 					break;
-
 				case (int) EOrder.PlaySpeed:
 					TJAPlayer3.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
 					break;
@@ -134,7 +137,7 @@ namespace TJAPlayer3
                     TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
 					break;
 				case (int) EOrder.Stealth:
-                    TJAPlayer3.ConfigIni.eSTEALTH = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
+                    TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
 					break;
 				case (int) EOrder.GameMode:
                     EGame game = EGame.OFF;
@@ -259,6 +262,7 @@ namespace TJAPlayer3
 		//private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
         private CTexture tx説明文1;
+		private int nPlayer;
 		//-----------------
 		#endregion
 	}

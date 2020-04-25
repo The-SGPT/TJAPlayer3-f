@@ -52,7 +52,7 @@ namespace TJAPlayer3
                 return this.act曲リスト.bスクロール中;
             }
         }
-        public int n確定された曲の難易度
+		public int[] n確定された曲の難易度
         {
             get;
             private set;
@@ -172,7 +172,8 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-                this.eフェードアウト完了時の戻り値 = E戻り値.継続;
+				this.n確定された曲の難易度 = new int[4];
+				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
 				this.ftフォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel );
 				for( int i = 0; i < 4; i++ )
@@ -355,11 +356,11 @@ namespace TJAPlayer3
                 #region[ 下部テキスト ]
                 if (TJAPlayer3.Tx.SongSelect_Auto != null)
                 {
-                    if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay)
+                    if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])
                     {
                         TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongSelect_Auto_X[0], TJAPlayer3.Skin.SongSelect_Auto_Y[0]);
                     }
-                    if (TJAPlayer3.ConfigIni.nPlayerCount > 1 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P)
+                    if (TJAPlayer3.ConfigIni.nPlayerCount > 1 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1])
                     {
                         TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongSelect_Auto_X[1], TJAPlayer3.Skin.SongSelect_Auto_Y[1]);
                     }
@@ -475,14 +476,14 @@ namespace TJAPlayer3
 						if ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F2 ) )
 						{
                             TJAPlayer3.Skin.sound変更音.t再生する();
-                            this.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS );
+                            this.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS , 0);
 						}
 						#endregion
 						#region [ F3 1PオートON/OFF ]
 						if ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
 						{
 							TJAPlayer3.Skin.sound変更音.t再生する();
-                            C共通.bToggleBoolian( ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay );
+                            C共通.bToggleBoolian( ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] );
 						}
                         #endregion
                         #region [ F4 2PオートON/OFF ]
@@ -491,7 +492,7 @@ namespace TJAPlayer3
                             if (TJAPlayer3.ConfigIni.nPlayerCount > 1)
                             {
                                 TJAPlayer3.Skin.sound変更音.t再生する();
-                                C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P);
+                                C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1]);
                             }
                         }
                         #endregion
@@ -520,6 +521,13 @@ namespace TJAPlayer3
                                     TJAPlayer3.ConfigIni.bスクロールモードを上書き = false;
                                     break;
                             }
+						}
+						#endregion
+						#region [ F7 2P簡易オプション ]//まだ1Pの設定しか開けない
+						if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.F7))
+						{
+							TJAPlayer3.Skin.sound変更音.t再生する();
+							this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS , 1);
 						}
 						#endregion
 						if ( this.act曲リスト.r現在選択中の曲 != null )
@@ -979,8 +987,8 @@ namespace TJAPlayer3
 				}
 			}
 			this.r確定された曲 = song.listランダム用ノードリスト[ song.stackランダム演奏番号.Pop() ];
-			this.n確定された曲の難易度 = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲 );
-			this.r確定されたスコア = this.r確定された曲.arスコア[ this.n確定された曲の難易度 ];
+			this.n確定された曲の難易度[0] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲 );
+			this.r確定されたスコア = this.r確定された曲.arスコア[ this.n確定された曲の難易度[0] ];
             this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
 			this.actFOtoNowLoading.tフェードアウト開始();					// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
@@ -1009,7 +1017,7 @@ namespace TJAPlayer3
 		{
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
-			this.n確定された曲の難易度 = this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
+			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
             this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
             if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
@@ -1023,7 +1031,7 @@ namespace TJAPlayer3
 		{
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
-			this.n確定された曲の難易度 = nCurrentLevel;
+			this.n確定された曲の難易度[0] = nCurrentLevel;
             this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
             if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{

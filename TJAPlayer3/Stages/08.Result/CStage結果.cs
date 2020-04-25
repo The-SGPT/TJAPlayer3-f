@@ -88,15 +88,15 @@ namespace TJAPlayer3
 						switch( i )
 						{
 							case 0:
-                                bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay;
+                                bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 								break;
 
 							case 1:
-								bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay;
+								bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 								break;
 
 							case 2:
-								bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay;
+								bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 								break;
 						}
 						this.fPerfect率[ i ] = bIsAutoPlay ? 0f : ( ( 100f * part.nPerfect数 ) / ( (float) part.n全チップ数 ) );
@@ -140,7 +140,7 @@ namespace TJAPlayer3
 					}
 
 					// 新記録スコアチェック
-					if( ( this.st演奏記録[ i ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
+					if( ( this.st演奏記録[ i ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
 					{
 						this.b新記録スコア[ i ] = true;
 						ini.stセクション[ i * 2 ] = this.st演奏記録[ i ];
@@ -155,7 +155,7 @@ namespace TJAPlayer3
 
 					// ラストプレイ #23595 2011.1.9 ikanick
                     // オートじゃなければプレイ結果を書き込む
-                    if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay == false ) {
+                    if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
                         ini.stセクション[i + 6] = this.st演奏記録[ i ];
                     }
 
@@ -245,7 +245,7 @@ namespace TJAPlayer3
                 #endregion
 
                 // Discord Presenseの更新
-                Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
+                Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
 
                 base.On活性化();
 			}

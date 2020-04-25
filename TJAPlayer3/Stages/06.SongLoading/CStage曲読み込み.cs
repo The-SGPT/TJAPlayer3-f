@@ -93,7 +93,7 @@ namespace TJAPlayer3
 			    // player and the special song title and subtitle
 			    // of the .tja used to perform input calibration
 			    TJAPlayer3.IsPerformingCalibration =
-			        !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay &&
+			        !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] &&
 			        TJAPlayer3.ConfigIni.nPlayerCount == 1 &&
 			        str曲タイトル == "Input Calibration" &&
 			        strサブタイトル == "TJAPlayer3 Developers";
@@ -362,7 +362,7 @@ namespace TJAPlayer3
     						Trace.TraceInformation( "DTX読込所要時間:           {0}", span.ToString() );
 
                             // 段位認定モード用。
-                            if (TJAPlayer3.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan && TJAPlayer3.DTX.List_DanSongs != null)
+                            if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX.List_DanSongs != null)
                             {
                                 var pfTitle = new CPrivateFont();
                                 var pfSubTitle = new CPrivateFont();
