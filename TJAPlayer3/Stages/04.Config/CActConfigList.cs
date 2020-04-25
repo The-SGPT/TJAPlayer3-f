@@ -597,14 +597,14 @@ namespace TJAPlayer3
             //    " automatically." );
             //this.list項目リスト.Add( this.iDrumsLeftBassDrum );
 
-			this.iTaikoAutoPlay = new CItemToggle( "AUTO PLAY", TJAPlayer3.ConfigIni.b太鼓パートAutoPlay,
+			this.iTaikoAutoPlay = new CItemToggle( "AUTO PLAY", TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0],
 				"すべての音符を自動で演奏します。\n" +
 				"",
 				"To play both Taiko\n" +
 				" automatically." );
 			this.list項目リスト.Add( this.iTaikoAutoPlay );
 
-			this.iTaikoAutoPlay2P = new CItemToggle( "AUTO PLAY 2P", TJAPlayer3.ConfigIni.b太鼓パートAutoPlay,
+			this.iTaikoAutoPlay2P = new CItemToggle( "AUTO PLAY 2P", TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1],
 				"すべての音符を自動で演奏します。\n" +
 				"",
 				"To play both Taiko\n" +
@@ -733,13 +733,21 @@ namespace TJAPlayer3
 				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" } );
 			this.list項目リスト.Add( this.iTaikoRandom );
 
-			this.iTaikoStealth = new CItemList( "Stealth", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH,
+			this.iTaikoStealthP1 = new CItemList( "1P Stealth", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[0],
 				"DORON:ドロン\n"+
                 "STEALTH:ステルス",
 				"DORON:Hidden for NoteImage.\n"+
                 "STEALTH:Hidden for NoteImage and SeNotes",
 				new string[] { "OFF", "DORON", "STEALTH" } );
-			this.list項目リスト.Add( this.iTaikoStealth );
+			this.list項目リスト.Add( this.iTaikoStealthP1 );
+
+			this.iTaikoStealthP2 = new CItemList("2P Stealth", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eSTEALTH[1],
+				"DORON:ドロン\n" +
+				"STEALTH:ステルス",
+				"DORON:Hidden for NoteImage.\n" +
+				"STEALTH:Hidden for NoteImage and SeNotes",
+				new string[] { "OFF", "DORON", "STEALTH" });
+			this.list項目リスト.Add(this.iTaikoStealthP2);
 
 			this.iTaikoNoInfo = new CItemToggle( "NoInfo", TJAPlayer3.ConfigIni.bNoInfo,
 				"有効にすると曲情報などが見えなくなります。\n" +
@@ -2224,8 +2232,9 @@ namespace TJAPlayer3
         private CItemToggle iTaikoChara;
         private CItemToggle iTaikoNoInfo;
 		private CItemList iTaikoRandom;
-        private CItemList iTaikoStealth;
-        private CItemList iTaikoGameMode;
+        private CItemList iTaikoStealthP1;
+		private CItemList iTaikoStealthP2;
+		private CItemList iTaikoGameMode;
         private CItemToggle iTaikoJust;
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
@@ -2412,8 +2421,8 @@ namespace TJAPlayer3
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
-            TJAPlayer3.ConfigIni.b太鼓パートAutoPlay = this.iTaikoAutoPlay.bON;
-            TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P = this.iTaikoAutoPlay2P.bON;
+            TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = this.iTaikoAutoPlay.bON;
+            TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = this.iTaikoAutoPlay2P.bON;
             TJAPlayer3.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
 			TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums = this.iDrumsScrollSpeed.n現在の値;
@@ -2443,8 +2452,9 @@ namespace TJAPlayer3
             //CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
             TJAPlayer3.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
             TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)this.iTaikoRandom.n現在選択されている項目番号;
-            TJAPlayer3.ConfigIni.eSTEALTH = (Eステルスモード)this.iTaikoStealth.n現在選択されている項目番号;
-            TJAPlayer3.ConfigIni.eGameMode = (EGame)this.iTaikoGameMode.n現在選択されている項目番号;
+            TJAPlayer3.ConfigIni.eSTEALTH[0] = (Eステルスモード)this.iTaikoStealthP1.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eSTEALTH[1] = (Eステルスモード)this.iTaikoStealthP2.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eGameMode = (EGame)this.iTaikoGameMode.n現在選択されている項目番号;
             TJAPlayer3.ConfigIni.bJust = this.iTaikoJust.bON;
             TJAPlayer3.ConfigIni.bJudgeCountDisplay = this.iTaikoJudgeCountDisp.bON;
             TJAPlayer3.ConfigIni.b大音符判定 = this.iTaikoBigNotesJudge.bON;

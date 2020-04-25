@@ -732,8 +732,7 @@ namespace TJAPlayer3
 
 
         public int nPlayerCount; //2017.08.18 kairera0467 マルチプレイ対応
-        public bool b太鼓パートAutoPlay;
-        public bool b太鼓パートAutoPlay2P; //2017.08.16 kairera0467 マルチプレイ対応
+        public bool[] b太鼓パートAutoPlay = new bool[4];//2020.04.26 Mr-Ojii Auto変数の配列化
         public bool bAuto先生の連打;
         public bool b大音符判定;
         public int n両手判定の待ち時間;
@@ -757,7 +756,7 @@ namespace TJAPlayer3
         public bool bスクロールモードを上書き = false;
 
         public bool bHispeedRandom;
-        public Eステルスモード eSTEALTH;
+        public Eステルスモード[] eSTEALTH = new Eステルスモード[4];
         public bool bNoInfo;
 
         public int nDefaultSongSort;
@@ -1342,8 +1341,8 @@ namespace TJAPlayer3
 			#region [ AutoPlay ]
 			this.bAutoPlay = new STAUTOPLAY();
 
-            this.b太鼓パートAutoPlay = true;
-            this.b太鼓パートAutoPlay2P = true;
+            this.b太鼓パートAutoPlay[0] = true;
+            this.b太鼓パートAutoPlay[1] = true;
             this.bAuto先生の連打 = true;
 			#endregion
 			this.nヒット範囲ms = new STRANGE();
@@ -1416,8 +1415,9 @@ namespace TJAPlayer3
             ShowMob = true;
             ShowPuchiChara = true;
 
-            this.eSTEALTH = Eステルスモード.OFF;
-            this.bNoInfo = false;
+            this.eSTEALTH[0] = Eステルスモード.OFF;
+			this.eSTEALTH[1] = Eステルスモード.OFF;
+			this.bNoInfo = false;
             
             //this.bNoMP3Streaming = false;
 			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
@@ -1775,8 +1775,8 @@ namespace TJAPlayer3
             sw.WriteLine("[AutoPlay]");
             sw.WriteLine();
             sw.WriteLine("; 自動演奏(0:OFF, 1:ON)");
-            sw.WriteLine("Taiko={0}", this.b太鼓パートAutoPlay ? 1 : 0);
-            sw.WriteLine("Taiko2P={0}", this.b太鼓パートAutoPlay2P ? 1 : 0);
+            sw.WriteLine("Taiko={0}", this.b太鼓パートAutoPlay[0] ? 1 : 0);
+            sw.WriteLine("Taiko2P={0}", this.b太鼓パートAutoPlay[1] ? 1 : 0);
             sw.WriteLine("TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0);
             sw.WriteLine();
             sw.WriteLine(";-------------------");
@@ -1919,10 +1919,11 @@ namespace TJAPlayer3
             sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
 			sw.WriteLine( "TaikoRandom={0}", (int) this.eRandom.Taiko );
 			sw.WriteLine();
-            sw.WriteLine( "; STEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
-			sw.WriteLine( "TaikoStealth={0}", (int) this.eSTEALTH );
+            sw.WriteLine( "; 1PSTEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
+			sw.WriteLine( "1PTaikoStealth={0}", (int) this.eSTEALTH[0] );
+			sw.WriteLine( "2PTaikoStealth={0}", (int) this.eSTEALTH[1] );
 			sw.WriteLine();
-            sw.WriteLine( "; ゲーム(0:OFF, 1:完走!叩ききりまショー!, 2:完走!叩ききりまショー!(激辛) )" );
+			sw.WriteLine( "; ゲーム(0:OFF, 1:完走!叩ききりまショー!, 2:完走!叩ききりまショー!(激辛) )" );
 			sw.WriteLine( "GameMode={0}", (int) this.eGameMode );
 			sw.WriteLine();
             sw.WriteLine( "; JUST(0:OFF, 1:ON)" );
@@ -2513,11 +2514,11 @@ namespace TJAPlayer3
                                     case Eセクション種別.AutoPlay:
                                         if (str3.Equals("Taiko"))
                                         {
-                                            this.b太鼓パートAutoPlay = C変換.bONorOFF(str4[0]);
+                                            this.b太鼓パートAutoPlay[0] = C変換.bONorOFF(str4[0]);
                                         }
                                         else if (str3.Equals("Taiko2P"))
                                         {
-                                            this.b太鼓パートAutoPlay2P = C変換.bONorOFF(str4[0]);
+                                            this.b太鼓パートAutoPlay[1] = C変換.bONorOFF(str4[0]);
                                         }
                                         else if (str3.Equals("TaikoAutoRoll"))
                                         {
@@ -2729,9 +2730,13 @@ namespace TJAPlayer3
 											{
 												this.eRandom.Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom.Taiko );
 											}
-											else if( str3.Equals( "TaikoStealth" ) )
+											else if( str3.Equals( "1PTaikoStealth" ) )
 											{
-												this.eSTEALTH = (Eステルスモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH );
+												this.eSTEALTH[0] = (Eステルスモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH[0] );
+											}
+											else if (str3.Equals("2PTaikoStealth"))
+											{
+												this.eSTEALTH[1] = (Eステルスモード)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 3, (int)this.eSTEALTH[1]);
 											}
 											else if( str3.Equals( "GameMode" ) )
 											{
@@ -3045,10 +3050,10 @@ LeftRed=K015
 RightRed=K019
 LeftBlue=K013
 RightBlue=K020
-LeftRed2P=
-RightRed2P=
-LeftBlue2P=
-RightBlue2P=
+LeftRed2P=K031
+RightRed2P=K022
+LeftBlue2P=K012
+RightBlue2P=K047
 
 [SystemKeyAssign]
 Capture=K065

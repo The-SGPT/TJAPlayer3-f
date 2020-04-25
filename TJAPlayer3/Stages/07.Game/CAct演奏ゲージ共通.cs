@@ -147,7 +147,7 @@ namespace TJAPlayer3
                 this.nRiskyTimes_Initial = TJAPlayer3.ConfigIni.nRisky;
             }
 
-            switch( TJAPlayer3.DTX.LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度] )
+            switch( TJAPlayer3.DTX.LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] )
             {
                 case 1:
                 case 2:
@@ -452,7 +452,7 @@ namespace TJAPlayer3
 
 				default:
                     {
-                        if( player == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P )
+                        if( player == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] )
                         {
                             if( TJAPlayer3.DTX.bチップがある.Branch )
                             {

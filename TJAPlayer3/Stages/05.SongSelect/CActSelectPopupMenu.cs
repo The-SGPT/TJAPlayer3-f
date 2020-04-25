@@ -39,7 +39,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public virtual void tActivatePopupMenu( E楽器パート einst )
+		public virtual void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
 		{
 			nItemSelecting = -1;		// #24757 2011.4.1 yyagi: Clear sorting status in each stating menu.
 			this.eInst = einst;
@@ -324,7 +324,7 @@ namespace TJAPlayer3
 				}
 				#endregion
 				#region [ ソートメニュータイトル描画 ]
-				int x = 240, y = 44;
+				int x = 210, y = 44;
 				stqMenuTitle.txName.t2D描画( TJAPlayer3.app.Device, x, y );
 				#endregion
 				#region [ カーソル描画 ]
