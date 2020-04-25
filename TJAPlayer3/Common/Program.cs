@@ -155,14 +155,45 @@ namespace TJAPlayer3
                         MessageBox.Show( "エラーが発生しました。\n" +
                             "原因がわからない場合は、以下のエラー文を添えて、エラー送信フォームに送信してください。\n" + 
                             e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );    // #23670 2011.2.28 yyagi to show error dialog
-						DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)",
+						DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)\n",
                             asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Asterisk);
-                        if(result == DialogResult.Yes)
-                        {
-                            Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?usp=pp_url&entry.1025217940=" + System.Web.HttpUtility.UrlEncode(e.ToString()));
-                        }
+						if (result == DialogResult.Yes)
+						{
+							DialogResult result2 = MessageBox.Show("GitHubのエラー送信フォームを開きますか?※GitHubアカウントが必要です。\n\nGoogleのエラー送信フォームを開きますか?※アカウントの必要なし\n\nGitHubのからのエラー報告のほうが「Mr.おじい」が早くエラーの存在に気づけます。\n(Y:GitHub / N:Google)",
+								asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
+								MessageBoxButtons.YesNo,
+								MessageBoxIcon.Asterisk);
+
+							if (result2 == DialogResult.Yes)
+							{
+								Process.Start("https://github.com/Mr-Ojii/TJAPlayer3-f/issues/new?body=エラー文(TJAPlayer3-fから開いた場合は自動入力されます)%0D%0A" +
+									System.Web.HttpUtility.UrlEncode(e.ToString()) +
+									"%0D%0A" +
+									"%0D%0A" +
+									"使用しているスキン名・バージョン%0D%0A" +
+									"%0D%0A" +
+									"%0D%0A" +
+									"バグを引き起こすまでの手順を書いてください%0D%0A" +
+									"%0D%0A" +
+									"%0D%0A" +
+									"再生していた譜面(.tja)または画面%0D%0A" +
+									"%0D%0A" +
+									"%0D%0A" +
+									"使用しているOS%0D%0A" +
+									"%0D%0A" +
+									"%0D%0A" +
+									"不具合の内容%0D%0A" +
+									"%0D%0A" +
+									"%0D%0A" +
+									"(追加情報を自由に書いてください(任意))%0D%0A");
+							}
+							else {
+								Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?entry.1025217940=" +
+									System.Web.HttpUtility.UrlEncode(e.ToString()));
+							}
+						}
 					}
 					// END #24606 2011.03.08 from
 					// END #23670 2010.11.13 from
