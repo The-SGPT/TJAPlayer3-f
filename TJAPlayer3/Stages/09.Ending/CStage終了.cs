@@ -56,12 +56,12 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-    //            this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
-    //            this.tx文字2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
-    //            this.tx文字3 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
+	//            this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
+	//            this.tx文字2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
+	//            this.tx文字3 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_text.png" ) );
 				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\9_background.jpg" ), false );
-    //            this.tx白 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ), false );
-    //            this.ds背景 = CDTXMania.t失敗してもスキップ可能なDirectShowを生成する( CSkin.Path( @"Graphics\9_background.mp4" ), CDTXMania.app.WindowHandle, true );
+	//            this.tx白 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ), false );
+	//            this.ds背景 = CDTXMania.t失敗してもスキップ可能なDirectShowを生成する( CSkin.Path( @"Graphics\9_background.mp4" ), CDTXMania.app.WindowHandle, true );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -70,33 +70,33 @@ namespace TJAPlayer3
 			if( !base.b活性化してない )
 			{
 				//CDTXMania.tテクスチャの解放( ref this.tx背景 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx文字 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx文字2 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx文字3 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx白 );
-    //            CDTXMania.t安全にDisposeする( ref this.ds背景 );
+	//            CDTXMania.tテクスチャの解放( ref this.tx文字 );
+	//            CDTXMania.tテクスチャの解放( ref this.tx文字2 );
+	//            CDTXMania.tテクスチャの解放( ref this.tx文字3 );
+	//            CDTXMania.tテクスチャの解放( ref this.tx白 );
+	//            CDTXMania.t安全にDisposeする( ref this.ds背景 );
 				base.OnManagedリソースの解放();
 			}
 		}
 		public override int On進行描画()
 		{
-            if( !TJAPlayer3.ConfigIni.bEndingAnime ) //2017.01.27 DD
-            {
-                return 1;
-            }
-            //if( this.ds背景 != null )
-            //{
-            //    this.ds背景.t再生開始();
-                
-            //    this.ds背景.t現時点における最新のスナップイメージをTextureに転写する( this.tx背景 );
-            //}
+			if( !TJAPlayer3.ConfigIni.bEndingAnime ) //2017.01.27 DD
+			{
+				return 1;
+			}
+			//if( this.ds背景 != null )
+			//{
+			//    this.ds背景.t再生開始();
+				
+			//    this.ds背景.t現時点における最新のスナップイメージをTextureに転写する( this.tx背景 );
+			//}
 			if( !base.b活性化してない )
 			{
 				if( base.b初めての進行描画 )
 				{
 					TJAPlayer3.Skin.soundゲーム終了音.t再生する();
 					this.ct時間稼ぎ.t開始( 0, 3000, 1, TJAPlayer3.Timer );
-                    base.b初めての進行描画 = false;
+					base.b初めての進行描画 = false;
 				}
 				this.ct時間稼ぎ.t進行();
 				if (TJAPlayer3.Tx.Title_Background != null)

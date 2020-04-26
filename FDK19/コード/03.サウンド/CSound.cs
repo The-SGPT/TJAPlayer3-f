@@ -363,11 +363,11 @@ namespace FDK
 		}
 		public CSound tサウンドを生成する( string filename, ESoundGroup soundGroup )
 		{
-            if( !File.Exists( filename ) )
-            {
-                Trace.TraceWarning($"[i18n] File does not exist: {filename}");
-                return null;
-            }
+			if( !File.Exists( filename ) )
+			{
+				Trace.TraceWarning($"[i18n] File does not exist: {filename}");
+				return null;
+			}
 
 			if ( SoundDeviceType == ESoundDeviceType.Unknown )
 			{
@@ -400,7 +400,7 @@ namespace FDK
 
 		public void tサウンドを破棄する( CSound csound )
 		{
-		    csound?.t解放する( true );			// インスタンスは存続→破棄にする。
+			csound?.t解放する( true );			// インスタンスは存続→破棄にする。
 		}
 
 		public float GetCPUusage()
@@ -468,30 +468,30 @@ namespace FDK
 
 	public class CSound : IDisposable
 	{
-	    public const int MinimumSongVol = 0;
-	    public const int MaximumSongVol = 200; // support an approximate doubling in volume.
-	    public const int DefaultSongVol = 100;
+		public const int MinimumSongVol = 0;
+		public const int MaximumSongVol = 200; // support an approximate doubling in volume.
+		public const int DefaultSongVol = 100;
 
-	    // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
-	    // We will revisit this if/when song select BGM fade-in/fade-out needs
-	    // updating due to changing the type or range of AutomationLevel
-	    public const int MaximumAutomationLevel = 100;
-	    public const int DefaultAutomationLevel = 100;
+		// 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
+		// We will revisit this if/when song select BGM fade-in/fade-out needs
+		// updating due to changing the type or range of AutomationLevel
+		public const int MaximumAutomationLevel = 100;
+		public const int DefaultAutomationLevel = 100;
 
-	    public const int MinimumGroupLevel = 0;
-	    public const int MaximumGroupLevel = 100;
-	    public const int DefaultGroupLevel = 100;
-	    public const int DefaultSoundEffectLevel = 80;
-	    public const int DefaultVoiceLevel = 90;
-	    public const int DefaultSongPreviewLevel = 75;
-	    public const int DefaultSongPlaybackLevel = 90;
+		public const int MinimumGroupLevel = 0;
+		public const int MaximumGroupLevel = 100;
+		public const int DefaultGroupLevel = 100;
+		public const int DefaultSoundEffectLevel = 80;
+		public const int DefaultVoiceLevel = 90;
+		public const int DefaultSongPreviewLevel = 75;
+		public const int DefaultSongPlaybackLevel = 90;
 
-	    public static readonly Lufs MinimumLufs = new Lufs(-100.0);
-	    public static readonly Lufs MaximumLufs = new Lufs(10.0); // support an approximate doubling in volume.
+		public static readonly Lufs MinimumLufs = new Lufs(-100.0);
+		public static readonly Lufs MaximumLufs = new Lufs(10.0); // support an approximate doubling in volume.
 
-	    private static readonly Lufs DefaultGain = new Lufs(0.0);
+		private static readonly Lufs DefaultGain = new Lufs(0.0);
 
-	    public readonly ESoundGroup SoundGroup;
+		public readonly ESoundGroup SoundGroup;
 
 		#region [ DTXMania用拡張 ]
 
@@ -549,13 +549,13 @@ namespace FDK
 					if ( bBASSサウンドである )
 					{
 						if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
-				        {
+						{
 							this.hBassStream = _hTempoStream;
-				        }
-				        else
+						}
+						else
 						{
 							this.hBassStream = _hBassStream;
-				        }
+						}
 
 						if ( CSound管理.bIsTimeStretch )
 						{
@@ -586,156 +586,156 @@ namespace FDK
 		private SYNCPROC _cbEndofStream;	// ストリームの終端まで再生されたときに呼び出されるコールバック
 //		private WaitCallback _cbRemoveMixerChannel;
 
-	    /// <summary>
-	    /// Gain is applied "first" to the audio data, much as in a physical or
-	    /// software mixer. Later steps in the flow of audio apply "channel" level
-	    /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
-	    /// the audio is output.
-	    /// 
-	    /// This method, taking an integer representing a percent value, is used
-	    /// for mixing in the SONGVOL value, when available. It is also used for
-	    /// DTXViewer preview mode.
-	    /// </summary>
-	    public void SetGain(int songVol)
-	    {
-	        SetGain(LinearIntegerPercentToLufs(songVol), null);
-	    }
+		/// <summary>
+		/// Gain is applied "first" to the audio data, much as in a physical or
+		/// software mixer. Later steps in the flow of audio apply "channel" level
+		/// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
+		/// the audio is output.
+		/// 
+		/// This method, taking an integer representing a percent value, is used
+		/// for mixing in the SONGVOL value, when available. It is also used for
+		/// DTXViewer preview mode.
+		/// </summary>
+		public void SetGain(int songVol)
+		{
+			SetGain(LinearIntegerPercentToLufs(songVol), null);
+		}
 
-	    private static Lufs LinearIntegerPercentToLufs(int percent)
-	    {
-	        // 2018-08-27 twopointzero: We'll use the standard conversion until an appropriate curve can be selected
-	        return new Lufs(20.0 * Math.Log10(percent / 100.0));
-	    }
+		private static Lufs LinearIntegerPercentToLufs(int percent)
+		{
+			// 2018-08-27 twopointzero: We'll use the standard conversion until an appropriate curve can be selected
+			return new Lufs(20.0 * Math.Log10(percent / 100.0));
+		}
 
-	    /// <summary>
-	    /// Gain is applied "first" to the audio data, much as in a physical or
-	    /// software mixer. Later steps in the flow of audio apply "channel" level
-	    /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
-	    /// the audio is output.
-	    /// 
-	    /// This method, taking a LUFS gain value and a LUFS true audio peak value,
-	    /// is used for mixing in the loudness-metadata-base gain value, when available.
-	    /// </summary>
-	    public void SetGain(Lufs gain, Lufs? truePeak)
-	    {
-	        if (Equals(_gain, gain))
-	        {
-	            return;
-	        }
+		/// <summary>
+		/// Gain is applied "first" to the audio data, much as in a physical or
+		/// software mixer. Later steps in the flow of audio apply "channel" level
+		/// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
+		/// the audio is output.
+		/// 
+		/// This method, taking a LUFS gain value and a LUFS true audio peak value,
+		/// is used for mixing in the loudness-metadata-base gain value, when available.
+		/// </summary>
+		public void SetGain(Lufs gain, Lufs? truePeak)
+		{
+			if (Equals(_gain, gain))
+			{
+				return;
+			}
 
-	        _gain = gain;
-	        _truePeak = truePeak;
+			_gain = gain;
+			_truePeak = truePeak;
 
-	        if (SoundGroup == ESoundGroup.SongPlayback)
-	        {
-	            Trace.TraceInformation($"{nameof(CSound)}.{nameof(SetGain)}: Gain: {_gain}. True Peak: {_truePeak}");
-	        }
+			if (SoundGroup == ESoundGroup.SongPlayback)
+			{
+				Trace.TraceInformation($"{nameof(CSound)}.{nameof(SetGain)}: Gain: {_gain}. True Peak: {_truePeak}");
+			}
 
-	        SetVolume();
-	    }
+			SetVolume();
+		}
 
-	    /// <summary>
-	    /// AutomationLevel is applied "second" to the audio data, much as in a
-	    /// physical or sofware mixer and its channel level. Before this Gain is
-	    /// applied, and after this the mixing group level is applied.
-	    ///
-	    /// This is currently used only for automated fade in and out as is the
-	    /// case right now for the song selection screen background music fade
-	    /// in and fade out.
-	    /// </summary>
-	    public int AutomationLevel
-	    {
-	        get => _automationLevel;
-	        set
-	        {
-	            if (_automationLevel == value)
-	            {
-	                return;
-	            }
+		/// <summary>
+		/// AutomationLevel is applied "second" to the audio data, much as in a
+		/// physical or sofware mixer and its channel level. Before this Gain is
+		/// applied, and after this the mixing group level is applied.
+		///
+		/// This is currently used only for automated fade in and out as is the
+		/// case right now for the song selection screen background music fade
+		/// in and fade out.
+		/// </summary>
+		public int AutomationLevel
+		{
+			get => _automationLevel;
+			set
+			{
+				if (_automationLevel == value)
+				{
+					return;
+				}
 
-	            _automationLevel = value;
+				_automationLevel = value;
 
-	            if (SoundGroup == ESoundGroup.SongPlayback)
-	            {
-	                Trace.TraceInformation($"{nameof(CSound)}.{nameof(AutomationLevel)} set: {AutomationLevel}");
-	            }
+				if (SoundGroup == ESoundGroup.SongPlayback)
+				{
+					Trace.TraceInformation($"{nameof(CSound)}.{nameof(AutomationLevel)} set: {AutomationLevel}");
+				}
 
-	            SetVolume();
-	        }
-	    }
+				SetVolume();
+			}
+		}
 
-	    /// <summary>
-	    /// GroupLevel is applied "third" to the audio data, much as in the sub
-	    /// mixer groups of a physical or software mixer. Before this both the
-	    /// Gain and AutomationLevel are applied, and after this the audio
-	    /// flows into the audio subsystem for mixing and output based on the
-	    /// master volume.
-	    ///
-	    /// This is currently automatically managed for each sound based on the
-	    /// configured and dynamically adjustable sound group levels for each of
-	    /// sound effects, voice, song preview, and song playback.
-	    ///
-	    /// See the SoundGroupLevelController and related classes for more.
-	    /// </summary>
-	    public int GroupLevel
-	    {
-	        private get => _groupLevel;
-	        set
-	        {
-	            if (_groupLevel == value)
-	            {
-	                return;
-	            }
+		/// <summary>
+		/// GroupLevel is applied "third" to the audio data, much as in the sub
+		/// mixer groups of a physical or software mixer. Before this both the
+		/// Gain and AutomationLevel are applied, and after this the audio
+		/// flows into the audio subsystem for mixing and output based on the
+		/// master volume.
+		///
+		/// This is currently automatically managed for each sound based on the
+		/// configured and dynamically adjustable sound group levels for each of
+		/// sound effects, voice, song preview, and song playback.
+		///
+		/// See the SoundGroupLevelController and related classes for more.
+		/// </summary>
+		public int GroupLevel
+		{
+			private get => _groupLevel;
+			set
+			{
+				if (_groupLevel == value)
+				{
+					return;
+				}
 
-	            _groupLevel = value;
+				_groupLevel = value;
 
-	            if (SoundGroup == ESoundGroup.SongPlayback)
-	            {
-	                Trace.TraceInformation($"{nameof(CSound)}.{nameof(GroupLevel)} set: {GroupLevel}");
-	            }
+				if (SoundGroup == ESoundGroup.SongPlayback)
+				{
+					Trace.TraceInformation($"{nameof(CSound)}.{nameof(GroupLevel)} set: {GroupLevel}");
+				}
 
-	            SetVolume();
-	        }
-	    }
+				SetVolume();
+			}
+		}
 
-	    private void SetVolume()
-	    {
-	        var automationLevel = LinearIntegerPercentToLufs(AutomationLevel);
-	        var groupLevel = LinearIntegerPercentToLufs(GroupLevel);
+		private void SetVolume()
+		{
+			var automationLevel = LinearIntegerPercentToLufs(AutomationLevel);
+			var groupLevel = LinearIntegerPercentToLufs(GroupLevel);
 
-	        var gain =
-	            _gain +
-	            automationLevel +
-	            groupLevel;
+			var gain =
+				_gain +
+				automationLevel +
+				groupLevel;
 
-	        var safeTruePeakGain = _truePeak?.Negate() ?? new Lufs(0);
-	        var finalGain = gain.Min(safeTruePeakGain);
+			var safeTruePeakGain = _truePeak?.Negate() ?? new Lufs(0);
+			var finalGain = gain.Min(safeTruePeakGain);
 
-	        if (SoundGroup == ESoundGroup.SongPlayback)
-	        {
-	            Trace.TraceInformation(
-	                $"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
-	        }
+			if (SoundGroup == ESoundGroup.SongPlayback)
+			{
+				Trace.TraceInformation(
+					$"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
+			}
 
-	        lufs音量 = finalGain;
-	    }
+			lufs音量 = finalGain;
+		}
 
-	    private Lufs lufs音量
-	    {
-	        set
-	        {
-	            if (this.bBASSサウンドである)
-	            {
-	                var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
-	                Bass.BASS_ChannelSetAttribute(this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float) db音量);
-	            }
-	            else if (this.bDirectSoundである)
-	            {
-	                var db音量 = (value.ToDouble() * 100.0).Clamp(-10000, 0);
-	                this.Buffer.Volume = (int) Math.Round(db音量);
-	            }
-	        }
-	    }
+		private Lufs lufs音量
+		{
+			set
+			{
+				if (this.bBASSサウンドである)
+				{
+					var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+					Bass.BASS_ChannelSetAttribute(this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float) db音量);
+				}
+				else if (this.bDirectSoundである)
+				{
+					var db音量 = (value.ToDouble() * 100.0).Clamp(-10000, 0);
+					this.Buffer.Volume = (int) Math.Round(db音量);
+				}
+			}
+		}
 
 		/// <summary>
 		/// <para>左:-100～中央:0～100:右。set のみ。</para>
@@ -832,7 +832,7 @@ namespace FDK
 
 		public CSound(ESoundGroup soundGroup)
 		{
-		    SoundGroup = soundGroup;
+			SoundGroup = soundGroup;
 			this.n位置 = 0;
 			this._db周波数倍率 = 1.0;
 			this._db再生速度 = 1.0;
@@ -844,22 +844,22 @@ namespace FDK
 
 		public void tASIOサウンドを作成する( string strファイル名, int hMixer )
 		{
-		    this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( strファイル名, hMixer, BASSFlag.BASS_STREAM_DECODE );
 		}
 		public void tASIOサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer )
 		{
-		    this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE );
 		}
 		public void tWASAPIサウンドを作成する( string strファイル名, int hMixer, ESoundDeviceType eデバイス種別 )
 		{
-		    this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( strファイル名, hMixer, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT );
 		}
 		public void tWASAPIサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer, ESoundDeviceType eデバイス種別 )
 		{
-		    this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT );
 		}
 		public void tDirectSoundサウンドを作成する( string strファイル名, DirectSound DirectSound )
@@ -1503,7 +1503,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 					this.byArrWAVファイルイメージ = null;
 				}
 
-			    this.eデバイス種別 = ESoundDeviceType.Unknown;
+				this.eデバイス種別 = ESoundDeviceType.Unknown;
 
 				if ( bインスタンス削除 )
 				{
@@ -1587,7 +1587,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		private int _n位置 = 0;
 		private int _n位置db;
 		private Lufs _gain = DefaultGain;
-	    private Lufs? _truePeak = null;
+		private Lufs? _truePeak = null;
 		private int _automationLevel = DefaultAutomationLevel;
 		private int _groupLevel = DefaultGroupLevel;
 		private long nBytes = 0;
@@ -1783,9 +1783,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			}
 			this.nオリジナルの周波数 = (int) freq;
 
-		    // インスタンスリストに登録。
+			// インスタンスリストに登録。
 
-		    CSound.listインスタンス.Add( this );
+			CSound.listインスタンス.Add( this );
 		}
 		//-----------------
 

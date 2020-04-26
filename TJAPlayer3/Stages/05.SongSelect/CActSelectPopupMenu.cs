@@ -60,26 +60,26 @@ namespace TJAPlayer3
 
 		protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
 		{
-            ConditionallyInitializePrvFont();
+			ConditionallyInitializePrvFont();
 
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
 			stqMenuTitle.cItem.str項目名 = title;
-		    using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black ))
-		    {
-		        stqMenuTitle.txName = TJAPlayer3.tテクスチャの生成( bitmap, false );
-		        stqMenuTitle.rectName = prvFont.RectStrings;
-		    }
+			using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black ))
+			{
+				stqMenuTitle.txName = TJAPlayer3.tテクスチャの生成( bitmap, false );
+				stqMenuTitle.rectName = prvFont.RectStrings;
+			}
 			lciMenuItems = new stQuickMenuItem[ menulist.Count ];
 			for (int i = 0; i < menulist.Count; i++ )
 			{
 				stQuickMenuItem stqm = new stQuickMenuItem();
 				stqm.cItem = menulist[ i ];
-			    using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].str項目名, Color.White, Color.Black ))
-			    {
-			        stqm.txName = TJAPlayer3.tテクスチャの生成( bitmap, false );
-			        stqm.rectName = prvFont.RectStrings;
-			    }
+				using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].str項目名, Color.White, Color.Black ))
+				{
+					stqm.txName = TJAPlayer3.tテクスチャの生成( bitmap, false );
+					stqm.rectName = prvFont.RectStrings;
+				}
 				lciMenuItems[ i ] = stqm;
 			}
 
@@ -87,15 +87,15 @@ namespace TJAPlayer3
 			n現在の選択行 = defaultPos;
 		}
 
-	    private void ConditionallyInitializePrvFont()
-	    {
-	        if (prvFont == null)
-	        {
-	            prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics\ipag.ttf"), 18);
-	        }
-	    }
+		private void ConditionallyInitializePrvFont()
+		{
+			if (prvFont == null)
+			{
+				prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics\ipag.ttf"), 18);
+			}
+		}
 
-	    public void tEnter押下()
+		public void tEnter押下()
 		{
 			if ( this.bキー入力待ち )
 			{
@@ -225,9 +225,9 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-		    base.OnManagedリソースの作成();
+			base.OnManagedリソースの作成();
 
-		    ConditionallyInitializePrvFont();
+			ConditionallyInitializePrvFont();
 		}
 
 		public override void OnManagedリソースの解放()
@@ -236,7 +236,7 @@ namespace TJAPlayer3
 			{
 				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
 				//CDTXMania.tテクスチャの解放( ref this.txCursor );
-                TJAPlayer3.t安全にDisposeする( ref this.prvFont );
+				TJAPlayer3.t安全にDisposeする( ref this.prvFont );
 			}
 			base.OnManagedリソースの解放();
 		}
@@ -265,7 +265,7 @@ namespace TJAPlayer3
 					else if ( ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape )
 						|| TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.FT )
 						|| TJAPlayer3.Pad.b押されたGB( Eパッド.Cancel ) )
-                        && this.bEsc有効 )
+						&& this.bEsc有効 )
 					{	// キャンセル
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						tCancel();
@@ -320,7 +320,7 @@ namespace TJAPlayer3
 				#region [ ポップアップメニュー 背景描画 ]
 				if ( TJAPlayer3.Tx.Menu_Title != null )
 				{
-                    TJAPlayer3.Tx.Menu_Title.t2D描画( TJAPlayer3.app.Device, 160, 40 );
+					TJAPlayer3.Tx.Menu_Title.t2D描画( TJAPlayer3.app.Device, 160, 40 );
 				}
 				#endregion
 				#region [ ソートメニュータイトル描画 ]
@@ -333,15 +333,15 @@ namespace TJAPlayer3
 					int height = 32;
 					int curX = 180;
 					int curY = 46 + ( height * ( this.n現在の選択行 + 1 ) );
-                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0, 0, 16, 32 ) );
+					TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0, 0, 16, 32 ) );
 					curX += 0x10;
 					Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
 					for ( int j = 0; j < 16; j++ )
 					{
-                        TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, rectangle );
+						TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, rectangle );
 						curX += 16;
 					}
-                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0x10, 0, 16, 32 ) );
+					TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0x10, 0, 16, 32 ) );
 				}
 				#endregion
 				#region [ ソート候補文字列描画 ]
@@ -355,40 +355,40 @@ namespace TJAPlayer3
 						lciMenuItems[ i ].txName.t2D描画( TJAPlayer3.app.Device, 180, 77 + i * 32 );
 					}
 
-                    bool bValueBold = (bItemBold || (i == nItemSelecting && bIsSelectingIntItem)) ? true : false;
-                    if (bItemBold || bShowAllItems)
-                    {
-                        string s;
-                        switch (lciMenuItems[i].cItem.str項目名)
-                        {
-                            case "演奏速度":
-                                {
-                                    double d = (double)((int)lciMenuItems[i].cItem.obj現在値() / 20.0);
-                                    s = "x" + d.ToString("0.000");
-                                }
-                                break;
-                            case "ばいそく":
-                                {
-                                    double d = (double)((((int)lciMenuItems[i].cItem.obj現在値()) + 1) / 10.0);
-                                    s = "x" + d.ToString("0.0");
-                                }
-                                break;
+					bool bValueBold = (bItemBold || (i == nItemSelecting && bIsSelectingIntItem)) ? true : false;
+					if (bItemBold || bShowAllItems)
+					{
+						string s;
+						switch (lciMenuItems[i].cItem.str項目名)
+						{
+							case "演奏速度":
+								{
+									double d = (double)((int)lciMenuItems[i].cItem.obj現在値() / 20.0);
+									s = "x" + d.ToString("0.000");
+								}
+								break;
+							case "ばいそく":
+								{
+									double d = (double)((((int)lciMenuItems[i].cItem.obj現在値()) + 1) / 10.0);
+									s = "x" + d.ToString("0.0");
+								}
+								break;
 
-                            default:
-                                s = lciMenuItems[i].cItem.obj現在値().ToString();
-                                break;
-                        }
-                        //font.t文字列描画( (int)(340 * Scale.X), (int)(80 + i * 32), s, bValueBold, 1.0f * Scale.Y);
-                        using (var bmpStr = bValueBold ?
-                            prvFont.DrawPrivateFont(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed) :
-                            prvFont.DrawPrivateFont(s, Color.White, Color.Black))
-                        {
-                            using (var ctStr = TJAPlayer3.tテクスチャの生成(bmpStr, false))
-                            {
-                                ctStr.t2D描画(TJAPlayer3.app.Device, 330, 77 + i * 32);
-                            }
-                        }
-                    }
+							default:
+								s = lciMenuItems[i].cItem.obj現在値().ToString();
+								break;
+						}
+						//font.t文字列描画( (int)(340 * Scale.X), (int)(80 + i * 32), s, bValueBold, 1.0f * Scale.Y);
+						using (var bmpStr = bValueBold ?
+							prvFont.DrawPrivateFont(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed) :
+							prvFont.DrawPrivateFont(s, Color.White, Color.Black))
+						{
+							using (var ctStr = TJAPlayer3.tテクスチャの生成(bmpStr, false))
+							{
+								ctStr.t2D描画(TJAPlayer3.app.Device, 330, 77 + i * 32);
+							}
+						}
+					}
 				}
 				#endregion
 				t進行描画sub();
@@ -402,7 +402,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private bool bキー入力待ち;
-        protected bool bEsc有効;
+		protected bool bEsc有効;
 
 		internal int n現在の選択行;
 		internal E楽器パート eInst = E楽器パート.UNKNOWN;
@@ -410,16 +410,16 @@ namespace TJAPlayer3
 		//private CTexture txPopupMenuBackground;
 		//private CTexture txCursor;
 		private CActDFPFont font;
-        CPrivateFastFont prvFont;
+		CPrivateFastFont prvFont;
 
-        internal struct stQuickMenuItem
-        {
-            internal CItemBase cItem;
-            internal CTexture txName;
-            internal Rectangle rectName;
-        }
-        private stQuickMenuItem[] lciMenuItems;
-        private stQuickMenuItem stqMenuTitle;
+		internal struct stQuickMenuItem
+		{
+			internal CItemBase cItem;
+			internal CTexture txName;
+			internal Rectangle rectName;
+		}
+		private stQuickMenuItem[] lciMenuItems;
+		private stQuickMenuItem stqMenuTitle;
 		private string strMenuTitle;
 		private bool bShowAllItems;
 		private bool bIsSelectingIntItem;

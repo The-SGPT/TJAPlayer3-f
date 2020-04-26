@@ -83,34 +83,34 @@ namespace FDK
 					#region [ a.バッファ入力 ]
 					//-----------------------------
 
-                    var length = this.devMouse.GetDeviceData(_rawBufferedDataArray, false);
-                    if (!Result.Last.IsSuccess)
-                    {
-	                    return;
-                    }
-                    for (int i = 0; i < length; i++)
-                    {
-                        var rawBufferedData = _rawBufferedDataArray[i];
-                        var key = rawBufferedData.Offset - 12;
-                        var wasPressed = (rawBufferedData.Data & 128) == 128;
+					var length = this.devMouse.GetDeviceData(_rawBufferedDataArray, false);
+					if (!Result.Last.IsSuccess)
+					{
+						return;
+					}
+					for (int i = 0; i < length; i++)
+					{
+						var rawBufferedData = _rawBufferedDataArray[i];
+						var key = rawBufferedData.Offset - 12;
+						var wasPressed = (rawBufferedData.Data & 128) == 128;
 
-                        if (!(-1 < key && key < 8))
-                        {
-                            continue;
-                        }
+						if (!(-1 < key && key < 8))
+						{
+							continue;
+						}
 
-                        STInputEvent item = new STInputEvent()
-                        {
-                            nKey = key,
-                            b押された = wasPressed,
-                            nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
-                        };
-                        this.list入力イベント.Add( item );
+						STInputEvent item = new STInputEvent()
+						{
+							nKey = key,
+							b押された = wasPressed,
+							nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
+						};
+						this.list入力イベント.Add( item );
 
-                        this.bMouseState[ item.nKey ] = wasPressed;
-                        this.bMousePushDown[ item.nKey ] = wasPressed;
-                        this.bMousePullUp[ item.nKey ] = !wasPressed;
-                    }
+						this.bMouseState[ item.nKey ] = wasPressed;
+						this.bMousePushDown[ item.nKey ] = wasPressed;
+						this.bMousePullUp[ item.nKey ] = !wasPressed;
+					}
 
 					//-----------------------------
 					#endregion
@@ -206,12 +206,12 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
-        private readonly bool[] bMousePullUp = new bool[ 8 ];
+		private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
+		private readonly bool[] bMousePullUp = new bool[ 8 ];
 		private readonly bool[] bMousePushDown = new bool[ 8 ];
 		private readonly bool[] bMouseState = new bool[ 8 ];
 
-	    private bool bDispose完了済み;
+		private bool bDispose完了済み;
 		private Mouse devMouse;
 
 		//private CTimer timer;

@@ -16,12 +16,12 @@ namespace TJAPlayer3
 
 		public CAct演奏PauseMenu()
 		{
-            CAct演奏PauseMenuMain();
+			CAct演奏PauseMenuMain();
 		}
 
-        private void CAct演奏PauseMenuMain()
+		private void CAct演奏PauseMenuMain()
 		{
-            this.bEsc有効 = false;
+			this.bEsc有効 = false;
 			lci = new List<List<List<CItemBase>>>();									// この画面に来る度に、メニューを作り直す。
 			for ( int nConfSet = 0; nConfSet < 3; nConfSet++ )
 			{
@@ -51,8 +51,8 @@ namespace TJAPlayer3
 		// メソッド
 		public override void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
 		{
-            this.CAct演奏PauseMenuMain();
-            this.bやり直しを選択した = false;
+			this.CAct演奏PauseMenuMain();
+			this.bやり直しを選択した = false;
 			base.tActivatePopupMenu( einst , 0);
 		}
 		//public void tDeativatePopupMenu()
@@ -62,49 +62,49 @@ namespace TJAPlayer3
 
 		public override void t進行描画sub()
 		{
-            if( this.bやり直しを選択した )
-            {
-                if( !sw.IsRunning )
-                    this.sw = Stopwatch.StartNew();
-                if( sw.ElapsedMilliseconds > 1500 )
-                {
-                    TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
-                    TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
+			if( this.bやり直しを選択した )
+			{
+				if( !sw.IsRunning )
+					this.sw = Stopwatch.StartNew();
+				if( sw.ElapsedMilliseconds > 1500 )
+				{
+					TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
+					TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
 
-	    		    this.tDeativatePopupMenu();
-                    this.sw.Reset();
-                }
-            }
+					this.tDeativatePopupMenu();
+					this.sw.Reset();
+				}
+			}
 		}
 
 		public override void tEnter押下Main( int nSortOrder )
 		{
-            switch ( n現在の選択行 )
-            {
+			switch ( n現在の選択行 )
+			{
 				case (int) EOrder.Continue:
-                    TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
+					TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
 
-                    CSound管理.rc演奏用タイマ.t再開();
+					CSound管理.rc演奏用タイマ.t再開();
 					TJAPlayer3.Timer.t再開();
 					TJAPlayer3.DTX.t全チップの再生再開();
-                    TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
+					TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
 
 					this.tDeativatePopupMenu();
 					break;
 
 				case (int) EOrder.Redoing:
-                    this.bやり直しを選択した = true;
+					this.bやり直しを選択した = true;
 					break;
 
 				case (int) EOrder.Return:
-                    CSound管理.rc演奏用タイマ.t再開();
+					CSound管理.rc演奏用タイマ.t再開();
 					TJAPlayer3.Timer.t再開();
-                    TJAPlayer3.stage演奏ドラム画面.t演奏中止();
+					TJAPlayer3.stage演奏ドラム画面.t演奏中止();
 					this.tDeativatePopupMenu();
-                    break;
-                default:
-                    break;
-            }
+					break;
+				default:
+					break;
+			}
 		}
 
 		public override void tCancel()
@@ -117,7 +117,7 @@ namespace TJAPlayer3
 		{
 			base.On活性化();
 			this.bGotoDetailConfig = false;
-            this.sw = new Stopwatch();
+			this.sw = new Stopwatch();
 		}
 		public override void On非活性化()
 		{
@@ -161,8 +161,8 @@ namespace TJAPlayer3
 
 		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-        private Stopwatch sw;
-        private bool bやり直しを選択した;
+		private Stopwatch sw;
+		private bool bやり直しを選択した;
 		//-----------------
 		#endregion
 	}

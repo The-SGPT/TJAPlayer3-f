@@ -14,7 +14,7 @@ namespace TJAPlayer3
 		{
 			this.mode = EFIFOモード.フェードアウト;
 
-            this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
+			this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
 		public void tフェードイン開始()
 		{
@@ -32,7 +32,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-                //CDTXMania.tテクスチャの解放( ref this.tx幕 );
+				//CDTXMania.tテクスチャの解放( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -41,7 +41,7 @@ namespace TJAPlayer3
 			if( !base.b活性化してない )
 			{
 				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FO.png" ) );
- 			//	this.tx幕2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FI.png" ) );
+			//	this.tx幕2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FI.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -55,38 +55,38 @@ namespace TJAPlayer3
 
 			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
 
-            if( this.mode == EFIFOモード.フェードアウト )
-            {
-                if( TJAPlayer3.Tx.SongLoading_FadeOut != null )
-			    {
-                    int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画( TJAPlayer3.app.Device, 0, 720 - y );
-                }
+			if( this.mode == EFIFOモード.フェードアウト )
+			{
+				if( TJAPlayer3.Tx.SongLoading_FadeOut != null )
+				{
+					int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
+					TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画( TJAPlayer3.app.Device, 0, 720 - y );
+				}
 
 			}
-            else
-            {
-                if(TJAPlayer3.Tx.SongLoading_FadeIn != null )
-                {
-                    int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0 - y );
-                }
-            }
+			else
+			{
+				if(TJAPlayer3.Tx.SongLoading_FadeIn != null )
+				{
+					int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
+					TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0 - y );
+				}
+			}
 
-            if( this.mode == EFIFOモード.フェードアウト )
-            {
-			    if( this.counter.n現在の値 != 1500 )
-			    {
-				    return 0;
-			    }
-            }
-            else if( this.mode == EFIFOモード.フェードイン )
-            {
-			    if( this.counter.n現在の値 != 1500 )
-			    {
-				    return 0;
-			    }
-            }
+			if( this.mode == EFIFOモード.フェードアウト )
+			{
+				if( this.counter.n現在の値 != 1500 )
+				{
+					return 0;
+				}
+			}
+			else if( this.mode == EFIFOモード.フェードイン )
+			{
+				if( this.counter.n現在の値 != 1500 )
+				{
+					return 0;
+				}
+			}
 			return 1;
 		}
 
@@ -96,10 +96,10 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter counter;
-        private CCounter ct待機;
+		private CCounter ct待機;
 		private EFIFOモード mode;
-        //private CTexture tx幕;
-        //private CTexture tx幕2;
+		//private CTexture tx幕;
+		//private CTexture tx幕2;
 		//-----------------
 		#endregion
 	}

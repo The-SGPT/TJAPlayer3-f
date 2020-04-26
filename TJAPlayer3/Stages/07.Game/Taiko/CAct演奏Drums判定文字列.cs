@@ -35,15 +35,15 @@ namespace TJAPlayer3
 						if( base.st状態[ i ].ct進行.b終了値に達した )
 						{
 							base.st状態[ i ].ct進行.t停止();
-                            base.st状態[ i ].b使用中 = false;
+							base.st状態[ i ].b使用中 = false;
 						}
 						int num2 = base.st状態[ i ].ct進行.n現在の値;
-                        if( base.st状態[ i ].judge != E判定.Great )
-                        {
+						if( base.st状態[ i ].judge != E判定.Great )
+						{
 							base.st状態[ i ].n相対X座標 = 0;
 							base.st状態[ i ].n相対Y座標 = 15;
 							base.st状態[ i ].n透明度 = 0xff;
-                        }
+						}
 						if( ( base.st状態[ i ].judge != E判定.Miss ) && ( base.st状態[ i ].judge != E判定.Bad ) )
 						{
 							if( num2 < 20 )
@@ -102,13 +102,13 @@ namespace TJAPlayer3
 					if( !base.st状態[ j ].ct進行.b停止中 )
 					{
 						int baseX = 370;
-                        //int baseY = 135;
-                        int baseY = TJAPlayer3.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
+						//int baseY = 135;
+						int baseY = TJAPlayer3.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
 						int x = TJAPlayer3.Skin.nScrollFieldX[ 0 ] - TJAPlayer3.Tx.Judge.szテクスチャサイズ.Width / 2;
 						int y = ( baseY + base.st状態[ j ].n相対Y座標 );
 						if( TJAPlayer3.Tx.Judge != null )
 						{
-                            TJAPlayer3.Tx.Judge.t2D描画( TJAPlayer3.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
+							TJAPlayer3.Tx.Judge.t2D描画( TJAPlayer3.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
 						}
 					}
 				}

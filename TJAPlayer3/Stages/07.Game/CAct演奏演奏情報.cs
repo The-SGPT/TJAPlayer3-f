@@ -6,13 +6,13 @@ using System.Diagnostics;
 
 namespace TJAPlayer3
 {
-    internal class CAct演奏演奏情報 : CActivity
-    {
-        // プロパティ
+	internal class CAct演奏演奏情報 : CActivity
+	{
+		// プロパティ
 
-        public double dbBPM;
-        public readonly int[] NowMeasure = new int[2];
-        public double dbSCROLL;
+		public double dbBPM;
+		public readonly int[] NowMeasure = new int[2];
+		public double dbSCROLL;
 
 		// コンストラクタ
 
@@ -26,12 +26,12 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-            for (int i = 0; i < 2; i++)
-            {
-                NowMeasure[i] = 0;
-            }
+			for (int i = 0; i < 2; i++)
+			{
+				NowMeasure[i] = 0;
+			}
 			this.dbBPM = TJAPlayer3.DTX.BASEBPM;
-            this.dbSCROLL = 1.0;
+			this.dbSCROLL = 1.0;
 			base.On活性化();
 		}
 		public override int On進行描画()
@@ -64,10 +64,10 @@ namespace TJAPlayer3
 				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "NoteC:         {0:####0}", TJAPlayer3.DTX.nノーツ数[3] ) );
 				y -= 0x10;
 				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "SCROLL:        {0:####0.00}", this.dbSCROLL ) );
-                y -= 0x10;
-                TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "SCOREMODE:     {0:####0}", TJAPlayer3.DTX.nScoreModeTmp ) );
-                y -= 0x10;
-                TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigIni.eScrollMode ) ) );
+				y -= 0x10;
+				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "SCOREMODE:     {0:####0}", TJAPlayer3.DTX.nScoreModeTmp ) );
+				y -= 0x10;
+				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigIni.eScrollMode ) ) );
 
 
 				//CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "Sound CPU :    {0:####0.00}%", CDTXMania.Sound管理.GetCPUusage() ) );

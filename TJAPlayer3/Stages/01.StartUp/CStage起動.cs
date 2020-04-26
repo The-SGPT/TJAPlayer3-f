@@ -90,12 +90,12 @@ namespace TJAPlayer3
 					this.list進行文字列.Add( "Product by.kairera0467\n" );
 					this.list進行文字列.Add( "Release: " + TJAPlayer3.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]" );
 
-                    this.list進行文字列.Add("");
+					this.list進行文字列.Add("");
 					this.list進行文字列.Add("TJAPlayer3-f forked TJAPlayer3 (Aioilight)");
 					this.list進行文字列.Add("TJAPlayer3-f edited by Mr-Ojii(@Mr_Ojii)");
 					this.list進行文字列.Add("");
 
-                    es = new CEnumSongs();
+					es = new CEnumSongs();
 					es.StartEnumFromCache();										// 曲リスト取得(別スレッドで実行される)
 					base.b初めての進行描画 = false;
 					return 0;
@@ -143,11 +143,11 @@ namespace TJAPlayer3
 						break;
 
 					case CStage.Eフェーズ.起動7_完了:
-                        this.list進行文字列.Add("LOADING TEXTURES...");
-                        TJAPlayer3.Tx.LoadTexture();
-                        this.list進行文字列.Add("LOADING TEXTURES...OK");
-                        this.str現在進行中 = "Setup done.";
-                        break;
+						this.list進行文字列.Add("LOADING TEXTURES...");
+						TJAPlayer3.Tx.LoadTexture();
+						this.list進行文字列.Add("LOADING TEXTURES...OK");
+						this.str現在進行中 = "Setup done.";
+						break;
 				}
 				//-----------------
 				#endregion

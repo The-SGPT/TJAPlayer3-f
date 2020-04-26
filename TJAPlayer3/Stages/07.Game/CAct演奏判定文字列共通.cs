@@ -15,7 +15,7 @@ namespace TJAPlayer3
 		[StructLayout( LayoutKind.Sequential )]
 		protected struct STSTATUS
 		{
-            public bool b使用中;
+			public bool b使用中;
 			public CCounter ct進行;
 			public E判定 judge;
 			public float fX方向拡大率;
@@ -24,7 +24,7 @@ namespace TJAPlayer3
 			public int n相対Y座標;
 			public int n透明度;
 			public int nLag;								// #25370 2011.2.1 yyagi
-            public int nPlayer;                             // 2017.08.15 kairera0467
+			public int nPlayer;                             // 2017.08.15 kairera0467
 		}
 
 		protected readonly ST判定文字列[] st判定文字列;
@@ -80,41 +80,41 @@ namespace TJAPlayer3
 
 		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip, int player )
 		{
-            // When performing calibration, reduce visual distraction
-            // and current judgment feedback near the judgment position.
-            if (TJAPlayer3.IsPerformingCalibration)
-            {
-                return;
-            }
+			// When performing calibration, reduce visual distraction
+			// and current judgment feedback near the judgment position.
+			if (TJAPlayer3.IsPerformingCalibration)
+			{
+				return;
+			}
 
-            if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
-            {
-                return;
-            }
+			if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
+			{
+				return;
+			}
 
 			if( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.表示OFF )
 			{
-                for( int i = 0; i < 1; i++ )
-                {
-                    for( int j = 0; j < 12; j++ )
-                    {
-                        if( this.st状態[ j ].b使用中 == false )
-                        {
-				            this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, TJAPlayer3.Timer );
-                            this.st状態[ j ].b使用中 = true;
-        				    this.st状態[ j ].judge = judge;
-    		        		this.st状態[ j ].fX方向拡大率 = 1f;
-	    			        this.st状態[ j ].fY方向拡大率 = 1f;
-            				this.st状態[ j ].n相対X座標 = 0;
-		            		this.st状態[ j ].n相対Y座標 = 0;
-				            this.st状態[ j ].n透明度 = 0xff;
-				            this.st状態[ j ].nLag = lag;
-                            this.st状態[ j ].nPlayer = player;
-                            break;
-                        }
+				for( int i = 0; i < 1; i++ )
+				{
+					for( int j = 0; j < 12; j++ )
+					{
+						if( this.st状態[ j ].b使用中 == false )
+						{
+							this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, TJAPlayer3.Timer );
+							this.st状態[ j ].b使用中 = true;
+							this.st状態[ j ].judge = judge;
+							this.st状態[ j ].fX方向拡大率 = 1f;
+							this.st状態[ j ].fY方向拡大率 = 1f;
+							this.st状態[ j ].n相対X座標 = 0;
+							this.st状態[ j ].n相対Y座標 = 0;
+							this.st状態[ j ].n透明度 = 0xff;
+							this.st状態[ j ].nLag = lag;
+							this.st状態[ j ].nPlayer = player;
+							break;
+						}
 
-                    }
-                }
+					}
+				}
 
 			}
 		}
@@ -127,7 +127,7 @@ namespace TJAPlayer3
 			for( int i = 0; i < 12; i++ )
 			{
 				this.st状態[ i ].ct進行 = new CCounter();
-                this.st状態[ i ].b使用中 = false;
+				this.st状態[ i ].b使用中 = false;
 			}
 			base.On活性化();
 		}

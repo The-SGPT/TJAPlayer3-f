@@ -114,98 +114,98 @@ namespace FDK
 					#region [ a.バッファ入力 ]
 					//-----------------------------
 
-                    var length = this.devJoystick.GetDeviceData(_rawBufferedDataArray, false);
-                    if (!Result.Last.IsSuccess)
-                    {
-                        return;
-                    }
-                    for (int i = 0; i < length; i++)
-                    {
-                        var rawBufferedData = _rawBufferedDataArray[i];
+					var length = this.devJoystick.GetDeviceData(_rawBufferedDataArray, false);
+					if (!Result.Last.IsSuccess)
+					{
+						return;
+					}
+					for (int i = 0; i < length; i++)
+					{
+						var rawBufferedData = _rawBufferedDataArray[i];
 
-                        switch (rawBufferedData.Offset)
-                        {
-                            case 0:
-                                #region [ X軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 0, 1 );
-                                //-----------------------------
-                                #endregion
-                                #region [ X軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 1, 0 );
-                                //-----------------------------
-                                #endregion
-                                break;
-                            case 4:
-                                #region [ Y軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 2, 3 );
-                                //-----------------------------
-                                #endregion
-                                #region [ Y軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 3, 2 );
-                                #endregion
-                                break;
-                            case 8:
-                                #region [ Z軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 4, 5 );
-                                //-----------------------------
-                                #endregion
-                                #region [ Z軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 5, 4 );
-                                #endregion
-                                break;
-                            case 32:
-                                const int p = 0; // const until we support more than one POV hat
-                                int nPovDegree = rawBufferedData.Data;
-                                int nWay = ( nPovDegree + 2250 ) / 4500;
-                                if ( nWay == 8 ) nWay = 0;
+						switch (rawBufferedData.Offset)
+						{
+							case 0:
+								#region [ X軸－ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 0, 1 );
+								//-----------------------------
+								#endregion
+								#region [ X軸＋ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 1, 0 );
+								//-----------------------------
+								#endregion
+								break;
+							case 4:
+								#region [ Y軸－ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 2, 3 );
+								//-----------------------------
+								#endregion
+								#region [ Y軸＋ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 3, 2 );
+								#endregion
+								break;
+							case 8:
+								#region [ Z軸－ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 4, 5 );
+								//-----------------------------
+								#endregion
+								#region [ Z軸＋ ]
+								//-----------------------------
+								bButtonUpDown( rawBufferedData, rawBufferedData.Data, 5, 4 );
+								#endregion
+								break;
+							case 32:
+								const int p = 0; // const until we support more than one POV hat
+								int nPovDegree = rawBufferedData.Data;
+								int nWay = ( nPovDegree + 2250 ) / 4500;
+								if ( nWay == 8 ) nWay = 0;
 
-                                STInputEvent e = new STInputEvent();
-                                if ( nPovDegree == -1 || nPovDegree == 0xFFFF)
-                                {
-                                    e.nKey = 6 + 128 + this.nPovState[ p ];
-                                    this.nPovState[ p ] = -1;
-                                    e.b押された = false;
-                                    this.bButtonState[ e.nKey ] = false;
-                                    this.bButtonPullUp[ e.nKey ] = true;
-                                } else {
-                                    this.nPovState[ p ] = nWay;
-                                    e.nKey = 6 + 128 + nWay;
-                                    e.b押された = true;
-                                    this.bButtonState[ e.nKey ] = true;
-                                    this.bButtonPushDown[ e.nKey ] = true;
-                                }
-                                e.nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp );
-                                this.list入力イベント.Add( e );
-                                break;
-                            default:
-                                var buttonIndex = rawBufferedData.Offset - 48;
-                                if (-1 < buttonIndex && buttonIndex < 32)
-                                {
-                                    var key = 6 + buttonIndex;
-                                    var wasPressed = (rawBufferedData.Data & 128) == 128;
+								STInputEvent e = new STInputEvent();
+								if ( nPovDegree == -1 || nPovDegree == 0xFFFF)
+								{
+									e.nKey = 6 + 128 + this.nPovState[ p ];
+									this.nPovState[ p ] = -1;
+									e.b押された = false;
+									this.bButtonState[ e.nKey ] = false;
+									this.bButtonPullUp[ e.nKey ] = true;
+								} else {
+									this.nPovState[ p ] = nWay;
+									e.nKey = 6 + 128 + nWay;
+									e.b押された = true;
+									this.bButtonState[ e.nKey ] = true;
+									this.bButtonPushDown[ e.nKey ] = true;
+								}
+								e.nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp );
+								this.list入力イベント.Add( e );
+								break;
+							default:
+								var buttonIndex = rawBufferedData.Offset - 48;
+								if (-1 < buttonIndex && buttonIndex < 32)
+								{
+									var key = 6 + buttonIndex;
+									var wasPressed = (rawBufferedData.Data & 128) == 128;
 
-                                    STInputEvent item = new STInputEvent()
-                                    {
-                                        nKey = key,
-                                        b押された = wasPressed,
-                                        nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換(rawBufferedData.Timestamp),
-                                    };
-                                    this.list入力イベント.Add(item);
+									STInputEvent item = new STInputEvent()
+									{
+										nKey = key,
+										b押された = wasPressed,
+										nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換(rawBufferedData.Timestamp),
+									};
+									this.list入力イベント.Add(item);
 
-                                    this.bButtonState[item.nKey] = wasPressed;
-                                    this.bButtonPushDown[item.nKey] = wasPressed;
-                                    this.bButtonPullUp[item.nKey] = !wasPressed;
-                                }
+									this.bButtonState[item.nKey] = wasPressed;
+									this.bButtonPushDown[item.nKey] = wasPressed;
+									this.bButtonPullUp[item.nKey] = !wasPressed;
+								}
 
-                                break;
-                        }
-                    }
+								break;
+						}
+					}
 
 					//-----------------------------
 					#endregion
@@ -580,7 +580,7 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
+		private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
 		private readonly bool[] bButtonPullUp = new bool[ 0x100 ];
 		private readonly bool[] bButtonPushDown = new bool[ 0x100 ];
 		private readonly bool[] bButtonState = new bool[ 0x100 ];		// 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
@@ -589,7 +589,7 @@ namespace FDK
 		private bool bDispose完了済み;
 		private Joystick devJoystick;
 
-	    //private CTimer timer;
+		//private CTimer timer;
 
 		private void bButtonUpDown( RawBufferedData data, int axisdata, int target, int contrary )	// #26871 2011.12.3 軸の反転に対応するためにリファクタ
 		{

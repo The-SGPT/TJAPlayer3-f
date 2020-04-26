@@ -59,14 +59,14 @@ namespace TJAPlayer3
 			try
 			{
 				this.n現在のメニュー番号 = 0;                                                    //
-                if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
-                {
-                    this.ftフォント = new Font(TJAPlayer3.ConfigIni.FontName, 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
-                }
-                else
-                {
-                    this.ftフォント = new Font("MS UI Gothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
-                }
+				if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
+				{
+					this.ftフォント = new Font(TJAPlayer3.ConfigIni.FontName, 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+				}
+				else
+				{
+					this.ftフォント = new Font("MS UI Gothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+				}
 				for( int i = 0; i < 4; i++ )													//
 				{																				//
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, TJAPlayer3.Timer );			//
@@ -102,7 +102,7 @@ namespace TJAPlayer3
 			}
 			catch ( UnauthorizedAccessException e )
 			{
-			    Trace.TraceError( e.ToString() );
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
 				Trace.TraceError( "例外が発生しましたが処理を継続します。 (7a61f01b-1703-4aad-8d7d-08bd88ae8760)" );
 			}
@@ -125,24 +125,24 @@ namespace TJAPlayer3
 				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
 				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
 				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
-			    string[] strMenuItem = {"System", "Drums", "Exit"};
-			    txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-			    using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))
-			    {
-			        for (int i = 0; i < strMenuItem.Length; i++)
-			        {
-			            using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
-			            {
-			                txMenuItemLeft[i, 0] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
-			            }
-			            using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
-			            {
-			                txMenuItemLeft[i, 1] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
-			            }
-			        }
-			    }
+				string[] strMenuItem = {"System", "Drums", "Exit"};
+				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
+				using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))
+				{
+					for (int i = 0; i < strMenuItem.Length; i++)
+					{
+						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
+						{
+							txMenuItemLeft[i, 0] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
+						}
+						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
+						{
+							txMenuItemLeft[i, 1] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
+						}
+					}
+				}
 
-			    if( this.bメニューにフォーカス中 )
+				if( this.bメニューにフォーカス中 )
 				{
 					this.t説明文パネルに現在選択されているメニューの説明を描画する();
 				}
@@ -190,7 +190,7 @@ namespace TJAPlayer3
 			#region [ 背景 ]
 			//---------------------
 			if(TJAPlayer3.Tx.Config_Background != null )
-                TJAPlayer3.Tx.Config_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+				TJAPlayer3.Tx.Config_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 			//---------------------
 			#endregion
 			#region [ メニューカーソル ]
@@ -198,12 +198,12 @@ namespace TJAPlayer3
 			if( TJAPlayer3.Tx.Config_Cursor != null )
 			{
 				Rectangle rectangle;
-                TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
+				TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
 				int x = 110;
 				int y = (int)( 140 + ( this.n現在のメニュー番号 * 38 ) );
 				int num3 = 340;
-                TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
-                TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
+				TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
+				TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
 				x += 32;
 				for( num3 -= 64; num3 > 0; num3 -= rectangle.Width )
 				{
@@ -212,7 +212,7 @@ namespace TJAPlayer3
 					{
 						rectangle.Width -= 32 - num3;
 					}
-                    TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
+					TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
 					x += rectangle.Width;
 				}
 			}
@@ -230,7 +230,7 @@ namespace TJAPlayer3
 				//txMenuItemLeft = CDTXMania.tテクスチャの生成( bmpStr, false );
 				int flag = ( this.n現在のメニュー番号 == i ) ? 1 : 0;
 				int num4 = txMenuItemLeft[ i, flag ].sz画像サイズ.Width;
-                txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.Config_ItemText_Correction_X, menuY + TJAPlayer3.Skin.Config_ItemText_Correction_Y ); //55
+				txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.Config_ItemText_Correction_X, menuY + TJAPlayer3.Skin.Config_ItemText_Correction_Y ); //55
 				//txMenuItem.Dispose();
 				menuY += stepY;
 			}
@@ -270,7 +270,7 @@ namespace TJAPlayer3
 			//#endregion
 			#region [ オプションパネル ]
 			//---------------------
-            //this.actオプションパネル.On進行描画();
+			//this.actオプションパネル.On進行描画();
 			//---------------------
 			#endregion
 			#region [ フェードイン_アウト ]
@@ -584,7 +584,7 @@ namespace TJAPlayer3
 				var image = new Bitmap( 440, 288 );		// 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する。）
 				var graphics = Graphics.FromImage( image );
 				graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+				graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 				
 				string[,] str = new string[ 2, 2 ];
 				switch( this.n現在のメニュー番号 )
@@ -671,12 +671,12 @@ namespace TJAPlayer3
 				var image = new Bitmap( 440, 288 );		// 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する___のは中止。処理速度向上のため。）
 				var graphics = Graphics.FromImage( image );
 				graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+				graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
-                CItemBase item = this.actList.ib現在の選択項目;
+				CItemBase item = this.actList.ib現在の選択項目;
 				if( ( item.str説明文 != null ) && ( item.str説明文.Length > 0 ) )
 				{
-                    graphics.DrawString( item.str説明文, this.ftフォント, Brushes.White, new RectangleF( 8f, 0, 630, 430 ) );
+					graphics.DrawString( item.str説明文, this.ftフォント, Brushes.White, new RectangleF( 8f, 0, 630, 430 ) );
 				}
 				graphics.Dispose();
 				if( this.tx説明文パネル != null )

@@ -6,7 +6,7 @@ using FDK;
 
 namespace TJAPlayer3
 {
-    public class CPad
+	public class CPad
 	{
 		// プロパティ
 

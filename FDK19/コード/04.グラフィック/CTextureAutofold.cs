@@ -291,7 +291,7 @@ namespace FDK
 			t2D描画( device, (int) x, (int) y, rc );
 		}
 
-        /// <summary>
+		/// <summary>
 		/// テクスチャを 2D 画像と見なして描画する。
 		/// </summary>
 		/// <param name="device">Direct3D9 デバイス。</param>

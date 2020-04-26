@@ -81,29 +81,29 @@ namespace FDK
 					#region [ a.バッファ入力 ]
 					//-----------------------------
 
-                    var length = this.devKeyboard.GetDeviceData(_rawBufferedDataArray, false);
-                    if (!Result.Last.IsSuccess)
-                    {
-                        return;
-                    }
-                    for (int i = 0; i < length; i++)
-                    {
-                        var rawBufferedData = _rawBufferedDataArray[i];
-                        var key = DeviceConstantConverter.DIKtoKey(rawBufferedData.Offset);
-                        var wasPressed = (rawBufferedData.Data & 128) == 128;
+					var length = this.devKeyboard.GetDeviceData(_rawBufferedDataArray, false);
+					if (!Result.Last.IsSuccess)
+					{
+						return;
+					}
+					for (int i = 0; i < length; i++)
+					{
+						var rawBufferedData = _rawBufferedDataArray[i];
+						var key = DeviceConstantConverter.DIKtoKey(rawBufferedData.Offset);
+						var wasPressed = (rawBufferedData.Data & 128) == 128;
 
-                        STInputEvent item = new STInputEvent()
-                        {
-                            nKey = (int) key,
-                            b押された = wasPressed,
-                            nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
-                        };
-                        this.list入力イベント.Add( item );
+						STInputEvent item = new STInputEvent()
+						{
+							nKey = (int) key,
+							b押された = wasPressed,
+							nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
+						};
+						this.list入力イベント.Add( item );
 
-                        this.bKeyState[ item.nKey ] = wasPressed;
-                        this.bKeyPushDown[ item.nKey ] = wasPressed;
-                        this.bKeyPullUp[ item.nKey ] = !wasPressed;
-                    }
+						this.bKeyState[ item.nKey ] = wasPressed;
+						this.bKeyPushDown[ item.nKey ] = wasPressed;
+						this.bKeyPullUp[ item.nKey ] = !wasPressed;
+					}
 
 					//-----------------------------
 					#endregion
@@ -218,15 +218,15 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
+		private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
 		private readonly bool[] bKeyPullUp = new bool[ 0x100 ];
 		private readonly bool[] bKeyPushDown = new bool[ 0x100 ];
 		private readonly bool[] bKeyState = new bool[ 0x100 ];
 
-	    private bool bDispose完了済み;
+		private bool bDispose完了済み;
 		private Keyboard devKeyboard;
 
-	    //private CTimer timer;
+		//private CTimer timer;
 		//private CTimer ct;
 		//-----------------
 		#endregion

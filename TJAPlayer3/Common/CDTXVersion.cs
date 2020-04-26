@@ -9,7 +9,7 @@ namespace TJAPlayer3
 	/// <para>例1："078b" → 整数部=078, 小数部=2000000 ('英字'+'yymmdd') </para>
 	/// <para>例2："078a(100124)" → 整数部=078, 小数部=1100124 ('英字'+'yymmdd')</para>
 	/// </summary>
-    public class CDTXVersion
+	public class CDTXVersion
 	{
 		// プロパティ
 
