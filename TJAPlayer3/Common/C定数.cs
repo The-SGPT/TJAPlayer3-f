@@ -6,63 +6,63 @@ using System.Runtime.InteropServices;
 namespace TJAPlayer3
 {
 
-    /// <summary>
-    /// 難易度。
-    /// </summary>
-    public enum Difficulty
-    {
-        Easy,
-        Normal,
-        Hard,
-        Oni,
-        Edit,
-        Tower,
-        Dan,
-        Total
-    }
+	/// <summary>
+	/// 難易度。
+	/// </summary>
+	public enum Difficulty
+	{
+		Easy,
+		Normal,
+		Hard,
+		Oni,
+		Edit,
+		Tower,
+		Dan,
+		Total
+	}
 
-    public enum EScrollMode
-    {
-        Normal,
-        BMSCROLL,
-        HBSCROLL
-    }
-    public enum Eジャンル
-    {
-        None = 0,
-        JPOP = 1,
-        ゲーム = 2,
-        ナムコ = 3,
-        クラシック = 4,
-        バラエティ = 5,
-        どうよう = 6,
-        ボーカロイド = 7,
-        アニメ = 8
-    }
-    public enum EGame
-    {
-        OFF = 0,
-        完走叩ききりまショー = 1,
-        完走叩ききりまショー激辛 = 2
-    }
-    public enum E難易度表示タイプ
-    {
-        OFF = 0,
-        n曲目に表示 = 1,
-        mtaikoに画像で表示 = 2,
-    }
+	public enum EScrollMode
+	{
+		Normal,
+		BMSCROLL,
+		HBSCROLL
+	}
+	public enum Eジャンル
+	{
+		None = 0,
+		JPOP = 1,
+		ゲーム = 2,
+		ナムコ = 3,
+		クラシック = 4,
+		バラエティ = 5,
+		どうよう = 6,
+		ボーカロイド = 7,
+		アニメ = 8
+	}
+	public enum EGame
+	{
+		OFF = 0,
+		完走叩ききりまショー = 1,
+		完走叩ききりまショー激辛 = 2
+	}
+	public enum E難易度表示タイプ
+	{
+		OFF = 0,
+		n曲目に表示 = 1,
+		mtaikoに画像で表示 = 2,
+	}
 	public enum Eダークモード
 	{
 		OFF,
 		HALF,
 		FULL
 	}
-    public enum EWindowMovieMode
-    {
-        OFF = 0,
-        左下 = 1,
-        中央下 = 2
-    }
+	public enum EWindowMovieMode
+	{
+		OFF = 0,
+		左下 = 1,
+		中央下 = 2
+	}
 	public enum Eダメージレベル
 	{
 		少ない	= 0,
@@ -89,15 +89,15 @@ namespace TJAPlayer3
 		RD		= 8,
 		LC		= 9,
 		LP		= 10,	// #27029 2012.1.4 from
-        LBD     = 11,
-        LRed    = 12,
-        RRed    = 13,
-        LBlue   = 14,
-        RBlue   = 15,
-        LRed2P  = 16,
-        RRed2P  = 17,
-        LBlue2P = 18,
-        RBlue2P = 19,
+		LBD     = 11,
+		LRed    = 12,
+		RRed    = 13,
+		LBlue   = 14,
+		RBlue   = 15,
+		LRed2P  = 16,
+		RRed2P  = 17,
+		LBlue2P = 18,
+		RBlue2P = 19,
 		MAX,			// 門番用として定義
 		UNKNOWN = 99
 	}
@@ -121,15 +121,15 @@ namespace TJAPlayer3
 		RD		= Eパッド.RD,
 		LC		= Eパッド.LC,
 		LP		= Eパッド.LP,		// #27029 2012.1.4 from
-        LBD     = Eパッド.LBD,
-        LRed    = Eパッド.LRed,
-        RRed    = Eパッド.RRed,
-        LBlue   = Eパッド.LBlue,
-        RBlue   = Eパッド.RBlue,
-        LRed2P  = Eパッド.LRed2P,
-        RRed2P  = Eパッド.RRed2P,
-        LBlue2P = Eパッド.LBlue2P,
-        RBlue2P = Eパッド.RBlue2P,
+		LBD     = Eパッド.LBD,
+		LRed    = Eパッド.LRed,
+		RRed    = Eパッド.RRed,
+		LBlue   = Eパッド.LBlue,
+		RBlue   = Eパッド.RBlue,
+		LRed2P  = Eパッド.LRed2P,
+		RRed2P  = Eパッド.RRed2P,
+		LBlue2P = Eパッド.LBlue2P,
+		RBlue2P = Eパッド.RBlue2P,
 		Capture,
 		UNKNOWN = Eパッド.UNKNOWN
 	}
@@ -155,22 +155,22 @@ namespace TJAPlayer3
 		RD		= 256,
 		LC		= 512,
 		LP		= 1024,				// #27029
-        LBD     = 2048,
-        LRed    = 0,
-        RRed    = 1,
-        LBlue   = 2,
-        RBlue   = 4,
-        LRed2P  = 8,
-        RRed2P  = 16,
-        LBlue2P = 32,
-        RBlue2P = 64,
+		LBD     = 2048,
+		LRed    = 0,
+		RRed    = 1,
+		LBlue   = 2,
+		RBlue   = 4,
+		LRed2P  = 8,
+		RRed2P  = 16,
+		LBlue2P = 32,
+		RBlue2P = 64,
 		UNKNOWN = 4096
 	}
 	public enum Eランダムモード
 	{
 		OFF,
 		RANDOM,
-        MIRROR,
+		MIRROR,
 		SUPERRANDOM,
 		HYPERRANDOM
 	}
@@ -179,7 +179,7 @@ namespace TJAPlayer3
 		DRUMS	= 0,
 		GUITAR	= 1,
 		BASS	= 2,
-        TAIKO   = 3,
+		TAIKO   = 3,
 		UNKNOWN	= 99
 	}
 	public enum EKeyConfigPart	// : E楽器パート
@@ -187,7 +187,7 @@ namespace TJAPlayer3
 		DRUMS	= E楽器パート.DRUMS,
 		GUITAR	= E楽器パート.GUITAR,
 		BASS	= E楽器パート.BASS,
-        TAIKO   = E楽器パート.TAIKO,
+		TAIKO   = E楽器パート.TAIKO,
 		SYSTEM,
 		UNKNOWN	= E楽器パート.UNKNOWN
 	}
@@ -262,9 +262,9 @@ namespace TJAPlayer3
 		LT,
 		FT,
 		CY,
-        LP,
+		LP,
 		RD,		// 将来の独立レーン化/独立AUTO設定を見越して追加
-        LBD = 10,
+		LBD = 10,
 		Guitar,	// AUTOレーン判定を容易にするため、便宜上定義しておく(未使用)
 		Bass,	// (未使用)
 		GtR,
@@ -284,8 +284,8 @@ namespace TJAPlayer3
 	{
 		物理 = 8,	   // LC, HH,             SD, BD, HT, LT, FT, CY
 		論理 = 10,	   // LC, HO, HC,         SD, BD, HT, LT, FT, RC, RD
-        DTXG物理 = 10, // LC, HH,     LP,     SD, BD, HT, LT, FT, CY, RD
-        DTXG論理 = 12  // LC, HO, HC, LP, LB, SD, BD, HT, LT, FT, CY, RD 
+		DTXG物理 = 10, // LC, HH,     LP,     SD, BD, HT, LT, FT, CY, RD
+		DTXG論理 = 12  // LC, HO, HC, LP, LB, SD, BD, HT, LT, FT, CY, RD 
 	}
 	internal enum Eログ出力
 	{
@@ -309,30 +309,30 @@ namespace TJAPlayer3
 		読込中止
 	}
 
-    public enum ENoteState
-    {
-        none,
-        wait,
-        perfect,
-        grade,
-        bad
-    }
+	public enum ENoteState
+	{
+		none,
+		wait,
+		perfect,
+		grade,
+		bad
+	}
 
-    public enum E連打State
-    {
-        none,
-        roll,
-        rollB,
-        balloon,
-        potato
-    }
+	public enum E連打State
+	{
+		none,
+		roll,
+		rollB,
+		balloon,
+		potato
+	}
 
-    public enum Eステルスモード
-    {
-        OFF = 0,
-        DORON = 1,
-        STEALTH = 2
-    }
+	public enum Eステルスモード
+	{
+		OFF = 0,
+		DORON = 1,
+		STEALTH = 2
+	}
 
 	/// <summary>
 	/// 透明チップの種類
@@ -355,7 +355,7 @@ namespace TJAPlayer3
 		public T Drums;
 		public T Guitar;
 		public T Bass;
-        public T Taiko;
+		public T Taiko;
 		public T Unknown;
 		public T this[ int index ]
 		{
@@ -372,8 +372,8 @@ namespace TJAPlayer3
 					case (int) E楽器パート.BASS:
 						return this.Bass;
 
-                    case (int) E楽器パート.TAIKO:
-                        return this.Taiko;
+					case (int) E楽器パート.TAIKO:
+						return this.Taiko;
 
 					case (int) E楽器パート.UNKNOWN:
 						return this.Unknown;
@@ -396,9 +396,9 @@ namespace TJAPlayer3
 						this.Bass = value;
 						return;
 
-                    case (int) E楽器パート.TAIKO:
-                        this.Taiko = value;
-                        return;
+					case (int) E楽器パート.TAIKO:
+						this.Taiko = value;
+						return;
 
 					case (int) E楽器パート.UNKNOWN:
 						this.Unknown = value;
@@ -419,8 +419,8 @@ namespace TJAPlayer3
 		public T LC;
 		public T HH;
 		public T SD;
-        public T LP;
-        public T LBD;
+		public T LP;
+		public T LBD;
 		public T BD;
 		public T HT;
 		public T LT;
@@ -453,10 +453,10 @@ namespace TJAPlayer3
 						return this.HH;
 					case (int) Eレーン.SD:
 						return this.SD;
-                    case (int) Eレーン.LP:
-                        return this.LP;
-                    case (int) Eレーン.LBD:
-                        return this.LBD;
+					case (int) Eレーン.LP:
+						return this.LP;
+					case (int) Eレーン.LBD:
+						return this.LBD;
 					case (int) Eレーン.BD:
 						return this.BD;
 					case (int) Eレーン.HT:
@@ -509,12 +509,12 @@ namespace TJAPlayer3
 					case (int) Eレーン.SD:
 						this.SD = value;
 						return;
-                    case (int) Eレーン.LP:
-                        this.LP = value;
-                        return;
-                    case (int) Eレーン.LBD:
-                        this.LBD = value;
-                        return;
+					case (int) Eレーン.LP:
+						this.LP = value;
+						return;
+					case (int) Eレーン.LBD:
+						this.LBD = value;
+						return;
 					case (int) Eレーン.BD:
 						this.BD = value;
 						return;
@@ -587,9 +587,9 @@ namespace TJAPlayer3
 		public bool LT;			// 5
 		public bool FT;			// 6
 		public bool CY;			// 7
-        public bool LP;
+		public bool LP;
 		public bool RD;			// 8
-        public bool LBD;
+		public bool LBD;
 		public bool Guitar;		// 9	(not used)
 		public bool Bass;		// 10	(not used)
 		public bool GtR;		// 11
@@ -624,12 +624,12 @@ namespace TJAPlayer3
 						return this.FT;
 					case (int) Eレーン.CY:
 						return this.CY;
-                    case (int) Eレーン.LP:
-                        return this.LP;
+					case (int) Eレーン.LP:
+						return this.LP;
 					case (int) Eレーン.RD:
 						return this.RD;
-                    case (int) Eレーン.LBD:
-                        return this.LBD;
+					case (int) Eレーン.LBD:
+						return this.LBD;
 					case (int) Eレーン.Guitar:
 						if ( !this.GtR ) return false;
 						if ( !this.GtG ) return false;
@@ -695,15 +695,15 @@ namespace TJAPlayer3
 					case (int) Eレーン.CY:
 						this.CY = value;
 						return;
-                    case (int) Eレーン.LP:
-                        this.LP = value;
-                        return;
+					case (int) Eレーン.LP:
+						this.LP = value;
+						return;
 					case (int) Eレーン.RD:
 						this.RD = value;
 						return;
-                    case (int) Eレーン.LBD:
-                        this.LBD = value;
-                        return;
+					case (int) Eレーン.LBD:
+						this.LBD = value;
+						return;
 					case (int) Eレーン.Guitar:
 						this.GtR = this.GtG = this.GtB = this.GtPick = this.GtW = value;
 						return;
@@ -744,31 +744,31 @@ namespace TJAPlayer3
 				throw new IndexOutOfRangeException();
 			}
 		}
-    }
+	}
 
-    #region[Ver.K追加]
-    public enum Eレーンタイプ
-    {
-        TypeA,
-        TypeB,
-        TypeC,
-        TypeD
-    }
-    public enum Eミラー
-    {
-        TypeA,
-        TypeB
-    }
-    public enum EClipDispType
-    {
-        背景のみ           = 1,
-        ウィンドウのみ     = 2,
-        両方               = 3,
-        OFF                = 0
-    }
-    #endregion
+	#region[Ver.K追加]
+	public enum Eレーンタイプ
+	{
+		TypeA,
+		TypeB,
+		TypeC,
+		TypeD
+	}
+	public enum Eミラー
+	{
+		TypeA,
+		TypeB
+	}
+	public enum EClipDispType
+	{
+		背景のみ           = 1,
+		ウィンドウのみ     = 2,
+		両方               = 3,
+		OFF                = 0
+	}
+	#endregion
 
-    internal class C定数
+	internal class C定数
 	{
 	}
 }

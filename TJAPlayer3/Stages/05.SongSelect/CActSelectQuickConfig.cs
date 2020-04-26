@@ -78,24 +78,24 @@ namespace TJAPlayer3
 				"Note: It also changes the songs' pitch." ) );
 			#endregion
 			#region [ 個別 Sud/Hid ]
-            l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom.Taiko,
+			l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom.Taiko,
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
-            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
+			l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
 				"",
 				new string[] { "OFF", "ドロン", "ステルス" } ) );
-            l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eGameMode,
-                "ゲームモード\n" +
-                "TYPE-A: 完走!叩ききりまショー!\n" +
-                "TYPE-B: 完走!叩ききりまショー!(激辛)\n" +
-                " \n",
-                " \n" +
-                " \n" +
-                " ",
-                new string[] { "OFF", "完走!", "完走!激辛" }) );
+			l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eGameMode,
+				"ゲームモード\n" +
+				"TYPE-A: 完走!叩ききりまショー!\n" +
+				"TYPE-B: 完走!叩ききりまショー!(激辛)\n" +
+				" \n",
+				" \n" +
+				" \n" +
+				" ",
+				new string[] { "OFF", "完走!", "完走!激辛" }) );
 
-            l.Add(new CItemList(nameof(TJAPlayer3.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
+			l.Add(new CItemList(nameof(TJAPlayer3.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
 
 			#endregion
 			#region [ 共通 SET切り替え/More/Return ]
@@ -125,8 +125,8 @@ namespace TJAPlayer3
 
 		public override void tEnter押下Main( int nSortOrder )
 		{
-            switch ( n現在の選択行 )
-            {
+			switch ( n現在の選択行 )
+			{
 				case (int) EOrder.ScrollSpeed:
 					TJAPlayer3.ConfigIni.n譜面スクロール速度[ nCurrentTarget ] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
 					break;
@@ -134,24 +134,24 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
 					break;
 				case (int) EOrder.Random:
-                    TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
+					TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
 					break;
 				case (int) EOrder.Stealth:
-                    TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
+					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
 					break;
 				case (int) EOrder.GameMode:
-                    EGame game = EGame.OFF;
-                    switch( (int) GetIndex( (int) EOrder.GameMode ) )
-                    {
-                        case 0: game = EGame.OFF; break;
-                        case 1: game = EGame.完走叩ききりまショー; break;
-                        case 2: game = EGame.完走叩ききりまショー激辛; break;
-                    }
+					EGame game = EGame.OFF;
+					switch( (int) GetIndex( (int) EOrder.GameMode ) )
+					{
+						case 0: game = EGame.OFF; break;
+						case 1: game = EGame.完走叩ききりまショー; break;
+						case 2: game = EGame.完走叩ききりまショー激辛; break;
+					}
 					TJAPlayer3.ConfigIni.eGameMode = game;
 					break;
-                case (int)EOrder.ShinuchiMode:
-                    TJAPlayer3.ConfigIni.ShinuchiMode = !TJAPlayer3.ConfigIni.ShinuchiMode;
-                    break;
+				case (int)EOrder.ShinuchiMode:
+					TJAPlayer3.ConfigIni.ShinuchiMode = !TJAPlayer3.ConfigIni.ShinuchiMode;
+					break;
 				case (int) EOrder.More:
 					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
 					this.bGotoDetailConfig = true;
@@ -161,10 +161,10 @@ namespace TJAPlayer3
 				case (int) EOrder.Return:
 					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
 					this.tDeativatePopupMenu();
-                    break;
-                default:
-                    break;
-            }
+					break;
+				default:
+					break;
+			}
 		}
 
 		public override void tCancel()
@@ -197,8 +197,8 @@ namespace TJAPlayer3
 			{
 				int[] pa = { (int) Eレーン.LC, (int) Eレーン.GtR, (int) Eレーン.BsR };
 				int start = pa[ target ];
-            }
-        }
+			}
+		}
 
 		// CActivity 実装
 
@@ -213,7 +213,7 @@ namespace TJAPlayer3
 			if ( this.ft表示用フォント != null )
 			{
 				this.ft表示用フォント.Dispose();
-                this.ft表示用フォント = null;
+				this.ft表示用フォント = null;
 			}
 			base.On非活性化();
 		}
@@ -250,9 +250,9 @@ namespace TJAPlayer3
 			ScrollSpeed = 0,
 			PlaySpeed,
 			Random,
-            Stealth,
-            GameMode,
-            ShinuchiMode,
+			Stealth,
+			GameMode,
+			ShinuchiMode,
 			More,
 			Return, END,
 			Default = 99
@@ -261,7 +261,7 @@ namespace TJAPlayer3
 		private Font ft表示用フォント;
 		//private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-        private CTexture tx説明文1;
+		private CTexture tx説明文1;
 		private int nPlayer;
 		//-----------------
 		#endregion

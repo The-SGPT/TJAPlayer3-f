@@ -375,9 +375,9 @@ namespace TJAPlayer3
 			}
 			return true;
 		}
-        /// <summary>
-        /// 一時的に使用禁止。
-        /// </summary>
+		/// <summary>
+		/// 一時的に使用禁止。
+		/// </summary>
 		private void t描画処理_ジャンル文字列()
 		{
 			C曲リストノード c曲リストノード = TJAPlayer3.stage選曲.r現在選択中の曲;

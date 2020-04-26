@@ -13,12 +13,12 @@ namespace TJAPlayer3
 {
 	public class CVerticalSongNameFont
 	{
-        //必要な値
-        //_タイトル
-        //_サブタイトル(とりあえず最初は無しで進める)
-        //_
-        //_
-        //_
+		//必要な値
+		//_タイトル
+		//_サブタイトル(とりあえず最初は無しで進める)
+		//_
+		//_
+		//_
 
 
 
@@ -28,7 +28,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-        private const string str回転させる文字 = "「」～（）ー-~－∞—()《》{}<>『』[]…";
+		private const string str回転させる文字 = "「」～（）ー-~－∞—()《》{}<>『』[]…";
 		//-----------------
 		#endregion
 	}

@@ -19,14 +19,14 @@ namespace TJAPlayer3
 {
 	internal class TJAPlayer3 : Game
 	{
-        // プロパティ
-        #region [ properties ]
-        public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
+		// プロパティ
+		#region [ properties ]
+		public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
 
-        public static readonly string SLIMDXDLL = "c_net20x86_Jun2010";
+		public static readonly string SLIMDXDLL = "c_net20x86_Jun2010";
 		public static readonly string D3DXDLL = "d3dx9_43.dll";		// June 2010
-        //public static readonly string D3DXDLL = "d3dx9_42.dll";	// February 2010
-        //public static readonly string D3DXDLL = "d3dx9_41.dll";	// March 2009
+		//public static readonly string D3DXDLL = "d3dx9_42.dll";	// February 2010
+		//public static readonly string D3DXDLL = "d3dx9_41.dll";	// March 2009
 
 		public static TJAPlayer3 app
 		{
@@ -89,7 +89,7 @@ namespace TJAPlayer3
 			}
 		}
 
-	    public static bool IsPerformingCalibration;
+		public static bool IsPerformingCalibration;
 
 		public static CFPS FPS
 		{ 
@@ -210,17 +210,17 @@ namespace TJAPlayer3
 			private set;
 		}
 
-	    public static SongGainController SongGainController
-	    {
-	        get;
-	        private set;
-	    }
+		public static SongGainController SongGainController
+		{
+			get;
+			private set;
+		}
 
-	    public static SoundGroupLevelController SoundGroupLevelController
-	    {
-	        get;
-	        private set;
-	    }
+		public static SoundGroupLevelController SoundGroupLevelController
+		{
+			get;
+			private set;
+		}
 
 		public static CStage起動 stage起動 
 		{
@@ -339,11 +339,11 @@ namespace TJAPlayer3
 			set;
 		}
 
-        #endregion
+		#endregion
 
-        // コンストラクタ
+		// コンストラクタ
 
-        public TJAPlayer3()
+		public TJAPlayer3()
 		{
 			TJAPlayer3.app = this;
 			this.t起動処理();
@@ -386,7 +386,7 @@ namespace TJAPlayer3
 #endif
 					base.Window.ClientSize =
 						new Size( currentClientSize.Width, currentClientSize.Height );
-                    base.Window.Icon = Properties.Resources.tjap3;
+					base.Window.Icon = Properties.Resources.tjap3;
 //					FDK.CTaskBar.ShowTaskBar( true );
 				}
 #if WindowedFullscreen
@@ -553,10 +553,10 @@ namespace TJAPlayer3
 		protected override void Draw( GameTime gameTime )
 		{
 			Sound管理?.t再生中の処理をする();
-            Timer?.t更新();
-            CSound管理.rc演奏用タイマ?.t更新();
-            Input管理?.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
-            FPS?.tカウンタ更新();
+			Timer?.t更新();
+			CSound管理.rc演奏用タイマ?.t更新();
+			Input管理?.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
+			FPS?.tカウンタ更新();
 
 			if( this.Device == null )
 				return;
@@ -601,9 +601,9 @@ namespace TJAPlayer3
 								}
 								this.previewSound = TJAPlayer3.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
 
-							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
-							    // Gain since in this mode it should override the application of
-							    // SONGVOL or any other Gain source regardless of configuration.
+								// 2018-08-23 twopointzero: DTXVmode previewVolume will always set
+								// Gain since in this mode it should override the application of
+								// SONGVOL or any other Gain source regardless of configuration.
 								this.previewSound.SetGain(DTXVmode.previewVolume);
 
 								this.previewSound.n位置 = DTXVmode.previewPan;
@@ -1091,7 +1091,7 @@ namespace TJAPlayer3
 							{
 								//DTX.t全チップの再生停止();
 								if( DTX != null )
-                                    DTX.On非活性化();
+									DTX.On非活性化();
 								Trace.TraceInformation( "曲の読み込みを中止しました。" );
 								this.tガベージコレクションを実行する();
 								Trace.TraceInformation( "----------------------" );
@@ -1314,8 +1314,8 @@ for (int i = 0; i < 3; i++) {
 
 									this.tガベージコレクションを実行する();
 								}
-                                this.tガベージコレクションを実行する();
-                                break;
+								this.tガベージコレクションを実行する();
+								break;
 								//-----------------------------
 								#endregion
 
@@ -1373,7 +1373,7 @@ for (int i = 0; i < 3; i++) {
 								CScoreIni.C演奏記録 c演奏記録_Drums;
 								stage演奏ドラム画面.t演奏結果を格納する( out c演奏記録_Drums );
 
-                                double ps = 0.0, gs = 0.0;
+								double ps = 0.0, gs = 0.0;
 								if ( !c演奏記録_Drums.b全AUTOである && c演奏記録_Drums.n全チップ数 > 0) {
 									ps = c演奏記録_Drums.db演奏型スキル値;
 									gs = c演奏記録_Drums.dbゲーム型スキル値;
@@ -1460,11 +1460,11 @@ for (int i = 0; i < 3; i++) {
 						if( this.n進行描画の戻り値 != 0 )
 						{
 							//DTX.t全チップの再生一時停止();
-                            DTX.t全チップの再生停止とミキサーからの削除();
-                            DTX.On非活性化();
+							DTX.t全チップの再生停止とミキサーからの削除();
+							DTX.On非活性化();
 							r現在のステージ.On非活性化();
-                            this.tガベージコレクションを実行する();
-                            if ( !bコンパクトモード )
+							this.tガベージコレクションを実行する();
+							if ( !bコンパクトモード )
 							{
 								Trace.TraceInformation( "----------------------" );
 								Trace.TraceInformation( "■ 選曲" );
@@ -1519,13 +1519,13 @@ for (int i = 0; i < 3; i++) {
 						break;
 				}
 
-			    actScanningLoudness.On進行描画();
+				actScanningLoudness.On進行描画();
 
-                // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
-                if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay != null)
-                {
-                    TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
-                }
+				// オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
+				if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay != null)
+				{
+					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
+				}
 			}
 			this.Device.EndScene();			// Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
@@ -1598,7 +1598,7 @@ for (int i = 0; i < 3; i++) {
 		{
 			TJAPlayer3.t安全にDisposeする( ref tx );
 		}
-        public static void tテクスチャの解放( ref CTextureAf tx )
+		public static void tテクスチャの解放( ref CTextureAf tx )
 		{
 			TJAPlayer3.t安全にDisposeする( ref tx );
 		}
@@ -1633,12 +1633,12 @@ for (int i = 0; i < 3; i++) {
 			{
 				return null;
 			}
-            if (bitmap == null)
-            {
-                Trace.TraceError("テクスチャの生成に失敗しました。(bitmap==null)");
-                return null;
-            }
-            try
+			if (bitmap == null)
+			{
+				Trace.TraceError("テクスチャの生成に失敗しました。(bitmap==null)");
+				return null;
+			}
+			try
 			{
 				return new CTexture( app.Device, bitmap, TextureFormat, b黒を透過する );
 			}
@@ -1650,7 +1650,7 @@ for (int i = 0; i < 3; i++) {
 			}
 		}
 
-        public static CTextureAf tテクスチャの生成Af( string fileName )
+		public static CTextureAf tテクスチャの生成Af( string fileName )
 		{
 			return tテクスチャの生成Af( fileName, false );
 		}
@@ -1677,117 +1677,117 @@ for (int i = 0; i < 3; i++) {
 				return null;
 			}
 		}
-        public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
-        {
-            CDirectShow ds = null;
-            if( File.Exists( fileName ) )
-            {
-                try
-                {
-                    ds = new CDirectShow(fileName, hWnd, bオーディオレンダラなし);
-                }
-                catch (FileNotFoundException e)
-                {
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-                    ds = null;      // Dispose はコンストラクタ内で実施済み
-                }
-                catch (Exception e)
-                {
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
-                    ds = null;      // Dispose はコンストラクタ内で実施済み
-                }
-            }
-            else
-            {
-                Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-                return null;
-            }
+		public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
+		{
+			CDirectShow ds = null;
+			if( File.Exists( fileName ) )
+			{
+				try
+				{
+					ds = new CDirectShow(fileName, hWnd, bオーディオレンダラなし);
+				}
+				catch (FileNotFoundException e)
+				{
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
+					ds = null;      // Dispose はコンストラクタ内で実施済み
+				}
+				catch (Exception e)
+				{
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
+					ds = null;      // Dispose はコンストラクタ内で実施済み
+				}
+			}
+			else
+			{
+				Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
+				return null;
+			}
 
-            return ds;
-        }
+			return ds;
+		}
 
-        /// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
-        public static void t安全にDisposeする<T>(ref T obj)
-        {
-            if (obj == null)
-                return;
+		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
+		public static void t安全にDisposeする<T>(ref T obj)
+		{
+			if (obj == null)
+				return;
 
-            var d = obj as IDisposable;
+			var d = obj as IDisposable;
 
-            if (d != null)
-                d.Dispose();
+			if (d != null)
+				d.Dispose();
 
-            obj = default(T);
-        }
+			obj = default(T);
+		}
 
-        /// <summary>
-        /// そのフォルダの連番画像の最大値を返す。
-        /// </summary>
-        public static int t連番画像の枚数を数える(string ディレクトリ名, string プレフィックス = "", string 拡張子 = ".png")
-        {
-            int num = 0;
-            while(File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
-            {
-                num++;
-            }
-            return num;
-        }
+		/// <summary>
+		/// そのフォルダの連番画像の最大値を返す。
+		/// </summary>
+		public static int t連番画像の枚数を数える(string ディレクトリ名, string プレフィックス = "", string 拡張子 = ".png")
+		{
+			int num = 0;
+			while(File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
+			{
+				num++;
+			}
+			return num;
+		}
 
-        /// <summary>
-        /// 曲名テクスチャの縮小倍率を返す。
-        /// </summary>
-        /// <param name="cTexture">曲名テクスチャ。</param>
-        /// <param name="samePixel">等倍で表示するピクセル数の最大値(デフォルト値:645)</param>
-        /// <returns>曲名テクスチャの縮小倍率。そのテクスチャがnullならば一倍(1f)を返す。</returns>
-        public static float GetSongNameXScaling(ref CTexture cTexture, int samePixel = 660)
-        {
-            if (cTexture == null) return 1f;
-            float scalingRate = (float)samePixel / (float)cTexture.szテクスチャサイズ.Width;
-            if (cTexture.szテクスチャサイズ.Width <= samePixel)
-                scalingRate = 1.0f;
-            return scalingRate;
-        }
+		/// <summary>
+		/// 曲名テクスチャの縮小倍率を返す。
+		/// </summary>
+		/// <param name="cTexture">曲名テクスチャ。</param>
+		/// <param name="samePixel">等倍で表示するピクセル数の最大値(デフォルト値:645)</param>
+		/// <returns>曲名テクスチャの縮小倍率。そのテクスチャがnullならば一倍(1f)を返す。</returns>
+		public static float GetSongNameXScaling(ref CTexture cTexture, int samePixel = 660)
+		{
+			if (cTexture == null) return 1f;
+			float scalingRate = (float)samePixel / (float)cTexture.szテクスチャサイズ.Width;
+			if (cTexture.szテクスチャサイズ.Width <= samePixel)
+				scalingRate = 1.0f;
+			return scalingRate;
+		}
 
-        /// <summary>
-        /// 難易度を表す数字を列挙体に変換します。
-        /// </summary>
-        /// <param name="number">難易度を表す数字。</param>
-        /// <returns>Difficulty 列挙体</returns>
-        public static Difficulty DifficultyNumberToEnum(int number)
-        {
-            switch (number)
-            {
-                case 0:
-                    return Difficulty.Easy;
-                case 1:
-                    return Difficulty.Normal;
-                case 2:
-                    return Difficulty.Hard;
-                case 3:
-                    return Difficulty.Oni;
-                case 4:
-                    return Difficulty.Edit;
-                case 5:
-                    return Difficulty.Tower;
-                case 6:
-                    return Difficulty.Dan;
-                default:
-                    throw new IndexOutOfRangeException();
-            }
-        }
+		/// <summary>
+		/// 難易度を表す数字を列挙体に変換します。
+		/// </summary>
+		/// <param name="number">難易度を表す数字。</param>
+		/// <returns>Difficulty 列挙体</returns>
+		public static Difficulty DifficultyNumberToEnum(int number)
+		{
+			switch (number)
+			{
+				case 0:
+					return Difficulty.Easy;
+				case 1:
+					return Difficulty.Normal;
+				case 2:
+					return Difficulty.Hard;
+				case 3:
+					return Difficulty.Oni;
+				case 4:
+					return Difficulty.Edit;
+				case 5:
+					return Difficulty.Tower;
+				case 6:
+					return Difficulty.Dan;
+				default:
+					throw new IndexOutOfRangeException();
+			}
+		}
 
-        //-----------------
-        #endregion
+		//-----------------
+		#endregion
 
-        #region [ private ]
-        //-----------------
-        private bool bマウスカーソル表示中 = true;
+		#region [ private ]
+		//-----------------
+		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
 		private static CDTX[] dtx = new CDTX[ 4 ];
 
-        public static TextureLoader Tx = new TextureLoader();
+		public static TextureLoader Tx = new TextureLoader();
 
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
@@ -1807,13 +1807,13 @@ for (int i = 0; i < 3; i++) {
 			}
 		}
 		private CSound previewSound;
-        public static long StartupTime
-        {
-            get;
-            private set;
-        }
+		public static long StartupTime
+		{
+			get;
+			private set;
+		}
 
-        private void t起動処理()
+		private void t起動処理()
 		{
 			#region [ strEXEのあるフォルダを決定する ]
 			//-----------------
@@ -1903,11 +1903,11 @@ for (int i = 0; i < 3; i++) {
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
 			base.Window.Location = new Point( ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y );   // #30675 2013.02.04 ikanick add
 
-            
-            base.Window.Text = "";
+			
+			base.Window.Text = "";
 
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
-            base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
+			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
 
 			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);	// #34510 yyagi 2010.10.31 to change window size got from Config.ini
 #if !WindowedFullscreen
@@ -2159,11 +2159,11 @@ for (int i = 0; i < 3; i++) {
 				Trace.Indent();
 				try
 				{
-				    actScanningLoudness = new CActScanningLoudness();
-				    actScanningLoudness.On活性化();
-				    LoudnessMetadataScanner.ScanningStateChanged +=
-				        (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
-				    LoudnessMetadataScanner.StartBackgroundScanning();
+					actScanningLoudness = new CActScanningLoudness();
+					actScanningLoudness.On活性化();
+					LoudnessMetadataScanner.ScanningStateChanged +=
+						(_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
+					LoudnessMetadataScanner.StartBackgroundScanning();
 
 					SongGainController = new SongGainController();
 					ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
@@ -2185,7 +2185,7 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch (Exception e)
 			{
-                throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。", e);
+				throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。", e);
 			}
 			finally
 			{
@@ -2302,22 +2302,22 @@ for (int i = 0; i < 3; i++) {
 				}
 			}
 
-            //---------------------
-            #endregion
+			//---------------------
+			#endregion
 
-            #region Discordの処理
-            Discord.Initialize("692578108997632051");
-            StartupTime = Discord.GetUnixTime();
-            Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
-            #endregion
-
-
-            Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+			#region Discordの処理
+			Discord.Initialize("692578108997632051");
+			StartupTime = Discord.GetUnixTime();
+			Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
+			#endregion
 
 
-            #region [ 最初のステージの起動 ]
-            //---------------------
-            Trace.TraceInformation( "----------------------" );
+			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+
+
+			#region [ 最初のステージの起動 ]
+			//---------------------
+			Trace.TraceInformation( "----------------------" );
 			Trace.TraceInformation( "■ 起動" );
 
 			if ( TJAPlayer3.bコンパクトモード )
@@ -2341,8 +2341,8 @@ for (int i = 0; i < 3; i++) {
 			{
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
-            AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
-            base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
+			base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
 		private void t終了処理()
@@ -2417,14 +2417,14 @@ for (int i = 0; i < 3; i++) {
 						Trace.Unindent();
 					}
 				}
-                //---------------------
-                #endregion
-                #region Discordの処理
-                Discord.Shutdown();
-                #endregion
-                #region [ 曲リストの終了処理 ]
-                //---------------------
-                if (Songs管理 != null)
+				//---------------------
+				#endregion
+				#region Discordの処理
+				Discord.Shutdown();
+				#endregion
+				#region [ 曲リストの終了処理 ]
+				//---------------------
+				if (Songs管理 != null)
 				{
 					Trace.TraceInformation( "曲リストの終了処理を行います。" );
 					Trace.Indent();
@@ -2444,14 +2444,14 @@ for (int i = 0; i < 3; i++) {
 					}
 				}
 				CAvi.t終了();
-                //---------------------
-                #endregion
-                #region TextureLoaderの処理
-                Tx.DisposeTexture();
-                #endregion
-                #region [ スキンの終了処理 ]
-                //---------------------
-                if (Skin != null)
+				//---------------------
+				#endregion
+				#region TextureLoaderの処理
+				Tx.DisposeTexture();
+				#endregion
+				#region [ スキンの終了処理 ]
+				//---------------------
+				if (Skin != null)
 				{
 					Trace.TraceInformation( "スキンの終了処理を行います。" );
 					Trace.Indent();
@@ -2638,23 +2638,23 @@ for (int i = 0; i < 3; i++) {
 					Trace.Unindent();
 				}
 
-			    Trace.TraceInformation("Deinitializing loudness scanning, song gain control, and sound group level control...");
-			    Trace.Indent();
-			    try
-			    {
-			        SoundGroupLevelController = null;
-			        SongGainController = null;
-			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
-                    actScanningLoudness.On非活性化();
-			        actScanningLoudness = null;
-			    }
-			    finally
-			    {
-			        Trace.Unindent();
-			        Trace.TraceInformation("Deinitialized loudness scanning, song gain control, and sound group level control.");
-			    }
+				Trace.TraceInformation("Deinitializing loudness scanning, song gain control, and sound group level control...");
+				Trace.Indent();
+				try
+				{
+					SoundGroupLevelController = null;
+					SongGainController = null;
+					LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
+					actScanningLoudness.On非活性化();
+					actScanningLoudness = null;
+				}
+				finally
+				{
+					Trace.Unindent();
+					Trace.TraceInformation("Deinitialized loudness scanning, song gain control, and sound group level control.");
+				}
 
-			    ConfigIni = null;
+				ConfigIni = null;
 
 				//---------------------
 				#endregion
@@ -2680,10 +2680,10 @@ for (int i = 0; i < 3; i++) {
 				}
 				//---------------------
 				#endregion
-                #region [ DirectXの終了処理 ]
-                base.GraphicsDeviceManager.Dispose();
-                #endregion
-                Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
+				#region [ DirectXの終了処理 ]
+				base.GraphicsDeviceManager.Dispose();
+				#endregion
+				Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
 
 
 				this.b終了処理完了済み = true;
@@ -2761,22 +2761,22 @@ for (int i = 0; i < 3; i++) {
 				Trace.TraceInformation( this.listプラグイン.Count + " 個のプラグインを読み込みました。" );
 		}
 
-        public void RefleshSkin()
-        {
-            Trace.TraceInformation("スキン変更:" + TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false));
+		public void RefleshSkin()
+		{
+			Trace.TraceInformation("スキン変更:" + TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false));
 
-            TJAPlayer3.act文字コンソール.On非活性化();
+			TJAPlayer3.act文字コンソール.On非活性化();
 
-            TJAPlayer3.Skin.Dispose();
-            TJAPlayer3.Skin = null;
-            TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
+			TJAPlayer3.Skin.Dispose();
+			TJAPlayer3.Skin = null;
+			TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
 
 
-            TJAPlayer3.Tx.DisposeTexture();
-            TJAPlayer3.Tx.LoadTexture();
+			TJAPlayer3.Tx.DisposeTexture();
+			TJAPlayer3.Tx.LoadTexture();
 
-            TJAPlayer3.act文字コンソール.On活性化();
-        }
+			TJAPlayer3.act文字コンソール.On活性化();
+		}
 		#region [ Windowイベント処理 ]
 		private void t指定フォルダ内でのプラグイン検索と生成( string strプラグインフォルダパス, string strプラグイン型名 )
 		{

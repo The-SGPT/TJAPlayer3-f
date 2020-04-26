@@ -12,14 +12,14 @@ namespace TJAPlayer3
 
 		public STDGBVALUE<bool> b新記録スキル;
 		public STDGBVALUE<bool> b新記録スコア;
-        public STDGBVALUE<bool> b新記録ランク;
+		public STDGBVALUE<bool> b新記録ランク;
 		public STDGBVALUE<float> fPerfect率;
 		public STDGBVALUE<float> fGreat率;
 		public STDGBVALUE<float> fGood率;
 		public STDGBVALUE<float> fPoor率;
-        public STDGBVALUE<float> fMiss率;
-        public STDGBVALUE<bool> bオート;        // #23596 10.11.16 add ikanick
-                                                //        10.11.17 change (int to bool) ikanick
+		public STDGBVALUE<float> fMiss率;
+		public STDGBVALUE<bool> bオート;        // #23596 10.11.16 add ikanick
+												//        10.11.17 change (int to bool) ikanick
 		public STDGBVALUE<int> nランク値;
 		public STDGBVALUE<int> n演奏回数;
 		public int n総合ランク値;
@@ -69,8 +69,8 @@ namespace TJAPlayer3
 				for( int i = 0; i < 3; i++ )
 				{
 					this.b新記録スキル[ i ] = false;
-                    this.b新記録スコア[ i ] = false;
-                    this.b新記録ランク[ i ] = false;
+					this.b新記録スコア[ i ] = false;
+					this.b新記録ランク[ i ] = false;
 				}
 				//---------------------
 				#endregion
@@ -88,7 +88,7 @@ namespace TJAPlayer3
 						switch( i )
 						{
 							case 0:
-                                bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
+								bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 								break;
 
 							case 1:
@@ -113,7 +113,7 @@ namespace TJAPlayer3
 				//---------------------
 				#endregion
 
-                #region [ .score.ini の作成と出力 ]
+				#region [ .score.ini の作成と出力 ]
 				//---------------------
 				string str = TJAPlayer3.DTX.strファイル名の絶対パス + ".score.ini";
 				CScoreIni ini = new CScoreIni( str );
@@ -146,42 +146,42 @@ namespace TJAPlayer3
 						ini.stセクション[ i * 2 ] = this.st演奏記録[ i ];
 					}
 
-                    // 新記録スキルチェック
-                    if (this.st演奏記録[i].db演奏型スキル値 > ini.stセクション[(i * 2) + 1].db演奏型スキル値)
-                    {
-                        this.b新記録スキル[ i ] = true;
-                        ini.stセクション[(i * 2) + 1] = this.st演奏記録[ i ];
-                    }
+					// 新記録スキルチェック
+					if (this.st演奏記録[i].db演奏型スキル値 > ini.stセクション[(i * 2) + 1].db演奏型スキル値)
+					{
+						this.b新記録スキル[ i ] = true;
+						ini.stセクション[(i * 2) + 1] = this.st演奏記録[ i ];
+					}
 
 					// ラストプレイ #23595 2011.1.9 ikanick
-                    // オートじゃなければプレイ結果を書き込む
-                    if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
-                        ini.stセクション[i + 6] = this.st演奏記録[ i ];
-                    }
+					// オートじゃなければプレイ結果を書き込む
+					if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
+						ini.stセクション[i + 6] = this.st演奏記録[ i ];
+					}
 
-                    // #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
-                    //        11.02.05 bオート to t更新条件を取得する use      ikanick
+					// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
+					//        11.02.05 bオート to t更新条件を取得する use      ikanick
 					bool[] b更新が必要か否か = new bool[ 3 ];
 					CScoreIni.t更新条件を取得する( out b更新が必要か否か[ 0 ], out b更新が必要か否か[ 1 ], out b更新が必要か否か[ 2 ] );
 
-                    if (b更新が必要か否か[ i ])
-                    {
-                        switch ( i )
-                        {
-                            case 0:
-                                ini.stファイル.ClearCountDrums++;
-                                break;
-                            case 1:
-                                ini.stファイル.ClearCountGuitar++;
-                                break;
-                            case 2:
-                                ini.stファイル.ClearCountBass++;
-                                break;
-                            default:
-                                throw new Exception("クリア回数増加のk(0-2)が範囲外です。");
-                        }
-                    }
-                    //---------------------------------------------------------------------/
+					if (b更新が必要か否か[ i ])
+					{
+						switch ( i )
+						{
+							case 0:
+								ini.stファイル.ClearCountDrums++;
+								break;
+							case 1:
+								ini.stファイル.ClearCountGuitar++;
+								break;
+							case 2:
+								ini.stファイル.ClearCountBass++;
+								break;
+							default:
+								throw new Exception("クリア回数増加のk(0-2)が範囲外です。");
+						}
+					}
+					//---------------------------------------------------------------------/
 				}
 				if (TJAPlayer3.ConfigIni.bScoreIniを出力する)
 				{
@@ -208,11 +208,11 @@ namespace TJAPlayer3
 
 				#region [ リザルト画面への演奏回数の更新 #24281 2011.1.30 yyagi]
 				if ( TJAPlayer3.ConfigIni.bScoreIniを出力する )
-                {
-                    this.n演奏回数.Drums = ini.stファイル.PlayCountDrums;
-                    this.n演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
-                    this.n演奏回数.Bass = ini.stファイル.PlayCountBass;
-                }
+				{
+					this.n演奏回数.Drums = ini.stファイル.PlayCountDrums;
+					this.n演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
+					this.n演奏回数.Bass = ini.stファイル.PlayCountBass;
+				}
 				#endregion
 				#region [ 選曲画面の譜面情報の更新 ]
 				//---------------------
@@ -232,22 +232,22 @@ namespace TJAPlayer3
 							if( this.b新記録スキル[ m ] )
 							{
 								cスコア.譜面情報.最大スキル[ m ] = this.st演奏記録[ m ].db演奏型スキル値;
-		                    }
+							}
 
-                            if (this.b新記録ランク[ m ])
-                            {
-                                cスコア.譜面情報.最大ランク[ m ] = this.nランク値[ m ];
-                            }
+							if (this.b新記録ランク[ m ])
+							{
+								cスコア.譜面情報.最大ランク[ m ] = this.nランク値[ m ];
+							}
 						}
 					}
 				}
-                //---------------------
-                #endregion
+				//---------------------
+				#endregion
 
-                // Discord Presenseの更新
-                Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
+				// Discord Presenseの更新
+				Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
 
-                base.On活性化();
+				base.On活性化();
 			}
 			finally
 			{
@@ -324,7 +324,7 @@ namespace TJAPlayer3
 
 				if(TJAPlayer3.Tx.Result_Background != null )
 				{
-                    TJAPlayer3.Tx.Result_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+					TJAPlayer3.Tx.Result_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 				}
 				if( this.ct登場用.b進行中 && ( TJAPlayer3.Tx.Result_Header != null ) )
 				{
@@ -338,9 +338,9 @@ namespace TJAPlayer3
 				}
 				if(TJAPlayer3.Tx.Result_Header != null )
 				{
-                    TJAPlayer3.Tx.Result_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+					TJAPlayer3.Tx.Result_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 				}
-                if ( this.actResultImage.On進行描画() == 0 )
+				if ( this.actResultImage.On進行描画() == 0 )
 				{
 					this.bアニメが完了 = false;
 				}
@@ -354,17 +354,17 @@ namespace TJAPlayer3
 					this.bアニメが完了 = false;
 				}
 
-                #region ネームプレート
-                for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
-                {
-                    if (TJAPlayer3.Tx.NamePlate[i] != null)
-                    {
-                        TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_NamePlate_X[i], TJAPlayer3.Skin.Result_NamePlate_Y[i]);
-                    }
-                }
-                #endregion
+				#region ネームプレート
+				for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+				{
+					if (TJAPlayer3.Tx.NamePlate[i] != null)
+					{
+						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_NamePlate_X[i], TJAPlayer3.Skin.Result_NamePlate_Y[i]);
+					}
+				}
+				#endregion
 
-                if ( base.eフェーズID == CStage.Eフェーズ.共通_フェードイン )
+				if ( base.eフェーズID == CStage.Eフェーズ.共通_フェードイン )
 				{
 					if( this.actFI.On進行描画() != 0 )
 					{

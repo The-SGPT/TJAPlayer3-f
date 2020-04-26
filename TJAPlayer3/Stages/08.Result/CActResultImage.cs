@@ -13,10 +13,10 @@ namespace TJAPlayer3
 	internal class CActResultImage : CActivity
 	{
 		// コンストラクタ
-        /// <summary>
-        /// リザルト画像を表示させるクラス。XG化するにあたって動画は廃止。
-        /// また、中央の画像も表示する。(STAGE表示、STANDARD_CLASSICなど)
-        /// </summary>
+		/// <summary>
+		/// リザルト画像を表示させるクラス。XG化するにあたって動画は廃止。
+		/// また、中央の画像も表示する。(STAGE表示、STANDARD_CLASSICなど)
+		/// </summary>
 		public CActResultImage()
 		{
 			base.b活性化してない = true;

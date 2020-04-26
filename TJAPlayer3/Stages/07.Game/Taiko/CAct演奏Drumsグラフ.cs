@@ -23,7 +23,7 @@ namespace TJAPlayer3
 		// CActivity 実装
 
 		public override void On活性化()
-        {
+		{
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -50,8 +50,8 @@ namespace TJAPlayer3
 			{
 				if( base.b初めての進行描画 )
 				{
-                }
-                
+				}
+				
 			}
 			return 0;
 		}

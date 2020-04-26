@@ -54,7 +54,7 @@ namespace TJAPlayer3
 				}
 				TJAPlayer3.tテクスチャの解放( ref this.txComment );
 				//this.strComment = cスコア.譜面情報.コメント;
-                this.strComment = cスコア.譜面情報.ジャンル;
+				this.strComment = cスコア.譜面情報.ジャンル;
 				if( ( this.strComment != null ) && ( this.strComment.Length > 0 ) )
 				{
 					Graphics graphics2 = Graphics.FromImage( image );

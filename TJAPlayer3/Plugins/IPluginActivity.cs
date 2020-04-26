@@ -9,7 +9,7 @@
 	/// <para>(4) Direct3D デバイスのリセット時には、デバイスのリセット前に OnUnmanagedリソースの解放() を1回呼び出し、デバイスをリセットしたのち、OnUnmanagedリソースの作成() を1回呼び出します。</para>
 	/// <para>(5) Direct3D デバイスのロスト時には、デバイスの再生成前に OnUnmanagedリソースの解放()_OnManagedリソースの解放() を1回ずつ呼び出し、デバイスを再生成したのち、OnManagedリソースの作成()_OnUnmanagedリソースの作成() を1回ずつ呼び出します。</para>
 	/// </summary>
-    public interface IPluginActivity
+	public interface IPluginActivity
 	{
 		/// <summary>
 		/// <para>プラグインの初期化を行います。</para>

@@ -26,12 +26,12 @@ namespace TJAPlayer3
 			public string Hash;
 			public int PlayCountDrums;
 			public int PlayCountGuitar;
-            public int PlayCountBass;
-            // #23596 10.11.16 add ikanick-----/
-            public int ClearCountDrums;
-            public int ClearCountGuitar;
-            public int ClearCountBass;
-            // #24459 2011.2.24 yyagi----------/
+			public int PlayCountBass;
+			// #23596 10.11.16 add ikanick-----/
+			public int ClearCountDrums;
+			public int ClearCountGuitar;
+			public int ClearCountBass;
+			// #24459 2011.2.24 yyagi----------/
 			public STDGBVALUE<int> BestRank;
 			// --------------------------------/
 			public int HistoryCount;
@@ -44,15 +44,15 @@ namespace TJAPlayer3
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STセクション
 		{
-            public CScoreIni.C演奏記録 HiScoreDrums;
-            public CScoreIni.C演奏記録 HiSkillDrums;
+			public CScoreIni.C演奏記録 HiScoreDrums;
+			public CScoreIni.C演奏記録 HiSkillDrums;
 			public CScoreIni.C演奏記録 HiScoreGuitar;
-            public CScoreIni.C演奏記録 HiSkillGuitar;
+			public CScoreIni.C演奏記録 HiSkillGuitar;
 			public CScoreIni.C演奏記録 HiScoreBass;
-            public CScoreIni.C演奏記録 HiSkillBass;
-            public CScoreIni.C演奏記録 LastPlayDrums;   // #23595 2011.1.9 ikanick
-            public CScoreIni.C演奏記録 LastPlayGuitar;  //
-            public CScoreIni.C演奏記録 LastPlayBass;    //
+			public CScoreIni.C演奏記録 HiSkillBass;
+			public CScoreIni.C演奏記録 LastPlayDrums;   // #23595 2011.1.9 ikanick
+			public CScoreIni.C演奏記録 LastPlayGuitar;  //
+			public CScoreIni.C演奏記録 LastPlayBass;    //
 			public CScoreIni.C演奏記録 this[ int index ]
 			{
 				get
@@ -74,19 +74,19 @@ namespace TJAPlayer3
 						case 4:
 							return this.HiScoreBass;
 
-                        case 5:
-                            return this.HiSkillBass;
+						case 5:
+							return this.HiSkillBass;
 
-                        // #23595 2011.1.9 ikanick
-                        case 6:
-                            return this.LastPlayDrums;
+						// #23595 2011.1.9 ikanick
+						case 6:
+							return this.LastPlayDrums;
 
-                        case 7:
-                            return this.LastPlayGuitar;
+						case 7:
+							return this.LastPlayGuitar;
 
-                        case 8:
-                            return this.LastPlayBass;
-                        //------------
+						case 8:
+							return this.LastPlayBass;
+						//------------
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -112,24 +112,24 @@ namespace TJAPlayer3
 
 						case 4:
 							this.HiScoreBass = value;
-                            return;
+							return;
 
-                        case 5:
-                            this.HiSkillBass = value;
-                            return;
-                        // #23595 2011.1.9 ikanick
-                        case 6:
-                            this.LastPlayDrums = value;
-                            return;
+						case 5:
+							this.HiSkillBass = value;
+							return;
+						// #23595 2011.1.9 ikanick
+						case 6:
+							this.LastPlayDrums = value;
+							return;
 
-                        case 7:
-                            this.LastPlayGuitar = value;
-                            return;
+						case 7:
+							this.LastPlayGuitar = value;
+							return;
 
-                        case 8:
-                            this.LastPlayBass = value;
-                            return;
-                        //------------------
+						case 8:
+							this.LastPlayBass = value;
+							return;
+						//------------------
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -199,7 +199,7 @@ namespace TJAPlayer3
 			public int nPoor数_Auto含まない;
 			public int nMiss数_Auto含まない;
 			public long nスコア;
-            public int n連打数;
+			public int n連打数;
 			public int n演奏速度分子;
 			public int n演奏速度分母;
 			public int n最大コンボ数;
@@ -208,12 +208,12 @@ namespace TJAPlayer3
 			public bool レーン9モード;
 			public int nRisky;		// #23559 2011.6.20 yyagi 0=OFF, 1-10=Risky
 			public string 最終更新日時;
-            public float fゲージ;
-            public int[] n良 = new int[(int)Difficulty.Total];
-            public int[] n可 = new int[(int)Difficulty.Total];
-            public int[] n不可 = new int[(int)Difficulty.Total];
-            public int[] n連打 = new int[(int)Difficulty.Total];
-            public int[] nハイスコア = new int[(int)Difficulty.Total];
+			public float fゲージ;
+			public int[] n良 = new int[(int)Difficulty.Total];
+			public int[] n可 = new int[(int)Difficulty.Total];
+			public int[] n不可 = new int[(int)Difficulty.Total];
+			public int[] n連打 = new int[(int)Difficulty.Total];
+			public int[] nハイスコア = new int[(int)Difficulty.Total];
 			public int[] n王冠 = new int[(int)Difficulty.Total];
 			public Dan_C[] Dan_C;
 
@@ -288,8 +288,8 @@ namespace TJAPlayer3
 				this.Hash = "00000000000000000000000000000000";
 				this.レーン9モード = true;
 				this.nRisky = 0;									// #23559 2011.6.20 yyagi
-                this.fゲージ = 0.0f;
-                Dan_C = new Dan_C[3];
+				this.fゲージ = 0.0f;
+				Dan_C = new Dan_C[3];
 			}
 
 			public bool bフルコンボじゃない
@@ -512,12 +512,12 @@ namespace TJAPlayer3
 			stセクション.HiScoreDrums = new C演奏記録();
 			stセクション.HiSkillDrums = new C演奏記録();
 			stセクション.HiScoreGuitar = new C演奏記録();
-            stセクション.HiSkillGuitar = new C演奏記録();
-            stセクション.HiScoreBass = new C演奏記録();
-            stセクション.HiSkillBass = new C演奏記録();
-            stセクション.LastPlayDrums = new C演奏記録();
-            stセクション.LastPlayGuitar = new C演奏記録();
-            stセクション.LastPlayBass = new C演奏記録();
+			stセクション.HiSkillGuitar = new C演奏記録();
+			stセクション.HiScoreBass = new C演奏記録();
+			stセクション.HiSkillBass = new C演奏記録();
+			stセクション.LastPlayDrums = new C演奏記録();
+			stセクション.LastPlayGuitar = new C演奏記録();
+			stセクション.LastPlayBass = new C演奏記録();
 		}
 
 		/// <summary>
@@ -624,25 +624,25 @@ namespace TJAPlayer3
 								else if( str2.Equals( "HiScore.Bass" ) )
 								{
 									section = Eセクション種別.HiScoreBass;
-                                }
-                                else if (str2.Equals("HiSkill.Bass"))
-                                {
-                                    section = Eセクション種別.HiSkillBass;
-                                }
-                                // #23595 2011.1.9 ikanick
-                                else if (str2.Equals("LastPlay.Drums"))
-                                {
-                                    section = Eセクション種別.LastPlayDrums;
-                                }
-                                else if (str2.Equals("LastPlay.Guitar"))
-                                {
-                                    section = Eセクション種別.LastPlayGuitar;
-                                }
-                                else if (str2.Equals("LastPlay.Bass"))
-                                {
-                                    section = Eセクション種別.LastPlayBass;
-                                }
-                                //----------------------------------------------------
+								}
+								else if (str2.Equals("HiSkill.Bass"))
+								{
+									section = Eセクション種別.HiSkillBass;
+								}
+								// #23595 2011.1.9 ikanick
+								else if (str2.Equals("LastPlay.Drums"))
+								{
+									section = Eセクション種別.LastPlayDrums;
+								}
+								else if (str2.Equals("LastPlay.Guitar"))
+								{
+									section = Eセクション種別.LastPlayGuitar;
+								}
+								else if (str2.Equals("LastPlay.Bass"))
+								{
+									section = Eセクション種別.LastPlayBass;
+								}
+								//----------------------------------------------------
 								else
 								{
 									section = Eセクション種別.Unknown;
@@ -672,10 +672,10 @@ namespace TJAPlayer3
 										case Eセクション種別.HiScoreGuitar:
 										case Eセクション種別.HiSkillGuitar:
 										case Eセクション種別.HiScoreBass:
-                                        case Eセクション種別.HiSkillBass:
-                                        case Eセクション種別.LastPlayDrums:// #23595 2011.1.9 ikanick
-                                        case Eセクション種別.LastPlayGuitar:
-                                        case Eセクション種別.LastPlayBass:
+										case Eセクション種別.HiSkillBass:
+										case Eセクション種別.LastPlayDrums:// #23595 2011.1.9 ikanick
+										case Eセクション種別.LastPlayGuitar:
+										case Eセクション種別.LastPlayBass:
 											{
 												c演奏記録 = this.stセクション[ (int) section ];
 												if( !item.Equals( "Score" ) )
@@ -683,7 +683,7 @@ namespace TJAPlayer3
 													goto Label_03B9;
 												}
 												c演奏記録.nスコア = long.Parse( para );
-                                                
+												
 
 												continue;
 											}
@@ -712,21 +712,21 @@ namespace TJAPlayer3
 							else if( item.Equals( "PlayCountBass" ) )
 							{
 								this.stファイル.PlayCountBass = C変換.n値を文字列から取得して範囲内に丸めて返す( para, 0, 99999999, 0 );
-                            }
-                            // #23596 10.11.16 add ikanick------------------------------------/
-                            else if (item.Equals("ClearCountDrums"))
-                            {
-                                this.stファイル.ClearCountDrums = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
-                            }
-                            else if (item.Equals("ClearCountGuitars"))// #23596 11.2.5 changed ikanick
-                            {
-                                this.stファイル.ClearCountGuitar = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
-                            }
-                            else if (item.Equals("ClearCountBass"))
-                            {
-                                this.stファイル.ClearCountBass = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
-                            }
-                            // #24459 2011.2.24 yyagi-----------------------------------------/
+							}
+							// #23596 10.11.16 add ikanick------------------------------------/
+							else if (item.Equals("ClearCountDrums"))
+							{
+								this.stファイル.ClearCountDrums = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+							}
+							else if (item.Equals("ClearCountGuitars"))// #23596 11.2.5 changed ikanick
+							{
+								this.stファイル.ClearCountGuitar = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+							}
+							else if (item.Equals("ClearCountBass"))
+							{
+								this.stファイル.ClearCountBass = C変換.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+							}
+							// #24459 2011.2.24 yyagi-----------------------------------------/
 							else if ( item.Equals( "BestRankDrums" ) )
 							{
 								this.stファイル.BestRank.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( para, (int) ERANK.SS, (int) ERANK.E, (int) ERANK.UNKNOWN );
@@ -772,25 +772,25 @@ namespace TJAPlayer3
 							#endregion
 							#region [ Score section ]
 						Label_03B9:
-                                                if ( item.Equals( "HiScore1" ) )
-											    {
-												    c演奏記録.nハイスコア[ 0 ] = int.Parse( para );
-											    }
-											    else if ( item.Equals( "HiScore2" ) )
-											    {
-										    		c演奏記録.nハイスコア[ 1 ] = int.Parse( para );
-									    		}
-								    			else if ( item.Equals( "HiScore3" ) )
-							    				{
-						    						c演奏記録.nハイスコア[ 2 ] = int.Parse( para );
-					    						}
-				    							else if ( item.Equals( "HiScore4" ) )
-											    {
-			    									c演奏記録.nハイスコア[ 3 ] = int.Parse( para );
-		    									}
-	    										else if ( item.Equals( "HiScore5" ) )
-    											{
-												    c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
+												if ( item.Equals( "HiScore1" ) )
+												{
+													c演奏記録.nハイスコア[ 0 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "HiScore2" ) )
+												{
+													c演奏記録.nハイスコア[ 1 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "HiScore3" ) )
+												{
+													c演奏記録.nハイスコア[ 2 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "HiScore4" ) )
+												{
+													c演奏記録.nハイスコア[ 3 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "HiScore5" ) )
+												{
+													c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
 												}
 												else if (item.Equals("HiScore6"))
 												{
@@ -802,25 +802,25 @@ namespace TJAPlayer3
 												}					
 							if ( item.Equals( "PlaySkill" ) )
 							{
-                                try
-                                {
-								    c演奏記録.db演奏型スキル値 = (double) decimal.Parse( para );
-                                }
-                                catch
-                                {
-                                    c演奏記録.db演奏型スキル値 = 0.0;
-                                }
+								try
+								{
+									c演奏記録.db演奏型スキル値 = (double) decimal.Parse( para );
+								}
+								catch
+								{
+									c演奏記録.db演奏型スキル値 = 0.0;
+								}
 							}
 							else if( item.Equals( "Skill" ) )
 							{
-                                try
-                                {
-								    c演奏記録.dbゲーム型スキル値 = (double) decimal.Parse( para );
-                                }
-                                catch
-                                {
-                                    c演奏記録.dbゲーム型スキル値 = 0.0;
-                                }
+								try
+								{
+									c演奏記録.dbゲーム型スキル値 = (double) decimal.Parse( para );
+								}
+								catch
+								{
+									c演奏記録.dbゲーム型スキル値 = 0.0;
+								}
 							}
 							else if( item.Equals( "Perfect" ) )
 							{
@@ -842,10 +842,10 @@ namespace TJAPlayer3
 							{
 								c演奏記録.nMiss数 = int.Parse( para );
 							}
-                            else if( item.Equals( "Roll" ) )
-                            {
+							else if( item.Equals( "Roll" ) )
+							{
 								c演奏記録.n連打数 = int.Parse( para );
-                            }
+							}
 							else if( item.Equals( "MaxCombo" ) )
 							{
 								c演奏記録.n最大コンボ数 = int.Parse( para );
@@ -1155,25 +1155,25 @@ namespace TJAPlayer3
 											{
 												c演奏記録.レーン9モード = C変換.bONorOFF( para[ 0 ] );
 											}
-                                            else if ( item.Equals( "HiScore1" ) )
-                                            {
-                                                c演奏記録.nハイスコア[ 0 ] = int.Parse( para );
-                                            }
-                                            else if ( item.Equals( "HiScore2" ) )
-                                            {
-                                                c演奏記録.nハイスコア[ 1 ] = int.Parse( para );
-                                            }
-                                            else if ( item.Equals( "HiScore3" ) )
-                                            {
-                                                c演奏記録.nハイスコア[ 2 ] = int.Parse( para );
-                                            }
-                                            else if ( item.Equals( "HiScore4" ) )
-                                            {
-                                                c演奏記録.nハイスコア[ 3 ] = int.Parse( para );
+											else if ( item.Equals( "HiScore1" ) )
+											{
+												c演奏記録.nハイスコア[ 0 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "HiScore2" ) )
+											{
+												c演奏記録.nハイスコア[ 1 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "HiScore3" ) )
+											{
+												c演奏記録.nハイスコア[ 2 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "HiScore4" ) )
+											{
+												c演奏記録.nハイスコア[ 3 ] = int.Parse( para );
 											}
 											else if ( item.Equals( "HiScore5" ) )
 											{
-											    c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
+												c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
 											}
 											else if (item.Equals("HiScore6"))
 											{
@@ -1249,10 +1249,10 @@ namespace TJAPlayer3
 			writer.WriteLine( "Hash={0}", this.stファイル.Hash );
 			writer.WriteLine( "PlayCountDrums={0}", this.stファイル.PlayCountDrums );
 			writer.WriteLine( "PlayCountGuitars={0}", this.stファイル.PlayCountGuitar );
-            writer.WriteLine( "PlayCountBass={0}", this.stファイル.PlayCountBass );
-            writer.WriteLine( "ClearCountDrums={0}", this.stファイル.ClearCountDrums );       // #23596 10.11.16 add ikanick
-            writer.WriteLine( "ClearCountGuitars={0}", this.stファイル.ClearCountGuitar );    //
-            writer.WriteLine( "ClearCountBass={0}", this.stファイル.ClearCountBass );         //
+			writer.WriteLine( "PlayCountBass={0}", this.stファイル.PlayCountBass );
+			writer.WriteLine( "ClearCountDrums={0}", this.stファイル.ClearCountDrums );       // #23596 10.11.16 add ikanick
+			writer.WriteLine( "ClearCountGuitars={0}", this.stファイル.ClearCountGuitar );    //
+			writer.WriteLine( "ClearCountBass={0}", this.stファイル.ClearCountBass );         //
 			writer.WriteLine( "BestRankDrums={0}", this.stファイル.BestRank.Drums );		// #24459 2011.2.24 yyagi
 			writer.WriteLine( "BestRankGuitar={0}", this.stファイル.BestRank.Guitar );		//
 			writer.WriteLine( "BestRankBass={0}", this.stファイル.BestRank.Bass );			//
@@ -1266,7 +1266,7 @@ namespace TJAPlayer3
 			writer.WriteLine();
 			for( int i = 0; i < 9; i++ )
 			{
-                string[] strArray = { "HiScore.Drums", "HiSkill.Drums", "HiScore.Guitar", "HiSkill.Guitar", "HiScore.Bass", "HiSkill.Bass", "LastPlay.Drums", "LastPlay.Guitar", "LastPlay.Bass" };
+				string[] strArray = { "HiScore.Drums", "HiSkill.Drums", "HiScore.Guitar", "HiSkill.Guitar", "HiScore.Bass", "HiSkill.Bass", "LastPlay.Drums", "LastPlay.Guitar", "LastPlay.Bass" };
 				writer.WriteLine( "[{0}]", strArray[ i ] );
 				writer.WriteLine( "Score={0}", this.stセクション[ i ].nスコア );
 				writer.WriteLine( "PlaySkill={0}", this.stセクション[ i ].db演奏型スキル値 );
@@ -1324,18 +1324,18 @@ namespace TJAPlayer3
 				writer.WriteLine( "DTXManiaVersion={0}", this.stセクション[ i ].strDTXManiaのバージョン );
 				writer.WriteLine( "DateTime={0}", this.stセクション[ i ].最終更新日時 );
 				writer.WriteLine( "Hash={0}", this.stセクション[ i ].Hash );
-                writer.WriteLine( "HiScore1={0}", this.stセクション[ i ].nハイスコア[ 0 ] );
-                writer.WriteLine( "HiScore2={0}", this.stセクション[ i ].nハイスコア[ 1 ] );
-                writer.WriteLine( "HiScore3={0}", this.stセクション[ i ].nハイスコア[ 2 ] );
-                writer.WriteLine( "HiScore4={0}", this.stセクション[ i ].nハイスコア[ 3 ] );
-                writer.WriteLine( "HiScore5={0}", this.stセクション[ i ].nハイスコア[ 4 ] );
+				writer.WriteLine( "HiScore1={0}", this.stセクション[ i ].nハイスコア[ 0 ] );
+				writer.WriteLine( "HiScore2={0}", this.stセクション[ i ].nハイスコア[ 1 ] );
+				writer.WriteLine( "HiScore3={0}", this.stセクション[ i ].nハイスコア[ 2 ] );
+				writer.WriteLine( "HiScore4={0}", this.stセクション[ i ].nハイスコア[ 3 ] );
+				writer.WriteLine( "HiScore5={0}", this.stセクション[ i ].nハイスコア[ 4 ] );
 				writer.WriteLine( "HiScore6={0}", this.stセクション[ i ].nハイスコア[ 5 ]);
 				writer.WriteLine( "HiScore7={0}", this.stセクション[ i ].nハイスコア[ 6 ]);
 				writer.WriteLine( "Roll1={0}", this.stセクション[ i ].n連打[ 0 ] );
-                writer.WriteLine( "Roll2={0}", this.stセクション[ i ].n連打[ 1 ] );
-                writer.WriteLine( "Roll3={0}", this.stセクション[ i ].n連打[ 2 ] );
-                writer.WriteLine( "Roll4={0}", this.stセクション[ i ].n連打[ 3 ] );
-                writer.WriteLine( "Roll5={0}", this.stセクション[ i ].n連打[ 4 ] );
+				writer.WriteLine( "Roll2={0}", this.stセクション[ i ].n連打[ 1 ] );
+				writer.WriteLine( "Roll3={0}", this.stセクション[ i ].n連打[ 2 ] );
+				writer.WriteLine( "Roll4={0}", this.stセクション[ i ].n連打[ 3 ] );
+				writer.WriteLine( "Roll5={0}", this.stセクション[ i ].n連打[ 4 ] );
 				writer.WriteLine( "Roll6={0}", this.stセクション[ i ].n連打[ 5 ]);
 				writer.WriteLine( "Roll7={0}", this.stセクション[ i ].n連打[ 6 ]);
 				writer.WriteLine( "Crown1={0}", this.stセクション[ i ].n王冠[ 0 ] );
@@ -1429,45 +1429,45 @@ namespace TJAPlayer3
 		}
 		internal static double dbCalcReviseValForDrGtBsAutoLanes( E楽器パート inst, STAUTOPLAY bAutoPlay )
 		{
-            //削除
+			//削除
 			return 1.0;
 		}
-        internal static double t超精密型スキルを計算して返す( CDTX dtx, int nTotal, int nPerfect, int nGood, int nMiss, int Poor, int nMaxLagTime, int nMinLagTimen, int nMaxCombo )
-        {
-            //演奏成績 最大60点
-            //最大コンボ 最大5点
-            //空打ち 最大10点(減点あり)
-            //最大_最小ズレ時間 最大10点
-            //平均ズレ時間 最大5点
-            //ボーナスA 最大5点
-            //ボーナスB 最大5点
+		internal static double t超精密型スキルを計算して返す( CDTX dtx, int nTotal, int nPerfect, int nGood, int nMiss, int Poor, int nMaxLagTime, int nMinLagTimen, int nMaxCombo )
+		{
+			//演奏成績 最大60点
+			//最大コンボ 最大5点
+			//空打ち 最大10点(減点あり)
+			//最大_最小ズレ時間 最大10点
+			//平均ズレ時間 最大5点
+			//ボーナスA 最大5点
+			//ボーナスB 最大5点
 
-            double db演奏点 = 0;
-            double db最大コンボ = 0;
-            double db空打ち = 0;
-            double db最大ズレ時間 = 0;
-            double db最小ズレ時間 = 0;
-            double db平均最大ズレ時間 = 0;
-            double db平均最小ズレ時間 = 0;
-            double dbボーナスA = 0;
-            double dbボーナスB = 0;
+			double db演奏点 = 0;
+			double db最大コンボ = 0;
+			double db空打ち = 0;
+			double db最大ズレ時間 = 0;
+			double db最小ズレ時間 = 0;
+			double db平均最大ズレ時間 = 0;
+			double db平均最小ズレ時間 = 0;
+			double dbボーナスA = 0;
+			double dbボーナスB = 0;
 
-            #region[ 演奏点 ]
+			#region[ 演奏点 ]
 
-            #endregion
-            #region[ 空打ち ]
-            int[] n空打ちArray = new int[] { 1, 2, 3, 5, 10, 15, 20, 30, 40, 50 };
-            int n空打ちpt = 0;
-            for( n空打ちpt = 0; n空打ちpt < 10; n空打ちpt++ )
-            {
-                if( Poor == n空打ちArray[ n空打ちpt ] )
-                    break;
-            }
-            db空打ち = ( Poor == 0 ? 10 : 10 - n空打ちpt );
-            #endregion
+			#endregion
+			#region[ 空打ち ]
+			int[] n空打ちArray = new int[] { 1, 2, 3, 5, 10, 15, 20, 30, 40, 50 };
+			int n空打ちpt = 0;
+			for( n空打ちpt = 0; n空打ちpt < 10; n空打ちpt++ )
+			{
+				if( Poor == n空打ちArray[ n空打ちpt ] )
+					break;
+			}
+			db空打ち = ( Poor == 0 ? 10 : 10 - n空打ちpt );
+			#endregion
 
-            return 1.0;
-        }
+			return 1.0;
+		}
 		internal static string t演奏セクションのMD5を求めて返す( C演奏記録 cc )
 		{
 			StringBuilder builder = new StringBuilder();
@@ -1535,7 +1535,7 @@ namespace TJAPlayer3
 		}
 		internal static void t更新条件を取得する( out bool bDrumsを更新する, out bool bGuitarを更新する, out bool bBassを更新する )
 		{
-            bDrumsを更新する = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
+			bDrumsを更新する = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 			bGuitarを更新する = false;
 			bBassを更新する =   false;
 		}

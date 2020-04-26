@@ -283,7 +283,7 @@ namespace TJAPlayer3
 				// キャッシュにヒットせず。
 				#region [ レンダリングして、キャッシュに登録 ]
 				FontCache fc = new FontCache();
-                fc.bmp = base.DrawPrivateFont_V(drawstr, fontColor, edgeColor, true);
+				fc.bmp = base.DrawPrivateFont_V(drawstr, fontColor, edgeColor, true);
 				fc.drawstr = drawstr;
 				fc.fontColor = fontColor;
 				fc.edgeColor = edgeColor;
@@ -319,38 +319,38 @@ namespace TJAPlayer3
 			}
 		}
 
-        #region [ IDisposable 実装 ]
-        //-----------------
-        public new void Dispose()
-        {
-            if (!this.bDispose完了済み_CPrivateFastFont)
-            {
-                if (listFontCache != null)
-                {
-                    //Debug.WriteLine( "Disposing CPrivateFastFont()" );
-                    #region [ キャッシュしている画像を破棄する ]
-                    foreach (FontCache bc in listFontCache)
+		#region [ IDisposable 実装 ]
+		//-----------------
+		public new void Dispose()
+		{
+			if (!this.bDispose完了済み_CPrivateFastFont)
+			{
+				if (listFontCache != null)
+				{
+					//Debug.WriteLine( "Disposing CPrivateFastFont()" );
+					#region [ キャッシュしている画像を破棄する ]
+					foreach (FontCache bc in listFontCache)
 
-                    {
-                        if (bc.bmp != null)
-                        {
-                            bc.bmp.Dispose();
-                        }
-                    }
-                    #endregion
-                    listFontCache.Clear();
-                    listFontCache = null;
-                }
-                this.bDispose完了済み_CPrivateFastFont = true;
-            }
-            base.Dispose();
-        }
-        //-----------------
-        #endregion
-        
-        #region [ private ]
-        //-----------------
-        protected bool bDispose完了済み_CPrivateFastFont;
+					{
+						if (bc.bmp != null)
+						{
+							bc.bmp.Dispose();
+						}
+					}
+					#endregion
+					listFontCache.Clear();
+					listFontCache = null;
+				}
+				this.bDispose完了済み_CPrivateFastFont = true;
+			}
+			base.Dispose();
+		}
+		//-----------------
+		#endregion
+		
+		#region [ private ]
+		//-----------------
+		protected bool bDispose完了済み_CPrivateFastFont;
 		//-----------------
 		#endregion
 	}

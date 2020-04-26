@@ -332,12 +332,12 @@ namespace FDK
 				{
 					IBaseFilter videoRenderer;
 					IPin videoInputPin;
-                    IBaseFilter audioRenderer;
-                    IPin audioInputPin;
+					IBaseFilter audioRenderer;
+					IPin audioInputPin;
 #if MemoryRenderer
-                    CDirectShow.tビデオレンダラとその入力ピンを探して返す( this.graphBuilder, out videoRenderer, out videoInputPin );
+					CDirectShow.tビデオレンダラとその入力ピンを探して返す( this.graphBuilder, out videoRenderer, out videoInputPin );
 #else
-                    CDirectShow.SearchMMRenderers( this.graphBuilder, out videoRenderer, out videoInputPin, out audioRenderer, out audioInputPin );
+					CDirectShow.SearchMMRenderers( this.graphBuilder, out videoRenderer, out videoInputPin, out audioRenderer, out audioInputPin );
 #endif
 					if( videoRenderer == null && audioRenderer != null )
 						this.b音声のみ = true;
@@ -345,8 +345,8 @@ namespace FDK
 					{
 						C共通.tCOMオブジェクトを解放する( ref videoInputPin );
 						C共通.tCOMオブジェクトを解放する( ref videoRenderer );
-                        C共通.tCOMオブジェクトを解放する( ref audioInputPin );
-                        C共通.tCOMオブジェクトを解放する( ref audioRenderer );
+						C共通.tCOMオブジェクトを解放する( ref audioInputPin );
+						C共通.tCOMオブジェクトを解放する( ref audioRenderer );
 					}
 				}
 
@@ -1468,13 +1468,13 @@ namespace FDK
 
 			C共通.t完全なガベージコレクションを実施する();
 		}
-        ~CDirectShow()
+		~CDirectShow()
 		{
 			// ファイナライザが呼ばれたということは、Dispose() されなかったということ。
 			// この場合、Managed リソースは先にファイナライズされている可能性があるので、Unmamaed リソースのみを解放する。
 			
 			this.Dispose( false );
-        }
+		}
 		//-----------------
 		#endregion
 

@@ -78,10 +78,10 @@ namespace TJAPlayer3
 					return 0;
 				}
 
-                //スキン変更処理
-                TJAPlayer3.app.RefleshSkin();
+				//スキン変更処理
+				TJAPlayer3.app.RefleshSkin();
 
-                return 1;
+				return 1;
 			}
 			return 0;
 		}

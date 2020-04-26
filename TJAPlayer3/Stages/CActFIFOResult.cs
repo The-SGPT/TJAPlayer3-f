@@ -14,15 +14,15 @@ namespace TJAPlayer3
 		{
 			this.mode = EFIFOモード.フェードアウト;
 			this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
-            TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
-        }
+			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+		}
 		public void tフェードイン開始()
 		{
 			this.mode = EFIFOモード.フェードイン;
 			this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
-            TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
-        }
-        public void tフェードイン完了()		// #25406 2011.6.9 yyagi
+			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+		}
+		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
 		{
 			this.counter.n現在の値 = this.counter.n終了値;
 		}
@@ -33,7 +33,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-                //CDTXMania.tテクスチャの解放( ref this.tx幕 );
+				//CDTXMania.tテクスチャの解放( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -56,35 +56,35 @@ namespace TJAPlayer3
 			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
 			if (TJAPlayer3.Tx.Result_FadeIn != null)
 			{
-                if( this.mode == EFIFOモード.フェードアウト )
-                {
-                    int y =  this.counter.n現在の値 >= 360 ? 360 : this.counter.n現在の値;
-                    TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, this.counter.n現在の値 >= 360 ? 0 : -360 + y, new Rectangle( 0, 0, 1280, 380 ) );
-                    TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 720 - y, new Rectangle( 0, 380, 1280, 360 ) );
-                }
-                else
-                {
-                    TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
-                    TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
-                    TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
-                }
+				if( this.mode == EFIFOモード.フェードアウト )
+				{
+					int y =  this.counter.n現在の値 >= 360 ? 360 : this.counter.n現在の値;
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, this.counter.n現在の値 >= 360 ? 0 : -360 + y, new Rectangle( 0, 0, 1280, 380 ) );
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 720 - y, new Rectangle( 0, 380, 1280, 360 ) );
+				}
+				else
+				{
+					TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
+				}
 
 
 			}
-            if( this.mode == EFIFOモード.フェードアウト )
-            {
-			    if( this.counter.n現在の値 != 500 )
-			    {
-				    return 0;
-			    }
-            }
-            else if( this.mode == EFIFOモード.フェードイン )
-            {
-			    if( this.counter.n現在の値 != 100 )
-			    {
-				    return 0;
-			    }
-            }
+			if( this.mode == EFIFOモード.フェードアウト )
+			{
+				if( this.counter.n現在の値 != 500 )
+				{
+					return 0;
+				}
+			}
+			else if( this.mode == EFIFOモード.フェードイン )
+			{
+				if( this.counter.n現在の値 != 100 )
+				{
+					return 0;
+				}
+			}
 			return 1;
 		}
 
@@ -95,7 +95,7 @@ namespace TJAPlayer3
 		//-----------------
 		private CCounter counter;
 		private EFIFOモード mode;
-        //private CTexture tx幕;
+		//private CTexture tx幕;
 		//-----------------
 		#endregion
 	}

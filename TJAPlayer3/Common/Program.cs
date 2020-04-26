@@ -72,11 +72,11 @@ namespace TJAPlayer3
 				Trace.WriteLine( "Current Directory: " + Environment.CurrentDirectory );
 				Trace.WriteLine( "EXEのあるフォルダ: " + Path.GetDirectoryName( Application.ExecutablePath ) );
 
-                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
 
-                #region [DLLの存在チェック]
-                if ( !tDLLの存在チェック( "dll\\SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll",
+				#region [DLLの存在チェック]
+				if ( !tDLLの存在チェック( "dll\\SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll",
 					"SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll またはその依存するdllが存在しません。" + newLine + "DTXManiaをダウンロードしなおしてください。",
 					"SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll, or its depended DLL, is not found." + newLine + "Please download DTXMania again."
 					) ) bDLLnotfound = true;
@@ -151,14 +151,14 @@ namespace TJAPlayer3
 						Trace.Write( e.ToString() );
 						Trace.WriteLine( "" );
 						Trace.WriteLine( "エラーだゴメン！（涙" );
-                        AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
-                        MessageBox.Show( "エラーが発生しました。\n" +
-                            "原因がわからない場合は、以下のエラー文を添えて、エラー送信フォームに送信してください。\n" + 
-                            e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );    // #23670 2011.2.28 yyagi to show error dialog
+						AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
+						MessageBox.Show( "エラーが発生しました。\n" +
+							"原因がわからない場合は、以下のエラー文を添えて、エラー送信フォームに送信してください。\n" + 
+							e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );    // #23670 2011.2.28 yyagi to show error dialog
 						DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)\n",
-                            asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Asterisk);
+							asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
+							MessageBoxButtons.YesNo,
+							MessageBoxIcon.Asterisk);
 						if (result == DialogResult.Yes)
 						{
 							DialogResult result2 = MessageBox.Show("GitHubのエラー送信フォームを開きますか?※GitHubアカウントが必要です。\n\nGoogleのエラー送信フォームを開きますか?※アカウントの必要なし\n\nGitHubのからのエラー報告のほうが「Mr.おじい」が早くエラーの存在に気づけます。\n(Y:GitHub / N:Google)",

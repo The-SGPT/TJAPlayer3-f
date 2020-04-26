@@ -94,7 +94,7 @@ namespace TJAPlayer3
 			{
 				this.txフォント8x16[ 0 ] = TJAPlayer3.Tx.TxC(@"Console_Font.png");
 				this.txフォント8x16[ 1 ] = TJAPlayer3.Tx.TxC(@"Console_Font_Small.png");
-                base.OnManagedリソースの作成();
+				base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()

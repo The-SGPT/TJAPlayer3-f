@@ -14,10 +14,10 @@ namespace TJAPlayer3
 		public Color Color;
 		public string Genre;
 		public string Title;
-        public Color ForeColor;
-        public Color BackColor;
-        public bool IsChangedForeColor;
-        public bool IsChangedBackColor;
+		public Color ForeColor;
+		public Color BackColor;
+		public bool IsChangedForeColor;
+		public bool IsChangedBackColor;
 
 
 		// コンストラクタ
@@ -26,8 +26,8 @@ namespace TJAPlayer3
 		{
 			this.Title = "";
 			this.Genre = "";
-            ForeColor = Color.White;
-            BackColor = Color.Black;
+			ForeColor = Color.White;
+			BackColor = Color.Black;
 
 		}
 		public CBoxDef( string boxdefファイル名 )
@@ -58,7 +58,7 @@ namespace TJAPlayer3
 							{
 								str = str.Substring( 0, str.IndexOf( ';' ) );
 							}
-                        
+						
 							char[] ignoreChars = new char[] { ':', ' ', '\t' };
 		
 							if ( str.StartsWith( "#TITLE", StringComparison.OrdinalIgnoreCase ) )
@@ -73,23 +73,23 @@ namespace TJAPlayer3
 							{
 								this.Color = ColorTranslator.FromHtml( str.Substring( 10 ).Trim( ignoreChars ) );
 							}
-                            else if (str.StartsWith("#FORECOLOR", StringComparison.OrdinalIgnoreCase))
-                            {
-                                this.ForeColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-                                IsChangedForeColor = true;
-                            }
-                            else if (str.StartsWith("#BACKCOLOR", StringComparison.OrdinalIgnoreCase))
-                            {
-                                this.BackColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-                                IsChangedBackColor = true;
-                            }
-                        }
+							else if (str.StartsWith("#FORECOLOR", StringComparison.OrdinalIgnoreCase))
+							{
+								this.ForeColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
+								IsChangedForeColor = true;
+							}
+							else if (str.StartsWith("#BACKCOLOR", StringComparison.OrdinalIgnoreCase))
+							{
+								this.BackColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
+								IsChangedBackColor = true;
+							}
+						}
 						continue;
 					}
 					catch (Exception e)
 					{
-					    Trace.TraceError( e.ToString() );
-					    Trace.TraceError( "例外が発生しましたが処理を継続します。 (178a9a36-a59e-4264-8e4c-b3c3459db43c)" );
+						Trace.TraceError( e.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。 (178a9a36-a59e-4264-8e4c-b3c3459db43c)" );
 						continue;
 					}
 				}
