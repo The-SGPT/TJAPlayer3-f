@@ -38,19 +38,19 @@ namespace TJAPlayer3
 				if( this.txオプションパネル != null )
 				{
 					#region [ ScrollSpeed ]
-					int drums = configIni.n譜面スクロール速度.Drums;
+					int drums = configIni.n譜面スクロール速度[0].Drums;
 					if( drums > 15 )
 					{
 						drums = 15;
 					}
 					this.txオプションパネル.t2D描画( device, 0x171, 12, this.rc譜面スピード[ drums ] );
-					int guitar = configIni.n譜面スクロール速度.Guitar;
+					int guitar = configIni.n譜面スクロール速度[0].Guitar;
 					if( guitar > 15 )
 					{
 						guitar = 15;
 					}
 					this.txオプションパネル.t2D描画( device, 0x171, 0x18, this.rc譜面スピード[ guitar ] );
-					int bass = configIni.n譜面スクロール速度.Bass;
+					int bass = configIni.n譜面スクロール速度[0].Bass;
 					if( bass > 15 )
 					{
 						bass = 15;

@@ -144,8 +144,6 @@ namespace TJAPlayer3
 			}
 
 
-			this.nHS = TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums < 8 ? TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums : 7;
-
 			//if(CDTXMania.Tx.Taiko_Frame[ 0 ] != null )
 			   // CDTXMania.Tx.Taiko_Frame[ 0 ].t2D描画( CDTXMania.app.Device, 0, 184 );
 			if(TJAPlayer3.Tx.Taiko_Background[0] != null )

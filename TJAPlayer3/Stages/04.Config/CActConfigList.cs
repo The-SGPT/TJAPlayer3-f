@@ -619,7 +619,7 @@ namespace TJAPlayer3
 			this.list項目リスト.Add( this.iTaikoAutoRoll );
 			#endregion
 
-			this.iDrumsScrollSpeed = new CItemInteger( "ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums,
+			this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[0].Drums,
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
 				"x0.1 ～ x200.0 を指定可能です。",
@@ -627,7 +627,17 @@ namespace TJAPlayer3
 				"drums lanes.\n" +
 				"You can set it from x0.1 to x200.0.\n" +
 				"(ScrollSpeed=x0.5 means half speed)" );
-			this.list項目リスト.Add( this.iDrumsScrollSpeed );
+			this.list項目リスト.Add( this.iDrumsScrollSpeed1P );
+
+			this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[1].Drums,
+				"演奏時のドラム譜面のスクロールの\n" +
+				"速度を指定します。\n" +
+				"x0.1 ～ x200.0 を指定可能です。",
+				"To change the scroll speed for the\n" +
+				"drums lanes.\n" +
+				"You can set it from x0.1 to x200.0.\n" +
+				"(ScrollSpeed=x0.5 means half speed)");
+			this.list項目リスト.Add(this.iDrumsScrollSpeed2P);
 
 			//this.iDrumsSudHid = new CItemList( "Sud+Hid", CItemBase.Eパネル種別.通常, getDefaultSudHidValue(E楽器パート.DRUMS ),
 			//    "ドラムチップの表示方式:\n" +
@@ -1898,7 +1908,7 @@ namespace TJAPlayer3
 							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = d.ToString( "0.000" );
 						}
-						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
+						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
 						{
 							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.1f;
 							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
@@ -2212,7 +2222,8 @@ namespace TJAPlayer3
 		private CItemList iDrumsPosition;
 		private CItemBase iDrumsReturnToMenu;
 		private CItemToggle iDrumsReverse;
-		private CItemInteger iDrumsScrollSpeed;
+		private CItemInteger iDrumsScrollSpeed1P;
+		private CItemInteger iDrumsScrollSpeed2P;
 		private CItemToggle iDrumsSnare;
 		//private CItemToggle iDrumsSudden;
 		private CItemToggle iDrumsTight;
@@ -2425,11 +2436,12 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = this.iTaikoAutoPlay2P.bON;
 			TJAPlayer3.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
-			TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums = this.iDrumsScrollSpeed.n現在の値;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[0].Drums = this.iDrumsScrollSpeed1P.n現在の値;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[1].Drums = this.iDrumsScrollSpeed2P.n現在の値;
 			//CDTXMania.ConfigIni.bドラムコンボ表示 = this.iDrumsComboDisp.bON;
-												// "Sudden" || "Sud+Hid"
+			// "Sudden" || "Sud+Hid"
 			//CDTXMania.ConfigIni.bSudden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 1 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-												// "Hidden" || "Sud+Hid"
+			// "Hidden" || "Sud+Hid"
 			//CDTXMania.ConfigIni.bHidden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 2 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
 			//if      ( this.iDrumsSudHid.n現在選択されている項目番号 == 4 ) CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.SEMI;	// "S-Invisible"
 			//else if ( this.iDrumsSudHid.n現在選択されている項目番号 == 5 ) CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.FULL;	// "F-Invisible"
