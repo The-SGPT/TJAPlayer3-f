@@ -721,7 +721,7 @@ namespace TJAPlayer3
 		}
 
 		public STDGBVALUE<int> n表示可能な最小コンボ数;
-		public STDGBVALUE<int> n譜面スクロール速度;
+		public STDGBVALUE<int>[] n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
 		public string FontName;
@@ -1317,7 +1317,7 @@ namespace TJAPlayer3
 			this.bLeft = new STDGBVALUE<bool>();
 			this.e判定位置 = new STDGBVALUE<E判定位置>();		// #33891 2014.6.26 yyagi
 			this.判定文字表示位置 = new STDGBVALUE<E判定文字表示位置>();
-			this.n譜面スクロール速度 = new STDGBVALUE<int>();
+			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
 			this.nInputAdjustTimeMs = 0;
 			this.nJudgeLinePosOffset = new STDGBVALUE<int>();	// #31602 2013.6.23 yyagi
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
@@ -1330,7 +1330,8 @@ namespace TJAPlayer3
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
 				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
-				this.n譜面スクロール速度[ i ] = 9;
+				this.n譜面スクロール速度[0][ i ] = 9;
+				this.n譜面スクロール速度[1][ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
 				this.eInvisible[ i ] = EInvisible.OFF;
 				this.nViewerScrollSpeed[ i ] = 1;
@@ -1346,10 +1347,10 @@ namespace TJAPlayer3
 			this.bAuto先生の連打 = true;
 			#endregion
 			this.nヒット範囲ms = new STRANGE();
-			this.nヒット範囲ms.Perfect = 30;
+			this.nヒット範囲ms.Perfect = 25;
 			this.nヒット範囲ms.Great = -1; //使用しません。
-			this.nヒット範囲ms.Good = 100;
-			this.nヒット範囲ms.Poor = 130;
+			this.nヒット範囲ms.Good = 75;
+			this.nヒット範囲ms.Poor = 108;
 			this.ConfigIniファイル名 = "";
 			this.dicJoystick = new Dictionary<int, string>( 10 );
 			this.tデフォルトのキーアサインに設定する();
@@ -1879,7 +1880,8 @@ namespace TJAPlayer3
 			sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 14:x1.5,…,1999:x200.0)" );
-			sw.WriteLine( "DrumsScrollSpeed={0}", this.n譜面スクロール速度.Drums );
+			sw.WriteLine( "1PDrumsScrollSpeed={0}", this.n譜面スクロール速度[0].Drums );
+			sw.WriteLine( "2PDrumsScrollSpeed={0}", this.n譜面スクロール速度[1].Drums);
 			sw.WriteLine();
 			sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );
 			sw.WriteLine( "PlaySpeed={0}", this.n演奏速度 );
@@ -2662,9 +2664,13 @@ namespace TJAPlayer3
 											{
 												this.判定文字表示位置.Drums = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置.Drums );
 											}
-											else if( str3.Equals( "DrumsScrollSpeed" ) )
+											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{
-												this.n譜面スクロール速度.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度.Drums );
+												this.n譜面スクロール速度[0].Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0].Drums );
+											}
+											else if (str3.Equals( "2PDrumsScrollSpeed" ) )
+											{
+												this.n譜面スクロール速度[1].Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[1].Drums );
 											}
 											else if( str3.Equals( "PlaySpeed" ) )
 											{
