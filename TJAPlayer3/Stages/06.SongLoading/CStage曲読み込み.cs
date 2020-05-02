@@ -338,31 +338,31 @@ namespace TJAPlayer3
 						CScoreIni ini = new CScoreIni( str + ".score.ini" );
 						ini.t全演奏記録セクションの整合性をチェックし不整合があればリセットする();
 
-						if( ( TJAPlayer3.DTX != null ) && TJAPlayer3.DTX.b活性化してる )
-							TJAPlayer3.DTX.On非活性化();
+						if( ( TJAPlayer3.DTX[0] != null ) && TJAPlayer3.DTX[0].b活性化してる )
+							TJAPlayer3.DTX[0].On非活性化();
 
 						//if( CDTXMania.DTX == null )
 						{
-							TJAPlayer3.DTX = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 0, true );
+							TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 0, true );
 							if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-								TJAPlayer3.DTX_2P = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
-							if( File.Exists( TJAPlayer3.DTX.strフォルダ名 + @"\\set.def" ) )
+								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
+							if( File.Exists( TJAPlayer3.DTX[0].strフォルダ名 + @"\\set.def" ) )
 							{
-								TJAPlayer3.DTX = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
+								TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
 								if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-									TJAPlayer3.DTX_2P = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
+									TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
 							}
 
 							Trace.TraceInformation( "----曲情報-----------------" );
-							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX.TITLE );
-							Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX.strファイル名の絶対パス );
+							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );
+							Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX[0].strファイル名の絶対パス );
 							Trace.TraceInformation( "---------------------------" );
 
 							span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 							Trace.TraceInformation( "DTX読込所要時間:           {0}", span.ToString() );
 
 							// 段位認定モード用。
-							if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX.List_DanSongs != null)
+							if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs != null)
 							{
 								var pfTitle = new CPrivateFont();
 								var pfSubTitle = new CPrivateFont();
@@ -382,23 +382,23 @@ namespace TJAPlayer3
 								var subtitleForeColor = TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor;
 								var subtitleBackColor = TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor;
 
-								for (int i = 0; i < TJAPlayer3.DTX.List_DanSongs.Count; i++)
+								for (int i = 0; i < TJAPlayer3.DTX[0].List_DanSongs.Count; i++)
 								{
-									if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[i].Title))
+									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
 									{
-										using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[i].Title, titleForeColor, titleBackColor))
+										using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].Title, titleForeColor, titleBackColor))
 										{
-											TJAPlayer3.DTX.List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
-											TJAPlayer3.DTX.List_DanSongs[i].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[i].TitleTex, 710);
+											TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
+											TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
 										}
 									}
 
-									if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[i].SubTitle))
+									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
 									{
-										using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[i].SubTitle, subtitleForeColor, subtitleBackColor))
+										using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, subtitleForeColor, subtitleBackColor))
 										{
-											TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
-											TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex, 710);
+											TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
+											TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);
 										}
 									}
 
@@ -444,48 +444,51 @@ namespace TJAPlayer3
 
 				case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
 					{
-						if ( nWAVcount == 1 && TJAPlayer3.DTX.listWAV.Count > 0 )			// #28934 2012.7.7 yyagi (added checking Count)
+						if ( nWAVcount == 1 && TJAPlayer3.DTX[0].listWAV.Count > 0 )			// #28934 2012.7.7 yyagi (added checking Count)
 						{
-							ShowProgressByFilename( TJAPlayer3.DTX.listWAV[ nWAVcount ].strファイル名 );
+							ShowProgressByFilename( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].strファイル名 );
 						}
 						int looptime = (TJAPlayer3.ConfigIni.b垂直帰線待ちを行う)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
-						for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX.listWAV.Count; i++ )
+						for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
 						{
-							if ( TJAPlayer3.DTX.listWAV[ nWAVcount ].listこのWAVを使用するチャンネル番号の集合.Count > 0 )	// #28674 2012.5.8 yyagi
+							if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].listこのWAVを使用するチャンネル番号の集合.Count > 0 )	// #28674 2012.5.8 yyagi
 							{
-								TJAPlayer3.DTX.tWAVの読み込み( TJAPlayer3.DTX.listWAV[ nWAVcount ] );
+								TJAPlayer3.DTX[0].tWAVの読み込み( TJAPlayer3.DTX[0].listWAV[ nWAVcount ] );
 							}
 							nWAVcount++;
 						}
-						if ( nWAVcount <= TJAPlayer3.DTX.listWAV.Count )
+						if ( nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count )
 						{
-							ShowProgressByFilename( TJAPlayer3.DTX.listWAV[ nWAVcount ].strファイル名 );
+							ShowProgressByFilename( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].strファイル名 );
 						}
-						if ( nWAVcount > TJAPlayer3.DTX.listWAV.Count )
+						if ( nWAVcount > TJAPlayer3.DTX[0].listWAV.Count )
 						{
 							TimeSpan span = ( TimeSpan ) ( DateTime.Now - timeBeginLoadWAV );
-							Trace.TraceInformation( "WAV読込所要時間({0,4}):     {1}", TJAPlayer3.DTX.listWAV.Count, span.ToString() );
+							Trace.TraceInformation( "WAV読込所要時間({0,4}):     {1}", TJAPlayer3.DTX[0].listWAV.Count, span.ToString() );
 							timeBeginLoadWAV = DateTime.Now;
 
 							if ( TJAPlayer3.ConfigIni.bDynamicBassMixerManagement )
 							{
-								TJAPlayer3.DTX.PlanToAddMixerChannel();
+								TJAPlayer3.DTX[0].PlanToAddMixerChannel();
 							}
 
-							TJAPlayer3.DTX.t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[0].Taiko);
-
-							Stopwatch sw = new Stopwatch();
-							sw.Start();
-							for (int i = 0; i < 1;)
+							for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 							{
-								if (sw.ElapsedMilliseconds >= 500)
+								TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[nPlayer].Taiko);
+								//太鼓チップをランダム化する際、1P後2Pの処理をすぐに行うと、
+								//1Pと酷似した、もしくは全く同じチップが流れてしまうので、
+								//1Pのランダム化後、ある程度時間を空ける。
+								Stopwatch sw = new Stopwatch();
+								sw.Start();
+								for (int i = 0; i < 1;)
 								{
-									sw.Reset();
-									i++;
+									if (sw.ElapsedMilliseconds >= 500)
+									{
+										sw.Reset();
+										i++;
+									}
 								}
 							}
-
-							TJAPlayer3.DTX_2P.t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[1].Taiko);
 
 							TJAPlayer3.stage演奏ドラム画面.On活性化();
 
@@ -502,7 +505,7 @@ namespace TJAPlayer3
 						DateTime timeBeginLoadBMPAVI = DateTime.Now;
 
 						if ( TJAPlayer3.ConfigIni.bAVI有効 )
-							TJAPlayer3.DTX.tAVIの読み込み();
+							TJAPlayer3.DTX[0].tAVIの読み込み();
 						span = ( TimeSpan ) ( DateTime.Now - timeBeginLoadBMPAVI );
 
 						span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );

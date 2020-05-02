@@ -81,7 +81,7 @@ namespace TJAPlayer3
 				{
 					this.nランク値[ i ] = -1;
 					this.fPerfect率[ i ] = this.fGreat率[ i ] = this.fGood率[ i ] = this.fPoor率[ i ] = this.fMiss率[ i ] = 0.0f;	// #28500 2011.5.24 yyagi
-					if ( ( ( ( i != 0 ) || ( TJAPlayer3.DTX.bチップがある.Drums  ) ) ) )
+					if ( ( ( ( i != 0 ) || ( TJAPlayer3.DTX[0].bチップがある.Drums  ) ) ) )
 					{
 						CScoreIni.C演奏記録 part = this.st演奏記録[ i ];
 						bool bIsAutoPlay = true;
@@ -115,7 +115,7 @@ namespace TJAPlayer3
 
 				#region [ .score.ini の作成と出力 ]
 				//---------------------
-				string str = TJAPlayer3.DTX.strファイル名の絶対パス + ".score.ini";
+				string str = TJAPlayer3.DTX[0].strファイル名の絶対パス + ".score.ini";
 				CScoreIni ini = new CScoreIni( str );
 
 				bool[] b今までにフルコンボしたことがある = new bool[] { false, false, false };
@@ -245,7 +245,7 @@ namespace TJAPlayer3
 				#endregion
 
 				// Discord Presenseの更新
-				Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
+				Discord.UpdatePresence(TJAPlayer3.DTX[0].TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
 
 				base.On活性化();
 			}
@@ -467,7 +467,7 @@ namespace TJAPlayer3
 		/// <param name="bIsAutoSave">true=自動保存モード, false=手動保存モード</param>
 		private void CheckAndSaveResultScreen(bool bIsAutoSave)
 		{
-			string path = Path.GetDirectoryName( TJAPlayer3.DTX.strファイル名の絶対パス );
+			string path = Path.GetDirectoryName( TJAPlayer3.DTX[0].strファイル名の絶対パス );
 			string datetime = DateTime.Now.ToString( "yyyyMMddHHmmss" );
 			if ( bIsAutoSave )
 			{
@@ -478,7 +478,7 @@ namespace TJAPlayer3
 					{
 						string strPart = ( (E楽器パート) ( i ) ).ToString();
 						string strRank = ( (CScoreIni.ERANK) ( this.nランク値[ i ] ) ).ToString();
-						string strFullPath = TJAPlayer3.DTX.strファイル名の絶対パス + "." + datetime + "_" + strPart + "_" + strRank + ".png";
+						string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strPart + "_" + strRank + ".png";
 						//Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
 						TJAPlayer3.app.SaveResultScreen( strFullPath );
 					}
