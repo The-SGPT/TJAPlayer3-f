@@ -87,8 +87,6 @@ namespace TJAPlayer3
 					this.txオプションパネル.t2D描画( device, 0x1e9, 12, this.rcTight[ configIni.bTight ? 1 : 0 ] );
 					#endregion
 					#region [ Random ]
-					this.txオプションパネル.t2D描画( device, 0x1e9, 0x18, this.rcRandom[ (int) configIni.eRandom.Guitar ] );
-					this.txオプションパネル.t2D描画( device, 0x1e9, 0x24, this.rcRandom[ (int) configIni.eRandom.Bass ] );
 					#endregion
 					#region [ ComboPosition ]
 					this.txオプションパネル.t2D描画( device, 0x201, 12, new Rectangle(0, 0, 0, 0) );

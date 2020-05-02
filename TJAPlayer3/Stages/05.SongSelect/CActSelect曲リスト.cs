@@ -960,6 +960,7 @@ namespace TJAPlayer3
 							{
 								int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
 								this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
+								this.stバー情報[n].eノード種別 = song2.eノード種別;
 								song2 = this.r次の曲(song2);
 								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
@@ -1032,6 +1033,7 @@ namespace TJAPlayer3
 							{
 								int n = (((this.n現在の選択行 - 5) + i) + 13) % 13;
 								this.stバー情報[n].eバー種別 = this.e曲のバー種別を返す(song2);
+							this.stバー情報[n].eノード種別 = song2.eノード種別;
 								song2 = this.r次の曲(song2);
 								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 							}
@@ -1345,7 +1347,7 @@ namespace TJAPlayer3
 							int width = (int)(((double)((640 - this.ptバーの基本座標[i].X) + 1)) / Math.Sin(Math.PI * 3 / 5));
 							int x = i選曲バーX座標 + 500 - ((int)(db割合0to1 * 500));
 							int y = this.ptバーの基本座標[i].Y;
-							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル);
+							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル, this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 							if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] == true && i != 5)
 								TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
 							if (this.stバー情報[nパネル番号].ar難易度 != null)
@@ -1358,9 +1360,15 @@ namespace TJAPlayer3
 							//-----------------
 							#endregion
 							#region [ タイトル名テクスチャを描画。]
-
-							if (this.stバー情報[nパネル番号].ttkタイトル != null)
-								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
+							if (this.stバー情報[nパネル番号].eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
+							{
+								if (this.stバー情報[nパネル番号].ttkタイトル != null)
+									ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 + TJAPlayer3.Skin.SongSelect_BackBoxText_Y_Diff);
+							}
+							else {
+								if (this.stバー情報[nパネル番号].ttkタイトル != null)
+									ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
+							}
 
 							if (TJAPlayer3.Tx.Crown_t != null && i != 5 && this.stバー情報[i].eバー種別 == Eバー種別.Score)
 							{
@@ -1417,20 +1425,30 @@ namespace TJAPlayer3
 						#region [ バーテクスチャを描画。]
 						//-----------------
 						if (n現在のスクロールカウンタ != 0)
-							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル);
+							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル, this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 						else if (n見た目の行番号 != 5)
-							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル);
+							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル, this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 						if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] == true && n見た目の行番号 != 5)
 							TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, xAnime + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
 						//-----------------
 						#endregion
 
 						#region [ タイトル名テクスチャを描画。]
+						if (this.stバー情報[nパネル番号].eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
+						{
+							if (n現在のスクロールカウンタ != 0)
+								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 + TJAPlayer3.Skin.SongSelect_BackBoxText_Y_Diff);
+							else if (n見た目の行番号 != 5)
+								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 + TJAPlayer3.Skin.SongSelect_BackBoxText_Y_Diff);
+						}
+						else
+						{
+							if (n現在のスクロールカウンタ != 0)
+								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
+							else if (n見た目の行番号 != 5)
+								ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
 
-						if (n現在のスクロールカウンタ != 0)
-							ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
-						else if (n見た目の行番号 != 5)
-							ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(TJAPlayer3.app.Device, xAnime + 28, TJAPlayer3.Skin.SongSelect_Overall_Y + 23);
+						}
 
 						#endregion
 
@@ -1898,6 +1916,7 @@ namespace TJAPlayer3
 		private struct STバー情報
 		{
 			public CActSelect曲リスト.Eバー種別 eバー種別;
+			public C曲リストノード.Eノード種別 eノード種別;
 			public string strタイトル文字列;
 			public CTexture txタイトル名;
 			public STDGBVALUE<int> nスキル値;
@@ -2157,6 +2176,7 @@ namespace TJAPlayer3
 				this.stバー情報[i].ForeColor = song.ForeColor;
 				this.stバー情報[i].BackColor = song.BackColor;
 				this.stバー情報[i].eバー種別 = this.e曲のバー種別を返す(song);
+				this.stバー情報[i].eノード種別 = song.eノード種別;
 				this.stバー情報[i].strサブタイトル = song.strサブタイトル;
 				this.stバー情報[i].ar難易度 = song.nLevel;
 
@@ -2221,96 +2241,211 @@ namespace TJAPlayer3
 			//	#endregion
 			//}
 		}
-		private void tジャンル別選択されていない曲バーの描画(int x, int y, string strジャンル)
+		private void tジャンル別選択されていない曲バーの描画(int x, int y, string strジャンル,Eバー種別 Eバー,C曲リストノード.Eノード種別 Eノード)
 		{
 			if (x >= SampleFramework.GameWindowSize.Width || y >= SampleFramework.GameWindowSize.Height)
 				return;
+			const int boxsabun = 10;
 
 			var rc = new Rectangle(0, 48, 128, 48);
-
-			switch (strジャンル)
+			if (Eバー == Eバー種別.Box)
 			{
-				case "J-POP":
-					#region [ J-POP ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[1] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[1].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "アニメ":
-					#region [ アニメ ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[2] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[2].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "ゲームミュージック":
-					#region [ ゲーム ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[3] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[3].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "ナムコオリジナル":
-					#region [ ナムコオリジナル ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[4] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[4].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "クラシック":
-					#region [ クラシック ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[5] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[5].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "バラエティ":
-					#region [ バラエティ ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[6] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[6].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "どうよう":
-					#region [ どうよう ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[7] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[7].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "ボーカロイド":
-				case "VOCALOID":
-					#region [ ボカロ ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[8] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[8].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				case "難易度ソート":
-					#region [ 難易度ソート ]
-					//-----------------
-					if (this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル] != null)
-						this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
-				default:
-					#region [ その他の場合 ]
-					//-----------------
-					if (TJAPlayer3.Tx.SongSelect_Bar_Genre[0] != null)
-						TJAPlayer3.Tx.SongSelect_Bar_Genre[0].t2D描画(TJAPlayer3.app.Device, x, y);
-					//-----------------
-					#endregion
-					break;
+				if (Eノード == C曲リストノード.Eノード種別.BACKBOX && TJAPlayer3.Tx.SongSelect_Bar_BackBox != null)
+				{
+					TJAPlayer3.Tx.SongSelect_Bar_BackBox.t2D描画(TJAPlayer3.app.Device, x, y);
+				}
+				else
+				{
+					switch (strジャンル)
+					{
+						case "J-POP":
+							#region [ J-POP ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[1] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[1].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[1] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[1].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "アニメ":
+							#region [ アニメ ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[2] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[2].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[2] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[2].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "ゲームミュージック":
+							#region [ ゲーム ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[3] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[3].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[3] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[3].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "ナムコオリジナル":
+							#region [ ナムコオリジナル ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[4] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[4].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[4] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[4].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "クラシック":
+							#region [ クラシック ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[5] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[5].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[5] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[5].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "バラエティ":
+							#region [ バラエティ ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[6] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[6].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[6] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[6].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "どうよう":
+							#region [ どうよう ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[7] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[7].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[7] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[7].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "ボーカロイド":
+						case "VOCALOID":
+							#region [ ボカロ ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[8] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[8].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[8] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[8].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						case "難易度ソート":
+							#region [ 難易度ソート ]
+							//-----------------
+							if (this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル] != null)
+								this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+						default:
+							#region [ その他の場合 ]
+							//-----------------
+							if (TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[0] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Box_Genre[0].t2D描画(TJAPlayer3.app.Device, x, y - boxsabun);
+							else if (TJAPlayer3.Tx.SongSelect_Bar_Genre[0] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Genre[0].t2D描画(TJAPlayer3.app.Device, x, y);
+							//-----------------
+							#endregion
+							break;
+					}
+				}
+			}
+			else
+			{
+				switch (strジャンル)
+				{
+					case "J-POP":
+						#region [ J-POP ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[1] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[1].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "アニメ":
+						#region [ アニメ ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[2] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[2].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "ゲームミュージック":
+						#region [ ゲーム ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[3] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[3].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "ナムコオリジナル":
+						#region [ ナムコオリジナル ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[4] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[4].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "クラシック":
+						#region [ クラシック ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[5] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[5].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "バラエティ":
+						#region [ バラエティ ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[6] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[6].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "どうよう":
+						#region [ どうよう ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[7] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[7].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "ボーカロイド":
+					case "VOCALOID":
+						#region [ ボカロ ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[8] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[8].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					case "難易度ソート":
+						#region [ 難易度ソート ]
+						//-----------------
+						if (this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル] != null)
+							this.tx曲バー_難易度[this.n現在選択中の曲の現在の難易度レベル].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+					default:
+						#region [ その他の場合 ]
+						//-----------------
+						if (TJAPlayer3.Tx.SongSelect_Bar_Genre[0] != null)
+							TJAPlayer3.Tx.SongSelect_Bar_Genre[0].t2D描画(TJAPlayer3.app.Device, x, y);
+						//-----------------
+						#endregion
+						break;
+				}
 			}
 		}
 

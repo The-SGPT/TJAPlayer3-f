@@ -737,11 +737,17 @@ namespace TJAPlayer3
 				"Set 0 to disable Risky mode." );
 			this.list項目リスト.Add( this.iSystemRisky );
 
-			this.iTaikoRandom = new CItemList( "Random", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom.Taiko,
+			this.iTaikoRandom1P = new CItemList( "1P Random", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom[0].Taiko,
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" } );
-			this.list項目リスト.Add( this.iTaikoRandom );
+			this.list項目リスト.Add( this.iTaikoRandom1P );
+
+			this.iTaikoRandom2P = new CItemList("2P Random", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eRandom[1].Taiko,
+				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
+				"Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
+				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" });
+			this.list項目リスト.Add(this.iTaikoRandom2P);
 
 			this.iTaikoStealthP1 = new CItemList( "1P Stealth", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[0],
 				"DORON:ドロン\n"+
@@ -2242,7 +2248,8 @@ namespace TJAPlayer3
 		private CItemList iTaikoBranchAnime;
 		private CItemToggle iTaikoChara;
 		private CItemToggle iTaikoNoInfo;
-		private CItemList iTaikoRandom;
+		private CItemList iTaikoRandom1P;
+		private CItemList iTaikoRandom2P;
 		private CItemList iTaikoStealthP1;
 		private CItemList iTaikoStealthP2;
 		private CItemList iTaikoGameMode;
@@ -2463,7 +2470,8 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
 			//CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
 			TJAPlayer3.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
-			TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)this.iTaikoRandom.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eRandom[0].Taiko = (Eランダムモード)this.iTaikoRandom1P.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eRandom[1].Taiko = (Eランダムモード)this.iTaikoRandom2P.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.eSTEALTH[0] = (Eステルスモード)this.iTaikoStealthP1.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.eSTEALTH[1] = (Eステルスモード)this.iTaikoStealthP2.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.eGameMode = (EGame)this.iTaikoGameMode.n現在選択されている項目番号;

@@ -1122,6 +1122,10 @@ namespace TJAPlayer3
 							{
 								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
 							}
+							else if (strCommand == nameof(SongSelect_BackBoxText_Y_Diff))
+							{
+								SongSelect_BackBoxText_Y_Diff = int.Parse(strParam);
+							}
 							#endregion
 							#region SongLoading
 							else if (strCommand == nameof(SongLoading_Plate_X))
@@ -2464,6 +2468,7 @@ namespace TJAPlayer3
 		public int SongSelect_CorrectionX_Chara_Value = 0;
 		public int SongSelect_CorrectionY_Chara_Value = 0;
 		public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
+		public int SongSelect_BackBoxText_Y_Diff = 0;
 		#endregion
 		#region SongLoading
 		public int SongLoading_Plate_X = 640;
