@@ -28,9 +28,9 @@ namespace TJAPlayer3
 			NowShowingNumber = number;
 			Counter_In = new CCounter(0, 999, 1, TJAPlayer3.Timer);
 			ScreenPoint = new double[] { TJAPlayer3.Skin.nScrollFieldBGX[0] - TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 1280 };
-			TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].ScoreDiff);
+			TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff);
 			IsAnimating = true;
-			TJAPlayer3.stage演奏ドラム画面.actPanel.SetPanelString(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title, TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
+			TJAPlayer3.stage演奏ドラム画面.actPanel.SetPanelString(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Title, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
 			Sound_Section?.tサウンドを先頭から再生する();
 		}
 
@@ -38,7 +38,7 @@ namespace TJAPlayer3
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				if(TJAPlayer3.DTX.Dan_C[i] != null) Challenge[i] = new Dan_C(TJAPlayer3.DTX.Dan_C[i]);
+				if(TJAPlayer3.DTX[0].Dan_C[i] != null) Challenge[i] = new Dan_C(TJAPlayer3.DTX[0].Dan_C[i]);
 			}
 			// 始点を決定する。
 			ExamCount = 0;
@@ -119,7 +119,7 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					var notesRemain = TJAPlayer3.DTX.nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
+					var notesRemain = TJAPlayer3.DTX[0].nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
 					// 残り音符数が0になったときに判断されるやつ
 					if (notesRemain <= 0)
 					{
@@ -156,8 +156,8 @@ namespace TJAPlayer3
 					// ( CDTXMania.DTX.listChip.Count > 0 ) ? CDTXMania.DTX.listChip[ CDTXMania.DTX.listChip.Count - 1 ].n発声時刻ms : 0;
 					if(!IsEnded)
 					{
-						if (TJAPlayer3.DTX.listChip.Count <= 0) continue;
-						if (TJAPlayer3.DTX.listChip[TJAPlayer3.DTX.listChip.Count - 1].n発声時刻ms < TJAPlayer3.Timer.n現在時刻)
+						if (TJAPlayer3.DTX[0].listChip.Count <= 0) continue;
+						if (TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms < TJAPlayer3.Timer.n現在時刻)
 						{
 							switch (Challenge[i].GetExamType())
 							{
@@ -199,7 +199,7 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			Dan_Plate = TJAPlayer3.tテクスチャの生成(Path.GetDirectoryName(TJAPlayer3.DTX.strファイル名の絶対パス) + @"\Dan_Plate.png");
+			Dan_Plate = TJAPlayer3.tテクスチャの生成(Path.GetDirectoryName(TJAPlayer3.DTX[0].strファイル名の絶対パス) + @"\Dan_Plate.png");
 			Sound_Section = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Section.ogg"), ESoundGroup.SoundEffect);
 			Sound_Failed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Failed.ogg"), ESoundGroup.SoundEffect);
 			base.OnManagedリソースの作成();
@@ -229,26 +229,26 @@ namespace TJAPlayer3
 					{
 						if (i % 2 == 0)
 						{
-							if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
+							if (TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].TitleTex != null)
 							{
-								TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.Opacity--;
+								TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].TitleTex.Opacity--;
 							}
-							if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
+							if (TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitleTex != null)
 							{
-								TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.Opacity--;
+								TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitleTex.Opacity--;
 							}
 						}
 					}
 				}
 				else
 				{
-					if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
+					if (TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].TitleTex != null)
 					{
-						TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.Opacity = 255;
+						TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].TitleTex.Opacity = 255;
 					}
-					if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
+					if (TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitleTex != null)
 					{
-						TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.Opacity = 255;
+						TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitleTex.Opacity = 255;
 					}
 				}
 				Counter_Text_Old = Counter_Text.n現在の値;
@@ -274,7 +274,7 @@ namespace TJAPlayer3
 
 
 			// 残り音符数を描画する。
-			var notesRemain = TJAPlayer3.DTX.nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
+			var notesRemain = TJAPlayer3.DTX[0].nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
 
 			DrawNumber(notesRemain, TJAPlayer3.Skin.Game_DanC_Number_XY[0], TJAPlayer3.Skin.Game_DanC_Number_XY[1], TJAPlayer3.Skin.Game_DanC_Number_Padding);
 
@@ -321,8 +321,8 @@ namespace TJAPlayer3
 			{
 				if (Counter_Text.b終了値に達してない)
 				{
-					var title = TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex;
-					var subTitle = TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex;
+					var title = TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].TitleTex;
+					var subTitle = TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitleTex;
 					if (subTitle == null)
 						title?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 65);
 					else

@@ -191,7 +191,7 @@ namespace TJAPlayer3
 			this.bフィルイン中 = false;
 			this.n待機中の大音符の座標 = 0;
 			this.actGame.t叩ききりまショー_初期化();
-			base.ReSetScore(TJAPlayer3.DTX.nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度[0]], TJAPlayer3.DTX.nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]);
+			base.ReSetScore(TJAPlayer3.DTX[0].nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度[0]], TJAPlayer3.DTX[0].nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]);
 			#region [ branch ]//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			for (int i = 0; i < 2; i++)
 			{
@@ -283,10 +283,10 @@ namespace TJAPlayer3
 			//}
 			// Discord Presence の更新
 			var difficultyName = TJAPlayer3.DifficultyNumberToEnum(TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
-			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX.TITLE + ".tja" : "",
+			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + ".tja" : "",
 				Properties.Discord.Stage_InGame + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""),
 				0,
-				Discord.GetUnixTime() + (long)TJAPlayer3.DTX.listChip[TJAPlayer3.DTX.listChip.Count - 1].n発声時刻ms / 1000,
+				Discord.GetUnixTime() + (long)TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms / 1000,
 				TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? difficultyName.ToLower() : "",
 				TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? String.Format("COURSE:{0} ({1})", difficultyName, TJAPlayer3.stage選曲.n確定された曲の難易度[0]) : "");
 		}
@@ -408,15 +408,15 @@ namespace TJAPlayer3
 				if ( ( ( TJAPlayer3.ConfigIni.nRisky != 0 && this.actGauge.IsFailed( E楽器パート.TAIKO ) ) || this.actGame.st叩ききりまショー.ct残り時間.b終了値に達した ) && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
 					this.actStageFailed.Start();
-					TJAPlayer3.DTX.t全チップの再生停止();
+					TJAPlayer3.DTX[0].t全チップの再生停止();
 					base.eフェーズID = CStage.Eフェーズ.演奏_STAGE_FAILED;
 				}
-				if( !String.IsNullOrEmpty( TJAPlayer3.DTX.strBGIMAGE_PATH ) || ( TJAPlayer3.DTX.listAVI.Count == 0 ) ) //背景動画があったら背景画像を描画しない。
+				if( !String.IsNullOrEmpty( TJAPlayer3.DTX[0].strBGIMAGE_PATH ) || ( TJAPlayer3.DTX[0].listAVI.Count == 0 ) ) //背景動画があったら背景画像を描画しない。
 				{
 					this.t進行描画_背景();
 				}
 
-				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX.listAVI.Count > 0)
+				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listAVI.Count > 0)
 				{
 					this.t進行描画_AVI();
 				}
@@ -1302,8 +1302,8 @@ namespace TJAPlayer3
 			Rectangle bgrect = new Rectangle( 0, 0, 1280, 720 );
 			string DefaultBgFilename = @"Graphics\5_Game\5_Background\0\Background.png";
 			string BgFilename = "";
-			if( !String.IsNullOrEmpty( TJAPlayer3.DTX.strBGIMAGE_PATH ) )
-				BgFilename = TJAPlayer3.DTX.strBGIMAGE_PATH;
+			if( !String.IsNullOrEmpty( TJAPlayer3.DTX[0].strBGIMAGE_PATH ) )
+				BgFilename = TJAPlayer3.DTX[0].strBGIMAGE_PATH;
 			base.t背景テクスチャの生成( DefaultBgFilename, bgrect, BgFilename );
 		}
 		protected override void t進行描画_チップ_Taiko( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer )
@@ -2141,7 +2141,7 @@ namespace TJAPlayer3
 
 					CSound管理.rc演奏用タイマ.t一時停止();
 					TJAPlayer3.Timer.t一時停止();
-					TJAPlayer3.DTX.t全チップの再生一時停止();
+					TJAPlayer3.DTX[0].t全チップの再生一時停止();
 					this.actAVI.tPauseControl();
 
 					this.bPAUSE = true;

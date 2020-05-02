@@ -147,7 +147,7 @@ namespace TJAPlayer3
 				this.nRiskyTimes_Initial = TJAPlayer3.ConfigIni.nRisky;
 			}
 
-			switch( TJAPlayer3.DTX.LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] )
+			switch( TJAPlayer3.DTX[0].LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] )
 			{
 				case 1:
 				case 2:
@@ -157,18 +157,18 @@ namespace TJAPlayer3
 				case 6:
 				case 7:
 					{
-						if (TJAPlayer3.DTX.bチップがある.Branch)
+						if (TJAPlayer3.DTX[0].bチップがある.Branch)
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
 							for( int i = 0; i < 3; i++ )
 							{
-								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX[0].nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
 							}
 							dbDamageRate = 1.6f;
 						}
 						else
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
 							dbDamageRate = 1.6f;
 						}
 						break;
@@ -177,17 +177,17 @@ namespace TJAPlayer3
 
 				case 8:
 					{
-						if (TJAPlayer3.DTX.bチップがある.Branch)
+						if (TJAPlayer3.DTX[0].bチップがある.Branch)
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
 							for( int i = 0; i < 3; i++ )
 							{
-								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX[0].nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
 							}
 						}
 						else
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
 						}
 						break;
 					}
@@ -195,34 +195,34 @@ namespace TJAPlayer3
 				case 9:
 				case 10:
 					{
-						if (TJAPlayer3.DTX.bチップがある.Branch)
+						if (TJAPlayer3.DTX[0].bチップがある.Branch)
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 							for( int i = 0; i < 3; i++ )
 							{
-								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX[0].nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 							}
 						}
 						else
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 						}
 						break;
 					}
 
 				default:
 					{
-						if (TJAPlayer3.DTX.bチップがある.Branch)
+						if (TJAPlayer3.DTX[0].bチップがある.Branch)
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 							for( int i = 0; i < 3; i++ )
 							{
-								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX.nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+								dbGaugeMaxComboValue_branch[i] = TJAPlayer3.DTX[0].nノーツ数_Branch[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 							}
 						}
 						else
 						{
-							dbGaugeMaxComboValue = TJAPlayer3.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+							dbGaugeMaxComboValue = TJAPlayer3.DTX[0].nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
 						}
 						break;
 					}
@@ -231,7 +231,7 @@ namespace TJAPlayer3
 
 			double nGaugeRankValue = 0D;
 			double[] nGaugeRankValue_branch = new double[] { 0D, 0D, 0D };
-			if (TJAPlayer3.DTX.GaugeIncreaseMode == GaugeIncreaseMode.Normal)
+			if (TJAPlayer3.DTX[0].GaugeIncreaseMode == GaugeIncreaseMode.Normal)
 			{
 				nGaugeRankValue =  Math.Floor( 10000.0f / dbGaugeMaxComboValue);
 				for (int i = 0; i < 3; i++ )
@@ -297,7 +297,7 @@ namespace TJAPlayer3
 				increaseBranch[i, 1] = dbゲージ増加量_Branch[i, 1];
 				increaseBranch[i, 2] = dbゲージ増加量_Branch[i, 0];
 			}
-			switch (TJAPlayer3.DTX.GaugeIncreaseMode)
+			switch (TJAPlayer3.DTX[0].GaugeIncreaseMode)
 			{
 				case GaugeIncreaseMode.Normal:
 				case GaugeIncreaseMode.Floor:
@@ -406,7 +406,7 @@ namespace TJAPlayer3
 				case E判定.Perfect:
 				case E判定.Great:
 					{
-						if( TJAPlayer3.DTX.bチップがある.Branch )
+						if( TJAPlayer3.DTX[0].bチップがある.Branch )
 						{
 							fDamage = this.dbゲージ増加量_Branch[ nコース, 0 ];
 						}
@@ -416,7 +416,7 @@ namespace TJAPlayer3
 					break;
 				case E判定.Good:
 					{
-						if( TJAPlayer3.DTX.bチップがある.Branch )
+						if( TJAPlayer3.DTX[0].bチップがある.Branch )
 						{
 							fDamage = this.dbゲージ増加量_Branch[ nコース, 1 ];
 						}
@@ -427,7 +427,7 @@ namespace TJAPlayer3
 				case E判定.Poor:
 				case E判定.Miss:
 					{
-						if( TJAPlayer3.DTX.bチップがある.Branch )
+						if( TJAPlayer3.DTX[0].bチップがある.Branch )
 						{
 							fDamage = this.dbゲージ増加量_Branch[ nコース, 2 ];
 						}
@@ -454,7 +454,7 @@ namespace TJAPlayer3
 					{
 						if( player == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] )
 						{
-							if( TJAPlayer3.DTX.bチップがある.Branch )
+							if( TJAPlayer3.DTX[0].bチップがある.Branch )
 							{
 								fDamage = this.dbゲージ増加量_Branch[ nコース, 0 ];
 							}

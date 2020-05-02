@@ -35,10 +35,10 @@ namespace TJAPlayer3
 				#region [ strAVIファイル名の作成。]
 				//-----------------
 				string strAVIファイル名;
-				if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
-					strAVIファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
+				if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
+					strAVIファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
 				else
-					strAVIファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
+					strAVIファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
 				//-----------------
 				#endregion
 
@@ -80,10 +80,10 @@ namespace TJAPlayer3
 					#region [ strAVIファイル名 の作成。 ]
 					//-----------------
 					string strAVIファイル名;
-					if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
-						strAVIファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
+					if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
+						strAVIファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
 					else
-						strAVIファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
+						strAVIファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
 					//-----------------
 					#endregion
 
@@ -137,10 +137,10 @@ namespace TJAPlayer3
 				#region [ str動画ファイル名の作成。]
 				//-----------------
 				string str動画ファイル名;
-				if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
-					str動画ファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
+				if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
+					str動画ファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
 				else
-					str動画ファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
+					str動画ファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
 				//-----------------
 				#endregion
 
@@ -181,10 +181,10 @@ namespace TJAPlayer3
 					#region [ strAVIファイル名 の作成。 ]
 					//-----------------
 					string str動画ファイル名;
-					if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
-						str動画ファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
+					if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
+						str動画ファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
 					else
-						str動画ファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
+						str動画ファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
 					//-----------------
 					#endregion
 
@@ -576,7 +576,7 @@ namespace TJAPlayer3
 				if (this.bWAVを使うチャンネルである)       // WAV
 				{
 					CDTX.CWAV wc;
-					TJAPlayer3.DTX.listWAV.TryGetValue(this.n整数値_内部番号, out wc);
+					TJAPlayer3.DTX[0].listWAV.TryGetValue(this.n整数値_内部番号, out wc);
 					if (wc == null)
 					{
 						nDuration = 0;
@@ -596,7 +596,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? TJAPlayer3.DTX.dbDTXVPlaySpeed : TJAPlayer3.DTX.db再生速度;
+				double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? TJAPlayer3.DTX[0].dbDTXVPlaySpeed : TJAPlayer3.DTX[0].db再生速度;
 				return (int)(nDuration / _db再生速度);
 			}
 
