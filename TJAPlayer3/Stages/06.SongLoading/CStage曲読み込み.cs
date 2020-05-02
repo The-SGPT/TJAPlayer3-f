@@ -471,7 +471,21 @@ namespace TJAPlayer3
 							{
 								TJAPlayer3.DTX.PlanToAddMixerChannel();
 							}
-							TJAPlayer3.DTX.t太鼓チップのランダム化( TJAPlayer3.ConfigIni.eRandom.Taiko );
+
+							TJAPlayer3.DTX.t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[0].Taiko);
+
+							Stopwatch sw = new Stopwatch();
+							sw.Start();
+							for (int i = 0; i < 1;)
+							{
+								if (sw.ElapsedMilliseconds >= 500)
+								{
+									sw.Reset();
+									i++;
+								}
+							}
+
+							TJAPlayer3.DTX_2P.t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[1].Taiko);
 
 							TJAPlayer3.stage演奏ドラム画面.On活性化();
 

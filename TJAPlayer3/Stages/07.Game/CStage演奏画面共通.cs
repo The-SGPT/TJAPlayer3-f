@@ -58,7 +58,7 @@ namespace TJAPlayer3
 					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
 					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
 					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[ i ];
+					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0][ i ];
 					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
 					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
 					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
@@ -176,7 +176,7 @@ namespace TJAPlayer3
 					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
 					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
 					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[ i ];
+					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0][ i ];
 					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
 					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
 					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
@@ -4669,7 +4669,8 @@ namespace TJAPlayer3
 				TJAPlayer3.ConfigIni.bReverse[ i ] = false;
 				TJAPlayer3.ConfigIni.bSudden[ i ] = false;
 				TJAPlayer3.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
-				TJAPlayer3.ConfigIni.eRandom[ i ] = Eランダムモード.OFF;
+				TJAPlayer3.ConfigIni.eRandom[0][ i ] = Eランダムモード.OFF;
+				TJAPlayer3.ConfigIni.eRandom[1][ i ] = Eランダムモード.OFF;
 				TJAPlayer3.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
 				TJAPlayer3.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
 				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。

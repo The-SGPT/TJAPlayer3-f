@@ -644,7 +644,7 @@ namespace TJAPlayer3
 		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
 		public Dictionary<int, string> dicJoystick;
 		public Eダークモード eDark;
-		public STDGBVALUE<Eランダムモード> eRandom;
+		public STDGBVALUE<Eランダムモード>[] eRandom;
 		public Eダメージレベル eダメージレベル;
 		public CKeyAssign KeyAssign;
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
@@ -1312,7 +1312,7 @@ namespace TJAPlayer3
 			this.bSudden = new STDGBVALUE<bool>();
 			this.bHidden = new STDGBVALUE<bool>();
 			this.bReverse = new STDGBVALUE<bool>();
-			this.eRandom = new STDGBVALUE<Eランダムモード>();
+			this.eRandom = new STDGBVALUE<Eランダムモード>[2];
 			this.bLight = new STDGBVALUE<bool>();
 			this.bLeft = new STDGBVALUE<bool>();
 			this.e判定位置 = new STDGBVALUE<E判定位置>();		// #33891 2014.6.26 yyagi
@@ -1326,7 +1326,8 @@ namespace TJAPlayer3
 				this.bSudden[ i ] = false;
 				this.bHidden[ i ] = false;
 				this.bReverse[ i ] = false;
-				this.eRandom[ i ] = Eランダムモード.OFF;
+				this.eRandom[0][ i ] = Eランダムモード.OFF;
+				this.eRandom[1][ i ] = Eランダムモード.OFF;
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
 				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
@@ -1919,7 +1920,8 @@ namespace TJAPlayer3
 			sw.WriteLine( "DefaultSongSort={0}", this.nDefaultSongSort );
 			sw.WriteLine();
 			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
-			sw.WriteLine( "TaikoRandom={0}", (int) this.eRandom.Taiko );
+			sw.WriteLine( "1PTaikoRandom={0}", (int) this.eRandom[0].Taiko );
+			sw.WriteLine( "2PTaikoRandom={0}", (int) this.eRandom[1].Taiko);
 			sw.WriteLine();
 			sw.WriteLine( "; 1PSTEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
 			sw.WriteLine( "1PTaikoStealth={0}", (int) this.eSTEALTH[0] );
@@ -2732,9 +2734,13 @@ namespace TJAPlayer3
 											{
 												this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );
 											}
-											else if( str3.Equals( "TaikoRandom" ) )
+											else if( str3.Equals( "1PTaikoRandom" ) )
 											{
-												this.eRandom.Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom.Taiko );
+												this.eRandom[0].Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0].Taiko );
+											}
+											else if (str3.Equals("2PTaikoRandom"))
+											{
+												this.eRandom[1].Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1].Taiko );
 											}
 											else if( str3.Equals( "1PTaikoStealth" ) )
 											{

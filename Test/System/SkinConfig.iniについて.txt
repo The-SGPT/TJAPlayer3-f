@@ -65,5 +65,8 @@ SongSelect_ForeColor_Namco=#980E00
 
 //ここから下はMr-Ojiiが追加したパラメータ(TJAPlayer3-fでしか使えない)
 
+//「とじる」の文字のY座標を相対的に変更する
+SongSelect_BackBoxText_Y_Diff=0
+
 //リザルト画面での王冠の座標
 Result_Crown_XY=350,200
