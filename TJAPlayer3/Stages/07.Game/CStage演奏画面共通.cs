@@ -233,8 +233,6 @@ namespace TJAPlayer3
 			this.n現在のトップChip = ( listChip[0].Count > 0 ) ? 0 : -1;
 			this.L最後に再生したHHの実WAV番号 = new List<int>( 16 );
 			this.n最後に再生したHHのチャンネル番号 = 0;
-			this.n最後に再生した実WAV番号.Guitar = -1;
-			this.n最後に再生した実WAV番号.Bass = -1;
 			for ( int i = 0; i < 50; i++ )
 			{
 				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
@@ -501,118 +499,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		[StructLayout( LayoutKind.Sequential )]
-		protected struct STKARAUCHI
-		{
-			public CDTX.CChip HH;
-			public CDTX.CChip SD;
-			public CDTX.CChip BD;
-			public CDTX.CChip HT;
-			public CDTX.CChip LT;
-			public CDTX.CChip FT;
-			public CDTX.CChip CY;
-			public CDTX.CChip HHO;
-			public CDTX.CChip RD;
-			public CDTX.CChip LC;
-			public CDTX.CChip LP;
-			public CDTX.CChip LBD;
-			public CDTX.CChip this[ int index ]
-			{
-				get
-				{
-					switch ( index )
-					{
-						case 0:
-							return this.HH;
-
-						case 1:
-							return this.SD;
-
-						case 2:
-							return this.BD;
-
-						case 3:
-							return this.HT;
-
-						case 4:
-							return this.LT;
-
-						case 5:
-							return this.FT;
-
-						case 6:
-							return this.CY;
-
-						case 7:
-							return this.HHO;
-
-						case 8:
-							return this.RD;
-
-						case 9:
-							return this.LC;
-
-						case 10:
-							return this.LP;
-
-						case 11:
-							return this.LBD;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch ( index )
-					{
-						case 0:
-							this.HH = value;
-							return;
-
-						case 1:
-							this.SD = value;
-							return;
-
-						case 2:
-							this.BD = value;
-							return;
-
-						case 3:
-							this.HT = value;
-							return;
-
-						case 4:
-							this.LT = value;
-							return;
-
-						case 5:
-							this.FT = value;
-							return;
-
-						case 6:
-							this.CY = value;
-							return;
-
-						case 7:
-							this.HHO = value;
-							return;
-
-						case 8:
-							this.RD = value;
-							return;
-
-						case 9:
-							this.LC = value;
-							return;
-
-						case 10:
-							this.LP = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
-
 		protected struct stmixer
 		{
 			internal bool bIsAdd;
@@ -693,10 +579,6 @@ namespace TJAPlayer3
 		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
 		protected int n最後に再生したHHのチャンネル番号;
 		protected List<int> L最後に再生したHHの実WAV番号;		// #23921 2011.1.4 yyagi: change "int" to "List<int>", for recording multiple wav No.
-		protected STLANEVALUE<int> n最後に再生した実WAV番号;	// #26388 2011.11.8 yyagi: change "n最後に再生した実WAV番号.GUITAR" and "n最後に再生した実WAV番号.BASS"
-																//							into "n最後に再生した実WAV番号";
-//		protected int n最後に再生した実WAV番号.GUITAR;
-//		protected int n最後に再生した実WAV番号.BASS;
 
 		protected volatile Queue<stmixer> queueMixerSound;		// #24820 2013.1.21 yyagi まずは単純にAdd/Removeを1個のキューでまとめて管理するやり方で設計する
 		protected DateTime dtLastQueueOperation;				//
@@ -1133,7 +1015,7 @@ namespace TJAPlayer3
 
 		protected bool tRollProcess( CDTX.CChip pChip, double dbProcess_time, int num, int sort, int Input, int nPlayer )
 		{
-			if( dbProcess_time >= pChip.n発声時刻ms && dbProcess_time < pChip.nノーツ終了時刻ms )
+			if ( dbProcess_time >= pChip.n発声時刻ms && dbProcess_time < pChip.nノーツ終了時刻ms )
 			{
 				if( pChip.nRollCount == 0 )
 				{
@@ -1458,7 +1340,8 @@ namespace TJAPlayer3
 								this.eRollState = E連打State.roll;
 								this.tRollProcess( pChip, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer );
 							}
-
+							if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
+								pChip.fBMSCROLLTime -= TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -0.05;
 							//if ((int)CSound管理.rc演奏用タイマ.n現在時刻ms >= pChip.nノーツ終了時刻ms)
 							//{
 							//    if (actChara.CharaAction_Balloon_Breaking.b進行中)
