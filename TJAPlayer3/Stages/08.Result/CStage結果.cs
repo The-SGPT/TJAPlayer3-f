@@ -389,7 +389,7 @@ namespace TJAPlayer3
 
 				if( TJAPlayer3.act現在入力を占有中のプラグイン == null )
 				{
-					if( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Return ) ) ) && !this.bアニメが完了 )
+					if( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) ||  TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS,Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了 )
 					{
 						this.actFI.tフェードイン完了();					// #25406 2011.6.9 yyagi
 						this.actResultImage.tアニメを完了させる();
@@ -414,7 +414,7 @@ namespace TJAPlayer3
 							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 							this.eフェードアウト完了時の戻り値 = E戻り値.完了;
 						}
-						if ( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) && this.bアニメが完了 )
+						if ( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P) ) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ) && this.bアニメが完了 )
 						{
 							TJAPlayer3.Skin.sound取消音.t再生する();
 //							this.actFO.tフェードアウト開始();
