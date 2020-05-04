@@ -930,133 +930,6 @@ namespace TJAPlayer3
 			}
 		}
 		#endregion
-		#region [ STLANEVALUE ]
-		public STLANEVALUE nVelocityMin;
-		[StructLayout( LayoutKind.Sequential )]
-		public struct STLANEVALUE
-		{
-			public int LC;
-			public int HH;
-			public int SD;
-			public int BD;
-			public int HT;
-			public int LT;
-			public int FT;
-			public int CY;
-			public int RD;
-			public int LP;
-			public int LBD;
-			public int Guitar;
-			public int Bass;
-			public int this[ int index ]
-			{
-				get
-				{
-					switch( index )
-					{
-						case 0:
-							return this.LC;
-
-						case 1:
-							return this.HH;
-
-						case 2:
-							return this.SD;
-
-						case 3:
-							return this.BD;
-
-						case 4:
-							return this.HT;
-
-						case 5:
-							return this.LT;
-
-						case 6:
-							return this.FT;
-
-						case 7:
-							return this.CY;
-
-						case 8:
-							return this.RD;
-
-						case 9:
-							return this.LP;
-
-						case 10:
-							return this.LBD;
-
-						case 11:
-							return this.Guitar;
-
-						case 12:
-							return this.Bass;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch( index )
-					{
-						case 0:
-							this.LC = value;
-							return;
-
-						case 1:
-							this.HH = value;
-							return;
-
-						case 2:
-							this.SD = value;
-							return;
-
-						case 3:
-							this.BD = value;
-							return;
-
-						case 4:
-							this.HT = value;
-							return;
-
-						case 5:
-							this.LT = value;
-							return;
-
-						case 6:
-							this.FT = value;
-							return;
-
-						case 7:
-							this.CY = value;
-							return;
-
-						case 8:
-							this.RD = value;
-							return;
-
-						case 9:
-							this.LP = value;
-							return;
-
-						case 10:
-							this.LBD = value;
-							return;
-
-						case 11:
-							this.Guitar = value;
-							return;
-
-						case 12:
-							this.Bass = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
-		#endregion
-
 
 		#region[Ver.K追加オプション]
 		//--------------------------
@@ -1204,19 +1077,6 @@ namespace TJAPlayer3
 			this.ConfigIniファイル名 = "";
 			this.dicJoystick = new Dictionary<int, string>( 10 );
 			this.tデフォルトのキーアサインに設定する();
-			#region [ velocityMin ]
-			this.nVelocityMin.LC = 0;					// #23857 2011.1.31 yyagi VelocityMin
-			this.nVelocityMin.HH = 20;
-			this.nVelocityMin.SD = 0;
-			this.nVelocityMin.BD = 0;
-			this.nVelocityMin.HT = 0;
-			this.nVelocityMin.LT = 0;
-			this.nVelocityMin.FT = 0;
-			this.nVelocityMin.CY = 0;
-			this.nVelocityMin.RD = 0;
-			this.nVelocityMin.LP = 0;
-			this.nVelocityMin.LBD = 0;
-			#endregion
 			this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
 			this.bIsAutoResultCapture = false;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能ON/OFF
 
@@ -2298,44 +2158,6 @@ namespace TJAPlayer3
 											{
 												this.nPoliphonicSounds = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 8, this.nPoliphonicSounds );
 											}
-											#region [ VelocityMin ]
-											else if ( str3.Equals( "LCVelocityMin" ) )			// #23857 2010.12.12 yyagi
-											{
-												this.nVelocityMin.LC = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.LC );
-											}
-											else if( str3.Equals( "HHVelocityMin" ) )
-											{
-												this.nVelocityMin.HH = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.HH );
-											}
-											else if( str3.Equals( "SDVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.SD = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.SD );
-											}
-											else if( str3.Equals( "BDVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.BD = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.BD );
-											}
-											else if( str3.Equals( "HTVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.HT = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.HT );
-											}
-											else if( str3.Equals( "LTVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.LT = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.LT );
-											}
-											else if( str3.Equals( "FTVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.FT = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.FT );
-											}
-											else if( str3.Equals( "CYVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.CY = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.CY );
-											}
-											else if( str3.Equals( "RDVelocityMin" ) )			// #23857 2011.1.31 yyagi
-											{
-												this.nVelocityMin.RD = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 127, this.nVelocityMin.RD );
-											}
-											#endregion
 											//else if ( str3.Equals( "NoMP3Streaming" ) )
 											//{
 											//    this.bNoMP3Streaming = C変換.bONorOFF( str4[ 0 ] );
