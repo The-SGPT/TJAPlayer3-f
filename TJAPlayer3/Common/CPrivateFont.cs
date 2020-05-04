@@ -422,6 +422,15 @@ namespace TJAPlayer3
 				return new Bitmap(1, 1);
 			}
 
+			if (this._font == null)
+			{
+				this._font = new Font(TJAPlayer3.ConfigIni.FontName, 28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
+			}
+
+			if (TJAPlayer3.ConfigIni.FontName=="ＤＦＰ勘亭流" || TJAPlayer3.ConfigIni.FontName.ToLower() == "kanteiryu-xg" )
+				drawstr = drawstr.Replace("-", "ー").Replace("ー", "↔").Replace("・", "．");
+			else
+				drawstr = drawstr.Replace("・", "．");
 			//StreamWriter stream = stream = new StreamWriter("Test.txt", false);
 
 			//try
@@ -436,11 +445,6 @@ namespace TJAPlayer3
 
 			string[] strName =  new string[ drawstr.Length ];
 			for( int i = 0; i < drawstr.Length; i++ ) strName[i] = drawstr.Substring(i, 1);
-
-			if (this._font == null)
-			{
-				this._font = new Font(TJAPlayer3.ConfigIni.FontName, 28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
-			}
 
 			#region[ キャンバスの大きさ予測 ]
 			//大きさを計算していく。
@@ -470,7 +474,8 @@ namespace TJAPlayer3
 				{
 					nHeight += ( rect正確なサイズ.Width ) + 4;
 				}
-				else if( strName[ i ] == "_" ){ nHeight += ( rect正確なサイズ.Height ) + 6;  }
+				else if( strName[ i ] == "_" )
+				{ nHeight += ( rect正確なサイズ.Height ) + 6;  }
 				else if( strName[ i ] == " " )
 				{ nHeight += ( 12 ); }
 				else { nHeight += ( rect正確なサイズ.Height ) + 10; }
@@ -493,7 +498,7 @@ namespace TJAPlayer3
 			int nEdge補正X = 0;
 			int nEdge補正Y = 0;
 			if (this._pt < 18)
-				nAdded = nAdded - 2;
+				nAdded -= 2;
 
 			for (int i = 0; i < strName.Length; i++)
 			{
@@ -517,9 +522,9 @@ namespace TJAPlayer3
 
 				bmpV.MakeTransparent();
 				Graphics gV = Graphics.FromImage(bmpV);
-				gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+				gV.SmoothingMode = SmoothingMode.HighQuality;
 
-				if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara!=null&&TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value!=null)
+				if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value != null)
 				{
 					int Xindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara, strName[i]);
 					if (-1 < Xindex && Xindex < TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
@@ -564,21 +569,21 @@ namespace TJAPlayer3
 				//現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
 				//文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）←実装済み //2020.05.04 Mr-Ojii 文字ごとに補正をかけられるように。「,」区切りで書けるように。
 
-				Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 12));
+				Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 11));
 				//Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
 
 				// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
 				// (これをしないと、単位が違うために、小さめに描画されてしまう)
-				float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72;  // 1 inch = 72 points
+				float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72f;  // 1 inch = 72 points
 
-				System.Drawing.Drawing2D.GraphicsPath gpV = new System.Drawing.Drawing2D.GraphicsPath();
+				GraphicsPath gpV = new GraphicsPath();
 				gpV.AddString(strName[i], this._fontfamily, (int)this._font.Style, sizeInPixels, rect, sFormat);
 
 				// 縁取りを描画する
 				//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
-				int nEdgePt = (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+				float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
 				Pen pV = new Pen(edgeColor, nEdgePt);
-				pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+				pV.LineJoin = LineJoin.Round;
 				gV.DrawPath(pV, gpV);
 
 				// 塗りつぶす
@@ -652,7 +657,7 @@ namespace TJAPlayer3
 				//else if( strName[ i ] == "_" )
 				//    nNowPos = nNowPos + 20;
 				else if( strName[ i ] == " " )
-					nNowPos = nNowPos + 10;
+					nNowPos += 10;
 
 
 				//bmpV.Save( "String" + i.ToString() + ".png" );

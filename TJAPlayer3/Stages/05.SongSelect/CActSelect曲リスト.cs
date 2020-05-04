@@ -549,7 +549,7 @@ namespace TJAPlayer3
 			if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
 			{
 				this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
-				this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 18);
+				this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 23);
 			}
 
 			_titleTextures.ItemRemoved += OnTitleTexturesOnItemRemoved;
@@ -653,21 +653,21 @@ namespace TJAPlayer3
 				this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 			}
 
-			for (int i = 1; i < 12; i++)
+			for (int i = 0; i < 11; i++)
 			{
-				if (i == 11)
+				if (i == 10)
 				{
-					this.genretext[i - 1].TtktGenre = this.ttkジャンルテクスチャを生成する("とじる", Color.White, Color.Black);
+					this.genretext[i] = this.ttkジャンルテクスチャを生成する("とじる", Color.White, Color.Black);
 
 				}
 				else if (i == 9)
 				{
-					this.genretext[i - 1].TtktGenre = this.ttkジャンルテクスチャを生成する("ランダム", Color.White, Color.Black);
+					this.genretext[i] = this.ttkジャンルテクスチャを生成する("ランダム", Color.White, Color.Black);
 
 				}
 				else
 				{
-					this.genretext[i - 1].TtktGenre = this.ttkジャンルテクスチャを生成する(this.NumtonStrジャンル(i), Color.White, Color.Black);
+					this.genretext[i] = this.ttkジャンルテクスチャを生成する(this.NumtonStrジャンル(i), Color.White, Color.Black);
 				}
 
 			}
@@ -1138,22 +1138,19 @@ namespace TJAPlayer3
 
 					if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Other)
 					{
-						if (this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
+						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
 						{
-							if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
-							{
-								kari = this.ResolveGenreTexture(genretext[8].TtktGenre);
-								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-							}
-							else if (r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BACKBOX)
-							{
-								kari = this.ResolveGenreTexture(genretext[9].TtktGenre);
-								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-							}
+							kari = this.ResolveGenreTexture(genretext[9]);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						}
+						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
+						{
+							kari = this.ResolveGenreTexture(genretext[10]);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 						else
 						{
-							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre);
+							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)]);
 							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 					}
@@ -1499,30 +1496,21 @@ namespace TJAPlayer3
 					else if (TJAPlayer3.Tx.SongSelect_Bar_Center != null)
 						TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画(TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
 
-
 					if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Other)
 					{
-						if (this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
+						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
+						{ 
+							kari = this.ResolveGenreTexture(genretext[9]);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						}
+						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
 						{
-							if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
-							{
-								kari = this.ResolveGenreTexture(genretext[8].TtktGenre);
-								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-							}
-							else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
-							{
-								kari = this.ResolveGenreTexture(genretext[10].TtktGenre);
-								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-							}
-							else
-							{
-								kari = this.ResolveGenreTexture(genretext[9].TtktGenre);
-								kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-							}
+							kari = this.ResolveGenreTexture(genretext[10]);
+							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 						else
 						{
-							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre);
+							kari = this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)]);
 							kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 						}
 					}
@@ -1837,18 +1825,9 @@ namespace TJAPlayer3
 			tアイテム数の描画();
 			#endregion
 
-
-
 			if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score)
 			{
-				if (this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) == 8)
-				{
-					this.ResolveGenreTexture(genretext[9].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-				}
-				else
-				{
-					this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル) - 1].TtktGenre).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
-				}
+					this.ResolveGenreTexture(genretext[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)]).t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 			}
 
 
@@ -1921,11 +1900,6 @@ namespace TJAPlayer3
 			public string strサブタイトル;
 			public TitleTextureKey ttkタイトル;
 			public int[] n王冠;
-		}
-
-		private struct GenreText
-		{
-			public TitleTextureKey TtktGenre;
 		}
 
 		private struct ST選曲バー
@@ -2003,7 +1977,7 @@ namespace TJAPlayer3
 		  new Point( 840, 180 ), new Point( 941, 180 ), new Point( 1041, 180 ), new Point( 1142, 180 ), new Point( 1242, 180 ), new Point( 1343, 180 ), new Point( 1443, 180 ) };
 
 		private STバー情報[] stバー情報 = new STバー情報[13];
-		private GenreText[] genretext = new GenreText[11];
+		private TitleTextureKey[] genretext = new TitleTextureKey[13];
 		private CTexture txSongNotFound, txEnumeratingSongs;
 		//private CTexture txスキル数字;
 		//private CTexture txアイテム数数字;
@@ -2483,7 +2457,7 @@ namespace TJAPlayer3
 
 		public int nStrジャンルtoNumN2(string strジャンル)
 		{
-			int nGenre = 8;
+			int nGenre = 0;
 			switch (strジャンル)
 			{
 				case "J-POP":
@@ -2614,8 +2588,11 @@ namespace TJAPlayer3
 
 		private static CTexture GenerateGenreTexture(TitleTextureKey titleTextureKey)
 		{
-
-
+			string drawstr = titleTextureKey.str文字;
+			if (TJAPlayer3.ConfigIni.FontName == "ＤＦＰ勘亭流" || TJAPlayer3.ConfigIni.FontName.ToLower() == "kanteiryu-xg")
+				drawstr = drawstr.Replace("-", "ー").Replace("・", "．");
+			else
+				drawstr = drawstr.Replace("・", "．");
 			//描画先とするImageオブジェクトを作成する
 			var bmp = new Bitmap(800, 200);
 			//ImageオブジェクトのGraphicsオブジェクトを作成する
@@ -2624,11 +2601,11 @@ namespace TJAPlayer3
 			//フォントオブジェクトの作成
 			int fontsize = 60;
 			Font fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
-			SizeF stringSize = g.MeasureString(titleTextureKey.str文字, fnt, 1000, sf);
+			SizeF stringSize = g.MeasureString(drawstr, fnt, 1000, sf);
 			for (; stringSize.Width > 540; fontsize--)
 			{
 				fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
-				stringSize = g.MeasureString(titleTextureKey.str文字, fnt, 1000, sf);
+				stringSize = g.MeasureString(drawstr, fnt, 1000, sf);
 			}
 			//文字列を位置(0,0)、黒色で表示
 			//	g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -2638,7 +2615,7 @@ namespace TJAPlayer3
 			//GraphicsPathオブジェクトの作成
 			System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
 			//GraphicsPathに文字列を追加する
-			gp.AddString(titleTextureKey.str文字, fnt.FontFamily, (int)fnt.Style, emSize,
+			gp.AddString(drawstr, fnt.FontFamily, (int)fnt.Style, emSize,
 				new Point(290 - ((int)stringSize.Width) / 2, 80 - (int)stringSize.Height / 2), StringFormat.GenericDefault);
 
 			//文字列の中を塗りつぶす
