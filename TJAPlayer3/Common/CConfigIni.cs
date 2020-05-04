@@ -851,7 +851,6 @@ namespace TJAPlayer3
 		}
 		public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
 		public bool bIsAllowedDoubleClickFullscreen;	// #26752 2011.11.27 yyagi ダブルクリックしてもフルスクリーンに移行しない
-		public STAUTOPLAY bAutoPlay;
 		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=ACM(にしたいが設計がきつそうならDirectShow), 1=ASIO, 2=WASAPI)
 		public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
 //		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
@@ -876,155 +875,7 @@ namespace TJAPlayer3
 		/// DiscordのRitch Presenceに再生中の.tjaファイルの情報を送信するかどうか。
 		/// </summary>
 		public bool SendDiscordPlayingInformation;
-#if false
-		[StructLayout( LayoutKind.Sequential )]
-		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
-		{
-			public bool LC;			// 0
-			public bool HH;			// 1
-			public bool SD;			// 2
-			public bool BD;			// 3
-			public bool HT;			// 4
-			public bool LT;			// 5
-			public bool FT;			// 6
-			public bool CY;			// 7
-			public bool RD;			// 8
-			public bool Guitar;		// 9	(not used)
-			public bool Bass;		// 10	(not used)
-			public bool GtR;		// 11
-			public bool GtG;		// 12
-			public bool GtB;		// 13
-			public bool GtPick;		// 14
-			public bool GtW;		// 15
-			public bool BsR;		// 16
-			public bool BsG;		// 17
-			public bool BsB;		// 18
-			public bool BsPick;		// 19
-			public bool BsW;		// 20
-			public bool this[ int index ]
-			{
-				get
-				{
-					switch ( index )
-					{
-						case (int) Eレーン.LC:
-							return this.LC;
-						case (int) Eレーン.HH:
-							return this.HH;
-						case (int) Eレーン.SD:
-							return this.SD;
-						case (int) Eレーン.BD:
-							return this.BD;
-						case (int) Eレーン.HT:
-							return this.HT;
-						case (int) Eレーン.LT:
-							return this.LT;
-						case (int) Eレーン.FT:
-							return this.FT;
-						case (int) Eレーン.CY:
-							return this.CY;
-						case (int) Eレーン.RD:
-							return this.RD;
-						case (int) Eレーン.Guitar:
-							return this.Guitar;
-						case (int) Eレーン.Bass:
-							return this.Bass;
-						case (int) Eレーン.GtR:
-							return this.GtR;
-						case (int) Eレーン.GtG:
-							return this.GtG;
-						case (int) Eレーン.GtB:
-							return this.GtB;
-						case (int) Eレーン.GtPick:
-							return this.GtPick;
-						case (int) Eレーン.GtW:
-							return this.GtW;
-						case (int) Eレーン.BsR:
-							return this.BsR;
-						case (int) Eレーン.BsG:
-							return this.BsG;
-						case (int) Eレーン.BsB:
-							return this.BsB;
-						case (int) Eレーン.BsPick:
-							return this.BsPick;
-						case (int) Eレーン.BsW:
-							return this.BsW;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch ( index )
-					{
-						case (int) Eレーン.LC:
-							this.LC = value;
-							return;
-						case (int) Eレーン.HH:
-							this.HH = value;
-							return;
-						case (int) Eレーン.SD:
-							this.SD = value;
-							return;
-						case (int) Eレーン.BD:
-							this.BD = value;
-							return;
-						case (int) Eレーン.HT:
-							this.HT = value;
-							return;
-						case (int) Eレーン.LT:
-							this.LT = value;
-							return;
-						case (int) Eレーン.FT:
-							this.FT = value;
-							return;
-						case (int) Eレーン.CY:
-							this.CY = value;
-							return;
-						case (int) Eレーン.RD:
-							this.RD = value;
-							return;
-						case (int) Eレーン.Guitar:
-							this.Guitar = value;
-							return;
-						case (int) Eレーン.Bass:
-							this.Bass = value;
-							return;
-						case (int) Eレーン.GtR:
-							this.GtR = value;
-							return;
-						case (int) Eレーン.GtG:
-							this.GtG = value;
-							return;
-						case (int) Eレーン.GtB:
-							this.GtB = value;
-							return;
-						case (int) Eレーン.GtPick:
-							this.GtPick = value;
-							return;
-						case (int) Eレーン.GtW:
-							this.GtW = value;
-							return;
-						case (int) Eレーン.BsR:
-							this.BsR = value;
-							return;
-						case (int) Eレーン.BsG:
-							this.BsG = value;
-							return;
-						case (int) Eレーン.BsB:
-							this.BsB = value;
-							return;
-						case (int) Eレーン.BsPick:
-							this.BsPick = value;
-							return;
-						case (int) Eレーン.BsW:
-							this.BsW = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
-#endif
+
 		#region [ STRANGE ]
 		public STRANGE nヒット範囲ms;
 		[StructLayout( LayoutKind.Sequential )]
@@ -1341,8 +1192,6 @@ namespace TJAPlayer3
 			}
 			this.n演奏速度 = 20;
 			#region [ AutoPlay ]
-			this.bAutoPlay = new STAUTOPLAY();
-
 			this.b太鼓パートAutoPlay[0] = true;
 			this.b太鼓パートAutoPlay[1] = true;
 			this.bAuto先生の連打 = true;

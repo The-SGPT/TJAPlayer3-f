@@ -162,7 +162,6 @@ namespace TJAPlayer3
 		}
 		public class C演奏記録
 		{
-			public STAUTOPLAY bAutoPlay;
 			public bool bDrums有効;
 			public bool bGuitar有効;
 			public STDGBVALUE<bool> bHidden;
@@ -219,28 +218,6 @@ namespace TJAPlayer3
 
 			public C演奏記録()
 			{
-				this.bAutoPlay = new STAUTOPLAY();
-				this.bAutoPlay.LC = false;
-				this.bAutoPlay.HH = false;
-				this.bAutoPlay.SD = false;
-				this.bAutoPlay.BD = false;
-				this.bAutoPlay.HT = false;
-				this.bAutoPlay.LT = false;
-				this.bAutoPlay.FT = false;
-				this.bAutoPlay.CY = false;
-				this.bAutoPlay.Guitar = false;
-				this.bAutoPlay.Bass = false;
-				this.bAutoPlay.GtR = false;
-				this.bAutoPlay.GtG = false;
-				this.bAutoPlay.GtB = false;
-				this.bAutoPlay.GtPick = false;
-				this.bAutoPlay.GtW = false;
-				this.bAutoPlay.BsR = false;
-				this.bAutoPlay.BsG = false;
-				this.bAutoPlay.BsB = false;
-				this.bAutoPlay.BsPick = false;
-				this.bAutoPlay.BsW = false;
-
 				this.bSudden = new STDGBVALUE<bool>();
 				this.bSudden.Drums = false;
 				this.bSudden.Guitar = false;
@@ -321,155 +298,6 @@ namespace TJAPlayer3
 					return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGreat数_Auto含まない - this.nGood数_Auto含まない - this.nPoor数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
 				}
 			}
-#if false
-			[StructLayout( LayoutKind.Sequential )]
-			public struct STAUTOPLAY
-			{
-				public bool LC;
-				public bool HH;
-				public bool SD;
-				public bool BD;
-				public bool HT;
-				public bool LT;
-				public bool FT;
-				public bool CY;
-				public bool RD;
-				public bool Guitar;
-				public bool Bass;
-				public bool GtR;
-				public bool GtG;
-				public bool GtB;
-				public bool GtPick;
-				public bool GtW;
-				public bool BsR;
-				public bool BsG;
-				public bool BsB;
-				public bool BsPick;
-				public bool BsW;
-				public bool this[ int index ]
-				{
-					get
-					{
-						switch ( index )
-						{
-							case (int) Eレーン.LC:
-								return this.LC;
-							case (int) Eレーン.HH:
-								return this.HH;
-							case (int) Eレーン.SD:
-								return this.SD;
-							case (int) Eレーン.BD:
-								return this.BD;
-							case (int) Eレーン.HT:
-								return this.HT;
-							case (int) Eレーン.LT:
-								return this.LT;
-							case (int) Eレーン.FT:
-								return this.FT;
-							case (int) Eレーン.CY:
-								return this.CY;
-							case (int) Eレーン.RD:
-								return this.RD;
-							case (int) Eレーン.Guitar:
-								return this.Guitar;
-							case (int) Eレーン.Bass:
-								return this.Bass;
-							case (int) Eレーン.GtR:
-								return this.GtR;
-							case (int) Eレーン.GtG:
-								return this.GtG;
-							case (int) Eレーン.GtB:
-								return this.GtB;
-							case (int) Eレーン.GtPick:
-								return this.GtPick;
-							case (int) Eレーン.GtW:
-								return this.GtW;
-							case (int) Eレーン.BsR:
-								return this.BsR;
-							case (int) Eレーン.BsG:
-								return this.BsG;
-							case (int) Eレーン.BsB:
-								return this.BsB;
-							case (int) Eレーン.BsPick:
-								return this.BsPick;
-							case (int) Eレーン.BsW:
-								return this.BsW;
-						}
-						throw new IndexOutOfRangeException();
-					}
-					set
-					{
-						switch ( index )
-						{
-							case (int) Eレーン.LC:
-								this.LC = value;
-								return;
-							case (int) Eレーン.HH:
-								this.HH = value;
-								return;
-							case (int) Eレーン.SD:
-								this.SD = value;
-								return;
-							case (int) Eレーン.BD:
-								this.BD = value;
-								return;
-							case (int) Eレーン.HT:
-								this.HT = value;
-								return;
-							case (int) Eレーン.LT:
-								this.LT = value;
-								return;
-							case (int) Eレーン.FT:
-								this.FT = value;
-								return;
-							case (int) Eレーン.CY:
-								this.CY = value;
-								return;
-							case (int) Eレーン.RD:
-								this.RD = value;
-								return;
-							case (int) Eレーン.Guitar:
-								this.Guitar = value;
-								return;
-							case (int) Eレーン.Bass:
-								this.Bass = value;
-								return;
-							case (int) Eレーン.GtR:
-								this.GtR = value;
-								return;
-							case (int) Eレーン.GtG:
-								this.GtG = value;
-								return;
-							case (int) Eレーン.GtB:
-								this.GtB = value;
-								return;
-							case (int) Eレーン.GtPick:
-								this.GtPick = value;
-								return;
-							case (int) Eレーン.GtW:
-								this.GtW = value;
-								return;
-							case (int) Eレーン.BsR:
-								this.BsR = value;
-								return;
-							case (int) Eレーン.BsG:
-								this.BsG = value;
-								return;
-							case (int) Eレーン.BsB:
-								this.BsB = value;
-								return;
-							case (int) Eレーン.BsPick:
-								this.BsPick = value;
-								return;
-							case (int) Eレーン.BsW:
-								this.BsW = value;
-								return;
-						}
-						throw new IndexOutOfRangeException();
-					}
-				}
-			}
-#endif
 		}
 
 		/// <summary>
@@ -853,17 +681,6 @@ namespace TJAPlayer3
 							else if( item.Equals( "TotalChips" ) )
 							{
 								c演奏記録.n全チップ数 = int.Parse( para );
-							}
-							else if( item.Equals( "AutoPlay" ) )
-							{
-								// LCなし               LCあり               CYとRDが別           Gt/Bs autolane/pick
-								if( para.Length == 9 || para.Length == 10 || para.Length == 11 || para.Length == 21 )
-								{
-									for( int i = 0; i < para.Length; i++ )
-									{
-										c演奏記録.bAutoPlay[ i ] = this.ONorOFF( para[ i ] );
-									}
-								}
 							}
 							else if ( item.Equals( "Risky" ) )
 							{
@@ -1278,11 +1095,6 @@ namespace TJAPlayer3
 				writer.WriteLine( "Miss={0}", this.stセクション[ i ].nMiss数 );
 				writer.WriteLine( "MaxCombo={0}", this.stセクション[ i ].n最大コンボ数 );
 				writer.WriteLine( "TotalChips={0}", this.stセクション[ i ].n全チップ数 );
-				writer.Write( "AutoPlay=" );
-				for ( int j = 0; j < (int) Eレーン.MAX; j++ )
-				{
-					writer.Write( this.stセクション[ i ].bAutoPlay[ j ] ? 1 : 0 );
-				}
 				writer.WriteLine();
 				writer.WriteLine( "Risky={0}", this.stセクション[ i ].nRisky );
 				writer.WriteLine( "SuddenDrums={0}", this.stセクション[ i ].bSudden.Drums ? 1 : 0 );
@@ -1404,18 +1216,18 @@ namespace TJAPlayer3
 			}
 			return (int)ERANK.E;
 		}
-		internal static double tゲーム型スキルを計算して返す( int nLevel, int nTotal, int nPerfect, int nCombo, E楽器パート inst, STAUTOPLAY bAutoPlay )
+		internal static double tゲーム型スキルを計算して返す( int nLevel, int nTotal, int nPerfect, int nCombo, E楽器パート inst)
 		{
 			double ret;
 			if( ( nTotal == 0 ) || ( ( nPerfect == 0 ) && ( nCombo == 0 ) ) )
 				ret = 0.0;
 
 			ret = ( ( nLevel * ( ( nPerfect * 0.8 + nCombo * 0.2 ) / ( (double) nTotal ) ) ) / 2.0 );
-			ret *= dbCalcReviseValForDrGtBsAutoLanes( inst, bAutoPlay );
+			ret *= dbCalcReviseValForDrGtBsAutoLanes( inst);
 
 			return ret;
 		}
-		internal static double t演奏型スキルを計算して返す( int nTotal, int nPerfect, int nGreat, int nGood, int nPoor, int nMiss, E楽器パート inst, STAUTOPLAY bAutoPlay)
+		internal static double t演奏型スキルを計算して返す( int nTotal, int nPerfect, int nGreat, int nGood, int nPoor, int nMiss, E楽器パート inst)
 		{
 			if( nTotal == 0 )
 				return 0.0;
@@ -1424,10 +1236,10 @@ namespace TJAPlayer3
 			double y = ( ( nPerfect * 1.0 + nGreat * 0.8 + nGood * 0.5 + nPoor * 0.2 + nMiss * 0.0 + nAuto * 0.0 ) * 100.0 ) / ( (double) nTotal );
 			double ret = ( 100.0 * ( ( Math.Pow( 1.03, y ) - 1.0 ) / ( Math.Pow( 1.03, 100.0 ) - 1.0 ) ) );
 
-			ret *= dbCalcReviseValForDrGtBsAutoLanes( inst, bAutoPlay );
+			ret *= dbCalcReviseValForDrGtBsAutoLanes(inst);
 			return ret;
 		}
-		internal static double dbCalcReviseValForDrGtBsAutoLanes( E楽器パート inst, STAUTOPLAY bAutoPlay )
+		internal static double dbCalcReviseValForDrGtBsAutoLanes( E楽器パート inst)
 		{
 			//削除
 			return 1.0;
@@ -1481,8 +1293,6 @@ namespace TJAPlayer3
 			builder.Append( cc.nMiss数 );
 			builder.Append( cc.n最大コンボ数 );
 			builder.Append( cc.n全チップ数 );
-			for( int i = 0; i < 10; i++ )
-				builder.Append( boolToChar( cc.bAutoPlay[ i ] ) );
 			builder.Append( boolToChar( cc.bTight ) );
 			builder.Append( boolToChar( cc.bSudden.Drums ) );
 			builder.Append( boolToChar( cc.bSudden.Guitar ) );
