@@ -1348,7 +1348,7 @@ namespace TJAPlayer3
 			this.bAuto先生の連打 = true;
 			#endregion
 			this.nヒット範囲ms = new STRANGE();
-			this.nヒット範囲ms.Perfect = 25;
+			this.nヒット範囲ms.Perfect = 25; //そこらへんから拾ってきた判定の値
 			this.nヒット範囲ms.Great = -1; //使用しません。
 			this.nヒット範囲ms.Good = 75;
 			this.nヒット範囲ms.Poor = 108;
@@ -2271,25 +2271,19 @@ namespace TJAPlayer3
 											{
 												this.FontName = str4;
 												this.FontNamed = str4;
-												//InstalledFontCollectionオブジェクトの取得
-												System.Drawing.Text.InstalledFontCollection ifc =
-													new System.Drawing.Text.InstalledFontCollection();
-												//インストールされているすべてのフォントファミリアを取得
-												FontFamily[] ffs = ifc.Families;
-												bool hanntei = false;
-												foreach (FontFamily ff in ffs)
-												{
-													Font fnt = new Font(ff, 8);
-													if (fnt.Name == this.FontName) {
-														hanntei = true;
-													}
-														//リソースを解放する
-														fnt.Dispose();
-													
-												}
-												if (hanntei == false) {
+												if (string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
 													this.FontName = "MS UI Gothic";
+												try //2020.05.04 Mr-Ojii フォントの例外処理を出さないように追加
+												{
+													FontFamily ff = new FontFamily(this.FontName);
+													ff.IsStyleAvailable(FontStyle.Regular);
+												} 
+												catch
+												{
+													this.FontName = "MS UI Gothic";
+													Console.WriteLine(this.FontName+"を使用すると、例外が発生するので、MS UI Gothicを使用します。");
 												}
+
 											}
 											#endregion
 
