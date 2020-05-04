@@ -155,6 +155,7 @@ namespace TJAPlayer3
 						MessageBox.Show( "エラーが発生しました。\n" +
 							"原因がわからない場合は、以下のエラー文を添えて、エラー送信フォームに送信してください。\n" + 
 							e.ToString(), asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error );    // #23670 2011.2.28 yyagi to show error dialog
+#if !DEBUG
 						DialogResult result = MessageBox.Show("エラー送信フォームを開きますか?(ブラウザが起動します)\n",
 							asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2),
 							MessageBoxButtons.YesNo,
@@ -194,6 +195,7 @@ namespace TJAPlayer3
 									System.Web.HttpUtility.UrlEncode(e.ToString()));
 							}
 						}
+#endif
 					}
 					// END #24606 2011.03.08 from
 					// END #23670 2010.11.13 from
