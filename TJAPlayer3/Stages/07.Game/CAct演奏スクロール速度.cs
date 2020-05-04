@@ -24,10 +24,10 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			for( int i = 0; i < 3; i++ )
+			this.n速度変更制御タイマ = new STDGBVALUE<long>[2];
+			this.db現在の譜面スクロール速度 = new STDGBVALUE<double>[2];
+			for ( int i = 0; i < 3; i++ )
 			{
-				this.n速度変更制御タイマ = new STDGBVALUE<long>[2];
-				this.db現在の譜面スクロール速度 = new STDGBVALUE<double>[2];
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
 					this.db現在の譜面スクロール速度[nPlayer][i] = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][i];
