@@ -2044,7 +2044,7 @@ namespace TJAPlayer3
 		}
 
 		private bool b項目リスト側にフォーカスがある;
-		private bool b要素値にフォーカス中;
+		public bool b要素値にフォーカス中;
 		private CCounter ct三角矢印アニメ;
 		private Eメニュー種別 eメニュー種別;
 		#region [ キーコンフィグ ]
