@@ -548,13 +548,8 @@ namespace TJAPlayer3
 
 			if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
 			{
-				this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 28);
-				this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 20);
-			}
-			else
-			{
-				this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 28);
-				this.pfSubtitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 20);
+				this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
+				this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 18);
 			}
 
 			_titleTextures.ItemRemoved += OnTitleTexturesOnItemRemoved;
@@ -586,7 +581,7 @@ namespace TJAPlayer3
 			this.tバーの初期化();
 
 			this.ct三角矢印アニメ = new CCounter();
-			this.ct分岐フェード用タイマー = new CCounter(0, 628, 10, TJAPlayer3.Timer);
+			this.ct分岐フェード用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.Timer);
 
 			base.On活性化();
 
@@ -824,7 +819,7 @@ namespace TJAPlayer3
 
 			//追加
 			if (n現在のスクロールカウンタ == 0)	this.ct分岐フェード用タイマー.t進行Loop();
-			else this.ct分岐フェード用タイマー.n現在の値 = 0;
+			else this.ct分岐フェード用タイマー.n現在の値 = 1;
 
 			// 進行。
 			if (n現在のスクロールカウンタ == 0) ct三角矢印アニメ.t進行Loop();
@@ -1666,10 +1661,7 @@ namespace TJAPlayer3
 
 					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW != null)
 					{
-						double opatmp = Math.Cos(ct分岐フェード用タイマー.n現在の値 / 100.0) + 0.5;
-						opatmp = C変換.db値を文字列から取得して範囲内に丸めて返す(opatmp.ToString(), 0.0, 1.0, opatmp);
-
-						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)(opatmp * 255.0);
+						TJAPlayer3.Tx.SongSelect_Branch_Text_NEW.Opacity = (int)((ct分岐フェード用タイマー.n現在の値 % 2) * 255.0);
 
 						for (int i = 0; i < 4; i++)
 						{
