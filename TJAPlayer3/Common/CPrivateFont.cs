@@ -437,6 +437,11 @@ namespace TJAPlayer3
 			string[] strName =  new string[ drawstr.Length ];
 			for( int i = 0; i < drawstr.Length; i++ ) strName[i] = drawstr.Substring(i, 1);
 
+			if (this._font == null)
+			{
+				this._font = new Font(TJAPlayer3.ConfigIni.FontName, 28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
+			}
+
 			#region[ キャンバスの大きさ予測 ]
 			//大きさを計算していく。
 			int nHeight = 0;
@@ -456,19 +461,12 @@ namespace TJAPlayer3
 				Bitmap bmpDummy = new Bitmap( 150, 150 ); //とりあえず150
 				Graphics gCal = Graphics.FromImage( bmpDummy );
 
-
-				if (this._font == null)
-				{
-					this._font = new Font(TJAPlayer3.ConfigIni.FontName,28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
-				}
-
-
 				Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
 				int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-				Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 ));
+				//Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 )); 2020.05.04 Mr-Ojii 使ってないから、コメント化。
 
-				if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]" )
+				if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]")
 				{
 					nHeight += ( rect正確なサイズ.Width ) + 4;
 				}
@@ -509,8 +507,7 @@ namespace TJAPlayer3
 				sFormat.Alignment = StringAlignment.Near;	// 画面中央（水平方向位置）
 
 				//できるだけ正確な値を計算しておきたい...!
-				Bitmap bmpDummy = new Bitmap(150, 150); //とりあえず150
-				Graphics gCal = Graphics.FromImage(bmpDummy);
+				Graphics gCal = Graphics.FromImage(new Bitmap(150, 150));//とりあえず150 2020.05.04　Mr-Ojii 一回変数に格納する必要がないと判断したため、まとめた。
 				Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
 				int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
@@ -522,27 +519,50 @@ namespace TJAPlayer3
 				Graphics gV = Graphics.FromImage(bmpV);
 				gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+				if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara!=null&&TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value!=null)
+				{
+					int Xindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara, strName[i]);
+					if (-1 < Xindex && Xindex < TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+					{
+						nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[Xindex];
+					}
+					else
+					{
+						if (-1 < Xindex && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length <= Xindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+						{
+							nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[0];
+						}
+						else
+						{
+							nEdge補正X = 0;
+						}
+					} 
+				}
 
-				if (strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+				if (TJAPlayer3.Skin.SongSelect_CorrectionY_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value != null)
 				{
-					nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value;
+					int Yindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara, strName[i]);
+					if (-1 < Yindex && Yindex < TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+					{
+						nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[Yindex];
+					}
+					else
+					{
+						if (-1 < Yindex && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length <= Yindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+						{
+							nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[0];
+						}
+						else
+						{
+							nEdge補正Y = 0;
+						}
+					}
 				}
-				else
-				{
-					nEdge補正X = 0;
-				}
-				if (strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
-				{
-					nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value;
-				}
-				else
-				{
-					nEdge補正Y = 0;
-				}
+
 				//X座標、Y座標それぞれについて、SkinConfig内でズレを直したい文字を , で区切って列挙して、
 				//補正値を記入することで、特定のそれらの文字について一括で座標をずらす。
 				//現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
-				//文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）
+				//文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）←実装済み //2020.05.04 Mr-Ojii 文字ごとに補正をかけられるように。「,」区切りで書けるように。
 
 				Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 12));
 				//Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
@@ -568,10 +588,10 @@ namespace TJAPlayer3
 				}
 				gV.FillPath(brV, gpV);
 
-				if (brV != null) brV.Dispose(); brV = null;
-				if (pV != null) pV.Dispose(); pV = null;
-				if (gpV != null) gpV.Dispose(); gpV = null;
-				if (gV != null) gV.Dispose(); gV = null;
+				if (brV != null) brV.Dispose();
+				if (pV != null) pV.Dispose();
+				if (gpV != null) gpV.Dispose();
+				if (gV != null) gV.Dispose();
 
 				int n補正 = 0;
 				int nY補正 = 0;
@@ -645,8 +665,8 @@ namespace TJAPlayer3
 				Gcambus.DrawImage( bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos + nY補正 );
 				nNowPos += bmpV.Size.Height - 6;
 
-				if( bmpV != null ) bmpV.Dispose(); bmpV = null;
-				if( gCal != null ) gCal.Dispose(); gCal = null;
+				if( bmpV != null ) bmpV.Dispose();
+				if( gCal != null ) gCal.Dispose();
 
 				//bmpCambus.Save( "test.png" );
 				//if( this._pt < 20 )
@@ -1018,6 +1038,7 @@ namespace TJAPlayer3
 				this.bDispose完了済み = true;
 			}
 		}
+
 		//-----------------
 		#endregion
 		#region [ private ]

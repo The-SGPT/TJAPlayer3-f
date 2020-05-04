@@ -1112,11 +1112,17 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
 							{
-								SongSelect_CorrectionX_Chara_Value = int.Parse(strParam);
+								SongSelect_CorrectionX_Chara_Value = strParam.Split(new char[]
+								{
+								','
+								}).Select(new Func<string, int>(int.Parse)).ToArray();
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
 							{
-								SongSelect_CorrectionY_Chara_Value = int.Parse(strParam);
+								SongSelect_CorrectionY_Chara_Value = strParam.Split(new char[]
+								{
+								','
+								}).Select(new Func<string, int>(int.Parse)).ToArray();
 							}
 							else if (strCommand == nameof(SongSelect_Rotate_Chara))
 							{
@@ -2465,8 +2471,8 @@ namespace TJAPlayer3
 		public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
 		public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
 		public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
-		public int SongSelect_CorrectionX_Chara_Value = 0;
-		public int SongSelect_CorrectionY_Chara_Value = 0;
+		public int[] SongSelect_CorrectionX_Chara_Value;
+		public int[] SongSelect_CorrectionY_Chara_Value;
 		public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
 		public int SongSelect_BackBoxText_Y_Diff = 0;
 		#endregion

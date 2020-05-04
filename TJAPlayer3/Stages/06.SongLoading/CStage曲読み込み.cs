@@ -368,13 +368,8 @@ namespace TJAPlayer3
 								var pfSubTitle = new CPrivateFont();
 								if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
 								{
-									pfTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
-									pfSubTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 22);
-								}
-								else
-								{
-									pfTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 30);
-									pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 22);
+									pfTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32);
+									pfSubTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 19);
 								}
 
 								var titleForeColor = TJAPlayer3.Skin.Game_DanC_Title_ForeColor;
