@@ -535,6 +535,8 @@ namespace TJAPlayer3
 
 			#region 7_終了画面
 			Exit_Background = TxC(EXIT + @"Background.png");
+			Exit_Curtain = TxC(EXIT + @"Curtain.png");
+			Exit_Text = TxC(EXIT + @"Text.png");
 			#endregion
 
 		}
@@ -886,6 +888,8 @@ namespace TJAPlayer3
 
 			#region 7_終了画面
 			TJAPlayer3.tテクスチャの解放(ref Exit_Background);
+			TJAPlayer3.tテクスチャの解放(ref Exit_Curtain);
+			TJAPlayer3.tテクスチャの解放(ref Exit_Text);
 			#endregion
 
 		}
@@ -1176,8 +1180,9 @@ namespace TJAPlayer3
 		#endregion
 
 		#region 7_終了画面
-		public CTexture Exit_Background/* , */
-									   /*Exit_Text */;
+		public CTexture Exit_Background,
+						Exit_Curtain,
+						Exit_Text;
 		#endregion
 
 	}

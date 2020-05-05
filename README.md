@@ -26,6 +26,10 @@ Ver.1.5.8.1 : 王冠機能の搭載(かんたん～おに & Edit(実質裏鬼))
 
 Ver.1.5.8.2 : .NET Framework 4.0にフレームワークをアップデート
 
+## Discord鯖
+作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまった。  
+[https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
+
 ## 開発環境
 Windows 10(Ver.1909)  
 VisualStudio Community 2019
