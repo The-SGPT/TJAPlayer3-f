@@ -34,7 +34,7 @@ using System.Resources;
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.5.8.2")]
-[assembly: AssemblyFileVersion("1.5.8.2")]
+[assembly: AssemblyFileVersion("1.5.8.3")]
 [assembly: NeutralResourcesLanguage("ja-JP")]
 
 // このアセンブリは「ライブラリ」である（難読化ツールへの指示）。
