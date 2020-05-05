@@ -37,8 +37,10 @@ namespace TJAPlayer3
 
 			this.n総移動時間 = -1;
 			this.n総移動時間2 = -1;
-			this.nDefaultJudgePos[0] = TJAPlayer3.Skin.nScrollFieldX[0];
-			this.nDefaultJudgePos[1] = TJAPlayer3.Skin.nScrollFieldY[0];
+			this.nDefaultJudgePos[0,0] = TJAPlayer3.Skin.nScrollFieldX[0];
+			this.nDefaultJudgePos[0,1] = TJAPlayer3.Skin.nScrollFieldY[0];
+			this.nDefaultJudgePos[1,0] = TJAPlayer3.Skin.nScrollFieldX[1];
+			this.nDefaultJudgePos[1,1] = TJAPlayer3.Skin.nScrollFieldY[1];
 			this.ctゴーゴー炎 = new CCounter(0, 6, 50, TJAPlayer3.Timer);
 			base.On活性化();
 		}
@@ -50,8 +52,10 @@ namespace TJAPlayer3
 				this.st状態[i].ct進行 = null;
 				this.stBranch[i].ct分岐アニメ進行 = null;
 			}
-			TJAPlayer3.Skin.nScrollFieldX[0] = this.nDefaultJudgePos[0];
-			TJAPlayer3.Skin.nScrollFieldY[0] = this.nDefaultJudgePos[1];
+			TJAPlayer3.Skin.nScrollFieldX[0] = this.nDefaultJudgePos[0,0];
+			TJAPlayer3.Skin.nScrollFieldY[0] = this.nDefaultJudgePos[0,1];
+			TJAPlayer3.Skin.nScrollFieldX[1] = this.nDefaultJudgePos[1,0];
+			TJAPlayer3.Skin.nScrollFieldY[1] = this.nDefaultJudgePos[1,1];
 			this.ctゴーゴー = null;
 
 			base.On非活性化();
@@ -669,12 +673,12 @@ namespace TJAPlayer3
 				if (n移動方向2 == 1)
 				{
 					TJAPlayer3.Skin.nScrollFieldX[1] = this.n移動開始X2 + (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
-					TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 + (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[1] = this.n移動開始X2 + (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
 				}
 				else
 				{
 					TJAPlayer3.Skin.nScrollFieldX[1] = this.n移動開始X2 - (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
-					TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 - (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[1] = this.n移動開始X2 - (int)((((int)nTime - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
 				}
 
 
@@ -1000,7 +1004,7 @@ namespace TJAPlayer3
 		private int n移動距離px2;
 		private int n移動方向2;
 
-		private int[] nDefaultJudgePos = new int[2];
+		private int[,] nDefaultJudgePos = new int[2,2];
 
 
 		//-----------------
