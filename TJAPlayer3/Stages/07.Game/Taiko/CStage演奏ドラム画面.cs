@@ -1457,7 +1457,10 @@ namespace TJAPlayer3
 					#region[ 両手待ち時 ]
 					if( pChip.eNoteState == ENoteState.wait )
 					{
-						x = ( TJAPlayer3.Skin.nScrollFieldX[0] );
+						if (pChip.nPlayerSide == 0)
+							x = (TJAPlayer3.Skin.nScrollFieldX[0]);
+						else
+							x = (TJAPlayer3.Skin.nScrollFieldX[1]);
 					}
 					#endregion
 
@@ -1730,33 +1733,33 @@ namespace TJAPlayer3
 						nノート座標 = 0;
 					}
 				}
-
-				int x = 349 + pChip.nバーからの距離dot.Taiko + 10;
-				int x末端 = 349 + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
+				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer]に置き換えた。
+				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
+				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
 				int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
 
 				if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17 )
 				{
 					if( pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
 					{
-						x = 349 + nノート座標;
-						x末端 = 349 + nノート末端座標;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート座標;
+						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート末端座標;
 					}
 					else
 					{
-						x = 349 + pChip.nバーからの距離dot.Taiko + 10;
-						x末端 = 349 + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
+						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
 					}
 				}
 				else if( pChip.nチャンネル番号 == 0x18 )
 				{
 					if( pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) )
 					{
-						x = 349 + nノート座標;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート座標;
 					}
 					else
 					{
-						x = 349 + pChip.nバーからの距離dot.Taiko + 10;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
 					}
 				}
 
@@ -1966,9 +1969,9 @@ namespace TJAPlayer3
 						if( pChip.nチャンネル番号 == 0x17 && pChip.bShow)
 						{
 							if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
-								x = 349;
+								x = TJAPlayer3.Skin.nScrollFieldX[nPlayer];
 							else if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
-								x = (349 + pChip.nバーからのノーツ末端距離dot.Taiko);
+								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko);
 
 							if ( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 								TJAPlayer3.Tx.Notes.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 1430, num9, 260, 130 ) );

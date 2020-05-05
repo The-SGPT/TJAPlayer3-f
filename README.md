@@ -26,6 +26,8 @@ Ver.1.5.8.1 : 王冠機能の搭載(かんたん～おに & Edit(実質裏鬼))
 
 Ver.1.5.8.2 : .NET Framework 4.0にフレームワークをアップデート
 
+Ver.1.5.8.3 : 譜面分岐について・JPOSSCROLLの連打についての既知のバグを修正
+
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまった。  
 [https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
