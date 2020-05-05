@@ -102,23 +102,52 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.Title_Background != null)
 					TJAPlayer3.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
-				if (TJAPlayer3.Tx.Exit_Background != null)
+				//if( this.ds背景 != null )
+				//{
+				//    if( this.ds背景.b上下反転 )
+				//        this.tx背景.t2D上下反転描画( CDTXMania.app.Device, 0, 0 );
+				//    else
+				//        this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+				//}
+				//else
+				double t = this.ct時間稼ぎ.n現在の値, c = -1300, b = 1300, d = 3000;
+				int x;
+				t = t / d - 1;
+				x =(int)( -c * (Math.Pow(t, 4) - 1) + b);
+
+				if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)
 				{
-					//if( this.ds背景 != null )
-					//{
-					//    if( this.ds背景.b上下反転 )
-					//        this.tx背景.t2D上下反転描画( CDTXMania.app.Device, 0, 0 );
-					//    else
-					//        this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
-					//}
-					//else
-					double t = this.ct時間稼ぎ.n現在の値, c = -1300, b = 1300, d = 3000,dx;
-					int x;
-					t = t / d - 1;
-					dx = -c * (Math.Pow(t, 4) - 1) + b;
-					x = (int)dx;
-						TJAPlayer3.Tx.Exit_Background.t2D描画(TJAPlayer3.app.Device, x, 0);
+					const double n = 1500.0;
+					double t2 = Math.Min(Math.Max(this.ct時間稼ぎ.n現在の値 - 1000,0),n) ,c2 = 1000, b2 = -1000, d2 = n;
+					int y;
+					t2 = t2 / d2;
+					if (t2 < 1.0 / 2.75)
+					{
+						y = (int)(c2 * (7.5625 * t2 * t2) + b2);
+					}
+					else if (t2 < 2.0 / 2.75)
+					{
+						t2 = t2 - (1.5 / 2.75);
+						y = (int)((c2 * (7.5625 * t2 * t2 + 0.75) + b2) * 0.5);
+					}
+					else if (t2 < 2.5 / 2.75)
+					{
+						t2 = t2 - (2.25 / 2.75);
+						y = (int)((c2 * (7.5625 * t2 * t2 + 0.9375) + b2) * 0.5);
+					}
+					else
+					{
+						t2 = t2 - (2.625 / 2.75);
+						y = (int)((c2 * (7.5625 * t2 * t2 + 0.984375) + b2) * 0.5);
+					}
+
+					TJAPlayer3.Tx.Exit_Curtain.t2D描画(TJAPlayer3.app.Device, x, 0);
+
+					TJAPlayer3.Tx.Exit_Text.t2D描画(TJAPlayer3.app.Device, 0, y);
+
 				}
+				else if(TJAPlayer3.Tx.Exit_Background!=null)
+					TJAPlayer3.Tx.Exit_Background.t2D描画(TJAPlayer3.app.Device, x, 0);
 
 
 				//     if( this.ct時間稼ぎ.n現在の値 < 2000 )
