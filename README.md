@@ -30,6 +30,7 @@ Ver.1.5.8.3 : 譜面分岐について・JPOSSCROLLの連打についての既�
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまった。  
+私のモチベにもなるから、気軽に入ってね。  
 [https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
 
 ## 開発環境
