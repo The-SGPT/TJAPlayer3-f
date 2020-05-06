@@ -741,7 +741,6 @@ namespace TJAPlayer3
 		public bool bJudgeCountDisplay;
 
 		public bool RandomPresence;
-		public bool CrownDispAC = true;
 
 		// 各画像の表示・非表示設定
 		public bool ShowChara;
@@ -1529,10 +1528,6 @@ namespace TJAPlayer3
 			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
-			sw.WriteLine("; 選曲画面での王冠の表示方法(0:CS風,1:AC風)");   // 2020.03.24 Mr-Ojii
-			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:CS Style, 1:AC Style)");     //
-			sw.WriteLine("CrownDispAC={0}", this.CrownDispAC ? 1 : 0);    //
-			sw.WriteLine();
 			sw.WriteLine("; 各画像の表示設定");
 			sw.WriteLine("; キャラクター画像を表示する (0:OFF, 1:ON)");
 			sw.WriteLine("ShowChara={0}", ShowChara ? 1 : 0);
@@ -2254,10 +2249,6 @@ namespace TJAPlayer3
 											if (str3.Equals("EnableRandomSongSelect"))
 											{
 												this.RandomPresence = C変換.bONorOFF(str4[0]);
-											}
-											else if (str3.Equals("CrownDispAC"))
-											{
-												this.CrownDispAC = C変換.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("ShowChara"))
 											{
