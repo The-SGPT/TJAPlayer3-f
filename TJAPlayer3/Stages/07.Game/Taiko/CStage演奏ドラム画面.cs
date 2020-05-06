@@ -1734,8 +1734,8 @@ namespace TJAPlayer3
 					}
 				}
 				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer]に置き換えた。
-				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
-				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
+				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
+				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
 
 				if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17 )
@@ -1747,8 +1747,8 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
-						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko + 10;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
+						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55;
 					}
 				}
 				else if( pChip.nチャンネル番号 == 0x18 )
@@ -1759,7 +1759,7 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko + 10;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
 					}
 				}
 
@@ -1969,9 +1969,9 @@ namespace TJAPlayer3
 						if( pChip.nチャンネル番号 == 0x17 && pChip.bShow)
 						{
 							if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
-								x = TJAPlayer3.Skin.nScrollFieldX[nPlayer];
+								x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55;
 							else if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
-								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko);
+								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55);
 
 							if ( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 								TJAPlayer3.Tx.Notes.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 1430, num9, 260, 130 ) );
