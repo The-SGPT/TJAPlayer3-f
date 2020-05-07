@@ -95,7 +95,7 @@ namespace TJAPlayer3
 				" ",
 				new string[] { "OFF", "完走!", "完走!激辛" }) );
 
-			l.Add(new CItemList(nameof(TJAPlayer3.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
+			l.Add(new CItemList("真打", CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
 
 			#endregion
 			#region [ 共通 SET切り替え/More/Return ]
