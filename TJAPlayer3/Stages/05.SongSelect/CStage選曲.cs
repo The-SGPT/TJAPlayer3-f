@@ -72,7 +72,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public int n現在選択中の曲の難易度
+		public int[] n現在選択中の曲の難易度
 		{
 			get
 			{
@@ -412,7 +412,7 @@ namespace TJAPlayer3
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
 				if (r現在選択中の曲 != null)
 				{
-					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度, 260, 70));
+					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
 				}
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
@@ -541,7 +541,7 @@ namespace TJAPlayer3
 									switch (this.act曲リスト.r現在選択中の曲.eノード種別)
 									{
 										case C曲リストノード.Eノード種別.SCORE:
-											if (this.n現在選択中の曲の難易度 != 6 || TJAPlayer3.ConfigIni.nPlayerCount != 2)
+											if (this.n現在選択中の曲の難易度[0] != 6 || TJAPlayer3.ConfigIni.nPlayerCount != 2)
 											{
 												if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
 												TJAPlayer3.Skin.sound曲決定音.t再生する();
@@ -1017,7 +1017,7 @@ namespace TJAPlayer3
 		{
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
-			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
+			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の現在の難易度レベル[0];
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
