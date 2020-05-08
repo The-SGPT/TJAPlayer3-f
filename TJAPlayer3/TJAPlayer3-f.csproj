@@ -86,7 +86,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Hnx8.ReadJEnc">
-      <HintPath>..\packages\ReadJEnc\dll\net40\Hnx8.ReadJEnc.dll</HintPath>
+      <HintPath>..\Test\dll\Hnx8.ReadJEnc.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
