@@ -408,7 +408,8 @@ namespace TJAPlayer3
 			if( File.Exists( iniファイル名 ) )
 			{
 				string str;
-				StreamReader reader = new StreamReader( iniファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
+				Encoding inienc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(iniファイル名);
+				StreamReader reader = new StreamReader( iniファイル名, inienc );
 				while( ( str = reader.ReadLine() ) != null )
 				{
 					str = str.Replace( '\t', ' ' ).TrimStart( new char[] { '\t', ' ' } );
@@ -1059,7 +1060,7 @@ namespace TJAPlayer3
 			this.iniファイルのあるフォルダ名 = Path.GetDirectoryName( iniファイル名 );
 			this.iniファイル名 = Path.GetFileName( iniファイル名 );
 
-			StreamWriter writer = new StreamWriter( iniファイル名, false, Encoding.GetEncoding( "Shift_JIS" ) );
+			StreamWriter writer = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
 			writer.WriteLine( "[File]" );
 			writer.WriteLine( "Title={0}", this.stファイル.Title );
 			writer.WriteLine( "Name={0}", this.stファイル.Name );

@@ -78,10 +78,17 @@ namespace TJAPlayer3
 		public static bool IsPerformingCalibration;
 
 		public static CFPS FPS
+		{
+			get;
+			private set;
+		}
+
+		public static CJudgeTextEncoding JudgeTextEncoding
 		{ 
 			get; 
 			private set;
 		}
+
 		public static CInput管理 Input管理 
 		{
 			get;
@@ -1817,10 +1824,13 @@ for (int i = 0; i < 3; i++) {
 #else
 			strEXEのあるフォルダ = Path.GetDirectoryName( Application.ExecutablePath ) + @"\";	// #23629 2010.11.9 yyagi: set correct pathname where DTXManiaGR.exe is.
 #endif
-// END #23629 2010.11.13 from
+			// END #23629 2010.11.13 from
 			//-----------------
 			#endregion
 
+			#region[JudgeTextEncodingの初期化]
+			JudgeTextEncoding = new CJudgeTextEncoding();//2020.05.07 Mr-Ojii UTF-8に対応するために追加
+			#endregion
 			#region [ Config.ini の読込み ]
 			//---------------------
 			ConfigIni = new CConfigIni();
@@ -1850,7 +1860,7 @@ for (int i = 0; i < 3; i++) {
 			{
 				try
 				{
-					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3-f.log" ), false, Encoding.GetEncoding( "Shift_JIS" ) ) ) );
+					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3-f.log" ), false, new UTF8Encoding(false)) ) );
 				}
 				catch ( System.UnauthorizedAccessException )			// #24481 2011.2.20 yyagi
 				{
@@ -2299,9 +2309,8 @@ for (int i = 0; i < 3; i++) {
 
 			//---------------------
 			#endregion
-
-			#region Discordの処理
-			Discord.Initialize("692578108997632051");
+            #region Discordの処理
+            Discord.Initialize("692578108997632051");
 			StartupTime = Discord.GetUnixTime();
 			Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
 			#endregion

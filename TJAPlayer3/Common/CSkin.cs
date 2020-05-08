@@ -840,7 +840,8 @@ namespace TJAPlayer3
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
 				if (!File.Exists(Path(path))) return;
-				using (var streamReader = new StreamReader(Path(path), Encoding.GetEncoding("Shift_JIS")))
+				Encoding enc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(path);
+				using (var streamReader = new StreamReader(Path(path), enc))
 				{
 					while (streamReader.Peek() > -1) // 一行ずつ読み込む。
 					{

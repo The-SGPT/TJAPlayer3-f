@@ -15,10 +15,9 @@ DirectX 9c
 
 ==改造版のデフォルトスキン(Honkehuu)について==
 一部画像は、TJAPlayer3のデフォルトスキンから流用しています。
-HonkehuuスキンのMr-Ojii作の部分は、AviUtlの図形で基礎部分を作って、
-GIMPでエフェクトをつけたりして作っています。
 SkinConfig.iniのパラメータも追加しています。
 追加したパラメータは、Systemフォルダ内の「SkinConfig.iniについて.txt」の下部に記載しています。
+作成ツール : AviUtl/GIMP
 
 以下はAioiLight様作成のReadmeです。
 

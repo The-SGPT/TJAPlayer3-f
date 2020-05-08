@@ -1180,7 +1180,7 @@ namespace TJAPlayer3
 		}
 		public void t書き出し( string iniファイル名 )
 		{
-			StreamWriter sw = new StreamWriter( iniファイル名, false, Encoding.GetEncoding( "Shift_JIS" ) );
+			StreamWriter sw = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
 			sw.WriteLine( ";-------------------" );
 			
 			#region [ System ]
@@ -1727,7 +1727,8 @@ namespace TJAPlayer3
 			{
 				string str;
 				this.tキーアサインを全部クリアする();
-				using ( StreamReader reader = new StreamReader( this.ConfigIniファイル名, Encoding.GetEncoding( "Shift_JIS" ) ) )
+				Encoding inienc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(ConfigIniファイル名);
+				using ( StreamReader reader = new StreamReader( this.ConfigIniファイル名, inienc ) )
 				{
 					str = reader.ReadToEnd();
 				}
