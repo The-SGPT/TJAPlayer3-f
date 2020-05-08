@@ -26,6 +26,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Prefer32bit>false</Prefer32bit>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -40,7 +41,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <Prefer32bit>false</Prefer32bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +85,10 @@
       <HintPath>..\Test\dll\DirectShowLib-2005.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hnx8.ReadJEnc">
+      <HintPath>..\packages\ReadJEnc\dll\net40\Hnx8.ReadJEnc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
@@ -107,6 +111,7 @@
     <Compile Include="Animations\IAnimatable.cs" />
     <Compile Include="Animations\Linear.cs" />
     <Compile Include="Common\Discord.cs" />
+    <Compile Include="Common\CJudgeTextEncoding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Discord.resx">
       <Generator>ResXFileCodeGenerator</Generator>
