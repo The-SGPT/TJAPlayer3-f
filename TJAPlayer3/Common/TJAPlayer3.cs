@@ -2144,6 +2144,9 @@ for (int i = 0; i < 3; i++) {
 					case 2:
 						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
 						break;
+					case 3:
+						soundDeviceType = ESoundDeviceType.SharedWASAPI;
+						break;
 					default:
 						soundDeviceType = ESoundDeviceType.Unknown;
 						break;

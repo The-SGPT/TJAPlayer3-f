@@ -238,8 +238,9 @@ namespace FDK
 			ASIODevice = _nASIODevice;
 			bUseOSTimer = _bUseOSTimer;
 
-			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[ 4 ]
+			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[ 5 ]
 			{
+				ESoundDeviceType.SharedWASAPI,
 				ESoundDeviceType.ExclusiveWASAPI,
 				ESoundDeviceType.ASIO,
 				ESoundDeviceType.DirectSound,
@@ -249,17 +250,20 @@ namespace FDK
 			int n初期デバイス;
 			switch ( soundDeviceType )
 			{
-				case ESoundDeviceType.ExclusiveWASAPI:
+				case ESoundDeviceType.SharedWASAPI:
 					n初期デバイス = 0;
 					break;
-				case ESoundDeviceType.ASIO:
+				case ESoundDeviceType.ExclusiveWASAPI:
 					n初期デバイス = 1;
 					break;
-				case ESoundDeviceType.DirectSound:
+				case ESoundDeviceType.ASIO:
 					n初期デバイス = 2;
 					break;
-				default:
+				case ESoundDeviceType.DirectSound:
 					n初期デバイス = 3;
+					break;
+				default:
+					n初期デバイス = 4;
 					break;
 			}
 			for ( SoundDeviceType = ESoundDeviceTypes[ n初期デバイス ]; ; SoundDeviceType = ESoundDeviceTypes[ ++n初期デバイス ] )
@@ -280,7 +284,7 @@ namespace FDK
 					}
 				}
 			}
-			if ( soundDeviceType == ESoundDeviceType.ExclusiveWASAPI || soundDeviceType == ESoundDeviceType.ASIO )
+			if ( soundDeviceType == ESoundDeviceType.ExclusiveWASAPI || soundDeviceType == ESoundDeviceType.SharedWASAPI || soundDeviceType == ESoundDeviceType.ASIO )
 			{
 				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS, 4 );
 				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 );
@@ -430,8 +434,9 @@ namespace FDK
 			switch ( SoundDeviceType )
 			{
 				case ESoundDeviceType.ExclusiveWASAPI:
+					return "WASAPI(Exclusive)";
 				case ESoundDeviceType.SharedWASAPI:
-					return "WASAPI";
+					return "WASAPI(Shared)";
 				case ESoundDeviceType.ASIO:
 					return "ASIO";
 				case ESoundDeviceType.DirectSound:

@@ -306,7 +306,7 @@ namespace TJAPlayer3
 			// #24820 2013.1.3 yyagi
 			this.iSystemSoundType = new CItemList("SoundType", CItemList.Eパネル種別.通常, TJAPlayer3.ConfigIni.nSoundDeviceType,
 				"サウンドの出力方式:\n" +
-				"WASAPI, ASIO, DSound(DirectSound)\n" +
+				"WASAPI(排他), ASIO, DSound(DirectSound)\n" +
 				"の中からサウンド出力方式を選択\n" +
 				"します。\n" +
 				"WASAPIはVista以降でのみ使用可能\n" +
@@ -319,8 +319,8 @@ namespace TJAPlayer3
 				"※ 設定はCONFIGURATION画面の\n" +
 				"　終了時に有効になります。",
 				"Sound output type:\n" +
-				"You can choose WASAPI, ASIO or\n" +
-				"DShow(DirectShow).\n" +
+				"You can choose WASAPI(Exclusive)\n" +
+				", ASIO or DShow(DirectShow).\n" +
 				"WASAPI can use only after Vista.\n" +
 				"ASIO can use on the\n" +
 				"\"ASIO-supported\" sound device.\n" +
@@ -329,7 +329,7 @@ namespace TJAPlayer3
 				"\n" +
 				"Note: Exit CONFIGURATION to make\n" +
 				"     the setting take effect.",
-				new string[] { "DSound", "ASIO", "WASAPI" });
+				new string[] { "DSound", "ASIO", "WASAPI(Exclusive)", "WASAPI(Shared)" });
 			this.list項目リスト.Add(this.iSystemSoundType);
 
 			// #24820 2013.1.15 yyagi
@@ -1613,6 +1613,9 @@ namespace TJAPlayer3
 						break;
 					case 2:
 						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+						break;
+					case 3:
+						soundDeviceType = ESoundDeviceType.SharedWASAPI;
 						break;
 					default:
 						soundDeviceType = ESoundDeviceType.Unknown;
