@@ -1004,7 +1004,7 @@ namespace TJAPlayer3
 		private int n移動距離px2;
 		private int n移動方向2;
 
-		private int[,] nDefaultJudgePos = new int[2,2];
+		internal int[,] nDefaultJudgePos = new int[2,2];
 
 
 		//-----------------
