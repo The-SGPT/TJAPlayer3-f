@@ -601,7 +601,8 @@ namespace TJAPlayer3
 			ACM = 0,
 			// DirectSound,
 			ASIO,
-			WASAPI,
+			WASAPI_Exclusive,
+			WASAPI_Shared,
 			Unknown=99
 		}
 		// プロパティ
@@ -1088,9 +1089,10 @@ namespace TJAPlayer3
 			this.strSystemSkinSubfolderFullName = "";	// #28195 2012.5.2 yyagi 使用中のSkinサブフォルダ名
 			this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
 			#region [ WASAPI/ASIO ]
-			this.nSoundDeviceType = FDK.COS.bIsVistaOrLater() ?
-				(int) ESoundDeviceTypeForConfig.WASAPI : (int) ESoundDeviceTypeForConfig.ACM;	// #24820 2012.12.23 yyagi 初期値はACM | #31927 2013.8.25 yyagi OSにより初期値変更
-			this.nWASAPIBufferSizeMs = 50;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
+			this.nSoundDeviceType = (int) (FDK.COS.bIsVistaOrLater() ?
+					(FDK.COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared: ESoundDeviceTypeForConfig.WASAPI_Exclusive)
+					: ESoundDeviceTypeForConfig.ACM);  // #24820 2012.12.23 yyagi 初期値はACM | #31927 2013.8.25 yyagi OSにより初期値変更
+			this.nWASAPIBufferSizeMs = 2;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
 			this.nASIODevice = 0;						// #24820 2013.1.17 yyagi
 //			this.nASIOBufferSizeMs = 0;					// #24820 2012.12.25 yyagi 初期値は0(自動設定)
 			#endregion
