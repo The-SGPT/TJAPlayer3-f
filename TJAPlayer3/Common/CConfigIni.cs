@@ -737,6 +737,7 @@ namespace TJAPlayer3
 		public bool bAuto先生の連打;
 		public bool b大音符判定;
 		public int n両手判定の待ち時間;
+		public bool b両手判定待ち時間中に大音符を判定枠に合わせるか;
 		public int nBranchAnime;
 
 		public bool bJudgeCountDisplay;
@@ -1116,7 +1117,8 @@ namespace TJAPlayer3
 			this.nBranchAnime = 1;
 
 			this.b大音符判定 = true;
-			this.n両手判定の待ち時間 = 50;
+			this.n両手判定の待ち時間 = 25;
+			this.b両手判定待ち時間中に大音符を判定枠に合わせるか = true;
 
 			this.bJudgeCountDisplay = false;
 
@@ -1606,9 +1608,13 @@ namespace TJAPlayer3
 			sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
 			sw.WriteLine("; Fixed score mode (0:OFF, 1:ON)");
 			sw.WriteLine("{0}={1}", nameof(ShinuchiMode), ShinuchiMode ? 1 : 0);
+			sw.WriteLine();
 			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
 			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
 			//sw.WriteLine();
+			sw.WriteLine("; 両手判定の待ち時間中に大音符を判定枠に合わせる(0:OFF, 1:ON)");
+			sw.WriteLine("BigNotesJudgeFrame={0}", this.b両手判定待ち時間中に大音符を判定枠に合わせるか ? 1 : 0);
+			sw.WriteLine();
 			sw.WriteLine( "; 大音符の両手入力待機時間(ms)" );
 			sw.WriteLine( "BigNotesWaitTime={0}", this.n両手判定の待ち時間 );
 			sw.WriteLine();
@@ -2372,6 +2378,10 @@ namespace TJAPlayer3
 											else if ( str3.Equals( "HispeedRandom" ) )
 											{
 												this.bHispeedRandom = C変換.bONorOFF( str4[ 0 ] );
+											}
+											else if (str3.Equals("BigNotesJudgeFrame"))
+											{
+												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = C変換.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "BigNotesWaitTime" ) )
 											{
