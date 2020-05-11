@@ -9,7 +9,7 @@ TJAPlayer3-f Readme.txt
 まぁ、普通に使っている分には、レジストリが保存されることはないと思います。
 
 ==動作環境==
-.NET Framework 4.0以上
+.NET Framework 4.8以上
 DirectX 9c
 がインストールされている環境
 
