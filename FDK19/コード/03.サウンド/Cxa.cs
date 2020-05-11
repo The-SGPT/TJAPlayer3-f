@@ -11,7 +11,7 @@ namespace FDK
 {
 	public unsafe class Cxa : SoundDecoder	//, IDisposable
 	{
-		static byte[] FOURCC = Encoding.ASCII.GetBytes( "1DWK" );	// KWD1 の little endian
+		static byte[] FOURCC = Encoding.ASCII.GetBytes("1DWK");	// KWD1 の little endian
 
 		#region [ XA用構造体の宣言 ]
 		[StructLayout(LayoutKind.Sequential)]
