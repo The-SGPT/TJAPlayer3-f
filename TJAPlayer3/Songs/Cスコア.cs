@@ -72,6 +72,7 @@ namespace TJAPlayer3
 			public string strBGMファイル名;
 			public int SongVol;
 			public LoudnessMetadata? SongLoudnessMetadata;
+			public bool b歌詞あり;
 			public int nデモBGMオフセット;
 			public bool[] b譜面分岐;
 			public int ハイスコア;
@@ -303,6 +304,7 @@ namespace TJAPlayer3
 			this.譜面情報.SongLoudnessMetadata = null;
 			this.譜面情報.nデモBGMオフセット = 0;
 			this.譜面情報.b譜面分岐 = new bool[(int)Difficulty.Total];
+			this.譜面情報.b歌詞あり = false;
 			this.譜面情報.ハイスコア = 0;
 			this.譜面情報.nハイスコア = new int[(int)Difficulty.Total];
 			this.譜面情報.n王冠 = new int[(int)Difficulty.Total];

@@ -1165,6 +1165,7 @@ namespace TJAPlayer3
 		public double db再生速度;
 		public E種別 e種別;
 		public string GENRE;
+		public bool bLyrics;
 		public Eジャンル eジャンル;
 		public bool HIDDENLEVEL;
 		public STDGBVALUE<int> LEVEL;
@@ -1323,6 +1324,7 @@ namespace TJAPlayer3
 			this.COMMENT = "";
 			this.PANEL = "";
 			this.GENRE = "";
+			this.bLyrics = false;
 			this.eジャンル = Eジャンル.None;
 			this.PREVIEW = "";
 			this.PREIMAGE = "";
@@ -1360,32 +1362,6 @@ namespace TJAPlayer3
 			this.nRESULTMOVIE用優先順位 = new int[7];
 			this.nRESULTSOUND用優先順位 = new int[7];
 
-			#region [ 2011.1.1 yyagi GDA->DTX変換テーブル リファクタ後 ]
-			STGDAPARAM[] stgdaparamArray = new STGDAPARAM[] {		// GDA->DTX conversion table
-				new STGDAPARAM("TC", 0x03), new STGDAPARAM("BL", 0x02), new STGDAPARAM("GS", 0x29),
-				new STGDAPARAM("DS", 0x30), new STGDAPARAM("FI", 0x53), new STGDAPARAM("HH", 0x11),
-				new STGDAPARAM("SD", 0x12), new STGDAPARAM("BD", 0x13), new STGDAPARAM("HT", 0x14),
-				new STGDAPARAM("LT", 0x15), new STGDAPARAM("CY", 0x16), new STGDAPARAM("G1", 0x21),
-				new STGDAPARAM("G2", 0x22), new STGDAPARAM("G3", 0x23), new STGDAPARAM("G4", 0x24),
-				new STGDAPARAM("G5", 0x25), new STGDAPARAM("G6", 0x26), new STGDAPARAM("G7", 0x27),
-				new STGDAPARAM("GW", 0x28), new STGDAPARAM("01", 0x61), new STGDAPARAM("02", 0x62),
-				new STGDAPARAM("03", 0x63), new STGDAPARAM("04", 0x64), new STGDAPARAM("05", 0x65),
-				new STGDAPARAM("06", 0x66), new STGDAPARAM("07", 0x67), new STGDAPARAM("08", 0x68),
-				new STGDAPARAM("09", 0x69), new STGDAPARAM("0A", 0x70), new STGDAPARAM("0B", 0x71),
-				new STGDAPARAM("0C", 0x72), new STGDAPARAM("0D", 0x73), new STGDAPARAM("0E", 0x74),
-				new STGDAPARAM("0F", 0x75), new STGDAPARAM("10", 0x76), new STGDAPARAM("11", 0x77),
-				new STGDAPARAM("12", 0x78), new STGDAPARAM("13", 0x79), new STGDAPARAM("14", 0x80),
-				new STGDAPARAM("15", 0x81), new STGDAPARAM("16", 0x82), new STGDAPARAM("17", 0x83),
-				new STGDAPARAM("18", 0x84), new STGDAPARAM("19", 0x85), new STGDAPARAM("1A", 0x86),
-				new STGDAPARAM("1B", 0x87), new STGDAPARAM("1C", 0x88), new STGDAPARAM("1D", 0x89),
-				new STGDAPARAM("1E", 0x90), new STGDAPARAM("1F", 0x91), new STGDAPARAM("20", 0x92),
-				new STGDAPARAM("B1", 0xA1), new STGDAPARAM("B2", 0xA2), new STGDAPARAM("B3", 0xA3),
-				new STGDAPARAM("B4", 0xA4), new STGDAPARAM("B5", 0xA5), new STGDAPARAM("B6", 0xA6),
-				new STGDAPARAM("B7", 0xA7), new STGDAPARAM("BW", 0xA8), new STGDAPARAM("G0", 0x20),
-				new STGDAPARAM("B0", 0xA0)
-			};
-			this.stGDAParam = stgdaparamArray;
-			#endregion
 			this.nBGMAdjust = 0;
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
 			this.dbDTXVPlaySpeed = 1.0f;
@@ -2969,7 +2945,7 @@ namespace TJAPlayer3
 
 		private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
 		private static readonly Regex regexForStrippingHeadingLines = new Regex(
-			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|#HBSCROLL|#BMSCROLL)).+\n",
+			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|#HBSCROLL|#BMSCROLL|LYRICFILE)).+\n",
 			RegexOptions.Multiline | RegexOptions.Compiled);
 
 		/// <summary>
@@ -3055,24 +3031,27 @@ namespace TJAPlayer3
 						this.b譜面が存在する[i] = false;
 				}
 				#region[ 読み込ませるコースを決定 ]
-				if (this.b譜面が存在する[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] == false)
+				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.起動)
 				{
-					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
-					n読み込むコース++;
-					for (int n = 1; n < (int)Difficulty.Total; n++)
+					if (this.b譜面が存在する[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] == false)
 					{
-						if (this.b譜面が存在する[n読み込むコース] == false)
+						n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
+						n読み込むコース++;
+						for (int n = 1; n < (int)Difficulty.Total; n++)
 						{
-							n読み込むコース++;
-							if (n読み込むコース > (int)Difficulty.Total - 1)
-								n読み込むコース = 0;
+							if (this.b譜面が存在する[n読み込むコース] == false)
+							{
+								n読み込むコース++;
+								if (n読み込むコース > (int)Difficulty.Total - 1)
+									n読み込むコース = 0;
+							}
+							else
+								break;
 						}
-						else
-							break;
 					}
+					else
+						n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
 				}
-				else
-					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
 				#endregion
 
 				//指定したコースの譜面の命令を消去する。
@@ -3787,6 +3766,7 @@ namespace TJAPlayer3
 
 				var chip = new CChip();
 
+
 				chip.nチャンネル番号 = 0xF1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
 				chip.fNow_Measure_m = this.fNow_Measure_m;
@@ -3797,6 +3777,11 @@ namespace TJAPlayer3
 				// チップを配置。
 
 				this.listChip.Add(chip);
+
+				Console.Write("TITLE=" + this.TITLE);
+				Console.Write("LYRIC=" + argument);
+
+				this.bLyrics = true;
 			}
 			else if (command == "#DIRECTION")
 			{
@@ -4990,6 +4975,13 @@ namespace TJAPlayer3
 				if (!string.IsNullOrEmpty(strCommandParam))
 				{
 					this.bHIDDENBRANCH = true;
+				}
+			}
+			else if (strCommandName.Equals("LYRICFILE"))
+			{
+				if (!string.IsNullOrEmpty(strCommandParam))
+				{
+					this.bLyrics = true;
 				}
 			}
 			if (this.nScoreModeTmp == 99)
@@ -7023,23 +7015,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		/// <summary>
-		/// <para>GDAチャンネル番号に対応するDTXチャンネル番号。</para>
-		/// </summary>
-		[StructLayout(LayoutKind.Sequential)]
-		private struct STGDAPARAM
-		{
-			public string strGDAのチャンネル文字列;
-			public int nDTXのチャンネル番号;
 
-			public STGDAPARAM(string strGDAのチャンネル文字列, int nDTXのチャンネル番号)     // 2011.1.1 yyagi 構造体のコンストラクタ追加(初期化簡易化のため)
-			{
-				this.strGDAのチャンネル文字列 = strGDAのチャンネル文字列;
-				this.nDTXのチャンネル番号 = nDTXのチャンネル番号;
-			}
-		}
-
-		private readonly STGDAPARAM[] stGDAParam;
 		private bool bヘッダのみ;
 		private Stack<bool> bstackIFからENDIFをスキップする;
 

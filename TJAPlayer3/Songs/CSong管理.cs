@@ -201,12 +201,10 @@ namespace TJAPlayer3
 										c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
 									}
 									c曲リストノード.nLevel = dtx.LEVELtaiko;
-									
 									c曲リストノード.arスコア[ n ] = new Cスコア();
 									c曲リストノード.arスコア[ n ].ファイル情報.ファイルの絶対パス = str基点フォルダ + fileinfo.Name;
 									c曲リストノード.arスコア[ n ].ファイル情報.フォルダの絶対パス = str基点フォルダ;
 									c曲リストノード.arスコア[ n ].ファイル情報.ファイルサイズ = fileinfo.Length;
-									c曲リストノード.arスコア[ n ].ファイル情報.最終更新日時 = fileinfo.LastWriteTime;
 									string strFileNameScoreIni = c曲リストノード.arスコア[ n ].ファイル情報.ファイルの絶対パス + ".score.ini";
 									if( File.Exists( strFileNameScoreIni ) )
 									{
@@ -770,6 +768,7 @@ namespace TJAPlayer3
 			cスコア.譜面情報.n王冠[4] = br.ReadInt32();
 			cスコア.譜面情報.n王冠[5] = br.ReadInt32();
 			cスコア.譜面情報.n王冠[6] = br.ReadInt32();
+			cスコア.譜面情報.b歌詞あり = br.ReadBoolean();
 
 
 			//Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
@@ -846,6 +845,7 @@ namespace TJAPlayer3
 									c曲リストノード.arスコア[ i ].譜面情報.nレベル[4] = cdtx.LEVELtaiko[4];
 									c曲リストノード.arスコア[i].譜面情報.nレベル[5] = cdtx.LEVELtaiko[5];
 									c曲リストノード.arスコア[i].譜面情報.nレベル[6] = cdtx.LEVELtaiko[6];
+									c曲リストノード.arスコア[i].譜面情報.b歌詞あり = cdtx.bLyrics;
 									this.nファイルから反映できたスコア数++;
 									cdtx.On非活性化();
 //Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
@@ -869,7 +869,8 @@ namespace TJAPlayer3
 										sb.Append( ", lvHide=" + c曲リストノード.arスコア[ i ].譜面情報.レベルを非表示にする );
 										sb.Append( ", type=" + c曲リストノード.arスコア[ i ].譜面情報.曲種別 );
 										sb.Append( ", bpm=" + c曲リストノード.arスコア[ i ].譜面情報.Bpm );
-									//	sb.Append( ", duration=" + c曲リストノード.arスコア[ i ].譜面情報.Duration );
+										sb.Append( ", lyrics=" + c曲リストノード.arスコア[i].譜面情報.b歌詞あり);
+										//	sb.Append( ", duration=" + c曲リストノード.arスコア[ i ].譜面情報.Duration );
 										Trace.TraceInformation( sb.ToString() );
 									}
 									//-----------------
@@ -1211,6 +1212,7 @@ namespace TJAPlayer3
 					bw.Write(node.arスコア[i].譜面情報.n王冠[4]);
 					bw.Write(node.arスコア[i].譜面情報.n王冠[5]);
 					bw.Write(node.arスコア[i].譜面情報.n王冠[6]);
+					bw.Write(node.arスコア[i].譜面情報.b歌詞あり);
 					this.nSongsDBへ出力できたスコア数++;
 				}
 			}
