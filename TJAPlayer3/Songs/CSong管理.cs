@@ -205,6 +205,7 @@ namespace TJAPlayer3
 									c曲リストノード.arスコア[ n ].ファイル情報.ファイルの絶対パス = str基点フォルダ + fileinfo.Name;
 									c曲リストノード.arスコア[ n ].ファイル情報.フォルダの絶対パス = str基点フォルダ;
 									c曲リストノード.arスコア[ n ].ファイル情報.ファイルサイズ = fileinfo.Length;
+									c曲リストノード.arスコア[ n ].ファイル情報.最終更新日時 = fileinfo.LastWriteTime;
 									string strFileNameScoreIni = c曲リストノード.arスコア[ n ].ファイル情報.ファイルの絶対パス + ".score.ini";
 									if( File.Exists( strFileNameScoreIni ) )
 									{

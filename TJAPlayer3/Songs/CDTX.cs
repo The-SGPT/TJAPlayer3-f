@@ -3031,7 +3031,7 @@ namespace TJAPlayer3
 						this.b譜面が存在する[i] = false;
 				}
 				#region[ 読み込ませるコースを決定 ]
-				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.起動)
+				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)
 				{
 					if (this.b譜面が存在する[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] == false)
 					{
