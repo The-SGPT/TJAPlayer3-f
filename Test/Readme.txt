@@ -19,6 +19,10 @@ SkinConfig.iniのパラメータも追加しています。
 追加したパラメータは、Systemフォルダ内の「SkinConfig.iniについて.txt」の下部に記載しています。
 作成ツール : AviUtl/GIMP
 
+==追加命令==
+LYRICFILE:[lyricfilename](中身未実装)
+外部LYRICファイルを指定できます。
+
 以下はAioiLight様作成のReadmeです。
 
 == はじめに ==

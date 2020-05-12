@@ -1274,6 +1274,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
 						TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 
+					if (TJAPlayer3.Tx.SongSelect_Lyric_Text[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
+						TJAPlayer3.Tx.SongSelect_Lyric_Text[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
+
 				}
 				#region [ (1) 登場アニメフェーズの描画。]
 				//-----------------
@@ -1629,10 +1632,11 @@ namespace TJAPlayer3
 							//        CDTXMania.Tx.SongSelect_Frame_Dani.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
 							//    break;
 					}
-					//if( CDTXMania.Tx.SongSelect_Level != null )
-					//    CDTXMania.Tx.SongSelect_Level.t2D描画( CDTXMania.app.Device, 518, 169 );
 					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
 						TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
+
+					if (TJAPlayer3.Tx.SongSelect_Lyric_Text[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
+						TJAPlayer3.Tx.SongSelect_Lyric_Text[nStrジャンルtoNumN2(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 
 					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW != null)
 					{
@@ -1883,6 +1887,7 @@ namespace TJAPlayer3
 			public Color BackColor;
 			public int[] ar難易度;
 			public bool[] b分岐;
+			public bool b歌詞あり;
 			public string strジャンル;
 			public string strサブタイトル;
 			public TitleTextureKey ttkタイトル;
