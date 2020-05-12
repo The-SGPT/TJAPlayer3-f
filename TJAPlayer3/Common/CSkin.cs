@@ -2658,10 +2658,10 @@ namespace TJAPlayer3
 
 		public int Game_Effect_FlyingNotes_Sine = 220;
 		public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
-		public int Game_Effect_FlyingNotes_Timer = 4;
+		public int Game_Effect_FlyingNotes_Timer = 3;
 		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
 		public int Game_Effect_FireWorks_Timer = 5;
-		public int Game_Effect_Rainbow_Timer = 8;
+		public int Game_Effect_Rainbow_Timer = 7;
 
 		public bool Game_Effect_HitExplosion_AddBlend = true;
 		public bool Game_Effect_HitExplosionBig_AddBlend = true;

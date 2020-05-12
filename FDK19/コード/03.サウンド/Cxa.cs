@@ -163,10 +163,6 @@ namespace FDK
 
 			return dlen;
 		}
-		public override int Seek( int nHandle, uint dwPosition )
-		{
-			return 0;
-		}
 		public override int Decode( int nHandle, IntPtr pDest, uint szDestSize, int bLoop )
 		{
 			#region [ xaデータのデコード ]
