@@ -8,6 +8,8 @@
 *.pdb
 *.db
 *.swp
+*.dms
+*.ust
 *.DotSettings.user
 /packages
 /Test/Capture_img

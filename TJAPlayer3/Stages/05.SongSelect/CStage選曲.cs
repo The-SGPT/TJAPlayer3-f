@@ -591,7 +591,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Up ]
-							this.ctキー反復用.Up.tキー反復f( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
+							this.ctキー反復用.Up.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
 							//this.ctキー反復用.Up.tキー反復( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.UpArrow ) || CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
 							if ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LBlue ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
@@ -599,7 +599,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Down ]
-							this.ctキー反復用.Down.tキー反復f( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
+							this.ctキー反復用.Down.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
 							//this.ctキー反復用.Down.tキー反復( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.DownArrow ) || CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
 							if ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RBlue ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
@@ -930,19 +930,13 @@ namespace TJAPlayer3
 		}
 		private void tカーソルをかなり下へ移動する()
 		{
-			if (this.r現在選択中の曲.r親ノード != null)
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				this.act曲リスト.tかなり次に移動();
-			}
+			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+			this.act曲リスト.tかなり次に移動();
 		}
 		private void tカーソルをかなり上へ移動する()
 		{
-			if (this.r現在選択中の曲.r親ノード != null)
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				this.act曲リスト.tかなり前に移動();
-			}
+			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+			this.act曲リスト.tかなり前に移動();
 		}
 		private void t曲をランダム選択する()
 		{

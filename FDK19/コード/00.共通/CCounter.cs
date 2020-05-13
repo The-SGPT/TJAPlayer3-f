@@ -339,7 +339,7 @@ namespace FDK
 
 					case n3回目以降:
 
-						if ( ( this.timer.n現在時刻 - this.n現在の経過時間ms ) > 30 )
+						if ( ( this.timer.n現在時刻 - this.n現在の経過時間ms ) > 125 )
 						{
 							tキー処理();
 							this.n現在の経過時間ms = this.timer.n現在時刻;
@@ -353,56 +353,6 @@ namespace FDK
 			}
 		}
 
-		/// <summary>
-		/// <para>「bキー押下」引数が true の間中、「tキー処理」デリゲート引数を呼び出す。</para>
-		/// <para>ただし、2回目の呼び出しは1回目から 200ms の間を開けてから行い、3回目以降の呼び出しはそれぞれ 125ms の間隔で呼び出す。</para>
-		/// <para>「bキー押下」が false の場合は何もせず、呼び出し回数を 0 にリセットする。</para>
-		/// <para>この関数はMr-OjiiのFork版のみ</para>
-		/// </summary>
-		/// <param name="bキー押下">キーが押下されている場合は true。</param>
-		/// <param name="tキー処理">キーが押下されている場合に実行する処理。</param>
-		public void tキー反復f(bool bキー押下, DGキー処理 tキー処理)
-		{
-			const int n1回目 = 0;
-			const int n2回目 = 1;
-			const int n3回目以降 = 2;
-
-			if (bキー押下)
-			{
-				switch (this.n現在の値)
-				{
-					case n1回目:
-
-						tキー処理();
-						this.n現在の値 = n2回目;
-						this.n現在の経過時間ms = this.timer.n現在時刻;
-						return;
-
-					case n2回目:
-
-						if ((this.timer.n現在時刻 - this.n現在の経過時間ms) > 200)
-						{
-							tキー処理();
-							this.n現在の経過時間ms = this.timer.n現在時刻;
-							this.n現在の値 = n3回目以降;
-						}
-						return;
-
-					case n3回目以降:
-
-						if ((this.timer.n現在時刻 - this.n現在の経過時間ms) > 125)
-						{
-							tキー処理();
-							this.n現在の経過時間ms = this.timer.n現在時刻;
-						}
-						return;
-				}
-			}
-			else
-			{
-				this.n現在の値 = n1回目;
-			}
-		}
 		public delegate void DGキー処理();
 
 		//-----------------
