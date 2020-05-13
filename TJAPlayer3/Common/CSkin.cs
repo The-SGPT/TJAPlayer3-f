@@ -1113,17 +1113,11 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
 							{
-								SongSelect_CorrectionX_Chara_Value = strParam.Split(new char[]
-								{
-								','
-								}).Select(new Func<string, int>(int.Parse)).ToArray();
+								SongSelect_CorrectionX_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
 							{
-								SongSelect_CorrectionY_Chara_Value = strParam.Split(new char[]
-								{
-								','
-								}).Select(new Func<string, int>(int.Parse)).ToArray();
+								SongSelect_CorrectionY_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(SongSelect_Rotate_Chara))
 							{
