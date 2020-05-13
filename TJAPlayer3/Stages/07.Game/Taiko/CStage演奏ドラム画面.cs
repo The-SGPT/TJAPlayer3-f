@@ -1572,7 +1572,7 @@ namespace TJAPlayer3
 							{
 								case 0x11:
 
-									if( TJAPlayer3.Tx.Notes != null )
+									if( TJAPlayer3.Tx.Notes != null && pChip.bShow )
 									{
 										if( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 											TJAPlayer3.Tx.Notes.t2D描画( device, x, y, new Rectangle( 130, num9, 130, 130 ) );
@@ -1583,7 +1583,7 @@ namespace TJAPlayer3
 									break;
 
 								case 0x12:
-									if( TJAPlayer3.Tx.Notes != null )
+									if( TJAPlayer3.Tx.Notes != null && pChip.bShow)
 									{
 										if( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 											TJAPlayer3.Tx.Notes.t2D描画( device, x, y, new Rectangle( 260, num9, 130, 130) );
@@ -1595,7 +1595,7 @@ namespace TJAPlayer3
 									break;
 								  
 								case 0x13:
-									if( TJAPlayer3.Tx.Notes != null )
+									if( TJAPlayer3.Tx.Notes != null && pChip.bShow)
 									{
 										if( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 										{
@@ -1607,9 +1607,8 @@ namespace TJAPlayer3
 										//CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
 									}
 									break;
-
 								case 0x14:
-									if( TJAPlayer3.Tx.Notes != null )
+									if( TJAPlayer3.Tx.Notes != null && pChip.bShow)
 									{
 										if( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 											TJAPlayer3.Tx.Notes.t2D描画( device, x, y, new Rectangle( 520, num9, 130, 130 ) );
@@ -1745,7 +1744,7 @@ namespace TJAPlayer3
 						nノート座標 = 0;
 					}
 				}
-				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer]に置き換えた。
+				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
 				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
 				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
@@ -1887,7 +1886,7 @@ namespace TJAPlayer3
 						var normalColor = new Color4(1.0f, 1.0f, 1.0f);
 						float f末端ノーツのテクスチャ位置調整 = 65f;
 
-						if ( pChip.nチャンネル番号 == 0x15 ) //連打(小)
+						if ( pChip.nチャンネル番号 == 0x15 && pChip.bShow) //連打(小)
 						{
 							int index = x末端 - x; //連打の距離
 							if ( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
@@ -1931,7 +1930,7 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 							}
 						}
-						if( pChip.nチャンネル番号 == 0x16 )
+						if( pChip.nチャンネル番号 == 0x16 && pChip.bShow)
 						{
 							int index = x末端 - x; //連打の距離
 
