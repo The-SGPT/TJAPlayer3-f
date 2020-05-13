@@ -1259,7 +1259,7 @@ namespace TJAPlayer3
 		private List<int> listBalloon_Master;
 		private List<int> listBalloon; //旧構文用
 
-		public List<string> listLiryc; //歌詞を格納していくリスト。スペル忘れた(ぉい
+		public List<Bitmap> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
 
 		private int listBalloon_Normal_数値管理;
 		private int listBalloon_Expert_数値管理;
@@ -3762,7 +3762,7 @@ namespace TJAPlayer3
 			}
 			else if (command == "#LYRIC")
 			{
-				this.listLiryc.Add(argument);
+				this.listLyric.Add(this.pf歌詞フォント.DrawPrivateFont(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor));
 
 				var chip = new CChip();
 
@@ -3777,10 +3777,6 @@ namespace TJAPlayer3
 				// チップを配置。
 
 				this.listChip.Add(chip);
-
-				Console.Write("TITLE=" + this.TITLE);
-				Console.Write("LYRIC=" + argument);
-
 				this.bLyrics = true;
 			}
 			else if (command == "#DIRECTION")
@@ -6851,8 +6847,17 @@ namespace TJAPlayer3
 
 		// CActivity 実装
 
+		private CPrivateFastFont pf歌詞フォント;
 		public override void On活性化()
 		{
+			if (!string.IsNullOrEmpty(TJAPlayer3.Skin.Game_Lyric_FontName))
+			{
+				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(TJAPlayer3.Skin.Game_Lyric_FontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
+			}
+			else
+			{
+				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Game_Lyric_FontSize);
+			}
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();
 			this.listSCROLL = new Dictionary<int, CSCROLL>();
@@ -6871,7 +6876,7 @@ namespace TJAPlayer3
 			this.listBalloon_Expert = new List<int>();
 			this.listBalloon_Master = new List<int>();
 			this.listLine = new List<CLine>();
-			this.listLiryc = new List<string>();
+			this.listLyric = new List<Bitmap>();
 			this.List_DanSongs = new List<DanSongs>();
 			base.On活性化();
 		}
@@ -6974,9 +6979,9 @@ namespace TJAPlayer3
 			{
 				this.listBalloon_Master.Clear();
 			}
-			if (this.listLiryc != null)
+			if (this.listLyric != null)
 			{
-				this.listLiryc.Clear();
+				this.listLyric.Clear();
 			}
 
 			base.On非活性化();
@@ -6993,6 +6998,7 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
+				TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
 				if (this.listAVI != null)
 				{
 					foreach (CAVI cavi in this.listAVI.Values)
