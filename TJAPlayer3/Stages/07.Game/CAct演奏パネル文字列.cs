@@ -143,9 +143,9 @@ namespace TJAPlayer3
 
 		public void t歌詞テクスチャを生成する( string str歌詞 )
 		{
-			using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor ))
+			using (var bmplyric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor ))
 			{
-				this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmpleric, false );
+				this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric, false );
 			}
 		}
 
