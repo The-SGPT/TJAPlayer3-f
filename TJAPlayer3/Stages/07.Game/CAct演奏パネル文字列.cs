@@ -141,12 +141,9 @@ namespace TJAPlayer3
 			}
 		}
 
-		public void t歌詞テクスチャを生成する( string str歌詞 )
+		public void t歌詞テクスチャを生成する( Bitmap bmplyric )
 		{
-			using (var bmplyric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor ))
-			{
-				this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric, false );
-			}
+			this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric, false );
 		}
 
 		/// <summary>
@@ -190,15 +187,6 @@ namespace TJAPlayer3
 				this.pfMusicName = new CPrivateFastFont( new FontFamily( TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Game_MusicName_FontSize);
 			}
 
-			if( !string.IsNullOrEmpty(TJAPlayer3.Skin.Game_Lyric_FontName))
-			{
-				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(TJAPlayer3.Skin.Game_Lyric_FontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
-			}
-			else
-			{
-				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Game_Lyric_FontSize);
-			}
-
 			this.txPanel = null;
 			this.ct進行用 = new CCounter();
 			this.Start();
@@ -227,7 +215,6 @@ namespace TJAPlayer3
 				TJAPlayer3.tテクスチャの解放(ref this.txPanel);
 				TJAPlayer3.tテクスチャの解放(ref this.tx歌詞テクスチャ);
 				TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
-				TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -361,7 +348,6 @@ namespace TJAPlayer3
 		private CTexture txGENRE;
 		private CTexture tx歌詞テクスチャ;
 		private CPrivateFastFont pfMusicName;
-		private CPrivateFastFont pf歌詞フォント;
 		//-----------------
 		#endregion
 	}
