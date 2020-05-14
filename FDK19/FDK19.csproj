@@ -64,6 +64,14 @@
       <HintPath>..\Test\dll\DirectShowLib-2005.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\Test\dll\SharpDX.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\Test\dll\SharpDX.DirectInput.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
     </Reference>
@@ -117,6 +125,7 @@
     <Compile Include="コード\02.入力\DeviceConstantConverter.cs" />
     <Compile Include="コード\02.入力\E入力デバイス種別.cs" />
     <Compile Include="コード\02.入力\IInputDevice.cs" />
+    <Compile Include="コード\02.入力\SlimDXKeys.cs" />
     <Compile Include="コード\02.入力\STInputEvent.cs" />
     <Compile Include="コード\03.サウンド\Cmp3.cs" />
     <Compile Include="コード\03.サウンド\Cogg.cs" />

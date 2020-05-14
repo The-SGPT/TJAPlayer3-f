@@ -4,7 +4,6 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Drawing;
-using SlimDX.DirectInput;
 using FDK;
 using System.Reflection;
 using CSharpTest.Net.Collections;
@@ -150,20 +149,20 @@ namespace TJAPlayer3
 				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態        // 通常状態、かつ
 					&& TJAPlayer3.act現在入力を占有中のプラグイン == null)    // プラグインの入力占有がない
 				{
-					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)Key.Escape))
+					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
 
-					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.LeftArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを上へ移動する));
+					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを上へ移動する));
 					this.ctキー反復用.R.tキー反復(TJAPlayer3.Pad.b押されているGB(Eパッド.HH), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
 					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.SD))
 						this.tカーソルを上へ移動する();
 
-					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDX.DirectInput.Key.RightArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを下へ移動する));
+					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを下へ移動する));
 					this.ctキー反復用.B.tキー反復(TJAPlayer3.Pad.b押されているGB(Eパッド.BD), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
 					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LT))
 						this.tカーソルを下へ移動する();
 
-					if ((TJAPlayer3.Pad.b押されたDGB(Eパッド.CY) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RD)) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LC) || (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Return)) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
+					if ((TJAPlayer3.Pad.b押されたDGB(Eパッド.CY) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RD)) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LC) || (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
 						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{
@@ -304,7 +303,7 @@ namespace TJAPlayer3
 				var point = TJAPlayer3.app.Window.PointToClient(System.Windows.Forms.Cursor.Position);
 				// クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
 				var scaling = 1.000 * TJAPlayer3.app.Window.ClientSize.Width / 1280;
-				if (TJAPlayer3.Input管理.Mouse.bキーが押された((int)MouseObject.Button1))
+				if (TJAPlayer3.Input管理.Mouse.bキーが押された((int)SlimDXKeys.MouseObject.Button1))
 				{
 					if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)
 						System.Diagnostics.Process.Start(strCreator);

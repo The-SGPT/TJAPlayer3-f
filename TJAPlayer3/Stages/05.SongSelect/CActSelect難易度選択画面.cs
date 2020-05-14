@@ -275,16 +275,16 @@ namespace TJAPlayer3
 				//-----------------
 
 				//キー操作
-				if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
+				if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.RightArrow ) )
 				{
 					this.t次に移動();
 				}
-				else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
+				else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.LeftArrow ) )
 				{
 					this.t前に移動();
 				}
 				else if ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.Decide ) ||
-						( ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
+						( ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) ) ) )
 				{
 					TJAPlayer3.stage選曲.actPresound.tサウンド停止();
 					switch( TJAPlayer3.stage選曲.r現在選択中の曲.eノード種別 )
@@ -303,7 +303,7 @@ namespace TJAPlayer3
 							break;
 					}
 				}
-				else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
+				else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDXKeys.Key.F7 ) )
 				{
 					this.bIsDifficltSelect = false;
 				}
