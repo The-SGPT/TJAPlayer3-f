@@ -84,7 +84,7 @@ namespace TJAPlayer3
 						this.ct上背景上下用タイマー[i] = new CCounter(1, 100 , 30, TJAPlayer3.Timer);
 					else
 						this.ct上背景上下用タイマー[i] = new CCounter(0, 3140 , 1, TJAPlayer3.Timer);
-					this.ct上背景桜用タイマー[i] = new CCounter(0, 600, 8, TJAPlayer3.Timer);
+					this.ct上背景桜用タイマー[i] = new CCounter(0, 400, 12, TJAPlayer3.Timer);
 					this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szテクスチャサイズ.Width, 8, TJAPlayer3.Timer);
 					this.ct上背景クリアインタイマー[i] = new CCounter();
 				}
@@ -178,7 +178,7 @@ namespace TJAPlayer3
 					if (this.ct上背景桜用タイマー[i] != null && this.ct上背景桜スクロール用タイマー[i] != null) {
 						if (TJAPlayer3.Tx.Background_Up_Sakura[i] != null)
 						{
-							int xy = (int)(this.ct上背景桜用タイマー[i].n現在の値 - this.ct上背景桜用タイマー[i].n終了値 / 2.0);
+							int xy = (int)(this.ct上背景桜用タイマー[i].n現在の値 - (this.ct上背景桜用タイマー[i].n終了値 / 2.0));
 
 							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_Sakura[i].szテクスチャサイズ.Width;
 							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
