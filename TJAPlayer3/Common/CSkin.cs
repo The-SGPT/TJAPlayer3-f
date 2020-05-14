@@ -2166,6 +2166,17 @@ namespace TJAPlayer3
 								Game_PuchiChara_SineTimer = double.Parse(strParam);
 							}
 							#endregion
+							#region Background
+
+							else if (strCommand == nameof(this.Background_Scroll_PatternY))
+							{
+								string[] strSplit = strParam.Split(',');
+								for (int i = 0; i < 2; i++)
+								{
+									this.Background_Scroll_PatternY[i] = int.Parse(strSplit[i]);
+								}
+							}
+							#endregion
 							#endregion
 							#region Result
 							else if (strCommand == nameof(Result_MusicName_X))
@@ -2285,7 +2296,7 @@ namespace TJAPlayer3
 							#endregion
 							#endregion
 						}
-						continue;
+                        continue;
 					}
 					catch (Exception exception)
 					{
@@ -2706,6 +2717,9 @@ namespace TJAPlayer3
 		public int[] Game_DanC_ExamUnit_Size = new int[] { 30, 36 };
 		public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
 		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
+		#endregion
+		#region Background
+		public int[] Background_Scroll_PatternY = new int[] { 0, 0 };
 		#endregion
 		#endregion
 		#region Result
