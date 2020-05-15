@@ -175,6 +175,7 @@ namespace TJAPlayer3
 			#region 5_演奏画面
 			#region 共通
 			Notes = TxC(GAME + @"Notes.png");
+			Notes_White = TxC(GAME + @"Notes_White.png");
 			Judge_Frame = TxC(GAME + @"Notes.png");
 			SENotes = TxC(GAME + @"SENotes.png");
 			Notes_Arm = TxC(GAME + @"Notes_Arm.png");
@@ -668,6 +669,7 @@ namespace TJAPlayer3
 			#region 5_演奏画面
 			#region 共通
 			TJAPlayer3.tテクスチャの解放(ref Notes);
+			TJAPlayer3.tテクスチャの解放(ref Notes_White);
 			TJAPlayer3.tテクスチャの解放(ref Judge_Frame);
 			TJAPlayer3.tテクスチャの解放(ref SENotes);
 			TJAPlayer3.tテクスチャの解放(ref Notes_Arm);
@@ -1063,6 +1065,7 @@ namespace TJAPlayer3
 		#region 5_演奏画面
 		#region 共通
 		public CTexture Notes,
+			Notes_White,
 			Judge_Frame,
 			SENotes,
 			Notes_Arm,
