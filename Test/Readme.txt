@@ -19,6 +19,9 @@ SkinConfig.iniのパラメータも追加しています。
 追加したパラメータは、Systemフォルダ内の「SkinConfig.iniについて.txt」の下部に記載しています。
 作成ツール : AviUtl/GIMP
 
+スキンのサウンドについては徐々に自作にすり替えていきます。  
+耳コピできないので、Domino & Softalkで適当に作った音声類になると思います。
+
 ==追加命令==
 LYRICFILE:[lyricfilename](中身未実装)
 外部LYRICファイルを指定できます。

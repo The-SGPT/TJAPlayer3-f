@@ -16,8 +16,7 @@ masterブランチですべての開発を行います。
 (基本的なものはです。テスト実装などは、別のブランチに移行するかも。)
 
 ## 追加命令
-LYRICFILE:[lyricfilename](中身未実装)
-外部LYRICファイルを指定できます。
+LYRICFILE:[lyricfilename]外部LYRICファイルを指定できます。(中身未実装)
 
 ## 複数文字コードの対応について
 Shift-JIS, UTF-8 BOMあり/なし は読み込めることを確認しました。  
