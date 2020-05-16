@@ -85,7 +85,8 @@ namespace TJAPlayer3
 					else
 						this.ct上背景上下用タイマー[i] = new CCounter(0, 3140 , 1, TJAPlayer3.Timer);
 					this.ct上背景桜用タイマー[i] = new CCounter(0, 600, 12, TJAPlayer3.Timer);
-					this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szテクスチャサイズ.Width, 8, TJAPlayer3.Timer);
+					if(TJAPlayer3.Tx.Background_Up_Sakura[i]!=null)
+						this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szテクスチャサイズ.Width, 8, TJAPlayer3.Timer);
 					this.ct上背景クリアインタイマー[i] = new CCounter();
 				}
 			}
@@ -223,8 +224,13 @@ namespace TJAPlayer3
 									ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
 								ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
 							}
-							else {
+							else if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 1)
+							{
 								ym = (int) (Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
+							}
+							else
+							{
+								ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0),0.2) * 100.0);
 							}
 
 
@@ -250,9 +256,13 @@ namespace TJAPlayer3
 									ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
 								ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
 							}
-							else
+							else if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 1)
 							{
 								ym = (int)(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
+							}
+							else
+							{
+								ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0), 0.2) * 100.0);
 							}
 
 							if (TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[i])

@@ -832,10 +832,14 @@ namespace TJAPlayer3
 				new string[] { "TYPE-A", "TYPE-B", "TYPE-C"});
 			this.list項目リスト.Add(this.iTaikoScoreMode);
 
-			ShinuchiMode = new CItemToggle(nameof(ShinuchiMode), TJAPlayer3.ConfigIni.ShinuchiMode, CItemBase.Eパネル種別.通常,
+			ShinuchiMode1P = new CItemToggle("1PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[0], CItemBase.Eパネル種別.通常,
 				"真打モードを有効にする。",
 				"Turn on fixed score mode.");
-			this.list項目リスト.Add(this.ShinuchiMode);
+			this.list項目リスト.Add(this.ShinuchiMode1P);
+			ShinuchiMode2P = new CItemToggle("2PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[1], CItemBase.Eパネル種別.通常,
+				"真打モードを有効にする。",
+				"Turn on fixed score mode.");
+			this.list項目リスト.Add(this.ShinuchiMode2P);
 
 			this.iTaikoBranchGuide = new CItemToggle("BranchGuide", TJAPlayer3.ConfigIni.bBranchGuide,
 				"譜面分岐の参考になる数値などを表示します。\n" +
@@ -2255,7 +2259,8 @@ namespace TJAPlayer3
 		CItemToggle ShowMob;
 		CItemToggle ShowFooter;
 		CItemToggle ShowPuchiChara;
-		CItemToggle ShinuchiMode;
+		CItemToggle ShinuchiMode1P;
+		CItemToggle ShinuchiMode2P;
 		CItemToggle FastRender;
 		CItemInteger MusicPreTimeMs;
 		//private CItemToggle iGuitarAutoPlay;
@@ -2455,7 +2460,8 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.bBranchGuide = this.iTaikoBranchGuide.bON;
 			TJAPlayer3.ConfigIni.nDefaultCourse = this.iTaikoDefaultCourse.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.nScoreMode = this.iTaikoScoreMode.n現在選択されている項目番号;
-			TJAPlayer3.ConfigIni.ShinuchiMode = this.ShinuchiMode.bON;
+			TJAPlayer3.ConfigIni.ShinuchiMode[0] = this.ShinuchiMode1P.bON;
+			TJAPlayer3.ConfigIni.ShinuchiMode[1] = this.ShinuchiMode2P.bON;
 			TJAPlayer3.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
 			//CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
 			TJAPlayer3.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
