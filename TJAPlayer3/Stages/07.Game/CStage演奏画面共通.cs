@@ -1091,7 +1091,7 @@ namespace TJAPlayer3
 				if(TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) this.actRollChara.Start(nPlayer);
 
 				//2017.01.28 DD CDTXから直接呼び出す
-				if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+				if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer]) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
 				{
 					// 旧配点・旧筐体配点
 					if( TJAPlayer3.DTX[0].nScoreModeTmp == 0 || TJAPlayer3.DTX[0].nScoreModeTmp == 1 )
@@ -1225,7 +1225,7 @@ namespace TJAPlayer3
 					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, player);
 					TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( player );
 					//CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode)
+					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[player])
 					{
 						this.actScore.Add(E楽器パート.TAIKO, 6000L, player);
 					} else
@@ -1250,7 +1250,7 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode)
+					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[player])
 					{
 						this.actScore.Add(E楽器パート.TAIKO, 360L, player);
 					} else
@@ -1765,7 +1765,7 @@ namespace TJAPlayer3
 				long nDiff = TJAPlayer3.DTX[0].nScoreDiff[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ];
 				long nAddScore = 0;
 
-				if( TJAPlayer3.ConfigIni.ShinuchiMode )  //2016.07.04 kairera0467 真打モード。
+				if( TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] )  //2016.07.04 kairera0467 真打モード。
 				{
 					nAddScore = TJAPlayer3.DTX[0].nScoreInit[ 1, TJAPlayer3.stage選曲.n確定された曲の難易度[0] ];
 					if( nAddScore == 0 )

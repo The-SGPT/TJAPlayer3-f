@@ -869,7 +869,7 @@ namespace TJAPlayer3
 		public bool bViewerDrums有効, bViewerGuitar有効;
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
-		public bool ShinuchiMode; // 真打モード
+		public bool[] ShinuchiMode = new bool[2]; // 真打モード
 		public bool FastRender; // 事前画像描画モード
 		public int MusicPreTimeMs; // 音源再生前の待機時間ms
 		/// <summary>
@@ -1141,7 +1141,8 @@ namespace TJAPlayer3
 			this.eGameMode = EGame.OFF;
 			this.bEndingAnime = false;
 			this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
-			ShinuchiMode = false;
+			ShinuchiMode[0] = false;
+			ShinuchiMode[1] = false;
 			FastRender = true;
 			MusicPreTimeMs = 1000; // 一秒
 			SendDiscordPlayingInformation = true;
@@ -1607,7 +1608,8 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
 			sw.WriteLine("; Fixed score mode (0:OFF, 1:ON)");
-			sw.WriteLine("{0}={1}", nameof(ShinuchiMode), ShinuchiMode ? 1 : 0);
+			sw.WriteLine("{0}={1}", "1PShinuchiMode", ShinuchiMode[0] ? 1 : 0);
+			sw.WriteLine("{0}={1}", "2PShinuchiMode", ShinuchiMode[1] ? 1 : 0);
 			sw.WriteLine();
 			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
 			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
@@ -2435,9 +2437,13 @@ namespace TJAPlayer3
 											{
 												this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
 											}
-											else if(str3.Equals(nameof(ShinuchiMode)))
+											else if(str3.Equals("1PShinuchiMode"))
 											{
-												ShinuchiMode = C変換.bONorOFF(str4[0]);
+												ShinuchiMode[0] = C変換.bONorOFF(str4[0]);
+											}
+											else if (str3.Equals("2PShinuchiMode"))
+											{
+												ShinuchiMode[1] = C変換.bONorOFF(str4[0]);
 											}
 											continue;
 										}

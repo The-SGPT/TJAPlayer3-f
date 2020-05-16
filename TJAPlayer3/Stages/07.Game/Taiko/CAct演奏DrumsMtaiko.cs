@@ -301,7 +301,7 @@ namespace TJAPlayer3
 						);
 				}
 
-				if (TJAPlayer3.ConfigIni.ShinuchiMode)
+				if (TJAPlayer3.ConfigIni.ShinuchiMode[i])
 				{
 					if (TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
 					{
