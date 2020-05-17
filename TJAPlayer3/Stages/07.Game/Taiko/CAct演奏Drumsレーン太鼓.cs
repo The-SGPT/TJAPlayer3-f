@@ -666,6 +666,8 @@ namespace TJAPlayer3
 				if (((int)nTime) > this.n移動開始時刻 + this.n総移動時間)
 				{
 					this.n総移動時間 = -1;
+					TJAPlayer3.Skin.nScrollFieldX[0] = this.n移動目的場所X;
+					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[0] = this.n移動目的場所X;
 				}
 			}
 			if (this.n総移動時間2 != -1)
@@ -685,6 +687,8 @@ namespace TJAPlayer3
 				if (((int)nTime) > this.n移動開始時刻2 + this.n総移動時間2)
 				{
 					this.n総移動時間2 = -1;
+					TJAPlayer3.Skin.nScrollFieldX[1] = this.n移動目的場所X2;
+					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[1] = this.n移動目的場所X2;
 				}
 			}
 
@@ -926,6 +930,10 @@ namespace TJAPlayer3
 			this.n総移動時間 = (int)(db移動時間 * 1000);
 			this.n移動方向 = n移動方向;
 			this.n移動距離px = n移動px;
+			if (n移動方向 == 0)
+				this.n移動目的場所X = TJAPlayer3.Skin.nScrollFieldX[0] - n移動px;
+			else
+				this.n移動目的場所X = TJAPlayer3.Skin.nScrollFieldX[0] + n移動px;
 		}
 
 		public void t判定枠移動2(double db移動時間, int n移動px, int n移動方向)
@@ -935,6 +943,10 @@ namespace TJAPlayer3
 			this.n総移動時間2 = (int)(db移動時間 * 1000);
 			this.n移動方向2 = n移動方向;
 			this.n移動距離px2 = n移動px;
+			if (n移動方向 == 0)
+				this.n移動目的場所X2 = TJAPlayer3.Skin.nScrollFieldX[1] - n移動px;
+			else
+				this.n移動目的場所X2 = TJAPlayer3.Skin.nScrollFieldX[1] + n移動px;
 		}
 		#region[ private ]
 		//-----------------
@@ -997,11 +1009,13 @@ namespace TJAPlayer3
 		private int n移動開始X;
 		private int n移動開始時刻;
 		private int n移動距離px;
+		private int n移動目的場所X;
 		private int n移動方向;
 		private int n総移動時間2;
 		private int n移動開始X2;
 		private int n移動開始時刻2;
 		private int n移動距離px2;
+		private int n移動目的場所X2;
 		private int n移動方向2;
 
 		internal int[,] nDefaultJudgePos = new int[2,2];
