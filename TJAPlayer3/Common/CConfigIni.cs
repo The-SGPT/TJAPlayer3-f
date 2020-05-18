@@ -626,7 +626,6 @@ namespace TJAPlayer3
 		public STDGBVALUE<bool> bReverse;
 		//public STDGBVALUE<E判定表示優先度> e判定表示優先度;
 		public E判定表示優先度 e判定表示優先度;
-		public STDGBVALUE<E判定位置> e判定位置;			// #33891 2014.6.26 yyagi
 		public bool bScoreIniを出力する;
 		public bool bSTAGEFAILED有効;
 		public STDGBVALUE<bool> bSudden;
@@ -866,7 +865,6 @@ namespace TJAPlayer3
 		public bool bViewerVSyncWait;
 		public bool bViewerShowDebugStatus;
 		public bool bViewerTimeStretch;
-		public bool bViewerDrums有効, bViewerGuitar有効;
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
 		public bool[] ShinuchiMode = new bool[2]; // 真打モード
@@ -1038,7 +1036,6 @@ namespace TJAPlayer3
 			this.eRandom = new STDGBVALUE<Eランダムモード>[2];
 			this.bLight = new STDGBVALUE<bool>();
 			this.bLeft = new STDGBVALUE<bool>();
-			this.e判定位置 = new STDGBVALUE<E判定位置>();		// #33891 2014.6.26 yyagi
 			this.判定文字表示位置 = new STDGBVALUE<E判定文字表示位置>();
 			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
 			this.nInputAdjustTimeMs = 0;
@@ -1059,7 +1056,6 @@ namespace TJAPlayer3
 				this.nJudgeLinePosOffset[ i ] = 0;
 				this.eInvisible[ i ] = EInvisible.OFF;
 				this.nViewerScrollSpeed[ i ] = 1;
-				this.e判定位置[ i ] = E判定位置.標準;
 				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
 			}
 			this.n演奏速度 = 20;
@@ -1104,8 +1100,6 @@ namespace TJAPlayer3
 			bViewerVSyncWait = true;
 			bViewerShowDebugStatus = true;
 			bViewerTimeStretch = false;
-			bViewerDrums有効 = true;
-			bViewerGuitar有効 = true;
 			
 			
 
@@ -2137,22 +2131,6 @@ namespace TJAPlayer3
 											{
 												this.nJudgeLinePosOffset.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nJudgeLinePosOffset.Drums );
 											}
-											else if ( str3.Equals( "JudgeLinePosOffsetGuitar" ) )		// #31602 2013.6.23 yyagi
-											{
-												this.nJudgeLinePosOffset.Guitar = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nJudgeLinePosOffset.Guitar );
-											}
-											else if ( str3.Equals( "JudgeLinePosOffsetBass" ) )			// #31602 2013.6.23 yyagi
-											{
-												this.nJudgeLinePosOffset.Bass = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nJudgeLinePosOffset.Bass );
-											}
-											else if ( str3.Equals( "JudgeLinePosModeGuitar" ) )	// #33891 2014.6.26 yyagi
-											{
-												this.e判定位置.Guitar = (E判定位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.e判定位置.Guitar );
-											}
-											else if ( str3.Equals( "JudgeLinePosModeBass" ) )		// #33891 2014.6.26 yyagi
-											{
-												this.e判定位置.Bass = (E判定位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.e判定位置.Bass );
-											}
 											#endregion
 											else if( str3.Equals( "BufferedInput" ) )
 											{
@@ -2475,14 +2453,6 @@ namespace TJAPlayer3
 											else if ( str3.Equals( "ViewerTimeStretch" ) )
 											{
 												this.bViewerTimeStretch = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if ( str3.Equals( "ViewerGuitar" ) )
-											{
-												this.bViewerGuitar有効 = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if ( str3.Equals( "ViewerDrums" ) )
-											{
-												this.bViewerDrums有効 = C変換.bONorOFF( str4[ 0 ] );
 											}
 											continue;
 										}

@@ -405,7 +405,6 @@ Trace.TraceInformation( "Command: " + s[ (int) this.Command ] );
 			cc.bViewerShowDebugStatus = TJAPlayer3.ConfigIni.b演奏情報を表示する;
 			cc.bViewerVSyncWait       = TJAPlayer3.ConfigIni.b垂直帰線待ちを行う;
 			cc.bViewerTimeStretch     = TJAPlayer3.ConfigIni.bTimeStretch;
-			cc.bViewerDrums有効       = true;
 
 			cc.t書き出し( path );
 		}
