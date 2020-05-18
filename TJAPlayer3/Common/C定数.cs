@@ -417,11 +417,6 @@ namespace TJAPlayer3
 		TypeC,
 		TypeD
 	}
-	public enum Eミラー
-	{
-		TypeA,
-		TypeB
-	}
 	public enum EClipDispType
 	{
 		背景のみ           = 1,
