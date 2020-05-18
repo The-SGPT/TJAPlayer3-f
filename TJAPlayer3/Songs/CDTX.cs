@@ -10,7 +10,6 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using FDK;
 using FDK.ExtensionMethods;
-using TJAPlayer3;
 
 namespace TJAPlayer3
 {

@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Diagnostics;
 using FDK;
 using FDK.ExtensionMethods;
-using TJAPlayer3;
 
 namespace TJAPlayer3
 {
@@ -313,8 +312,6 @@ namespace TJAPlayer3
 
 			this.tBranchReset(0);
 						
-			//this.bIsAutoPlay.Guitar = CDTXMania.ConfigIni.bギターが全部オートプレイである;
-			//this.bIsAutoPlay.Bass = CDTXMania.ConfigIni.bベースが全部オートプレイである;
 //			this.nRisky = CDTXMania.ConfigIni.nRisky;											// #23559 2011.7.28 yyagi
 			actGauge.Init( TJAPlayer3.ConfigIni.nRisky );									// #23559 2011.7.28 yyagi
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
@@ -3109,7 +3106,6 @@ namespace TJAPlayer3
 			double ScrollSpeedDrums = (( db現在の譜面スクロール速度[nPlayer].Drums + 1.0 ) * speed ) * 0.5 * 37.5 / 60000.0;
 			double ScrollSpeedGuitar = ( db現在の譜面スクロール速度[nPlayer].Guitar + 1.0 ) * 0.5 * 0.5 * 37.5 * speed / 60000.0;
 			double ScrollSpeedBass = ( db現在の譜面スクロール速度[nPlayer].Bass + 1.0 ) * 0.5 * 0.5 * 37.5 * speed / 60000.0;
-			double ScrollSpeedTaiko = (( db現在の譜面スクロール速度[nPlayer].Drums + 1.0 ) * speed ) * 0.5 * 37.5 / 60000.0;
 
 			CConfigIni configIni = TJAPlayer3.ConfigIni;
 

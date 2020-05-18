@@ -27,7 +27,6 @@ using System.Threading;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using SlimDX.DXGI;
 using System.Diagnostics;
 
 namespace SampleFramework
