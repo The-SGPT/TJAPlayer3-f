@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using SharpDX;
 using SharpDX.DirectInput;
 
 using SlimDXKey = SlimDXKeys.Key;

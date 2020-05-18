@@ -998,9 +998,6 @@ namespace TJAPlayer3
 			this.bランダムセレクトで子BOXを検索対象とする = true;
 			this.n表示可能な最小コンボ数 = new STDGBVALUE<int>();
 			this.n表示可能な最小コンボ数.Drums = 3;
-			this.n表示可能な最小コンボ数.Guitar = 2;
-			this.n表示可能な最小コンボ数.Bass = 2;
-			this.n表示可能な最小コンボ数.Taiko = 3;
 			this.FontName = "MS UI Gothic";
 			this.FontNamed = "MS UI Gothic";
 			this.RandomPresence = true;
@@ -1055,7 +1052,7 @@ namespace TJAPlayer3
 				this.n譜面スクロール速度[1][ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
 				this.eInvisible[ i ] = EInvisible.OFF;
-				this.nViewerScrollSpeed[ i ] = 1;
+				this.nViewerScrollSpeed[ i ] = 9;
 				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
 			}
 			this.n演奏速度 = 20;
@@ -1735,11 +1732,6 @@ namespace TJAPlayer3
 					str = reader.ReadToEnd();
 				}
 				t文字列から読み込み( str );
-				CDTXVersion version = new CDTXVersion( this.strDTXManiaのバージョン );
-				//if( version.n整数部 <= 69 )
-				//{
-				//	this.tデフォルトのキーアサインに設定する();
-				//}
 			}
 		}
 
@@ -2433,14 +2425,6 @@ namespace TJAPlayer3
 											if ( str3.Equals( "ViewerDrumsScrollSpeed" ) )
 											{
 												this.nViewerScrollSpeed.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1999, this.nViewerScrollSpeed.Drums );
-											}
-											else if ( str3.Equals( "ViewerGuitarScrollSpeed" ) )
-											{
-												this.nViewerScrollSpeed.Guitar = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1999, this.nViewerScrollSpeed.Guitar );
-											}
-											else if ( str3.Equals( "ViewerBassScrollSpeed" ) )
-											{
-												this.nViewerScrollSpeed.Bass = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1999, this.nViewerScrollSpeed.Bass );
 											}
 											else if ( str3.Equals( "ViewerVSyncWait" ) )
 											{

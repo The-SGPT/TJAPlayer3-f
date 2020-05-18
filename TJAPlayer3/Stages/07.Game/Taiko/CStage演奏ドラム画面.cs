@@ -8,9 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using SlimDX;
-using SlimDX.Direct3D9;
 using FDK;
-using TJAPlayer3;
 
 namespace TJAPlayer3
 {
