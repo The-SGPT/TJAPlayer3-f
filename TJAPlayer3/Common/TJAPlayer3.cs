@@ -1372,7 +1372,7 @@ for (int i = 0; i < 3; i++) {
 									gs = c演奏記録_Drums.dbゲーム型スキル値;
 								}
 								string str = "Cleared";
-								switch( CScoreIni.t総合ランク値を計算して返す( c演奏記録_Drums, null, null ) )
+								switch( CScoreIni.t総合ランク値を計算して返す( c演奏記録_Drums) )
 								{
 									case (int)CScoreIni.ERANK.SS:
 										str = string.Format( "Cleared (SS: {0:F2})", ps );
@@ -2619,7 +2619,6 @@ for (int i = 0; i < 3; i++) {
 				#region [ Config.iniの出力 ]
 				//---------------------
 				Trace.TraceInformation("Config.ini を出力します。");
-//				if ( ConfigIni.bIsSwappedGuitarBass )			// #24063 2011.1.16 yyagi ギターベースがスワップしているときは元に戻す
 				string str = strEXEのあるフォルダ + "Config.ini";
 				Trace.Indent();
 				try
@@ -2722,20 +2721,10 @@ for (int i = 0; i < 3; i++) {
 				{
 					ini.stファイル.PlayCountDrums++;
 				}
-				if( bIsUpdatedGuitar )
-				{
-					ini.stファイル.PlayCountGuitar++;
-				}
-				if( bIsUpdatedBass )
-				{
-					ini.stファイル.PlayCountBass++;
-				}
 				ini.tヒストリを追加する( str新ヒストリ行 );
 				if( !bコンパクトモード )
 				{
 					stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
-					stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
-					stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Bass = ini.stファイル.PlayCountBass;
 					for( int j = 0; j < ini.stファイル.History.Length; j++ )
 					{
 						stage選曲.r現在選択中のスコア.譜面情報.演奏履歴[ j ] = ini.stファイル.History[ j ];
