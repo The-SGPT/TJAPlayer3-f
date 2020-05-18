@@ -6839,10 +6839,6 @@ namespace TJAPlayer3
 			return true;
 		}
 
-		public void SwapGuitarBassInfos()
-		{
-		}
-
 		// SwapGuitarBassInfos_AutoFlags()は、CDTXからCConfigIniに移動。
 
 		// CActivity 実装
