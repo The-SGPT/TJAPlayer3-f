@@ -986,8 +986,6 @@ namespace TJAPlayer3
 			this.nウインドウheight = SampleFramework.GameWindowSize.Height;			// 
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
-			this._bGuitar有効 = true;
-			this._bDrums有効 = true;
 			this.nBGAlpha = 100;
 			this.eダメージレベル = Eダメージレベル.普通;
 			this.bSTAGEFAILED有効 = true;
@@ -1475,8 +1473,8 @@ namespace TJAPlayer3
 			sw.WriteLine("InputAdjustTime={0}", this.nInputAdjustTimeMs);		//
 			sw.WriteLine();
 
-			sw.WriteLine( "; 判定ラインの表示位置調整(ドラム, ギター, ベース)(-99～99)[px]" );	// #31602 2013.6.23 yyagi 判定ラインの表示位置オフセット
-			sw.WriteLine( "; Offset value to adjust displaying judgement line for the drums, guitar and bass." );	//
+			sw.WriteLine( "; 判定ラインの表示位置調整(ドラム)(-99～99)[px]" );	// #31602 2013.6.23 yyagi 判定ラインの表示位置オフセット
+			sw.WriteLine( "; Offset value to adjust displaying judgement line for the drums." );	//
 			sw.WriteLine( "JudgeLinePosOffsetDrums={0}",  this.nJudgeLinePosOffset.Drums );		//		
 			sw.WriteLine();
 			#endregion
@@ -2570,25 +2568,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		/// <summary>
-		/// ギターとベースのキーアサイン入れ替え
-		/// </summary>
-		//public void SwapGuitarBassKeyAssign()		// #24063 2011.1.16 yyagi
-		//{
-		//    for ( int j = 0; j <= (int)EKeyConfigPad.Capture; j++ )
-		//    {
-		//        CKeyAssign.STKEYASSIGN t; //= new CConfigIni.CKeyAssign.STKEYASSIGN();
-		//        for ( int k = 0; k < 16; k++ )
-		//        {
-		//            t = this.KeyAssign[ (int)EKeyConfigPart.GUITAR ][ j ][ k ];
-		//            this.KeyAssign[ (int)EKeyConfigPart.GUITAR ][ j ][ k ] = this.KeyAssign[ (int)EKeyConfigPart.BASS ][ j ][ k ];
-		//            this.KeyAssign[ (int)EKeyConfigPart.BASS ][ j ][ k ] = t;
-		//        }
-		//    }
-		//    this.bIsSwappedGuitarBass = !bIsSwappedGuitarBass;
-		//}
-
-
 		// その他
 
 		#region [ private ]
@@ -2608,8 +2587,6 @@ namespace TJAPlayer3
 			Temp,
 		}
 
-		private bool _bDrums有効;
-		private bool _bGuitar有効;
 		private bool bConfigIniが存在している;
 		private string ConfigIniファイル名;
 

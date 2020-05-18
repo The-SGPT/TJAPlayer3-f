@@ -109,7 +109,7 @@ namespace TJAPlayer3
 						this.nランク値[ i ] = CScoreIni.tランク値を計算して返す( part );
 					}
 				}
-				this.n総合ランク値 = CScoreIni.t総合ランク値を計算して返す( this.st演奏記録.Drums, this.st演奏記録.Guitar, this.st演奏記録.Bass );
+				this.n総合ランク値 = CScoreIni.t総合ランク値を計算して返す( this.st演奏記録.Drums );
 				//---------------------
 				#endregion
 
@@ -172,10 +172,8 @@ namespace TJAPlayer3
 								ini.stファイル.ClearCountDrums++;
 								break;
 							case 1:
-								ini.stファイル.ClearCountGuitar++;
 								break;
 							case 2:
-								ini.stファイル.ClearCountBass++;
 								break;
 							default:
 								throw new Exception("クリア回数増加のk(0-2)が範囲外です。");
@@ -210,8 +208,6 @@ namespace TJAPlayer3
 				if ( TJAPlayer3.ConfigIni.bScoreIniを出力する )
 				{
 					this.n演奏回数.Drums = ini.stファイル.PlayCountDrums;
-					this.n演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
-					this.n演奏回数.Bass = ini.stファイル.PlayCountBass;
 				}
 				#endregion
 				#region [ 選曲画面の譜面情報の更新 ]
