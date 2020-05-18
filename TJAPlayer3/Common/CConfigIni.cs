@@ -941,11 +941,7 @@ namespace TJAPlayer3
 
 		#region[Position]
 		public Eレーンタイプ eLaneType;
-		public Eミラー eMirror;
 
-		#endregion
-		#region[System]
-		public bool bDirectShowMode;
 		#endregion
 
 		//--------------------------
@@ -1137,7 +1133,6 @@ namespace TJAPlayer3
 			SendDiscordPlayingInformation = true;
 			#region[ Ver.K追加 ]
 			this.eLaneType = Eレーンタイプ.TypeA;
-			this.bDirectShowMode = false;
 			#endregion
 		}
 		public CConfigIni( string iniファイル名 )
@@ -1452,11 +1447,6 @@ namespace TJAPlayer3
 			//sw.WriteLine( "; (If you feel illegal seek with mp3, please set it to 1.)" );	//
 			//sw.WriteLine( "NoMP3Streaming={0}", this.bNoMP3Streaming ? 1 : 0 );				//
 			//sw.WriteLine();
-			sw.WriteLine( "; 動画再生にDirectShowを使用する(0:OFF, 1:ON)" );
-			sw.WriteLine( "; 動画再生にDirectShowを使うことによって、再生時の負担を軽減できます。");
-			sw.WriteLine( "; ただし使用時にはセットアップが必要になるのでご注意ください。");
-			sw.WriteLine( "DirectShowMode={0}", this.bDirectShowMode ? 1 : 0 );
-			sw.WriteLine();
 
 			#region [ Adjust ]
 			sw.WriteLine( "; 判定タイミング調整(-99～99)[ms]" );
@@ -2136,12 +2126,6 @@ namespace TJAPlayer3
 											//{
 											//    this.bNoMP3Streaming = C変換.bONorOFF( str4[ 0 ] );
 											//}
-											#region[ Ver.K追加 ]
-											else if ( str3.Equals( "DirectShowMode" ) )		// #28228 2012.5.1 yyagi
-											{
-												this.bDirectShowMode = C変換.bONorOFF( str4[ 0 ] ); ;
-											}
-											#endregion
 											else if( str3.Equals( "EndingAnime" ) )
 											{
 												this.bEndingAnime = C変換.bONorOFF( str4[ 0 ] );
