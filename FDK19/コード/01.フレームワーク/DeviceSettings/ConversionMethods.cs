@@ -21,7 +21,6 @@
 */
 using SlimDX;
 using SlimDX.Direct3D9;
-using DXGI = SlimDX.DXGI;
 
 namespace SampleFramework
 {
@@ -107,7 +106,7 @@ namespace SampleFramework
 			}
 		}
 
-		public static int GetColorBits(DXGI.Format format)
+		/*public static int GetColorBits(DXGI.Format format)
 		{
 			switch (format)
 			{
@@ -199,6 +198,6 @@ namespace SampleFramework
 			if (rational.Denominator != 0)
 				denom = rational.Denominator;
 			return rational.Numerator / denom;
-		}
+		}*/
 	}
 }
