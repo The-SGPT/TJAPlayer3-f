@@ -442,7 +442,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region エフェクト
-			Effects_Hit_Explosion = TxCAf(GAME + EFFECTS + @"Hit\Explosion.png");
+			Effects_Hit_Explosion = TxC(GAME + EFFECTS + @"Hit\Explosion.png");
 			if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = TJAPlayer3.Skin.Game_Effect_HitExplosion_AddBlend;
 			Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
 			if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = TJAPlayer3.Skin.Game_Effect_HitExplosionBig_AddBlend;

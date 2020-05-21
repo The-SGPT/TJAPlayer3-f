@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
+using SharpDX;
 
 namespace FDK
 {
@@ -227,13 +227,12 @@ namespace FDK
 			return nArray;
 		}
 
-
 		/// <summary>
 		/// 百分率数値を255段階数値に変換するメソッド。透明度用。
 		/// </summary>
 		/// <param name="num"></param>
 		/// <returns></returns>
-		public static int nParsentTo255( double num )
+		public static int nParsentTo255(double num)
 		{
 			return (int)(255.0 * num);
 		}
@@ -243,18 +242,18 @@ namespace FDK
 		/// </summary>
 		/// <param name="num"></param>
 		/// <returns></returns>
-		public static int n255ToParsent( int num )
+		public static int n255ToParsent(int num)
 		{
 			return (int)(100.0 / num);
 		}
 
-		public static Color4 n255ToColor4( int nR, int nG, int nB )
+		public static Color4 n255ToColor4(int nR, int nG, int nB)
 		{
-			float fR = n255ToParsent( nR );
-			float fG = n255ToParsent( nG );
-			float fB = n255ToParsent( nB );
+			float fR = n255ToParsent(nR);
+			float fG = n255ToParsent(nG);
+			float fB = n255ToParsent(nB);
 
-			return new Color4( fR, fG, fB );
+			return new Color4(fR, fG, fB, 1.0f);
 		}
 
 		#region [ private ]

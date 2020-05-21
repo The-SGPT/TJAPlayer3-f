@@ -3864,8 +3864,11 @@ namespace TJAPlayer3
 								TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
 								this.tBranchJudge(pChip, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
 
-								if (this.b強制分岐譜面[nPlayer])//強制分岐譜面だったら次回コースをそのコースにセット
+								if (this.b強制分岐譜面[nPlayer])
+								{//強制分岐譜面だったら次回コースをそのコースにセット
 									this.n次回のコース[nPlayer] = this.N強制コース[nPlayer];
+									this.nレーン用表示コース[nPlayer] = this.N強制コース[nPlayer];
+								}
 
 								this.t分岐処理(this.n次回のコース[nPlayer], nPlayer,pChip.db分岐時刻ms, pChip.n分岐の種類);
 
@@ -4056,7 +4059,7 @@ namespace TJAPlayer3
 			{
 				if ((n良 + n可 + n不可) != 0)
 				{
-					dbRate = ((double)n良 / (double)(n良 + n可 + n不可)) * 100.0;
+					dbRate = (double)(n良 * 2.0 + n可) / (double)(n良 + n可 + n不可) * 100.0 ; //2020.05.21 Mr-Ojii 計算式変更
 				}
 			}
 			else if (n種類 == 1)

@@ -5,7 +5,9 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using FDK;
-using SlimDX;
+using SharpDX;
+
+using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3
 {
