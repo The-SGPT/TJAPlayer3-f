@@ -4,9 +4,12 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Diagnostics;
-using SlimDX;
-using SlimDX.Direct3D9;
+using SharpDX;
+using SharpDX.Direct3D9;
 using FDK;
+
+using Rectangle = System.Drawing.Rectangle;
+using Point = System.Drawing.Point;
 
 namespace TJAPlayer3
 {
@@ -63,7 +66,7 @@ namespace TJAPlayer3
 				//this.txセンサ光 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_sensor light.png" ), false );
 				this.txプレビュー画像 = null;
 				this.txプレビュー画像がないときの画像 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_preimage default.png" ), false );
-				this.sfAVI画像 = Surface.CreateOffscreenPlain( TJAPlayer3.app.Device.UnderlyingDevice, 0xcc, 0x10d, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.SystemMemory );
+				this.sfAVI画像 = Surface.CreateOffscreenPlain( TJAPlayer3.app.Device, 0xcc, 0x10d, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.SystemMemory );
 				this.nAVI再生開始時刻 = -1;
 				this.n前回描画したフレーム番号 = -1;
 				this.b動画フレームを作成した = false;
@@ -183,8 +186,8 @@ namespace TJAPlayer3
 		private unsafe void tサーフェイスをクリアする( Surface sf )
 		{
 			DataRectangle rectangle = sf.LockRectangle( LockFlags.None );
-			DataStream data = rectangle.Data;
-			switch( ( rectangle.Pitch / sf.Description.Width ) )
+			DataStream data = new DataStream(rectangle.DataPointer, sf.Description.Width * rectangle.Pitch, true, false);
+			switch ( ( rectangle.Pitch / sf.Description.Width ) )
 			{
 				case 4:
 					{
@@ -242,137 +245,14 @@ namespace TJAPlayer3
 		}
 		private bool tプレビュー画像の指定があれば構築する()
 		{
-			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
-			if( ( cスコア == null ) || string.IsNullOrEmpty( cスコア.譜面情報.Preimage ) )
-			{
-				return false;
-			}
-			string str = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Preimage;
-			if( !str.Equals( this.str現在のファイル名 ) )
-			{
-				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像 );
-				this.str現在のファイル名 = str;
-				if( !File.Exists( this.str現在のファイル名 ) )
-				{
-					Trace.TraceWarning( "ファイルが存在しません。({0})", new object[] { this.str現在のファイル名 } );
-					return false;
-				}
-				this.txプレビュー画像 = TJAPlayer3.tテクスチャの生成( this.str現在のファイル名, false );
-				if( this.txプレビュー画像 != null )
-				{
-					this.r表示するプレビュー画像 = this.txプレビュー画像;
-				}
-				else
-				{
-					this.r表示するプレビュー画像 = this.txプレビュー画像がないときの画像;
-				}
-			}
 			return true;
 		}
 		private bool tプレビュー動画の指定があれば構築する()
 		{
-			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
-			if( ( TJAPlayer3.ConfigIni.bAVI有効 && ( cスコア != null ) ) && !string.IsNullOrEmpty( cスコア.譜面情報.Premovie ) )
-			{
-				string filename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Premovie;
-				if( filename.Equals( this.str現在のファイル名 ) )
-				{
-					return true;
-				}
-				if( this.avi != null )
-				{
-					this.avi.Dispose();
-					this.avi = null;
-				}
-				this.str現在のファイル名 = filename;
-				if( !File.Exists( this.str現在のファイル名 ) )
-				{
-					Trace.TraceWarning( "ファイルが存在しません。({0})", new object[] { this.str現在のファイル名 } );
-					return false;
-				}
-				try
-				{
-					this.avi = new CAvi( filename );
-					this.nAVI再生開始時刻 = TJAPlayer3.Timer.n現在時刻;
-					this.n前回描画したフレーム番号 = -1;
-					this.b動画フレームを作成した = false;
-					this.tサーフェイスをクリアする( this.sfAVI画像 );
-					Trace.TraceInformation( "動画を生成しました。({0})", new object[] { filename } );
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "動画の生成に失敗しました。({0})", new object[] { filename } );
-					this.avi = null;
-					this.nAVI再生開始時刻 = -1;
-				}
-			}
 			return false;
 		}
 		private bool t背景画像があればその一部からプレビュー画像を構築する()
 		{
-			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
-			if( ( cスコア == null ) || string.IsNullOrEmpty( cスコア.譜面情報.Backgound ) )
-			{
-				return false;
-			}
-			string path = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Backgound;
-			if( !path.Equals( this.str現在のファイル名 ) )
-			{
-				if( !File.Exists( path ) )
-				{
-					Trace.TraceWarning( "ファイルが存在しません。({0})", new object[] { path } );
-					return false;
-				}
-				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像 );
-				this.str現在のファイル名 = path;
-				Bitmap image = null;
-				Bitmap bitmap2 = null;
-				Bitmap bitmap3 = null;
-				try
-				{
-					image = new Bitmap( this.str現在のファイル名 );
-					bitmap2 = new Bitmap(SampleFramework.GameWindowSize.Width, SampleFramework.GameWindowSize.Height);
-					Graphics graphics = Graphics.FromImage( bitmap2 );
-					int x = 0;
-					for (int i = 0; i < SampleFramework.GameWindowSize.Height; i += image.Height)
-					{
-						for (x = 0; x < SampleFramework.GameWindowSize.Width; x += image.Width)
-						{
-							graphics.DrawImage( image, x, i, image.Width, image.Height );
-						}
-					}
-					graphics.Dispose();
-					bitmap3 = new Bitmap( 0xcc, 0x10d );
-					graphics = Graphics.FromImage( bitmap3 );
-					graphics.DrawImage( bitmap2, 5, 5, new Rectangle( 0x157, 0x6d, 0xcc, 0x10d ), GraphicsUnit.Pixel );
-					graphics.Dispose();
-					this.txプレビュー画像 = new CTexture( TJAPlayer3.app.Device, bitmap3, TJAPlayer3.TextureFormat );
-					this.r表示するプレビュー画像 = this.txプレビュー画像;
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "背景画像の読み込みに失敗しました。({0})", new object[] { this.str現在のファイル名 } );
-					this.r表示するプレビュー画像 = this.txプレビュー画像がないときの画像;
-					return false;
-				}
-				finally
-				{
-					if( image != null )
-					{
-						image.Dispose();
-					}
-					if( bitmap2 != null )
-					{
-						bitmap2.Dispose();
-					}
-					if( bitmap3 != null )
-					{
-						bitmap3.Dispose();
-					}
-				}
-			}
 			return true;
 		}
 		/// <summary>
@@ -524,7 +404,7 @@ namespace TJAPlayer3
 					if( this.b動画フレームを作成した && ( this.pAVIBmp != IntPtr.Zero ) )
 					{
 						DataRectangle rectangle = this.sfAVI画像.LockRectangle( LockFlags.None );
-						DataStream data = rectangle.Data;
+						DataStream data = new DataStream(rectangle.DataPointer, this.sfAVI画像.Description.Width * rectangle.Pitch, true, false);
 						int num5 = rectangle.Pitch / this.sfAVI画像.Description.Width;
 						BitmapUtil.BITMAPINFOHEADER* pBITMAPINFOHEADER = (BitmapUtil.BITMAPINFOHEADER*) this.pAVIBmp.ToPointer();
 						if( pBITMAPINFOHEADER->biBitCount == 0x18 )
@@ -547,7 +427,7 @@ namespace TJAPlayer3
 					{
 						try
 						{
-							TJAPlayer3.app.Device.UpdateSurface( this.sfAVI画像, new Rectangle( 0, 0, this.sfAVI画像.Description.Width, this.sfAVI画像.Description.Height ), surface, new Point( x, y ) );
+							TJAPlayer3.app.Device.UpdateSurface( this.sfAVI画像, new SharpDX.Mathematics.Interop.RawRectangle( 0, 0, this.sfAVI画像.Description.Width, this.sfAVI画像.Description.Height ), surface, new SharpDX.Mathematics.Interop.RawPoint( x, y ) );
 						}
 						catch( Exception e )	// #32335 2013.10.26 yyagi: codecがないと、D3DERR_INVALIDCALLが発生する場合がある
 						{

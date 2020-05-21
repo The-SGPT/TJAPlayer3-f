@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using SlimDX;
+using SharpDX;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3
 {

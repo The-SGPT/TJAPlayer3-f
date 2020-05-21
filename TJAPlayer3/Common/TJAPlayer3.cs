@@ -9,11 +9,15 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Threading;
 using System.Runtime.Serialization.Formatters.Binary;
-using SlimDX;
-using SlimDX.Direct3D9;
+using SharpDX;
+using SharpDX.Direct3D9;
 using FDK;
 using SampleFramework;
 using System.Reflection;
+
+using Rectangle = System.Drawing.Rectangle;
+using Point = System.Drawing.Point;
+using Color = System.Drawing.Color;
 
 namespace TJAPlayer3
 {
@@ -298,9 +302,12 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		public DeviceCache Device
+		public Device Device
 		{
-			get { return base.GraphicsDeviceManager.Direct3D9.Device; }
+			get
+			{
+				return base.GraphicsDeviceManager.Direct3D9.Device;
+			}
 		}
 		public CPluginHost PluginHost
 		{
@@ -619,9 +626,9 @@ namespace TJAPlayer3
 			#endregion
 
 			this.Device.BeginScene();
-			this.Device.Clear( ClearFlags.ZBuffer | ClearFlags.Target, Color.Black, 1f, 0 );
+			this.Device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, SharpDX.Color.Black, 1f, 0);
 
-			if( r現在のステージ != null )
+			if ( r現在のステージ != null )
 			{
 				this.n進行描画の戻り値 = ( r現在のステージ != null ) ? r現在のステージ.On進行描画() : 0;
 
