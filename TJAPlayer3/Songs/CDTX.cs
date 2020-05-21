@@ -3623,10 +3623,10 @@ namespace TJAPlayer3
 						n条件 = 0;
 						break;
 					case "r":
-						n条件 = 1;
+						n条件 = 2;
 						break;
 					case "s":
-						n条件 = 2;
+						n条件 = 1;
 						break;
 					case "d":
 						n条件 = 3;
@@ -3648,10 +3648,9 @@ namespace TJAPlayer3
 
 				var chip = new CChip();
 
-				if (n条件 == 1)
+				if (n条件 == 2)
 				{
-					/*
-					c小節前の連打開始位置 = c一小節前の小節線情報を返す(listChip, e条件, true);
+					/*c小節前の連打開始位置 = c一小節前の小節線情報を返す(listChip, n条件, true);
 
 					//連打分岐の位置を再現
 					//この計算式はあてにならないと思うが、まあどうしようもないんでこれで
