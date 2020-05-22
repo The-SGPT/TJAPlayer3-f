@@ -65,7 +65,7 @@ namespace TJAPlayer3
 		public Cスコア r確定されたスコア
 		{
 			get;
-			private set;
+			internal set;
 		}
 		public C曲リストノード r確定された曲 
 		{
