@@ -171,10 +171,6 @@ namespace TJAPlayer3
 							case 0:
 								ini.stファイル.ClearCountDrums++;
 								break;
-							case 1:
-								break;
-							case 2:
-								break;
 							default:
 								throw new Exception("クリア回数増加のk(0-2)が範囲外です。");
 						}
@@ -185,7 +181,7 @@ namespace TJAPlayer3
 				{
 					ini.t書き出し(str);
 
-					//2020.04.19 Mr-Ojii これ追加すれば記録されるんじゃね。って感じでテキトーに置きました、すみません。
+					//2020.04.19 Mr-Ojii これ追加すれば記録されるんじゃね。って感じでテキトーに置きました、すみません。/-----------------------------------------------------
 					if (TJAPlayer3.EnumSongs.IsEnumerating)
 					{
 						// Debug.WriteLine( "バックグラウンドでEnumeratingSongs中だったので、一旦中断します。" );

@@ -2721,22 +2721,21 @@ for (int i = 0; i < 3; i++) {
 			}
 			ini.stファイル.BGMAdjust = DTX[0].nBGMAdjust;
 			CScoreIni.t更新条件を取得する( out bIsUpdatedDrums, out bIsUpdatedGuitar, out bIsUpdatedBass );
-			if( bIsUpdatedDrums || bIsUpdatedGuitar || bIsUpdatedBass )
+			
+			if( bIsUpdatedDrums )
 			{
-				if( bIsUpdatedDrums )
+				ini.stファイル.PlayCountDrums++;
+			}
+			ini.tヒストリを追加する( str新ヒストリ行 );
+			if( !bコンパクトモード )
+			{
+				stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
+				for( int j = 0; j < ini.stファイル.History.Length; j++ )
 				{
-					ini.stファイル.PlayCountDrums++;
-				}
-				ini.tヒストリを追加する( str新ヒストリ行 );
-				if( !bコンパクトモード )
-				{
-					stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
-					for( int j = 0; j < ini.stファイル.History.Length; j++ )
-					{
-						stage選曲.r現在選択中のスコア.譜面情報.演奏履歴[ j ] = ini.stファイル.History[ j ];
-					}
+					stage選曲.r現在選択中のスコア.譜面情報.演奏履歴[ j ] = ini.stファイル.History[ j ];
 				}
 			}
+			
 			if( ConfigIni.bScoreIniを出力する )
 			{
 				ini.t書き出し( strFilename );

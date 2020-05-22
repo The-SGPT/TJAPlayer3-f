@@ -744,7 +744,6 @@ namespace TJAPlayer3
 			cスコア.譜面情報.b譜面分岐[4] = br.ReadBoolean();
 			cスコア.譜面情報.b譜面分岐[5] = br.ReadBoolean();
 			cスコア.譜面情報.b譜面分岐[6] = br.ReadBoolean();
-			cスコア.譜面情報.ハイスコア = br.ReadInt32();
 			cスコア.譜面情報.nハイスコア[0] = br.ReadInt32();
 			cスコア.譜面情報.nハイスコア[1] = br.ReadInt32();
 			cスコア.譜面情報.nハイスコア[2] = br.ReadInt32();
@@ -1186,7 +1185,6 @@ namespace TJAPlayer3
 					bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[4] );
 					bw.Write(node.arスコア[i].譜面情報.b譜面分岐[5]);
 					bw.Write(node.arスコア[i].譜面情報.b譜面分岐[6]);
-					bw.Write( node.arスコア[ i ].譜面情報.ハイスコア );
 					bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[0] );
 					bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[1] );
 					bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[2] );
@@ -1641,7 +1639,6 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 					#endregion
 					score.譜面情報.最大スキル[ n楽器番号 ] = ini.stセクション[ n ].db演奏型スキル値;
 					score.譜面情報.フルコンボ[ n楽器番号 ] = ini.stセクション[ n ].bフルコンボである;
-					score.譜面情報.ハイスコア = (int)ini.stセクション.HiScoreDrums.nスコア;
 					for( int i = 0; i < (int)Difficulty.Total; i++ )
 					{
 						score.譜面情報.nハイスコア[ i ] = (int)ini.stセクション.HiScoreDrums.nハイスコア[ i ];
