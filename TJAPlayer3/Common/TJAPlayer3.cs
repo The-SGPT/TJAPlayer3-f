@@ -2729,10 +2729,10 @@ for (int i = 0; i < 3; i++) {
 			ini.tヒストリを追加する( str新ヒストリ行 );
 			if( !bコンパクトモード )
 			{
-				stage選曲.r現在選択中のスコア.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
+				stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
 				for( int j = 0; j < ini.stファイル.History.Length; j++ )
 				{
-					stage選曲.r現在選択中のスコア.譜面情報.演奏履歴[ j ] = ini.stファイル.History[ j ];
+					stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.演奏履歴[ j ] = ini.stファイル.History[ j ];
 				}
 			}
 			
