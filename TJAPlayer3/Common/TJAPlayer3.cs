@@ -1997,7 +1997,7 @@ for (int i = 0; i < 3; i++) {
 				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );	// 旧指定のSkinフォルダが消滅していた場合に備える
 				Trace.TraceInformation( "スキンの初期化を完了しました。" );
 			}
-			catch (Exception e)
+			catch
 			{
 				Trace.TraceInformation( "スキンの初期化に失敗しました。" );
 				throw;
@@ -2101,7 +2101,7 @@ for (int i = 0; i < 3; i++) {
 				}
 				Trace.TraceInformation( "DirectInput の初期化を完了しました。" );
 			}
-			catch( Exception exception2 )
+			catch
 			{
 				Trace.TraceError( "DirectInput, MIDI入力の初期化に失敗しました。" );
 				throw;
