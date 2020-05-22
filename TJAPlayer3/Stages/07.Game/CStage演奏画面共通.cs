@@ -137,61 +137,6 @@ namespace TJAPlayer3
 			}
 		}
 		#endregion
-		#region [ t演奏結果を格納する_太鼓() ]
-		public void t演奏結果を格納する_太鼓( out CScoreIni.C演奏記録 Drums )
-		{
-			Drums = new CScoreIni.C演奏記録();
-
-			//if ( CDTXMania.DTX.bチップがある.Drums )
-			{
-				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX[0].LEVEL.Drums, TJAPlayer3.DTX[0].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P2, E楽器パート.DRUMS );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX[0].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS );
-				Drums.nPerfect数 = this.nヒット数_Auto含まない.Taiko.Perfect;
-				Drums.nGreat数 = this.nヒット数_Auto含まない.Taiko.Great;
-				Drums.nGood数 = this.nヒット数_Auto含まない.Taiko.Good;
-				Drums.nPoor数 = this.nヒット数_Auto含まない.Taiko.Poor;
-				Drums.nMiss数 = this.nヒット数_Auto含まない.Taiko.Miss;
-				Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Perfect;
-				Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Great;
-				Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Good;
-				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Poor;
-				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Miss;
-				Drums.n連打数 = this.n合計連打数[ 0 ];
-				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P2;
-				Drums.n全チップ数 = TJAPlayer3.DTX[0].nノーツ数[ 3 ];
-				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
-				for ( int i = 0; i < 3; i++ )
-				{
-					Drums.bSudden[ i ] = TJAPlayer3.ConfigIni.bSudden[ i ];
-					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
-					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
-					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0][ i ];
-					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
-					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
-				}
-				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
-				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
-				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
-				Drums.eダメージレベル = TJAPlayer3.ConfigIni.eダメージレベル;
-				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った.Drums;
-				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った.Drums;
-				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った.Drums;
-				Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った.Drums;
-				Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
-				Drums.nGreatになる範囲ms = TJAPlayer3.nGreat範囲ms;
-				Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
-				Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
-				Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
-				Drums.最終更新日時 = DateTime.Now.ToString();
-				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
-				Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
-			}
-		}
-		#endregion
 
 		// CStage 実装
 
