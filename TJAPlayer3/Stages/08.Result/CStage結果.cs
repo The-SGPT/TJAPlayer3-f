@@ -180,22 +180,6 @@ namespace TJAPlayer3
 				if (TJAPlayer3.ConfigIni.bScoreIniを出力する)
 				{
 					ini.t書き出し(str);
-
-					//2020.04.19 Mr-Ojii これ追加すれば記録されるんじゃね。って感じでテキトーに置きました、すみません。/-----------------------------------------------------
-					if (TJAPlayer3.EnumSongs.IsEnumerating)
-					{
-						// Debug.WriteLine( "バックグラウンドでEnumeratingSongs中だったので、一旦中断します。" );
-						TJAPlayer3.EnumSongs.Abort();
-						TJAPlayer3.actEnumSongs.On非活性化();
-					}
-
-					TJAPlayer3.EnumSongs.StartEnumFromDisk();
-					TJAPlayer3.EnumSongs.ChangeEnumeratePriority(ThreadPriority.Normal);
-					TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 = true;
-					TJAPlayer3.actEnumSongs.On活性化(); 
-					TJAPlayer3.actEnumSongs.On非活性化();
-					//ここで曲データの再読み込みをすると記録が定着する。
-					//一時的に、データが保存されない問題の解決策として、ここにこのコードを置く。不思議だね。
 				}
 				//---------------------
 				#endregion
@@ -230,8 +214,11 @@ namespace TJAPlayer3
 							{
 								cスコア.譜面情報.最大ランク[ m ] = this.nランク値[ m ];
 							}
+							cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
+							cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
 						}
 					}
+					TJAPlayer3.stage選曲.r確定されたスコア = cスコア;
 				}
 				//---------------------
 				#endregion
