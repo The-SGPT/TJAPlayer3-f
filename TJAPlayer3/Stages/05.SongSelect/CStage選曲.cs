@@ -79,13 +79,6 @@ namespace TJAPlayer3
 				return this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
 			}
 		}
-		public Cスコア r現在選択中のスコア
-		{
-			get
-			{
-				return this.act曲リスト.r現在選択中のスコア;
-			}
-		}
 		public C曲リストノード r現在選択中の曲
 		{
 			get
@@ -136,7 +129,7 @@ namespace TJAPlayer3
 			if( TJAPlayer3.app != null )
 			{
 				var c曲リストノード = TJAPlayer3.stage選曲.r現在選択中の曲;
-				var cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
+				var cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
 				if( c曲リストノード != null && cスコア != null && c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE )
 				{
