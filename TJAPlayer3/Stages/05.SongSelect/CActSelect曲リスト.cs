@@ -39,7 +39,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public int[] n現在選択中の曲の現在の難易度レベル
+		public int[] n現在選択中の曲の難易度レベル
 		{
 			get
 			{
@@ -52,7 +52,7 @@ namespace TJAPlayer3
 			{
 				if (this.r現在選択中の曲 != null)
 				{
-					return this.r現在選択中の曲.arスコア[this.n現在選択中の曲の現在の難易度レベル[0]];
+					return this.r現在選択中の曲.arスコア[this.n現在選択中の曲の難易度レベル[0]];
 				}
 				return null;
 			}
@@ -144,7 +144,7 @@ namespace TJAPlayer3
 			if (song == null)
 				return this.n現在のアンカ難易度レベル[0];  // 曲がまったくないよ
 
-			if (song.arスコア[this.n現在のアンカ難易度レベル[0]] != null)
+			if (song.arスコア[this.n現在のアンカ難易度レベル[0]] != null && song.arスコア[this.n現在のアンカ難易度レベル[0]].譜面情報.nレベル[this.n現在のアンカ難易度レベル[0]] >= 0)
 				return this.n現在のアンカ難易度レベル[0];  // 難易度ぴったりの曲があったよ
 
 			if ((song.eノード種別 == C曲リストノード.Eノード種別.BOX) || (song.eノード種別 == C曲リストノード.Eノード種別.BACKBOX))
@@ -157,7 +157,7 @@ namespace TJAPlayer3
 
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
-				if (song.arスコア[n最も近いレベル] != null)
+				if (song.arスコア[n最も近いレベル] != null && song.arスコア[n最も近いレベル].譜面情報.nレベル[n最も近いレベル] >= 0)
 					break;  // 曲があった。
 
 				n最も近いレベル = (n最も近いレベル + 1) % (int)Difficulty.Total;  // 曲がなかったので次の難易度レベルへGo。（5以上になったら0に戻る。）
@@ -175,7 +175,7 @@ namespace TJAPlayer3
 
 				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
-					if (song.arスコア[n最も近いレベル] != null)
+					if (song.arスコア[n最も近いレベル] != null && song.arスコア[n最も近いレベル].譜面情報.nレベル[n最も近いレベル] >= 0)
 						break;  // 曲があった。
 
 					n最も近いレベル = ((n最も近いレベル - 1) + (int)Difficulty.Total) % (int)Difficulty.Total;    // 曲がなかったので次の難易度レベルへGo。（0未満になったら4に戻る。）
@@ -365,24 +365,6 @@ namespace TJAPlayer3
 					break;
 			}
 
-
-			// 曲毎に表示しているスキル値を、新しい難易度レベルに合わせて取得し直す。（表示されている13曲全部。）
-
-			C曲リストノード song = this.r現在選択中の曲;
-			for (int i = 0; i < 5; i++)
-				song = this.r前の曲(song);
-
-			for (int i = this.n現在の選択行 - 5; i < ((this.n現在の選択行 - 5) + 13); i++)
-			{
-				int index = (i + 13) % 13;
-				for (int m = 0; m < 3; m++)
-				{
-					this.stバー情報[index].nスキル値[m] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[m];
-				}
-				song = this.r次の曲(song);
-			}
-
-
 			// 選曲ステージに変更通知を発出し、関係Activityの対応を行ってもらう。
 
 			TJAPlayer3.stage選曲.t選択曲変更通知();
@@ -428,23 +410,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-
-			// 曲毎に表示しているスキル値を、新しい難易度レベルに合わせて取得し直す。（表示されている13曲全部。）
-
-			C曲リストノード song = this.r現在選択中の曲;
-			for (int i = 0; i < 5; i++)
-				song = this.r前の曲(song);
-
-			for (int i = this.n現在の選択行 - 5; i < ((this.n現在の選択行 - 5) + 13); i++)
-			{
-				int index = (i + 13) % 13;
-				for (int m = 0; m < 3; m++)
-				{
-					this.stバー情報[index].nスキル値[m] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[m];
-				}
-				song = this.r次の曲(song);
-			}
-
 
 			// 選曲ステージに変更通知を発出し、関係Activityの対応を行ってもらう。
 
@@ -520,7 +485,7 @@ namespace TJAPlayer3
 		/// </summary>
 		public void t選択曲が変更された(bool bForce) // #27648
 		{
-			C曲リストノード song = TJAPlayer3.stage選曲.r現在選択中の曲;
+			C曲リストノード song = TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲;
 			if (song == null)
 				return;
 			if (song == song_last && bForce == false)
@@ -947,6 +912,7 @@ namespace TJAPlayer3
 								if (song.arスコア[f] != null) { 
 									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
 									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
+									break;
 								}
 							}
 
@@ -966,13 +932,6 @@ namespace TJAPlayer3
 								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
 							}
-
-
-							// 新しく最下部に表示されるパネル用のスキル値を取得。
-
-							for (int i = 0; i < 3; i++)
-								this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
-
 
 							// 1行(100カウント)移動完了。
 
@@ -1021,6 +980,7 @@ namespace TJAPlayer3
 								{
 									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
 									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
+									break;
 								}
 							}
 
@@ -1038,13 +998,6 @@ namespace TJAPlayer3
 								song2 = this.r次の曲(song2);
 								this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 							}
-
-
-							// 新しく最上部に表示されるパネル用のスキル値を取得。
-
-							for (int i = 0; i < 3; i++)
-								this.stバー情報[index].nスキル値[i] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[i];
-
 
 							// 1行(100カウント)移動完了。
 
@@ -1893,13 +1846,11 @@ namespace TJAPlayer3
 			public C曲リストノード.Eノード種別 eノード種別;
 			public string strタイトル文字列;
 			public CTexture txタイトル名;
-			public STDGBVALUE<int> nスキル値;
 			public Color col文字色;
 			public Color ForeColor;
 			public Color BackColor;
 			public int[] ar難易度;
 			public bool[] b分岐;
-			public bool b歌詞あり;
 			public string strジャンル;
 			public string strサブタイトル;
 			public TitleTextureKey ttkタイトル;
@@ -2156,9 +2107,6 @@ namespace TJAPlayer3
 						this.stバー情報[i].n王冠 = song.arスコア[f].譜面情報.n王冠;
 						}
 				}
-
-				for (int j = 0; j < 3; j++)
-					this.stバー情報[i].nスキル値[j] = (int)song.arスコア[this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song)].譜面情報.最大スキル[j];
 
 				this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
