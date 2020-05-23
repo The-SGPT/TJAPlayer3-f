@@ -48,7 +48,7 @@ namespace TJAPlayer3
 				for( int i = pos; i < 5; i++ )
 				{
 					if( i == pos ) continue;
-					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) return i;
+					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ i ] != false ) return i;
 					if( i == 4 ) return this.t指定した方向に近い難易度番号を返す( 0, 0 );
 				}
 			}
@@ -57,7 +57,7 @@ namespace TJAPlayer3
 				for( int i = pos; i > -1; i-- )
 				{
 					if( pos == i ) continue;
-					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) return i;
+					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ i ] != false ) return i;
 					if( i == 0 ) return this.t指定した方向に近い難易度番号を返す( 1, 4 );
 				}
 			}
@@ -94,7 +94,7 @@ namespace TJAPlayer3
 			//かんたんから一番近いところにカーソルを移動させる。
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null )
+				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ i ] != false )
 				{
 					this.n現在の選択行 = i;
 					break;
@@ -104,7 +104,7 @@ namespace TJAPlayer3
 			int n譜面数 = 0;
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
+				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ i ] != false ) n譜面数++;
 			}
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
@@ -337,7 +337,7 @@ namespace TJAPlayer3
 
 				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
-					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] == null )
+					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ i ] == false )
 						continue;
 
 					string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
@@ -353,7 +353,7 @@ namespace TJAPlayer3
 
 				for( int j = 0; j < (int)Difficulty.Total; j++ )
 				{
-					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
+					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[ n描画順[ j ] ] == false )
 						continue;
 					//if( j == 4 )
 					//    break;
