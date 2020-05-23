@@ -20,7 +20,7 @@ namespace TJAPlayer3
 			UNKNOWN
 		}
 		public int nID { get; private set; }
-		public Cスコア[] arスコア = new Cスコア[(int)Difficulty.Total];
+		public Cスコア arスコア = new Cスコア();
 		public string[] ar難易度ラベル = new string[(int)Difficulty.Total];
 		public bool bDTXFilesで始まるフォルダ名のBOXである;
 		public bool bBoxDefで作成されたBOXである

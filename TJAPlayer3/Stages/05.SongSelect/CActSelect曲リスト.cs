@@ -52,7 +52,7 @@ namespace TJAPlayer3
 			{
 				if (this.r現在選択中の曲 != null)
 				{
-					return this.r現在選択中の曲.arスコア[this.n現在選択中の曲の難易度レベル[0]];
+					return this.r現在選択中の曲.arスコア;
 				}
 				return null;
 			}
@@ -144,7 +144,7 @@ namespace TJAPlayer3
 			if (song == null)
 				return this.n現在のアンカ難易度レベル[0];  // 曲がまったくないよ
 
-			if (song.arスコア[this.n現在のアンカ難易度レベル[0]] != null && song.arスコア[this.n現在のアンカ難易度レベル[0]].譜面情報.nレベル[this.n現在のアンカ難易度レベル[0]] >= 0)
+			if (song.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[0]] != false)
 				return this.n現在のアンカ難易度レベル[0];  // 難易度ぴったりの曲があったよ
 
 			if ((song.eノード種別 == C曲リストノード.Eノード種別.BOX) || (song.eノード種別 == C曲リストノード.Eノード種別.BACKBOX))
@@ -157,7 +157,7 @@ namespace TJAPlayer3
 
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
-				if (song.arスコア[n最も近いレベル] != null && song.arスコア[n最も近いレベル].譜面情報.nレベル[n最も近いレベル] >= 0)
+				if (song.arスコア.譜面情報.b譜面が存在する[n最も近いレベル] != false)
 					break;  // 曲があった。
 
 				n最も近いレベル = (n最も近いレベル + 1) % (int)Difficulty.Total;  // 曲がなかったので次の難易度レベルへGo。（5以上になったら0に戻る。）
@@ -175,7 +175,7 @@ namespace TJAPlayer3
 
 				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
-					if (song.arスコア[n最も近いレベル] != null && song.arスコア[n最も近いレベル].譜面情報.nレベル[n最も近いレベル] >= 0)
+					if (song.arスコア.譜面情報.b譜面が存在する[n最も近いレベル] != false)
 						break;  // 曲があった。
 
 					n最も近いレベル = ((n最も近いレベル - 1) + (int)Difficulty.Total) % (int)Difficulty.Total;    // 曲がなかったので次の難易度レベルへGo。（0未満になったら4に戻る。）
@@ -361,7 +361,7 @@ namespace TJAPlayer3
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
 				this.n現在のアンカ難易度レベル[0] = (this.n現在のアンカ難易度レベル[0] + 1) % (int)Difficulty.Total;  // ５以上になったら０に戻る。
-				if (this.r現在選択中の曲.arスコア[this.n現在のアンカ難易度レベル[0]] != null)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
+				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[0]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 					break;
 			}
 
@@ -392,7 +392,7 @@ namespace TJAPlayer3
 			bool bLabel0NotFound = true;
 			for (int i = this.n現在のアンカ難易度レベル[0]; i >= 0; i--)
 			{
-				if (this.r現在選択中の曲.arスコア[i] != null)
+				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
 				{
 					this.n現在のアンカ難易度レベル[0] = i;
 					bLabel0NotFound = false;
@@ -403,7 +403,7 @@ namespace TJAPlayer3
 			{
 				for (int i = 4; i >= 0; i--)
 				{
-					if (this.r現在選択中の曲.arスコア[i] != null)
+					if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
 					{
 						this.n現在のアンカ難易度レベル[0] = i;
 						break;
@@ -907,14 +907,8 @@ namespace TJAPlayer3
 							this.stバー情報[index].strジャンル = song.strジャンル;
 							this.stバー情報[index].strサブタイトル = song.strサブタイトル;
 							this.stバー情報[index].ar難易度 = song.nLevel;
-							for (int f = 0; f < (int)Difficulty.Total; f++)
-							{
-								if (song.arスコア[f] != null) { 
-									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
-									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
-									break;
-								}
-							}
+							this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
+							this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
 
 
 							// stバー情報[] の内容を1行ずつずらす。
@@ -974,15 +968,8 @@ namespace TJAPlayer3
 							this.stバー情報[index].strサブタイトル = song.strサブタイトル;
 							this.stバー情報[index].strジャンル = song.strジャンル;
 							this.stバー情報[index].ar難易度 = song.nLevel;
-							for (int f = 0; f < (int)Difficulty.Total; f++)
-							{
-								if (song.arスコア[f] != null)
-								{
-									this.stバー情報[index].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
-									this.stバー情報[index].n王冠 = song.arスコア[f].譜面情報.n王冠;
-									break;
-								}
-							}
+							this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
+							this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
 
 							// stバー情報[] の内容を1行ずつずらす。
 
@@ -1132,9 +1119,8 @@ namespace TJAPlayer3
 									{
 										for (int i = 0; i < (int)Difficulty.Edit + 1; i++)
 										{
-											if (this.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
+											if (r現在選択中のスコア.譜面情報.b譜面が存在する[i])
 											{
-												// レベルが0以上
 												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f,1f);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
@@ -1148,7 +1134,6 @@ namespace TJAPlayer3
 											}
 											else
 											{
-												// レベルが0未満 = 譜面がないとみなす
 												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f,1f);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
@@ -1164,7 +1149,7 @@ namespace TJAPlayer3
 									}
 									else
 									{
-										if (this.r現在選択中のスコア.譜面情報.nレベル[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] >= 0)
+										if (r現在選択中のスコア.譜面情報.b譜面が存在する[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
 										{
 											// 譜面がありますね
 											TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f, 1f);
@@ -2098,15 +2083,8 @@ namespace TJAPlayer3
 				this.stバー情報[i].eノード種別 = song.eノード種別;
 				this.stバー情報[i].strサブタイトル = song.strサブタイトル;
 				this.stバー情報[i].ar難易度 = song.nLevel;
-
-
-				for (int f = 0; f < (int)Difficulty.Total; f++)
-				{
-					if (song.arスコア[f] != null) {
-						this.stバー情報[i].b分岐 = song.arスコア[f].譜面情報.b譜面分岐;
-						this.stバー情報[i].n王冠 = song.arスコア[f].譜面情報.n王冠;
-						}
-				}
+				this.stバー情報[i].b分岐 = song.arスコア.譜面情報.b譜面分岐;
+				this.stバー情報[i].n王冠 = song.arスコア.譜面情報.n王冠;
 
 				this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
