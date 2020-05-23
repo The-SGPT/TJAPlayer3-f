@@ -2753,7 +2753,7 @@ namespace TJAPlayer3
 
 					this.b強制的に分岐させた[0] = true;
 				}
-				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D2) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D2) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])
 				{
 					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
@@ -2778,7 +2778,7 @@ namespace TJAPlayer3
 
 					this.b強制的に分岐させた[0] = true;
 				}
-				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D3) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D3) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])
 				{
 					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
@@ -2803,13 +2803,9 @@ namespace TJAPlayer3
 
 					this.b強制的に分岐させた[0] = true;
 				}
-				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])		// 2020.04.20 Mr-Ojii なんかつけたくなったから。PgUpで一個↑
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D4) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
-
-					int tugi = this.nレーン用表示コース[0] + 1;
-					tugi = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す(tugi.ToString(), 0, 2, tugi);
-					if (tugi == nレーン用表示コース[0]) return;
 
 					//listBRANCHを廃止したため強制分岐の開始値を
 					//rc演奏用タイマ.n現在時刻msから引っ張ることに
@@ -2821,24 +2817,45 @@ namespace TJAPlayer3
 					if (p判定枠に最も近いチップ != null)
 						db一小節後 = ((15000.0 / p判定枠に最も近いチップ.dbBPM * (p判定枠に最も近いチップ.fNow_Measure_s / p判定枠に最も近いチップ.fNow_Measure_m)) * 16.0);
 
-					this.t分岐処理(tugi, 0, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) + db一小節後);
+					this.t分岐処理(0, 1, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) + db一小節後);
 
-					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[0].nAfter, tugi, 0);
-					TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[0], tugi, 0);
+					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[0].nAfter, 0, 1);
+					TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[1], 0, 1);
 
-					this.n現在のコース[0] = tugi;
-					this.n次回のコース[0] = tugi;
-					this.nレーン用表示コース[0] = tugi;
+					this.n現在のコース[1] = 0;
+					this.n次回のコース[1] = 0;
+					this.nレーン用表示コース[1] = 0;
 
-					this.b強制的に分岐させた[0] = true;
+					this.b強制的に分岐させた[1] = true;
 				}
-				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])		// 2020.04.21 Mr-Ojii なんかつけたくなったから。PgDnで一個↓
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D5) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
-					int tugi = this.nレーン用表示コース[0] - 1;
-					tugi = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す(tugi.ToString(), 0, 2, tugi);
-					if (tugi == nレーン用表示コース[0]) return;
+					//listBRANCHを廃止したため強制分岐の開始値を
+					//rc演奏用タイマ.n現在時刻msから引っ張ることに
+
+					//判定枠に一番近いチップの情報を元に一小節分の値を計算する. 2020.04.21 akasoko26
+					var p判定枠に最も近いチップ = r指定時刻に一番近い未ヒットChipを過去方向優先で検索する((long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 0);
+					
+					double db一小節後 = 0.0;
+					if (p判定枠に最も近いチップ != null)
+						db一小節後 = ((15000.0 / p判定枠に最も近いチップ.dbBPM * (p判定枠に最も近いチップ.fNow_Measure_s / p判定枠に最も近いチップ.fNow_Measure_m)) * 16.0);
+
+					this.t分岐処理(1, 1, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) + db一小節後);
+
+					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[0].nAfter, 1, 1);
+					TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[1], 1, 1);
+
+					this.n現在のコース[1] = 1;
+					this.n次回のコース[1] = 1;
+					this.nレーン用表示コース[1] = 1;
+
+					this.b強制的に分岐させた[1] = true;
+				}
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D6) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount>=2)
+				{
+					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
 					//listBRANCHを廃止したため強制分岐の開始値を
 					//rc演奏用タイマ.n現在時刻msから引っ張ることに
@@ -2850,16 +2867,16 @@ namespace TJAPlayer3
 					if (p判定枠に最も近いチップ != null)
 						db一小節後 = ((15000.0 / p判定枠に最も近いチップ.dbBPM * (p判定枠に最も近いチップ.fNow_Measure_s / p判定枠に最も近いチップ.fNow_Measure_m)) * 16.0);
 
-					this.t分岐処理(tugi, 0, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) + db一小節後);
+					this.t分岐処理(2, 1, (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) + db一小節後);
 
-					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[0].nAfter, tugi, 0);
-					TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[0], tugi, 0);
+					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[0].nAfter, 2, 1);
+					TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[1], 2, 1);
 
-					this.n現在のコース[0] = tugi;
-					this.n次回のコース[0] = tugi;
-					this.nレーン用表示コース[0] = tugi;
+					this.n現在のコース[1] = 2;
+					this.n次回のコース[1] = 2;
+					this.nレーン用表示コース[1] = 2;
 
-					this.b強制的に分岐させた[0] = true;
+					this.b強制的に分岐させた[1] = true;
 				}
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F4 ) )
 				{
