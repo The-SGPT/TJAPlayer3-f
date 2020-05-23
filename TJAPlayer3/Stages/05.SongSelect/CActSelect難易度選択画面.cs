@@ -48,7 +48,7 @@ namespace TJAPlayer3
 				for( int i = pos; i < 5; i++ )
 				{
 					if( i == pos ) continue;
-					if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
+					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) return i;
 					if( i == 4 ) return this.t指定した方向に近い難易度番号を返す( 0, 0 );
 				}
 			}
@@ -57,7 +57,7 @@ namespace TJAPlayer3
 				for( int i = pos; i > -1; i-- )
 				{
 					if( pos == i ) continue;
-					if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
+					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) return i;
 					if( i == 0 ) return this.t指定した方向に近い難易度番号を返す( 1, 4 );
 				}
 			}
@@ -66,7 +66,7 @@ namespace TJAPlayer3
 		
 		public void t次に移動()
 		{
-			if( TJAPlayer3.stage選曲.r現在選択中の曲 != null )
+			if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲 != null )
 			{
 				if( this.n現在の選択行 < 5 )
 				{
@@ -77,7 +77,7 @@ namespace TJAPlayer3
 		}
 		public void t前に移動()
 		{
-			if( TJAPlayer3.stage選曲.r現在選択中の曲 != null )
+			if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲 != null )
 			{
 				if( this.n現在の選択行 > 0 )
 				{
@@ -94,7 +94,7 @@ namespace TJAPlayer3
 			//かんたんから一番近いところにカーソルを移動させる。
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-				if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null )
+				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null )
 				{
 					this.n現在の選択行 = i;
 					break;
@@ -104,7 +104,7 @@ namespace TJAPlayer3
 			int n譜面数 = 0;
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-				if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
+				if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
 			}
 			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
@@ -285,7 +285,7 @@ namespace TJAPlayer3
 						( ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) ) ) )
 				{
 					TJAPlayer3.stage選曲.actPresound.tサウンド停止();
-					switch( TJAPlayer3.stage選曲.r現在選択中の曲.eノード種別 )
+					switch( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eノード種別 )
 					{
 						case C曲リストノード.Eノード種別.SCORE:
 							{
@@ -337,7 +337,7 @@ namespace TJAPlayer3
 
 				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
-					if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
+					if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ i ] == null )
 						continue;
 
 					string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
@@ -353,7 +353,7 @@ namespace TJAPlayer3
 
 				for( int j = 0; j < (int)Difficulty.Total; j++ )
 				{
-					if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
+					if( TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
 						continue;
 					//if( j == 4 )
 					//    break;

@@ -260,7 +260,7 @@ namespace TJAPlayer3
 		/// </summary>
 		private void t描画処理_ジャンル文字列()
 		{
-			C曲リストノード c曲リストノード = TJAPlayer3.stage選曲.r現在選択中の曲;
+			C曲リストノード c曲リストノード = TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲;
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 			if( ( c曲リストノード != null ) && ( cスコア != null ) )
 			{

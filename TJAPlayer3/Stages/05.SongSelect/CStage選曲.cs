@@ -76,14 +76,7 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				return this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
-			}
-		}
-		public C曲リストノード r現在選択中の曲
-		{
-			get
-			{
-				return this.act曲リスト.r現在選択中の曲;
+				return this.act曲リスト.n現在選択中の曲の難易度レベル;
 			}
 		}
 
@@ -128,7 +121,7 @@ namespace TJAPlayer3
 			//---------------------
 			if( TJAPlayer3.app != null )
 			{
-				var c曲リストノード = TJAPlayer3.stage選曲.r現在選択中の曲;
+				var c曲リストノード = TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲;
 				var cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
 				if( c曲リストノード != null && cスコア != null && c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE )
@@ -295,11 +288,11 @@ namespace TJAPlayer3
 				if( TJAPlayer3.Tx.SongSelect_Background != null )
 					TJAPlayer3.Tx.SongSelect_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
-				if( this.r現在選択中の曲 != null )
+				if( act曲リスト.r現在選択中の曲 != null )
 				{
-					if(TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 0 || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					if(TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum( act曲リスト.r現在選択中の曲.strジャンル) != 0 || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
 					{
-						nGenreBack = TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+						nGenreBack = TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
 					}
 					if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
 					{
@@ -403,7 +396,7 @@ namespace TJAPlayer3
 				this.actShowCurrentPosition.On進行描画();                               // #27648 2011.3.28 yyagi
 
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
-				if (r現在選択中の曲 != null)
+				if (act曲リスト.r現在選択中の曲 != null)
 				{
 					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
 				}
@@ -1002,7 +995,7 @@ namespace TJAPlayer3
 		{
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
-			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の現在の難易度レベル[0];
+			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の難易度レベル[0];
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
