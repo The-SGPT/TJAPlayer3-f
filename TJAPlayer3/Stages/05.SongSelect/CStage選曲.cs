@@ -534,7 +534,7 @@ namespace TJAPlayer3
 									switch (this.act曲リスト.r現在選択中の曲.eノード種別)
 									{
 										case C曲リストノード.Eノード種別.SCORE:
-											if (this.n現在選択中の曲の難易度[0] != 6 || TJAPlayer3.ConfigIni.nPlayerCount != 2)
+											if (!(this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 											{
 												if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
 													TJAPlayer3.Skin.sound曲決定音.t再生する();
