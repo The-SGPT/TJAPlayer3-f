@@ -2889,17 +2889,11 @@ namespace TJAPlayer3
 #if DEBUG
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F6 ) )
 				{
-					if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false )
-						TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = true;
-					else
-						TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = false;
+					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 				}
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F7 ) )
 				{
-					if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] == false )
-						TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = true;
-					else
-						TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = false;
+					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 				}
 #endif
 			}
