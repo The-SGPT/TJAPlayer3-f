@@ -68,6 +68,9 @@ SongSelect_ForeColor_Namco=#980E00
 //「とじる」の文字のY座標を相対的に変更する
 SongSelect_BackBoxText_Y_Diff=0
 
+//Box_Center_HeaderのY座標を相対的に変更する
+SongSelect_Box_Center_Header_Y_Diff=0
+
 //リザルト画面での王冠の座標
 Result_Crown_XY=350,200
 
