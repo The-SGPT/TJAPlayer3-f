@@ -22,6 +22,7 @@ namespace TJAPlayer3
 
 		// InSongSelect
 		const string DIFFICULITY = @"1_Difficulty_Select\";
+		const string BOX_CENTER = @"2_Box_Center\";
 
 		// InGame
 		const string CHARA = @"1_Chara\";
@@ -149,7 +150,15 @@ namespace TJAPlayer3
 			}
 			for (int i = 0; i <  SongSelect_Box_Center_Genre.Length; i++)
 			{
-				 SongSelect_Box_Center_Genre[i] = TxC(SONGSELECT + @"Box_Center_Genre_" + i.ToString() + ".png");
+				SongSelect_Box_Center_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Genre_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < SongSelect_Box_Center_Header_Genre.Length; i++)
+			{
+				SongSelect_Box_Center_Header_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Header_Genre_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < SongSelect_Box_Center_Text_Genre.Length; i++)
+			{
+				SongSelect_Box_Center_Text_Genre[i] = TxC(SONGSELECT +BOX_CENTER+ @"Box_Center_Text_Genre_" + i.ToString() + ".png");
 			}
 			for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
 			{
@@ -647,6 +656,14 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Box_Center_Genre[i]);
 			}
+			for (int i = 0; i < SongSelect_Box_Center_Header_Genre.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref SongSelect_Box_Center_Header_Genre[i]);
+			}
+			for (int i = 0; i < SongSelect_Box_Center_Text_Genre.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref SongSelect_Box_Center_Text_Genre[i]);
+			}
 			for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
 			{
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Center_Back_Genre[i]);
@@ -1057,6 +1074,8 @@ namespace TJAPlayer3
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
 			SongSelect_Lyric_Text = new CTexture[9],
 			SongSelect_Box_Center_Genre = new CTexture[9],
+			SongSelect_Box_Center_Header_Genre = new CTexture[9],
+			SongSelect_Box_Center_Text_Genre = new CTexture[9],
 			SongSelect_Bar_Center_Back_Genre = new CTexture[9],
 			SongSelect_Bar_Genre = new CTexture[9],
 			SongSelect_Bar_Box_Genre = new CTexture[9],
