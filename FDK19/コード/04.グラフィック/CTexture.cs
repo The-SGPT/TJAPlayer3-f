@@ -435,7 +435,7 @@ namespace FDK
 		}
 		public void t2D拡大率考慮中央基準描画(Device device, float x, float y)
 		{
-			this.t2D拡大率考慮下中心基準描画(device, (int)x, (int)y);
+			this.t2D拡大率考慮中央基準描画(device, (int)x, (int)y);
 		}
 
 
