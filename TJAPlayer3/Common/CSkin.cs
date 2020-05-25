@@ -34,6 +34,7 @@ namespace TJAPlayer3
 		SOUND風船,
 		SOUND曲決定音,
 		SOUND成績発表,
+		SOUNDDANするカッ,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -323,6 +324,7 @@ namespace TJAPlayer3
 		public Cシステムサウンド bgmリザルトループ = null;
 		public Cシステムサウンド sound曲決定音 = null;
 		public Cシステムサウンド sound成績発表 = null;
+		public Cシステムサウンド soundDanするカッ = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -398,6 +400,9 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.SOUND成績発表:
 						return this.sound成績発表;
+
+					case Eシステムサウンド.SOUNDDANするカッ:
+						return this.soundDanするカッ;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -470,6 +475,9 @@ namespace TJAPlayer3
 
 					case 18:
 						return this.sound成績発表;
+
+					case 19:
+						return this.soundDanするカッ;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -624,6 +632,7 @@ namespace TJAPlayer3
 			this.soundBalloon = new Cシステムサウンド(@"Sounds\balloon.ogg", false, false, true, ESoundGroup.SoundEffect);
 			this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, true, ESoundGroup.Voice);
 			this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, false, ESoundGroup.Voice);
+			this.soundDanするカッ = new Cシステムサウンド(@"Sounds\Dan_Select.ogg", false, false, true, ESoundGroup.Voice);
 			ReloadSkin();
 			tReadSkinConfig();
 		}
@@ -840,7 +849,7 @@ namespace TJAPlayer3
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
 				if (!File.Exists(Path(path))) return;
-				Encoding enc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(path);
+				Encoding enc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(Path(path));
 				using (var streamReader = new StreamReader(Path(path), enc))
 				{
 					while (streamReader.Peek() > -1) // 一行ずつ読み込む。

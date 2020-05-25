@@ -20,6 +20,9 @@ namespace TJAPlayer3
 		const string RESULT = @"6_Result\";
 		const string EXIT = @"7_Exit\";
 
+		// InSongSelect
+		const string DIFFICULITY = @"1_Difficulty_Select\";
+
 		// InGame
 		const string CHARA = @"1_Chara\";
 		const string DANCER = @"2_Dancer\";
@@ -130,6 +133,8 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
 			SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
 			SongSelect_Bar_BackBox = TxC(SONGSELECT + @"Bar_BackBox.png");
+			SongSelect_Dan_Box = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box.png");
+			SongSelect_Dan_Box_Selecting = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box_Selecting.png");
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
 				SongSelect_Lyric_Text[i] = TxC(SONGSELECT + @"Lyric_Text_" + i.ToString() + ".png");
@@ -624,6 +629,8 @@ namespace TJAPlayer3
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Tempcounter);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_BackBox);
+			TJAPlayer3.tテクスチャの解放(ref SongSelect_Dan_Box);
+			TJAPlayer3.tテクスチャの解放(ref SongSelect_Dan_Box_Selecting);
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Lyric_Text[i]);
@@ -1043,7 +1050,9 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Right,
 			SongSelect_ScoreWindow_Text,
 			SongSelect_Tempcounter,
-			SongSelect_Bar_BackBox;
+			SongSelect_Bar_BackBox,
+			SongSelect_Dan_Box,
+			SongSelect_Dan_Box_Selecting;
 		public CTexture[] SongSelect_GenreBack = new CTexture[9],
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
 			SongSelect_Lyric_Text = new CTexture[9],

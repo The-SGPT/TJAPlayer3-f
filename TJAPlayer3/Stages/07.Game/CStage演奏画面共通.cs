@@ -81,6 +81,12 @@ namespace TJAPlayer3
 					if ( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
 						Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
 
+					var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
+					for (int i = 0; i < danC.Length; i++)
+					{
+						Drums.Dan_C[i] = danC[i];
+					}
+
 					Drums.n王冠 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠;
 
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
@@ -107,7 +113,7 @@ namespace TJAPlayer3
 						}
 					}
 					else {
-						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録.Drums.Dan_C))
+						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C))
 						{
 							case Exam.Status.Failure:
 								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 0)
@@ -128,11 +134,6 @@ namespace TJAPlayer3
 						}
 					}
 
-				}
-				var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
-				for (int i = 0; i < danC.Length; i++)
-				{
-					Drums.Dan_C[i] = danC[i];
 				}
 			}
 		}
@@ -1306,7 +1307,6 @@ namespace TJAPlayer3
 											this.nHand[ nPlayer ] = 0;
 
 										TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
-										//CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
 										TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
 										TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
 								
