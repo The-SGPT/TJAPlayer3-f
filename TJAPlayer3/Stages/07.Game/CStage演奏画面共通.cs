@@ -53,7 +53,7 @@ namespace TJAPlayer3
 					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
 					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
 					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0][ i ];
+					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0];
 					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
 					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
 					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
@@ -224,6 +224,7 @@ namespace TJAPlayer3
 			this.bUseBranch = new bool[]{ false, false, false, false };
 			this.n現在のコース = new int[ 4 ];
 			this.n次回のコース = new int[ 4 ];
+			this.nレーン用表示コース = new int[4];
 			for (int i = 0; i < 2; i++)
 			{
 				this.b強制的に分岐させた[i] = false;
@@ -240,7 +241,6 @@ namespace TJAPlayer3
 				//大音符分岐時の情報をまとめるため
 				this.CBranchScore[i].cBigNotes = new CBRANCHSCORE();
 			}
-			this.nレーン用表示コース = new int[ 4 ];
 			this.b連打中 = new bool[]{ false, false, false, false };
 			this.n現在の連打数 = new int[]{ 0, 0, 0, 0 };
 			this.n合計連打数 = new int[]{ 0, 0, 0, 0 };
@@ -497,6 +497,7 @@ namespace TJAPlayer3
 		public CAct演奏DrumsMob actMob;
 		public Dan_Cert actDan;
 		public bool bPAUSE;
+		public bool bTjiroPRESSSPACE;
 		public bool[] bIsAlreadyCleared;
 		public bool[] bIsAlreadyMaxed;
 		protected STDGBVALUE<bool> b演奏にMIDI入力を使った;
@@ -4442,6 +4443,8 @@ namespace TJAPlayer3
 		{
 			TJAPlayer3.ConfigIni.bAVI有効 = true;
 			TJAPlayer3.ConfigIni.bBGA有効 = true;
+			TJAPlayer3.ConfigIni.eRandom[0] = Eランダムモード.OFF;
+			TJAPlayer3.ConfigIni.eRandom[1] = Eランダムモード.OFF;
 			for ( int i = 0; i < 3; i++ )
 			{
 				TJAPlayer3.ConfigIni.bGraph[ i ] = false;
@@ -4451,8 +4454,6 @@ namespace TJAPlayer3
 				TJAPlayer3.ConfigIni.bReverse[ i ] = false;
 				TJAPlayer3.ConfigIni.bSudden[ i ] = false;
 				TJAPlayer3.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
-				TJAPlayer3.ConfigIni.eRandom[0][ i ] = Eランダムモード.OFF;
-				TJAPlayer3.ConfigIni.eRandom[1][ i ] = Eランダムモード.OFF;
 				TJAPlayer3.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
 				TJAPlayer3.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
 				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。

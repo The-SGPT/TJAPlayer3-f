@@ -476,7 +476,7 @@ namespace TJAPlayer3
 
 							for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 							{
-								TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[nPlayer].Taiko);
+								TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[nPlayer]);
 								//太鼓チップをランダム化する際、1P後2Pの処理をすぐに行うと、
 								//1Pと酷似した、もしくは全く同じチップが流れてしまうので、
 								//1Pのランダム化後、ある程度時間を空ける。

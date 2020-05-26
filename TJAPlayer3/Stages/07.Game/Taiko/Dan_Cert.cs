@@ -507,7 +507,7 @@ namespace TJAPlayer3
 			var notesRemainDigit = 0;
 			for (int i = value.ToString().Length; i > 0; i--)
 			{
-				var number = Convert.ToInt32(value.ToString()[i - 1].ToString());
+				var number = (int)(value / Math.Pow(10, value.ToString().Length - i) % 10);
 				Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_DanC_Number_Size[0] * number - 1, 0, TJAPlayer3.Skin.Game_DanC_Number_Size[0], TJAPlayer3.Skin.Game_DanC_Number_Size[1]);
 				if(TJAPlayer3.Tx.DanC_Number != null)
 				{
