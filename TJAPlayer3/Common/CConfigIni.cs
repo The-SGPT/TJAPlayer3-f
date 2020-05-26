@@ -644,7 +644,7 @@ namespace TJAPlayer3
 		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
 		public Dictionary<int, string> dicJoystick;
 		public Eダークモード eDark;
-		public STDGBVALUE<Eランダムモード>[] eRandom;
+		public Eランダムモード[] eRandom;
 		public Eダメージレベル eダメージレベル;
 		public CKeyAssign KeyAssign;
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
@@ -767,6 +767,7 @@ namespace TJAPlayer3
 
 		public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
 
+		public bool bTaikojiromode = false;
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
 //		public int nハイハット切り捨て下限Velocity;
@@ -1026,7 +1027,7 @@ namespace TJAPlayer3
 			this.bSudden = new STDGBVALUE<bool>();
 			this.bHidden = new STDGBVALUE<bool>();
 			this.bReverse = new STDGBVALUE<bool>();
-			this.eRandom = new STDGBVALUE<Eランダムモード>[2];
+			this.eRandom = new Eランダムモード[2];
 			this.bLight = new STDGBVALUE<bool>();
 			this.bLeft = new STDGBVALUE<bool>();
 			this.判定文字表示位置 = new STDGBVALUE<E判定文字表示位置>();
@@ -1034,13 +1035,13 @@ namespace TJAPlayer3
 			this.nInputAdjustTimeMs = 0;
 			this.nJudgeLinePosOffset = new STDGBVALUE<int>();	// #31602 2013.6.23 yyagi
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
+			this.eRandom[0] = Eランダムモード.OFF;
+			this.eRandom[1] = Eランダムモード.OFF;
 			for ( int i = 0; i < 3; i++ )
 			{
 				this.bSudden[ i ] = false;
 				this.bHidden[ i ] = false;
 				this.bReverse[ i ] = false;
-				this.eRandom[0][ i ] = Eランダムモード.OFF;
-				this.eRandom[1][ i ] = Eランダムモード.OFF;
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
 				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
@@ -1613,8 +1614,8 @@ namespace TJAPlayer3
 			sw.WriteLine( "DefaultSongSort={0}", this.nDefaultSongSort );
 			sw.WriteLine();
 			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
-			sw.WriteLine( "1PTaikoRandom={0}", (int) this.eRandom[0].Taiko );
-			sw.WriteLine( "2PTaikoRandom={0}", (int) this.eRandom[1].Taiko);
+			sw.WriteLine( "1PTaikoRandom={0}", (int) this.eRandom[0]);
+			sw.WriteLine( "2PTaikoRandom={0}", (int) this.eRandom[1]);
 			sw.WriteLine();
 			sw.WriteLine( "; 1PSTEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
 			sw.WriteLine( "1PTaikoStealth={0}", (int) this.eSTEALTH[0] );
@@ -1632,6 +1633,9 @@ namespace TJAPlayer3
 			sw.WriteLine( "; プレイ人数" );
 			sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
 			sw.WriteLine();
+			//sw.WriteLine("; 次郎モード");
+			//sw.WriteLine("Taikojiromode={0}", this.bTaikojiromode ? 1 : 0);
+			///sw.WriteLine();
 			//sw.WriteLine( "; 選曲画面の初期選択難易度(ベータ版)" );
 			//sw.WriteLine( "DifficultPriority={0}", this.bJudgeCountDisplay ? 1 : 0 );
 			//sw.WriteLine();
@@ -2359,11 +2363,11 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "1PTaikoRandom" ) )
 											{
-												this.eRandom[0].Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0].Taiko );
+												this.eRandom[0] = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0] );
 											}
 											else if (str3.Equals("2PTaikoRandom"))
 											{
-												this.eRandom[1].Taiko = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1].Taiko );
+												this.eRandom[1] = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1] );
 											}
 											else if( str3.Equals( "1PTaikoStealth" ) )
 											{
@@ -2389,6 +2393,10 @@ namespace TJAPlayer3
 											{
 												this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
 											}
+											//else if (str3.Equals("Taikojiromode"))
+											//{
+											//	this.bTaikojiromode = C変換.bONorOFF(str4[0]);
+											//}
 											else if(str3.Equals("1PShinuchiMode"))
 											{
 												ShinuchiMode[0] = C変換.bONorOFF(str4[0]);

@@ -77,7 +77,7 @@ namespace TJAPlayer3
 				"Note: It also changes the songs' pitch." ) );
 			#endregion
 			#region [ 個別 Sud/Hid ]
-			l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom[nPlayer].Taiko,
+			l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom[nPlayer],
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
@@ -133,7 +133,7 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
 					break;
 				case (int) EOrder.Random:
-					TJAPlayer3.ConfigIni.eRandom[nPlayer].Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
+					TJAPlayer3.ConfigIni.eRandom[nPlayer] = (Eランダムモード)GetIndex( (int)EOrder.Random );
 					break;
 				case (int) EOrder.Stealth:
 					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
