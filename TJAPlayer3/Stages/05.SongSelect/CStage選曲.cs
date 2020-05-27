@@ -434,7 +434,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 							DanSelectingRow = 1;
 						}
-						#endregion
+						# endregion
 					}
 					#endregion
 

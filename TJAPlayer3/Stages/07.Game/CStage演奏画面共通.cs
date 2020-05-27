@@ -581,29 +581,6 @@ namespace TJAPlayer3
 		protected const int NOTE_GAP = 25;
 		
 		public int nLoopCount_Clear;
-
-		//Type-Bの場合
-		//0:1～9
-		//1:10～19
-		//2:20～29
-		//3:
-		//4:
-		//5:
-		//6:
-		//7:
-		//8:
-		//9:
-		//10:100以降
-		//
-		//Type-Cの場合
-		//0:1～9
-		//1:10～29
-		//2:30～49
-		//3:50～99
-		//4:100以降
-		//5～9:使用しない
-		//
-		//Type-Aの場合は使いません。
 		protected int[] nScore = new int[11];
 
 		protected int[] nHand = new int[4];
@@ -625,7 +602,6 @@ namespace TJAPlayer3
 
 
 		private bool[] b強制分岐譜面 = new bool[4];
-		private int nBranch種類;
 		public double nBranch条件数値A;
 		public double nBranch条件数値B;
 		private int ListDan_Number;
@@ -1238,9 +1214,6 @@ namespace TJAPlayer3
 		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode, bool bCorrectLane, int nNowInput, int nPlayer )
 		{
 			//unsafeコードにつき、デバッグ中の変更厳禁!
-
-			//if( ( pChip.nコース != this.n現在のコース ) && !CDTXMania.DTX.bチップがある.Branch )
-				//return E判定.Auto;
 			bool bAutoPlay = false;
 			switch( nPlayer )
 			{
@@ -2806,7 +2779,7 @@ namespace TJAPlayer3
 				}
 				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D4) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
-					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
+					if (!TJAPlayer3.DTX[1].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
 					//listBRANCHを廃止したため強制分岐の開始値を
 					//rc演奏用タイマ.n現在時刻msから引っ張ることに
@@ -2831,7 +2804,7 @@ namespace TJAPlayer3
 				}
 				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D5) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
-					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
+					if (!TJAPlayer3.DTX[1].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
 					//listBRANCHを廃止したため強制分岐の開始値を
 					//rc演奏用タイマ.n現在時刻msから引っ張ることに
@@ -2856,7 +2829,7 @@ namespace TJAPlayer3
 				}
 				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D6) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount>=2)
 				{
-					if (!TJAPlayer3.DTX[0].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
+					if (!TJAPlayer3.DTX[1].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 
 					//listBRANCHを廃止したため強制分岐の開始値を
 					//rc演奏用タイマ.n現在時刻msから引っ張ることに
@@ -3809,7 +3782,6 @@ namespace TJAPlayer3
 							this.b強制分岐譜面[nPlayer] = false;
 
 							//分岐の種類はプレイヤー関係ないと思う
-							this.nBranch種類 = pChip.n分岐の種類;
 							this.nBranch条件数値A = pChip.db条件数値A;
 							this.nBranch条件数値B = pChip.db条件数値B;
 
@@ -4016,7 +3988,7 @@ namespace TJAPlayer3
 			{
 				if ((n良 + n可 + n不可) != 0)
 				{
-					dbRate = (double)(n良 * 2.0 + n可) / (double)(n良 + n可 + n不可) * 100.0 ; //2020.05.21 Mr-Ojii 計算式変更
+					dbRate = (double)(n良 * 2.0 + n可) / (double)((n良 + n可 + n不可)* 2.0) * 100.0 ; //2020.05.21 Mr-Ojii 計算式変更
 				}
 			}
 			else if (n種類 == 1)
@@ -4031,12 +4003,12 @@ namespace TJAPlayer3
 				dbRate = cBRANCHSCORE.nGreat;
 			}
 
-			if (n種類 == 0 || n種類 == 2)
+			if (n種類 == 0 || n種類 == 1)
 			{
 				if (dbRate < pChip.db条件数値A)
 				{
-					this.nレーン用表示コース[nPlayer] = 0;
 					this.n次回のコース[nPlayer] = 0;
+					this.nレーン用表示コース[nPlayer] = 0;
 				}
 				else if (dbRate >= pChip.db条件数値A && dbRate < pChip.db条件数値B)
 				{
@@ -4049,7 +4021,7 @@ namespace TJAPlayer3
 					this.nレーン用表示コース[nPlayer] = 2;
 				}
 			}
-			else if (n種類 == 1)
+			else if (n種類 == 2)
 			{
 				if (!(pChip.db条件数値A == 0 && pChip.db条件数値B == 0))
 				{

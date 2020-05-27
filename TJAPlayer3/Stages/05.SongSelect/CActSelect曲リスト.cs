@@ -1152,6 +1152,7 @@ namespace TJAPlayer3
 									{
 										for (int i = 0; i < (int)Difficulty.Edit + 1; i++)
 										{
+											Console.WriteLine(r現在選択中のスコア.ファイル情報.ファイルの絶対パス + "のコース"+ i + "=" + (r現在選択中のスコア.譜面情報.b譜面が存在する[i].ToString()));
 											if (r現在選択中のスコア.譜面情報.b譜面が存在する[i])
 											{
 												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f,1f);
