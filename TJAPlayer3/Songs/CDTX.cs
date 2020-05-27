@@ -3592,7 +3592,7 @@ namespace TJAPlayer3
 				this.b分岐を一回でも開始した = true;
 
 				//分岐:分岐スタート
-				int n条件 = 0;
+				int n条件;
 
 				//条件数値。
 				double[] nNum = new double[2];
@@ -3609,12 +3609,6 @@ namespace TJAPlayer3
 				#endregion
 
 				var branchStartArgumentMatch = BranchStartArgumentRegex.Match(argument);
-				if (!branchStartArgumentMatch.Success)
-				{
-					Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #BRANCHSTART 命令が正しく記述されていません。 ({strファイル名の絶対パス})");
-					return;
-				}
-
 				nNum[0] = Convert.ToDouble(branchStartArgumentMatch.Groups[2].Value);
 				nNum[1] = Convert.ToDouble(branchStartArgumentMatch.Groups[3].Value);
 				switch (branchStartArgumentMatch.Groups[1].Value)
@@ -3622,11 +3616,11 @@ namespace TJAPlayer3
 					case "p":
 						n条件 = 0;
 						break;
-					case "r":
-						n条件 = 2;
-						break;
 					case "s":
 						n条件 = 1;
+						break;
+					case "r":
+						n条件 = 2;
 						break;
 					case "d":
 						n条件 = 3;
