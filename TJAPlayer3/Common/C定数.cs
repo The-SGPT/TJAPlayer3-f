@@ -213,7 +213,9 @@ namespace TJAPlayer3
 		Poor	= 3,
 		Miss	= 4,
 		Bad		= 5,
-		Auto
+		AutoPerfect = 6,
+		AutoGreat   = 7,
+		AutoGood    = 8,
 	}
 	internal enum E判定文字表示位置
 	{
