@@ -700,15 +700,6 @@ namespace TJAPlayer3
 			return eJudgeResult;
 		}
 
-		protected override void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss(nCource, part, 0, E楽器パート.DRUMS );
-		}
-		protected override void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part, int nLane )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss(nCource, part, nLane, E楽器パート.DRUMS );
-		}
-
 		private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, bool b両手入力, int nPlayer )
 		{
 			int nInput = 0;

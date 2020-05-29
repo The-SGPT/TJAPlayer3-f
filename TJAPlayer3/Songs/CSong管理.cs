@@ -625,7 +625,7 @@ namespace TJAPlayer3
 			cスコア.譜面情報.フルコンボ.Drums = br.ReadBoolean();
 			cスコア.譜面情報.フルコンボ.Guitar = br.ReadBoolean();
 			cスコア.譜面情報.フルコンボ.Bass = br.ReadBoolean();
-			cスコア.譜面情報.演奏回数.Drums = br.ReadInt32();
+			cスコア.譜面情報.演奏回数 = br.ReadInt32();
 			cスコア.譜面情報.演奏履歴.行1 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行2 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行3 = br.ReadString();
@@ -1079,7 +1079,7 @@ namespace TJAPlayer3
 					bw.Write( node.arスコア.譜面情報.フルコンボ.Drums );
 					bw.Write( node.arスコア.譜面情報.フルコンボ.Guitar );
 					bw.Write( node.arスコア.譜面情報.フルコンボ.Bass );
-					bw.Write( node.arスコア.譜面情報.演奏回数.Drums );
+					bw.Write( node.arスコア.譜面情報.演奏回数 );
 					bw.Write( node.arスコア.譜面情報.演奏履歴.行1 );
 					bw.Write( node.arスコア.譜面情報.演奏履歴.行2 );
 					bw.Write( node.arスコア.譜面情報.演奏履歴.行3 );
@@ -1321,7 +1321,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScoreDrums.n王冠[i];
 					}
 				}
-				score.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
+				score.譜面情報.演奏回数 = ini.stファイル.PlayCountDrums;
 				//for( int i = 0; i < (int)Difficulty.Total; i++ )
 				//	score.譜面情報.演奏履歴[ i ] = ini.stファイル.History[ i ];//2020.04.18 Mr-Ojii ここで例外処理起こすしなぜこのコードが必要かがわからなかったので、コメントアウト化
 			}

@@ -164,7 +164,6 @@ namespace TJAPlayer3
 			public STDGBVALUE<bool> bReverse;
 			public bool bSTAGEFAILED有効;
 			public STDGBVALUE<bool> bSudden;
-			public STDGBVALUE<EInvisible> eInvisible;
 			public bool bTight;
 			public bool b演奏にMIDI入力を使用した;
 			public bool b演奏にキーボードを使用した;
@@ -173,7 +172,7 @@ namespace TJAPlayer3
 			public double dbゲーム型スキル値;
 			public double db演奏型スキル値;
 			public Eダークモード eDark;
-			public STDGBVALUE<Eランダムモード> eRandom;
+			public Eランダムモード eRandom;
 			public Eダメージレベル eダメージレベル;
 			public STDGBVALUE<float> f譜面スクロール速度;
 			public string Hash;
@@ -220,18 +219,11 @@ namespace TJAPlayer3
 				this.bHidden.Drums = false;
 				this.bHidden.Guitar = false;
 				this.bHidden.Bass = false;
-				this.eInvisible = new STDGBVALUE<EInvisible>();
-				this.eInvisible.Drums = EInvisible.OFF;
-				this.eInvisible.Guitar = EInvisible.OFF;
-				this.eInvisible.Bass = EInvisible.OFF;
 				this.bReverse = new STDGBVALUE<bool>();
 				this.bReverse.Drums = false;
 				this.bReverse.Guitar = false;
 				this.bReverse.Bass = false;
-				this.eRandom = new STDGBVALUE<Eランダムモード>();
-				this.eRandom.Drums = Eランダムモード.OFF;
-				this.eRandom.Guitar = Eランダムモード.OFF;
-				this.eRandom.Bass = Eランダムモード.OFF;
+				this.eRandom = Eランダムモード.OFF;
 				this.bLight = new STDGBVALUE<bool>();
 				this.bLight.Drums = false;
 				this.bLight.Guitar = false;
@@ -684,18 +676,6 @@ namespace TJAPlayer3
 							{
 								c演奏記録.bHidden.Bass = C変換.bONorOFF( para[ 0 ] );
 							}
-							else if ( item.Equals( "InvisibleDrums" ) )
-							{
-								c演奏記録.eInvisible.Drums = (EInvisible) int.Parse( para );
-							}
-							else if ( item.Equals( "InvisibleGuitar" ) )
-							{
-								c演奏記録.eInvisible.Guitar = (EInvisible) int.Parse( para );
-							}
-							else if ( item.Equals( "InvisibleBass" ) )
-							{
-								c演奏記録.eInvisible.Bass = (EInvisible) int.Parse( para );
-							}
 							else if ( item.Equals( "ReverseDrums" ) )
 							{
 								c演奏記録.bReverse.Drums = C変換.bONorOFF( para[ 0 ] );
@@ -711,64 +691,6 @@ namespace TJAPlayer3
 							#endregion
 							else
 							{
-								#region [ RandomGuitar ]
-								if ( item.Equals( "RandomGuitar" ) )
-								{
-									switch ( int.Parse( para ) )
-									{
-										case (int) Eランダムモード.OFF:
-											{
-												c演奏記録.eRandom.Guitar = Eランダムモード.OFF;
-												continue;
-											}
-										case (int) Eランダムモード.RANDOM:
-											{
-												c演奏記録.eRandom.Guitar = Eランダムモード.RANDOM;
-												continue;
-											}
-										case (int) Eランダムモード.SUPERRANDOM:
-											{
-												c演奏記録.eRandom.Guitar = Eランダムモード.SUPERRANDOM;
-												continue;
-											}
-										case (int) Eランダムモード.HYPERRANDOM:		// #25452 2011.6.20 yyagi
-											{
-												c演奏記録.eRandom.Guitar = Eランダムモード.SUPERRANDOM;
-												continue;
-											}
-									}
-									throw new Exception( "RandomGuitar の値が無効です。" );
-								}
-								#endregion
-								#region [ RandomBass ]
-								if ( item.Equals( "RandomBass" ) )
-								{
-									switch ( int.Parse( para ) )
-									{
-										case (int) Eランダムモード.OFF:
-											{
-												c演奏記録.eRandom.Bass = Eランダムモード.OFF;
-												continue;
-											}
-										case (int) Eランダムモード.RANDOM:
-											{
-												c演奏記録.eRandom.Bass = Eランダムモード.RANDOM;
-												continue;
-											}
-										case (int) Eランダムモード.SUPERRANDOM:
-											{
-												c演奏記録.eRandom.Bass = Eランダムモード.SUPERRANDOM;
-												continue;
-											}
-										case (int) Eランダムモード.HYPERRANDOM:		// #25452 2011.6.20 yyagi
-											{
-												c演奏記録.eRandom.Bass = Eランダムモード.SUPERRANDOM;
-												continue;
-											}
-									}
-									throw new Exception( "RandomBass の値が無効です。" );
-								}
-								#endregion
 								#region [ LightGuitar ]
 								if ( item.Equals( "LightGuitar" ) )
 								{
@@ -1063,15 +985,11 @@ namespace TJAPlayer3
 					writer.WriteLine("HiddenDrums={0}", this.stセクション[i].bHidden.Drums ? 1 : 0);
 					writer.WriteLine("HiddenGuitar={0}", this.stセクション[i].bHidden.Guitar ? 1 : 0);
 					writer.WriteLine("HiddenBass={0}", this.stセクション[i].bHidden.Bass ? 1 : 0);
-					writer.WriteLine("InvisibleDrums={0}", (int)this.stセクション[i].eInvisible.Drums);
-					writer.WriteLine("InvisibleGuitar={0}", (int)this.stセクション[i].eInvisible.Guitar);
-					writer.WriteLine("InvisibleBass={0}", (int)this.stセクション[i].eInvisible.Bass);
 					writer.WriteLine("ReverseDrums={0}", this.stセクション[i].bReverse.Drums ? 1 : 0);
 					writer.WriteLine("ReverseGuitar={0}", this.stセクション[i].bReverse.Guitar ? 1 : 0);
 					writer.WriteLine("ReverseBass={0}", this.stセクション[i].bReverse.Bass ? 1 : 0);
 					writer.WriteLine("TightDrums={0}", this.stセクション[i].bTight ? 1 : 0);
-					writer.WriteLine("RandomGuitar={0}", (int)this.stセクション[i].eRandom.Guitar);
-					writer.WriteLine("RandomBass={0}", (int)this.stセクション[i].eRandom.Bass);
+					writer.WriteLine("RandomDrums={0}", (int)this.stセクション[i].eRandom);
 					writer.WriteLine("LightGuitar={0}", this.stセクション[i].bLight.Guitar ? 1 : 0);
 					writer.WriteLine("LightBass={0}", this.stセクション[i].bLight.Bass ? 1 : 0);
 					writer.WriteLine("LeftGuitar={0}", this.stセクション[i].bLeft.Guitar ? 1 : 0);
@@ -1260,14 +1178,9 @@ namespace TJAPlayer3
 			builder.Append( boolToChar( cc.bHidden.Drums ) );
 			builder.Append( boolToChar( cc.bHidden.Guitar ) );
 			builder.Append( boolToChar( cc.bHidden.Bass ) );
-			builder.Append( (int) cc.eInvisible.Drums );
-			builder.Append( (int) cc.eInvisible.Guitar );
-			builder.Append( (int) cc.eInvisible.Bass );
 			builder.Append( boolToChar( cc.bReverse.Drums ) );
 			builder.Append( boolToChar( cc.bReverse.Guitar ) );
 			builder.Append( boolToChar( cc.bReverse.Bass ) );
-			builder.Append( (int) cc.eRandom.Guitar );
-			builder.Append( (int) cc.eRandom.Bass );
 			builder.Append( boolToChar( cc.bLight.Guitar ) );
 			builder.Append( boolToChar( cc.bLight.Bass ) );
 			builder.Append( boolToChar( cc.bLeft.Guitar ) );

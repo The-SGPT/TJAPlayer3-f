@@ -20,8 +20,6 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		/// <summary>楽器ごとのInvisibleモード</summary>
-		public STDGBVALUE<EInvisible> eInvisibleMode;
 
 
 
@@ -52,30 +50,13 @@ namespace TJAPlayer3
 		/// </summary>
 		public void Reset()
 		{
+			b演奏チップが１つでもバーを通過した = false;
 			for ( int i = 0; i < 4; i++ )
 			{
 				ccounter[ i ] = new CCounter();
-				b演奏チップが１つでもバーを通過した[ i ] = false;
 			}
 		}
 
-		/// <summary>
-		/// まだSemi-Invisibleを開始していなければ、開始する
-		/// </summary>
-		/// <param name="eInst"></param>
-		public void StartSemiInvisible( E楽器パート eInst )
-		{
-			int nInst = (int) eInst;
-			if ( !b演奏チップが１つでもバーを通過した[ nInst ] )
-			{
-				b演奏チップが１つでもバーを通過した[ nInst ] = true;
-				if ( this.eInvisibleMode[ nInst ] == EInvisible.SEMI )
-				{
-					ShowChipTemporally( eInst );
-					ccounter[ nInst ].n現在の値 = nDisplayTimeMs;
-				}
-			}
-		}
 		/// <summary>
 		/// 一時的にチップを表示するモードを開始する
 		/// </summary>
@@ -94,67 +75,7 @@ namespace TJAPlayer3
 			FADEOUT,		// 表示期間終了後、フェードアウト中
 			INVISIBLE		// 完全非表示
 		}
-
-		internal EChipInvisibleState SetInvisibleStatus( ref CDTX.CChip cc )
-		{
-			if ( cc.e楽器パート == E楽器パート.UNKNOWN )
-			{
-				return EChipInvisibleState.SHOW;
-			}
-			int nInst = (int) cc.e楽器パート;
-			EChipInvisibleState retcode = EChipInvisibleState.SHOW;
-
-			ccounter[ nInst ].t進行();
-
-			switch ( eInvisibleMode[ nInst ] )
-			{
-				case EInvisible.OFF:
-					cc.b可視 = true;
-					retcode = EChipInvisibleState.SHOW;
-					break;
-
-				case EInvisible.FULL:
-					cc.b可視 = false;
-					retcode = EChipInvisibleState.INVISIBLE;
-					break;
-
-				case EInvisible.SEMI:
-					if ( !b演奏チップが１つでもバーを通過した[ nInst ] )	// まだ1つもチップがバーを通過していない時は、チップを表示する
-					{
-						cc.b可視 = true;
-						cc.n透明度 = 255;
-						return EChipInvisibleState.SHOW;
-					}
-
-					if ( ccounter[ nInst ].n現在の値 <= 0 || ccounter[ nInst ].n現在の値 > nDisplayTimeMs + nFadeoutTimeMs )
-					// まだ一度もMissっていない or フェードアウトしきった後
-					{
-						cc.b可視 = false;
-						cc.n透明度 = 255;
-						retcode = EChipInvisibleState.INVISIBLE;
-					}
-					else if ( ccounter[ nInst ].n現在の値 < nDisplayTimeMs )								// 表示期間
-					{
-						cc.b可視 = true;
-						cc.n透明度 = 255;
-						retcode = EChipInvisibleState.SHOW;
-					}
-					else if ( ccounter[ nInst ].n現在の値 < nDisplayTimeMs + nFadeoutTimeMs )		// フェードアウト期間
-					{
-						cc.b可視 = true;
-						cc.n透明度 = 255 - (int) ( Convert.ToDouble( ccounter[ nInst ].n現在の値 - nDisplayTimeMs ) / nFadeoutTimeMs * 255.0 );
-						retcode = EChipInvisibleState.FADEOUT;
-					}
-					break;
-				default:
-					cc.b可視 = true;
-					cc.n透明度 = 255;
-					retcode = EChipInvisibleState.SHOW;
-					break;
-			}
-			return retcode;
-		}
-		
+				
 		#region [ Dispose-Finalize パターン実装 ]
 		//-----------------
 		public void Dispose()
@@ -191,6 +112,6 @@ namespace TJAPlayer3
 
 		private STDGBVALUE<CCounter> ccounter;
 		private bool bDispose完了済み = false;
-		private STDGBVALUE<bool> b演奏チップが１つでもバーを通過した;
+		private bool b演奏チップが１つでもバーを通過した;
 	}
 }

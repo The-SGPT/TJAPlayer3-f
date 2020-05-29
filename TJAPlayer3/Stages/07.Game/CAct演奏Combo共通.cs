@@ -615,7 +615,7 @@ namespace TJAPlayer3
 				{
 					e今回の状態遷移イベント = EEvent.ミス通知;
 				}
-				else if( ( this.status[ i ].n現在表示中のCOMBO値 < TJAPlayer3.ConfigIni.n表示可能な最小コンボ数.Drums ) && ( this.status[ i ].nCOMBO値 < TJAPlayer3.ConfigIni.n表示可能な最小コンボ数.Drums ) )
+				else if( ( this.status[ i ].n現在表示中のCOMBO値 < TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 ) && ( this.status[ i ].nCOMBO値 < TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 ) )
 				{
 					e今回の状態遷移イベント = EEvent.非表示;
 				}
