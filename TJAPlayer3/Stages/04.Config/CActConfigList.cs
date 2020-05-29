@@ -626,7 +626,7 @@ namespace TJAPlayer3
 				" chip." );
 			this.list項目リスト.Add( this.iDrumsTight );
 			
-			this.iSystemMinComboDrums = new CItemInteger( "D-MinCombo", 1, 0x1869f, TJAPlayer3.ConfigIni.n表示可能な最小コンボ数.Drums,
+			this.iSystemMinComboDrums = new CItemInteger( "D-MinCombo", 1, 0x1869f, TJAPlayer3.ConfigIni.n表示可能な最小コンボ数,
 				"表示可能な最小コンボ数（ドラム）：\n" +
 				"画面に表示されるコンボの最小の数\n" +
 				"を指定します。\n" +
@@ -736,32 +736,6 @@ namespace TJAPlayer3
 			this.eメニュー種別 = Eメニュー種別.Drums;
 		}
 		#endregion
-
-		/// <summary>Sud+Hidの初期値を返す</summary>
-		/// <param name="eInst"></param>
-		/// <returns>
-		/// 0: None
-		/// 1: Sudden
-		/// 2: Hidden
-		/// 3: Sud+Hid
-		/// 4: Semi-Invisible
-		/// 5: Full-Invisible
-		/// </returns>
-		private int getDefaultSudHidValue( E楽器パート eInst )
-		{
-			int defvar;
-			int nInst = (int) eInst;
-			if ( TJAPlayer3.ConfigIni.eInvisible[ nInst ] != EInvisible.OFF )
-			{
-				defvar = (int) TJAPlayer3.ConfigIni.eInvisible[ nInst ] + 3;
-			}
-			else
-			{
-				defvar = ( TJAPlayer3.ConfigIni.bSudden[ nInst ] ? 1 : 0 ) +
-						 ( TJAPlayer3.ConfigIni.bHidden[ nInst ] ? 2 : 0 );
-			}
-			return defvar;
-		}
 
 		/// <summary>
 		/// ESC押下時の右メニュー描画
@@ -1806,7 +1780,7 @@ namespace TJAPlayer3
 
 			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = this.iInputAdjustTimeMs.n現在の値;
 
-			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数.Drums = this.iSystemMinComboDrums.n現在の値;
+			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = this.iSystemMinComboDrums.n現在の値;
 			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
 

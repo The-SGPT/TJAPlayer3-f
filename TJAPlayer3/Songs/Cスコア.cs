@@ -63,7 +63,7 @@ namespace TJAPlayer3
 			public STRANK 最大ランク;
 			public STSKILL 最大スキル;
 			public STDGBVALUE<bool> フルコンボ;
-			public STDGBVALUE<int> 演奏回数;
+			public int 演奏回数;
 			public STHISTORY 演奏履歴;
 			public bool レベルを非表示にする;
 			public CDTX.E種別 曲種別;
@@ -285,7 +285,7 @@ namespace TJAPlayer3
 			this.譜面情報.最大ランク.Guitar = (int)CScoreIni.ERANK.UNKNOWN;
 			this.譜面情報.最大ランク.Bass =   (int)CScoreIni.ERANK.UNKNOWN;
 			this.譜面情報.フルコンボ = new STDGBVALUE<bool>();
-			this.譜面情報.演奏回数 = new STDGBVALUE<int>();
+			this.譜面情報.演奏回数 = new int();
 			this.譜面情報.演奏履歴 = new ST譜面情報.STHISTORY();
 			this.譜面情報.演奏履歴.行1 = "";
 			this.譜面情報.演奏履歴.行2 = "";

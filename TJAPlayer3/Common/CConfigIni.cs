@@ -720,7 +720,7 @@ namespace TJAPlayer3
 				nameof(KeyboardSoundLevelIncrement));
 		}
 
-		public STDGBVALUE<int> n表示可能な最小コンボ数;
+		public int n表示可能な最小コンボ数;
 		public STDGBVALUE<int>[] n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
@@ -769,7 +769,7 @@ namespace TJAPlayer3
 
 		public bool bTaikojiromode = false;
 
-		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
+		public E判定文字表示位置 判定文字表示位置;
 //		public int nハイハット切り捨て下限Velocity;
 //		public int n切り捨て下限Velocity;			// #23857 2010.12.12 yyagi VelocityMin
 		public int nInputAdjustTimeMs;
@@ -859,7 +859,6 @@ namespace TJAPlayer3
 		public bool bUseOSTimer;					// #33689 2014.6.6 yyagi 演奏タイマーの種類
 		public bool bDynamicBassMixerManagement;	// #24820
 		public bool bTimeStretch;					// #23664 2013.2.24 yyagi ピッチ変更無しで再生速度を変更するかどうか
-		public STDGBVALUE<EInvisible> eInvisible;	// #32072 2013.9.20 yyagi チップを非表示にする
 		public int nDisplayTimesMs, nFadeoutTimeMs;
 
 		public STDGBVALUE<int> nViewerScrollSpeed;
@@ -993,8 +992,8 @@ namespace TJAPlayer3
 			this.bBGM音を発声する = true;
 			this.bScoreIniを出力する = true;
 			this.bランダムセレクトで子BOXを検索対象とする = true;
-			this.n表示可能な最小コンボ数 = new STDGBVALUE<int>();
-			this.n表示可能な最小コンボ数.Drums = 3;
+			this.n表示可能な最小コンボ数 = new int();
+			this.n表示可能な最小コンボ数 = 3;
 			this.FontName = "MS UI Gothic";
 			this.FontNamed = "MS UI Gothic";
 			this.RandomPresence = true;
@@ -1030,13 +1029,14 @@ namespace TJAPlayer3
 			this.eRandom = new Eランダムモード[2];
 			this.bLight = new STDGBVALUE<bool>();
 			this.bLeft = new STDGBVALUE<bool>();
-			this.判定文字表示位置 = new STDGBVALUE<E判定文字表示位置>();
+			this.判定文字表示位置 = new E判定文字表示位置();
 			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
 			this.nInputAdjustTimeMs = 0;
 			this.nJudgeLinePosOffset = new STDGBVALUE<int>();	// #31602 2013.6.23 yyagi
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			this.eRandom[0] = Eランダムモード.OFF;
 			this.eRandom[1] = Eランダムモード.OFF;
+			this.判定文字表示位置 = E判定文字表示位置.レーン上;
 			for ( int i = 0; i < 3; i++ )
 			{
 				this.bSudden[ i ] = false;
@@ -1044,11 +1044,9 @@ namespace TJAPlayer3
 				this.bReverse[ i ] = false;
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
-				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
 				this.n譜面スクロール速度[0][ i ] = 9;
 				this.n譜面スクロール速度[1][ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
-				this.eInvisible[ i ] = EInvisible.OFF;
 				this.nViewerScrollSpeed[ i ] = 9;
 				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
 			}
@@ -1372,7 +1370,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "SaveScoreIni={0}", this.bScoreIniを出力する ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine("; 最小表示コンボ数");
-			sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数.Drums);
+			sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数);
 			sw.WriteLine();
 			sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
 			sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
@@ -1547,10 +1545,10 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			#endregion
 			#region [ Invisible ]
-			sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
-			sw.WriteLine( "; Drums chip invisible mode" );
-			sw.WriteLine( "DrumsInvisible={0}", (int) this.eInvisible.Drums );
-			sw.WriteLine();
+			//sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
+			//sw.WriteLine( "; Drums chip invisible mode" );
+			//sw.WriteLine( "DrumsInvisible={0}", (int) this.eInvisible );
+			//sw.WriteLine();
 			//sw.WriteLine( "; Semi-InvisibleでMissった時のチップ再表示時間(ms)" );
 			//sw.WriteLine( "InvisibleDisplayTimeMs={0}", (int) this.nDisplayTimesMs );
 			//sw.WriteLine();
@@ -2045,7 +2043,7 @@ namespace TJAPlayer3
 											#region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
-												this.n表示可能な最小コンボ数.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Drums );
+												this.n表示可能な最小コンボ数 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数 );
 											}
 											#endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
@@ -2268,10 +2266,10 @@ namespace TJAPlayer3
 											}
 											#endregion
 											#region [ Invisible ]
-											else if ( str3.Equals( "DrumsInvisible" ) )
-											{
-												this.eInvisible.Drums = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible.Drums );
-											}
+											//else if ( str3.Equals( "DrumsInvisible" ) )
+											//{
+											//	this.eInvisible = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible );
+											//}
 											//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
 											//{
 											//    this.nDisplayTimesMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
@@ -2287,7 +2285,7 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "DrumsPosition" ) )
 											{
-												this.判定文字表示位置.Drums = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置.Drums );
+												this.判定文字表示位置 = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置 );
 											}
 											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{

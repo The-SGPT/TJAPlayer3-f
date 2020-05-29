@@ -44,9 +44,6 @@ namespace TJAPlayer3
 					this.txオプションパネル.t2D描画( device, 0x171, 12, this.rc譜面スピード[ drums ] );
 					#endregion
 					#region [ Sud/Hid/Invisible ]
-					this.txオプションパネル.t2D描画( device, 0x189, 12, this.rcHS[ ( configIni.bHidden.Drums ? 1 : 0 ) + ( configIni.bSudden.Drums ? 2 : 0 ) +
-																					( configIni.eInvisible.Drums == EInvisible.SEMI ? 4 : 0 ) +
-																					( configIni.eInvisible.Drums == EInvisible.FULL ? 5 : 0 ) ] );
 					#endregion
 					#region [ Dark ]
 					this.txオプションパネル.t2D描画( device, 0x1a1, 12, this.rcDark[ (int) configIni.eDark ] );
@@ -57,7 +54,7 @@ namespace TJAPlayer3
 					this.txオプションパネル.t2D描画( device, 0x1b9, 12, this.rcReverse[ configIni.bReverse.Drums ? 1 : 0 ] );
 					#endregion
 					#region [ Position ]
-					this.txオプションパネル.t2D描画( device, 0x1d1, 12, this.rcPosition[ (int) configIni.判定文字表示位置.Drums ] );
+					this.txオプションパネル.t2D描画( device, 0x1d1, 12, this.rcPosition[ (int) configIni.判定文字表示位置 ] );
 					#endregion
 					#region [ Tight ]
 					this.txオプションパネル.t2D描画( device, 0x1e9, 12, this.rcTight[ configIni.bTight ? 1 : 0 ] );

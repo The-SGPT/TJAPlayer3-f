@@ -47,13 +47,13 @@ namespace TJAPlayer3
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
 				Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
 				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
+				Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
+				//Drums.eInvisible = TJAPlayer3.ConfigIni.eInvisible;
 				for ( int i = 0; i < 3; i++ )
 				{
 					Drums.bSudden[ i ] = TJAPlayer3.ConfigIni.bSudden[ i ];
 					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
-					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
 					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[0];
 					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
 					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
 					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
@@ -194,7 +194,6 @@ namespace TJAPlayer3
 				//}
 				this.queWailing[ k ] = new Queue<CDTX.CChip>();
 				this.r現在の歓声Chip[ k ] = null;
-				cInvisibleChip.eInvisibleMode[ k ] = TJAPlayer3.ConfigIni.eInvisible[ k ];
 				if ( TJAPlayer3.DTXVmode.Enabled )
 				{
 					TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ k ] = TJAPlayer3.ConfigIni.nViewerScrollSpeed[ k ];
@@ -203,7 +202,7 @@ namespace TJAPlayer3
 				//this.nJudgeLinePosY_delta[ k ] = CDTXMania.ConfigIni.nJudgeLinePosOffset[ k ];		// #31602 2013.6.23 yyagi
 
 				this.演奏判定ライン座標.nJudgeLinePosY_delta[ k ] = TJAPlayer3.ConfigIni.nJudgeLinePosOffset[ k ];
-				this.bReverse[ k ]             = TJAPlayer3.ConfigIni.bReverse[ k ];					//
+				this.bReverse[ k ] = TJAPlayer3.ConfigIni.bReverse[ k ];					//
 
 			}
 			actCombo.演奏判定ライン座標 = 演奏判定ライン座標;
@@ -1909,19 +1908,11 @@ namespace TJAPlayer3
 			}
 		}
 
-
-		protected abstract void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part );
-		protected abstract void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part, int nLane );
-		protected void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part, E楽器パート screenmode )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss(nCource, part, 0, screenmode );
-		}
 		protected void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part, int nLane, E楽器パート screenmode)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 		{
 			//まだpChipでのチャンネル判別に対応していない。
 
 			this.bAUTOでないチップが１つでもバーを通過した = true;
-			cInvisibleChip.StartSemiInvisible( part );
 			cInvisibleChip.ShowChipTemporally( part );
 
 			//ChipのCourseをベースにゲージの伸びを調節
@@ -2680,12 +2671,18 @@ namespace TJAPlayer3
 					TJAPlayer3.DTX[0].tWave再生位置自動補正();
 				}
 				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.UpArrow ) )
-				{	// UpArrow(scrollspeed up)
-					ドラムスクロール速度アップ(0);
+				{   // UpArrow(scrollspeed up)
+					if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))//2020.05.29 Mr-Ojii Ctrlを押しているかどうかで、対象プレイヤーの変更
+						ドラムスクロール速度アップ(1);
+					else
+						ドラムスクロール速度アップ(0);
 				}
 				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.DownArrow ) )
 				{	// DownArrow (scrollspeed down)
-					ドラムスクロール速度ダウン(0);
+					if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+						ドラムスクロール速度ダウン(1);
+					else
+						ドラムスクロール速度ダウン(0);
 				}
 				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) )
 				{	// del (debug info)
@@ -3788,7 +3785,7 @@ namespace TJAPlayer3
 							if (!this.bLEVELHOLD[nPlayer])
 							{
 								//成仏2000にある-2,-1だったら達人に強制分岐みたいな。
-								this.t強制用条件かを判断する(pChip.db条件数値A, pChip.db条件数値B, nPlayer);
+								this.t強制用条件かを判断する(pChip, nPlayer);
 
 								TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
 								this.tBranchJudge(pChip, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
@@ -4066,25 +4063,29 @@ namespace TJAPlayer3
 
 		//2020.04.23 Mr-Ojii akasokoさんの分岐方法を参考にして、追加
 		private int[] N強制コース = new int[4];
-		private void t強制用条件かを判断する(double db条件A, double db条件B, int nPlayer)
+		private void t強制用条件かを判断する(CDTX.CChip pChip, int nPlayer)
 		{
-			//Wiki参考
-			//成仏
+			double db条件A = pChip.db条件数値A;
+			double db条件B = pChip.db条件数値B;
+			int n種類 = pChip.n分岐の種類;
 
-			if (db条件A == 101 && db条件B == 102) //強制普通譜面
+			if (n種類 == 0)//精度分岐だったら
 			{
-				N強制コース[nPlayer] = 0;
-				this.b強制分岐譜面[nPlayer] = true;
-			}
-			else if (db条件A == -1 && db条件B == 101)  //強制玄人譜面
-			{
-				N強制コース[nPlayer] = 1;
-				this.b強制分岐譜面[nPlayer] = true;
-			}
-			else if (db条件A == -2 && db条件B == -1)   //強制達人譜面
-			{
-				N強制コース[nPlayer] = 2;
-				this.b強制分岐譜面[nPlayer] = true;
+				if (db条件A >= 100 && db条件B >= 100) //強制普通譜面
+				{
+					N強制コース[nPlayer] = 0;
+					this.b強制分岐譜面[nPlayer] = true;
+				}
+				else if (db条件A <= 0 && db条件B >= 100)  //強制玄人譜面
+				{
+					N強制コース[nPlayer] = 1;
+					this.b強制分岐譜面[nPlayer] = true;
+				}
+				else if (db条件A <= 0 && db条件B <= 0)   //強制達人譜面
+				{
+					N強制コース[nPlayer] = 2;
+					this.b強制分岐譜面[nPlayer] = true;
+				}
 			}
 		}
 
@@ -4417,6 +4418,9 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.bBGA有効 = true;
 			TJAPlayer3.ConfigIni.eRandom[0] = Eランダムモード.OFF;
 			TJAPlayer3.ConfigIni.eRandom[1] = Eランダムモード.OFF;
+			TJAPlayer3.ConfigIni.判定文字表示位置 = E判定文字表示位置.表示OFF;
+			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = 65535;
+			//TJAPlayer3.ConfigIni.eInvisible = EInvisible.OFF;
 			for ( int i = 0; i < 3; i++ )
 			{
 				TJAPlayer3.ConfigIni.bGraph[ i ] = false;
@@ -4425,9 +4429,6 @@ namespace TJAPlayer3
 				TJAPlayer3.ConfigIni.bLight[ i ] = false;
 				TJAPlayer3.ConfigIni.bReverse[ i ] = false;
 				TJAPlayer3.ConfigIni.bSudden[ i ] = false;
-				TJAPlayer3.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
-				TJAPlayer3.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
-				TJAPlayer3.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
 				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。
 																												// そうしないと、演奏開始直後にスクロール速度が変化して見苦しい。
 			}
@@ -4599,14 +4600,14 @@ namespace TJAPlayer3
 		}
 		protected void t進行描画_判定文字列1_通常位置指定の場合()
 		{
-			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
+			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
 				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
 			}
 		}
 		protected void t進行描画_判定文字列2_判定ライン上指定の場合()
 		{
-			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
+			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
 				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
 			}

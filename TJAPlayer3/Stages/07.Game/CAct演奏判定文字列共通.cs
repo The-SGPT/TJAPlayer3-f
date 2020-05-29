@@ -92,7 +92,7 @@ namespace TJAPlayer3
 				return;
 			}
 
-			if( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.表示OFF )
+			if( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) != E判定文字表示位置.表示OFF )
 			{
 				for( int i = 0; i < 1; i++ )
 				{

@@ -1202,6 +1202,7 @@ namespace TJAPlayer3
 		public string strフォルダ名;
 		public string SUBTITLE;
 		public string TITLE;
+		public bool SUBTITLEDisp;
 		public double dbDTXVPlaySpeed;
 		public double dbScrollSpeed;
 		public int nデモBGMオフセット;
@@ -1319,6 +1320,7 @@ namespace TJAPlayer3
 			this.nPlayerSide = 0;
 			this.TITLE = "";
 			this.SUBTITLE = "";
+			this.SUBTITLEDisp = false;
 			this.ARTIST = "";
 			this.COMMENT = "";
 			this.PANEL = "";
@@ -3013,7 +3015,6 @@ namespace TJAPlayer3
 				int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
 
 
-				bool b新処理 = false;
 
 				//まずはコースごとに譜面を分割。
 				strSplitした譜面 = this.tコースで譜面を分割する(this.StringArrayToString(strSplitした譜面, "\n"));
@@ -3032,24 +3033,22 @@ namespace TJAPlayer3
 				#region[ 読み込ませるコースを決定 ]
 				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 				{
-					if (this.b譜面が存在する[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] == false)
+					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
+				}
+				if (this.b譜面が存在する[n読み込むコース] == false)
+				{
+					n読み込むコース++;
+					for (int n = 1; n < (int)Difficulty.Total; n++)
 					{
-						n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
-						n読み込むコース++;
-						for (int n = 1; n < (int)Difficulty.Total; n++)
+						if (this.b譜面が存在する[n読み込むコース] == false)
 						{
-							if (this.b譜面が存在する[n読み込むコース] == false)
-							{
-								n読み込むコース++;
-								if (n読み込むコース > (int)Difficulty.Total - 1)
-									n読み込むコース = 0;
-							}
-							else
-								break;
+							n読み込むコース++;
+							if (n読み込むコース > (int)Difficulty.Total - 1)
+								n読み込むコース = 0;
 						}
+						else
+							break;
 					}
-					else
-						n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
 				}
 				#endregion
 
@@ -3090,7 +3089,7 @@ namespace TJAPlayer3
 				string str = "";
 				try
 				{
-					if (n譜面数 > 0)
+					if (n譜面数 > 1)
 					{
 						//2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
 						this.listBalloon.Clear();
@@ -3149,7 +3148,7 @@ namespace TJAPlayer3
 				//0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
 				var strSplitした後の譜面 = strSplit読み込むコース; //strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
 				strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す(strSplitした後の譜面, 1);
-				//string str命令消去譜面temp = this.StringArrayToString( this.str命令消去譜面 );
+				//string str命令消去譜面temp = this.StringArrayToString( str命令消去譜面 );
 				//string[] strDelimiter = { "," };
 				//this.str命令消去譜面 = str命令消去譜面temp.Split( strDelimiter, StringSplitOptions.RemoveEmptyEntries );
 
@@ -3282,6 +3281,14 @@ namespace TJAPlayer3
 			var command = match.Groups[1].Value;
 			var argumentMatchGroup = match.Groups[2];
 			var argument = argumentMatchGroup.Success ? argumentMatchGroup.Value : null;
+
+			while (true) {//2020.05.29 Mr-Ojii 間違えて、命令の最後の所に,を入れてしまった時の対応
+				if (argument != null && argument[argument.Length - 1] == ',')
+					argument = argument.Substring(0, argument.Length - 1);
+				else
+					break;
+			}
+
 
 			char[] chDelimiter = new char[] { ' ' };
 			string[] strArray = null;
@@ -4621,12 +4628,14 @@ namespace TJAPlayer3
 				InputText = InputText.Replace('\t', ' '); //何の文字か知らないけどスペースに差し替え。
 				InputText = InputText + "\n";
 
+				string[] strDelimiter = { "#START" };
+				strArray = InputText.Split(strDelimiter, StringSplitOptions.RemoveEmptyEntries);
+
 				string[] strDelimiter2 = { "\n" };
 				strArray = InputText.Split(strDelimiter2, StringSplitOptions.RemoveEmptyEntries);
 
 
 				strArray = strArray[0].Split(new char[] { ':' });
-				WarnSplitLength("Header Name & Value", strArray, 2);
 
 				strCommandName = strArray[0].Trim();
 				strCommandParam = strArray[1].Trim();
@@ -4644,36 +4653,24 @@ namespace TJAPlayer3
 			if (strCommandName.Equals("TITLE"))
 			{
 				//this.TITLE = strCommandParam;
-				var subTitle = "";
-				for (int i = 0; i < strArray.Length; i++)
-				{
-					subTitle += strArray[i];
-				}
-				this.TITLE = subTitle.Substring(5);
+				this.TITLE = InputText.Substring(InputText.IndexOf(":") + 1);
 				//tbTitle.Text = strCommandParam;
 			}
 			if (strCommandName.Equals("SUBTITLE"))
 			{
 				if (strCommandParam.StartsWith("--"))
 				{
-					//this.SUBTITLE = strCommandParam.Remove( 0, 2 );
-					var subTitle = "";
-					for (int i = 0; i < strArray.Length; i++)
-					{
-						subTitle += strArray[i];
-					}
-					this.SUBTITLE = subTitle.Substring(10);
+					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 3);
 				}
 				else if (strCommandParam.StartsWith("++"))
 				{
-					//    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
-					//this.SUBTITLE = strCommandParam.Remove( 0, 2 );
-					var subTitle = "";
-					for (int i = 0; i < strArray.Length; i++)
-					{
-						subTitle += strArray[i];
-					}
-					this.SUBTITLE = subTitle.Substring(10);
+					this.SUBTITLEDisp = true;
+					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 3);
+				}
+				else
+				{
+					this.SUBTITLEDisp = true;
+					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 1);
 				}
 			}
 			else if (strCommandName.Equals("LEVEL"))
