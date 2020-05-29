@@ -270,7 +270,7 @@ namespace TJAPlayer3
 								{
 									case E判定.Perfect:
 									case E判定.Great:
-									case E判定.Auto:
+									case E判定.AutoPerfect:
 										if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)  
 												TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
 										else
@@ -307,7 +307,7 @@ namespace TJAPlayer3
 							{
 								case E判定.Perfect:
 								case E判定.Great:
-								case E判定.Auto:
+								case E判定.AutoPerfect:
 									if( this.st状態_大[ i ].nIsBig == 1 )
 									{
 										float fX = 415 - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.sz画像サイズ.Width * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vc拡大縮小倍率.X ) / 2.0f);

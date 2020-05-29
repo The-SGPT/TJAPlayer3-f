@@ -1213,19 +1213,10 @@ namespace TJAPlayer3
 		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode, bool bCorrectLane, int nNowInput, int nPlayer )
 		{
 			//unsafeコードにつき、デバッグ中の変更厳禁!
-			bool bAutoPlay = false;
-			switch( nPlayer )
-			{
-				case 0:
-					bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
-					break;
-				case 1:
-					bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
-					break;
-			}
+			bool bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
 
 			if( !pChip.b可視 )
-				return E判定.Auto;
+				return E判定.AutoPerfect;
 
 			if( pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 )
 			{
@@ -1246,7 +1237,7 @@ namespace TJAPlayer3
 				//cInvisibleChip.StartSemiInvisible( pChip.e楽器パート );
 			}
 
-			E判定 eJudgeResult = E判定.Auto;
+			E判定 eJudgeResult = E判定.AutoPerfect;
 			switch ( pChip.e楽器パート )
 			{
 				case E楽器パート.DRUMS:
@@ -1359,7 +1350,7 @@ namespace TJAPlayer3
 						}
 						else if( pChip.nチャンネル番号 == 0x1F )
 						{
-							if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
+							if( eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss )
 							{
 								this.actJudgeString.Start( 0, E判定.Bad, pChip.nLag, pChip, nPlayer );
 								TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
@@ -1375,9 +1366,9 @@ namespace TJAPlayer3
 							}
 						}
 
-						if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
+						if( eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss )
 						{
-							this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+							this.actJudgeString.Start( 0, bAutoPlay ? E判定.AutoPerfect : eJudgeResult, pChip.nLag, pChip, nPlayer );
 							TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
 							TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
 
@@ -1885,7 +1876,7 @@ namespace TJAPlayer3
 				//キーを押したときにスコア情報 + nAddScoreを置き換える様に
 				this.CBranchScore[nPlayer].nScore = (int)(this.actScore.GetScore(nPlayer) + nAddScore);
 			}
-			return E判定.Auto;
+			return E判定.AutoPerfect;
 		}
 
 		protected void t分岐状況チェック( int n現在時刻, int nPlayer )
