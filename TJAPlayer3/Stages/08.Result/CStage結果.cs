@@ -24,17 +24,14 @@ namespace TJAPlayer3
 		public STDGBVALUE<int> n演奏回数;
 		public int n総合ランク値;
 		public CDTX.CChip[] r空うちドラムチップ;
-		public STDGBVALUE<CScoreIni.C演奏記録> st演奏記録;
+		public CScoreIni.C演奏記録 st演奏記録;
 
 
 		// コンストラクタ
 
 		public CStage結果()
 		{
-			this.st演奏記録.Drums = new CScoreIni.C演奏記録();
-			this.st演奏記録.Guitar = new CScoreIni.C演奏記録();
-			this.st演奏記録.Bass = new CScoreIni.C演奏記録();
-			this.st演奏記録.Taiko = new CScoreIni.C演奏記録();
+			this.st演奏記録 = new CScoreIni.C演奏記録();
 			this.r空うちドラムチップ = new CDTX.CChip[ 10 ];
 			this.n総合ランク値 = -1;
 			this.nチャンネル0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 7, 0 };
@@ -83,7 +80,7 @@ namespace TJAPlayer3
 					this.fPerfect率[ i ] = this.fGreat率[ i ] = this.fGood率[ i ] = this.fPoor率[ i ] = this.fMiss率[ i ] = 0.0f;	// #28500 2011.5.24 yyagi
 					if ( ( ( ( i != 0 ) || ( TJAPlayer3.DTX[0].bチップがある.Drums  ) ) ) )
 					{
-						CScoreIni.C演奏記録 part = this.st演奏記録[ i ];
+						CScoreIni.C演奏記録 part = this.st演奏記録;
 						bool bIsAutoPlay = true;
 						switch( i )
 						{
@@ -109,7 +106,7 @@ namespace TJAPlayer3
 						this.nランク値[ i ] = CScoreIni.tランク値を計算して返す( part );
 					}
 				}
-				this.n総合ランク値 = CScoreIni.t総合ランク値を計算して返す( this.st演奏記録.Drums );
+				this.n総合ランク値 = CScoreIni.t総合ランク値を計算して返す( this.st演奏記録 );
 				//---------------------
 				#endregion
 
@@ -140,23 +137,23 @@ namespace TJAPlayer3
 					}
 
 					// 新記録スコアチェック
-					if( ( this.st演奏記録[ i ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
+					if( ( this.st演奏記録.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
 					{
 						this.b新記録スコア[ i ] = true;
-						ini.stセクション[ i * 2 ] = this.st演奏記録[ i ];
+						ini.stセクション[ i * 2 ] = this.st演奏記録;
 					}
 
 					// 新記録スキルチェック
-					if (this.st演奏記録[i].db演奏型スキル値 > ini.stセクション[(i * 2) + 1].db演奏型スキル値)
+					if (this.st演奏記録.db演奏型スキル値 > ini.stセクション[(i * 2) + 1].db演奏型スキル値)
 					{
 						this.b新記録スキル[ i ] = true;
-						ini.stセクション[(i * 2) + 1] = this.st演奏記録[ i ];
+						ini.stセクション[(i * 2) + 1] = this.st演奏記録;
 					}
 
 					// ラストプレイ #23595 2011.1.9 ikanick
 					// オートじゃなければプレイ結果を書き込む
 					if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
-						ini.stセクション[i + 6] = this.st演奏記録[ i ];
+						ini.stセクション[i + 6] = this.st演奏記録;
 					}
 
 					// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
@@ -203,19 +200,19 @@ namespace TJAPlayer3
 						{
 							// FullCombo した記録を FullCombo なしで超えた場合、FullCombo マークが消えてしまう。
 							// → FullCombo は、最新記録と関係なく、一度達成したらずっとつくようにする。(2010.9.11)
-							cスコア.譜面情報.フルコンボ[ m ] = this.st演奏記録[ m ].bフルコンボである | b今までにフルコンボしたことがある[ m ];
+							cスコア.譜面情報.フルコンボ[ m ] = this.st演奏記録.bフルコンボである | b今までにフルコンボしたことがある[ m ];
 
 							if( this.b新記録スキル[ m ] )
 							{
-								cスコア.譜面情報.最大スキル[ m ] = this.st演奏記録[ m ].db演奏型スキル値;
+								cスコア.譜面情報.最大スキル[ m ] = this.st演奏記録.db演奏型スキル値;
 							}
 
 							if (this.b新記録ランク[ m ])
 							{
 								cスコア.譜面情報.最大ランク[ m ] = this.nランク値[ m ];
 							}
-							cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
-							cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
+							cスコア.譜面情報.n王冠 = st演奏記録.n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
+							cスコア.譜面情報.nハイスコア = st演奏記録.nハイスコア;
 						}
 					}
 					TJAPlayer3.stage選曲.r確定されたスコア = cスコア;
@@ -368,7 +365,7 @@ namespace TJAPlayer3
 
 				if( TJAPlayer3.act現在入力を占有中のプラグイン == null )
 				{
-					if( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) ||  TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS,Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了 )
+					if( ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS,Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了 )
 					{
 						this.actFI.tフェードイン完了();					// #25406 2011.6.9 yyagi
 						this.actResultImage.tアニメを完了させる();
@@ -385,7 +382,7 @@ namespace TJAPlayer3
 							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 							this.eフェードアウト完了時の戻り値 = E戻り値.完了;
 						}
-						if ( ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.CY ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P) ) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ) && this.bアニメが完了 )
+						if ( (TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P) ) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ) && this.bアニメが完了 )
 						{
 							TJAPlayer3.Skin.sound取消音.t再生する();
 //							this.actFO.tフェードアウト開始();
