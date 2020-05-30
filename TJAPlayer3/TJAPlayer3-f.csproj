@@ -271,7 +271,6 @@
     <Compile Include="Stages\CActFIFOBlack.cs" />
     <Compile Include="Stages\CActFIFOStart.cs" />
     <Compile Include="Stages\CActFIFOResult.cs" />
-    <Compile Include="Stages\CActFIFOWhite.cs" />
     <Compile Include="Stages\CActLVLNFont.cs" />
     <Compile Include="Stages\CActオプションパネル.cs" />
     <Compile Include="Stages\CDTXVmode.cs" />

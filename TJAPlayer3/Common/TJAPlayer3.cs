@@ -1369,16 +1369,20 @@ for (int i = 0; i < 3; i++) {
 							case (int) E演奏画面の戻り値.ステージクリア:
 								#region [ 演奏クリア ]
 								//-----------------------------
-								CScoreIni.C演奏記録 c演奏記録_Drums;
-								stage演奏ドラム画面.t演奏結果を格納する( out c演奏記録_Drums );
+								CScoreIni.C演奏記録[] c演奏記録_Drums = new CScoreIni.C演奏記録[4];
+								stage演奏ドラム画面.t演奏結果を格納する( out c演奏記録_Drums[0] , 0);
+								if (ConfigIni.nPlayerCount == 2)
+								{
+									stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[1], 1);
+								}
 
 								double ps = 0.0, gs = 0.0;
-								if ( !c演奏記録_Drums.b全AUTOである && c演奏記録_Drums.n全チップ数 > 0) {
-									ps = c演奏記録_Drums.db演奏型スキル値;
-									gs = c演奏記録_Drums.dbゲーム型スキル値;
+								if ( !c演奏記録_Drums[0].b全AUTOである && c演奏記録_Drums[0].n全チップ数 > 0) {
+									ps = c演奏記録_Drums[0].db演奏型スキル値;
+									gs = c演奏記録_Drums[0].dbゲーム型スキル値;
 								}
 								string str = "Cleared";
-								switch( CScoreIni.t総合ランク値を計算して返す( c演奏記録_Drums) )
+								switch( CScoreIni.t総合ランク値を計算して返す( c演奏記録_Drums[0]) )
 								{
 									case (int)CScoreIni.ERANK.SS:
 										str = string.Format( "Cleared (SS: {0:F2})", ps );
@@ -1429,7 +1433,7 @@ for (int i = 0; i < 3; i++) {
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation( "----------------------" );
 								Trace.TraceInformation( "■ 結果" );
-								stage結果.st演奏記録.Drums = c演奏記録_Drums;
+								stage結果.st演奏記録 = c演奏記録_Drums[0];
 								stage結果.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage結果;

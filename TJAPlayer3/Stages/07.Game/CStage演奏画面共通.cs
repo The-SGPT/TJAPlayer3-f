@@ -24,26 +24,26 @@ namespace TJAPlayer3
 		// メソッド
 
 		#region [ t演奏結果を格納する_ドラム() ]
-		public void t演奏結果を格納する_ドラム( out CScoreIni.C演奏記録 Drums )
+		public void t演奏結果を格納する_ドラム( out CScoreIni.C演奏記録 Drums , int nPlayer)
 		{
 			Drums = new CScoreIni.C演奏記録();
 
 			//if (  )
 			{
-				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX[0].LEVEL.Drums, TJAPlayer3.DTX[0].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX[0].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS );
-				Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] ? this.nヒット数_Auto含む.Drums.Perfect : this.nヒット数_Auto含まない.Drums.Perfect;
-				Drums.nGreat数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] ? this.nヒット数_Auto含む.Drums.Great : this.nヒット数_Auto含まない.Drums.Great;
-				Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] ? this.nヒット数_Auto含む.Drums.Good : this.nヒット数_Auto含まない.Drums.Good;
-				Drums.nPoor数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] ? this.nヒット数_Auto含む.Drums.Poor : this.nヒット数_Auto含まない.Drums.Poor;
-				Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] ? this.nヒット数_Auto含む.Drums.Miss : this.nヒット数_Auto含まない.Drums.Miss;
+				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, nPlayer );
+				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX[nPlayer].LEVEL.Drums, TJAPlayer3.DTX[nPlayer].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS );
+				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX[nPlayer].n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS );
+				Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む.Drums.Perfect : this.nヒット数_Auto含まない.Drums.Perfect;
+				Drums.nGreat数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む.Drums.Great : this.nヒット数_Auto含まない.Drums.Great;
+				Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む.Drums.Good : this.nヒット数_Auto含まない.Drums.Good;
+				Drums.nPoor数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む.Drums.Poor : this.nヒット数_Auto含まない.Drums.Poor;
+				Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む.Drums.Miss : this.nヒット数_Auto含まない.Drums.Miss;
 				Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない.Drums.Perfect;
 				Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない.Drums.Great;
 				Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない.Drums.Good;
 				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない.Drums.Poor;
 				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Drums.Miss;
-				Drums.n連打数 = this.n合計連打数[ 0 ];
+				Drums.n連打数 = this.n合計連打数[ nPlayer ];
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
 				Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
 				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
@@ -56,7 +56,7 @@ namespace TJAPlayer3
 					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
 					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
 					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ i ] + 1 ) ) * 0.1f;
+					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][ i ] + 1 ) ) * 0.1f;
 				}
 				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
@@ -74,12 +74,12 @@ namespace TJAPlayer3
 				Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 				Drums.最終更新日時 = DateTime.Now.ToString();
 				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
-				Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
-				if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )
+				Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
+				if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
 				{
 					Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-					if ( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
-						Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
+					if ( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer] ] < (int)this.actScore.Get( E楽器パート.DRUMS, nPlayer ) )
+						Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] = (int)this.actScore.Get( E楽器パート.DRUMS, nPlayer );
 
 					var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
 					for (int i = 0; i < danC.Length; i++)
@@ -89,47 +89,47 @@ namespace TJAPlayer3
 
 					Drums.n王冠 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠;
 
-					if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
+					if (TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer] != (int)Difficulty.Dan)
 					{
 						if (Drums.fゲージ < 80)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 0)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 0;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 						}
 						else if (Drums.nMiss数_Auto含まない != 0)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 1)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 1;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
+								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 						}
 						else if (Drums.nGreat数_Auto含まない != 0)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 2)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 2;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
+								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
 						}
 						else
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 3)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 3;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 3)
+								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 3;
 						}
 					}
 					else {
 						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C))
 						{
 							case Exam.Status.Failure:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 0)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 0;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 								break;
 							case Exam.Status.Success:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 1)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 1;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
+									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 								break;
 							case Exam.Status.Better_Success:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 2)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 2;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
+									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
 								break;
 							default:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] < 0)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] = 0;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 								break;
 						}
 					}
@@ -2687,7 +2687,7 @@ namespace TJAPlayer3
 				{
 					ChangeInputAdjustTimeInPlaying( keyboard, +1 );
 				}
-				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ) || TJAPlayer3.Pad.b押されたGB( Eパッド.FT ) ) && !this.actPauseMenu.bIsActivePopupMenu )
+				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape )) && !this.actPauseMenu.bIsActivePopupMenu )
 				{	// escape (exit)
 					this.t演奏中止();
 				}
@@ -3781,11 +3781,8 @@ namespace TJAPlayer3
 								TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
 								this.tBranchJudge(pChip, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
 
-								if (this.b強制分岐譜面[nPlayer])
-								{//強制分岐譜面だったら次回コースをそのコースにセット
+								if (this.b強制分岐譜面[nPlayer])//強制分岐譜面だったら次回コースをそのコースにセット
 									this.n次回のコース[nPlayer] = this.N強制コース[nPlayer];
-									this.nレーン用表示コース[nPlayer] = this.N強制コース[nPlayer];
-								}
 
 								this.t分岐処理(this.n次回のコース[nPlayer], nPlayer,pChip.db分岐時刻ms, pChip.n分岐の種類);
 

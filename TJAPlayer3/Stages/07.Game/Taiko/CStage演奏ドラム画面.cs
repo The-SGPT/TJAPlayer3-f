@@ -177,9 +177,9 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void t演奏結果を格納する( out CScoreIni.C演奏記録 Drums )
+		public void t演奏結果を格納する( out CScoreIni.C演奏記録 Drums ,int nPlayer)
 		{
-			base.t演奏結果を格納する_ドラム( out Drums );
+			base.t演奏結果を格納する_ドラム( out Drums , nPlayer);
 		}
 
 
@@ -635,13 +635,6 @@ namespace TJAPlayer3
 		public FireWorks FireWorks;
 		public PuchiChara PuchiChara;
 		private bool bフィルイン中;
-		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
-		{
-			Eパッド.HH, Eパッド.SD, Eパッド.BD, Eパッド.HT,
-			Eパッド.LT, Eパッド.CY, Eパッド.FT, Eパッド.HHO,
-			Eパッド.RD, Eパッド.UNKNOWN, Eパッド.UNKNOWN, Eパッド.LC,
-			Eパッド.LP, Eパッド.LBD
-		};
 		private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
 		private CCounter ct手つなぎ;
 		private CTexture txヒットバーGB;

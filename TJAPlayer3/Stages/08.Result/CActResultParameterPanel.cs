@@ -234,7 +234,7 @@ namespace TJAPlayer3
 			if(TJAPlayer3.Tx.Result_Gauge_Base != null && TJAPlayer3.Tx.Result_Gauge != null )
 			{
 				//int nRectX = (int)( CDTXMania.stage結果.st演奏記録.Drums.fゲージ / 2) * 12;
-				double Rate = TJAPlayer3.stage結果.st演奏記録.Drums.fゲージ;
+				double Rate = TJAPlayer3.stage結果.st演奏記録.fゲージ;
 				//nRectX = CDTXMania.stage結果.st演奏記録.Drums.fゲージ >= 80.0f ? 80 : nRectX;
 				TJAPlayer3.Tx.Result_Gauge_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultGaugeBaseP1X, TJAPlayer3.Skin.nResultGaugeBaseP1Y, new Rectangle( 0, 0, 691, 47 ) );
 				#region[ ゲージ本体 ]
@@ -344,18 +344,18 @@ namespace TJAPlayer3
 			}
 			if(TJAPlayer3.Tx.Gauge_Soul != null )
 			{
-				if(TJAPlayer3.Tx.Gauge_Soul_Fire != null && TJAPlayer3.stage結果.st演奏記録.Drums.fゲージ >= 100.0f )
+				if(TJAPlayer3.Tx.Gauge_Soul_Fire != null && TJAPlayer3.stage結果.st演奏記録.fゲージ >= 100.0f )
 					TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画( TJAPlayer3.app.Device, 1100, 34, new Rectangle( 0, 0, 230, 230 ) );
 				TJAPlayer3.Tx.Gauge_Soul.t2D描画( TJAPlayer3.app.Device, 1174, 107, new Rectangle( 0, 0, 80, 80 ) );
 			}
 			//演奏中のやつ使いまわせなかった。ファック。
-			this.tスコア文字表示( TJAPlayer3.Skin.nResultScoreP1X, TJAPlayer3.Skin.nResultScoreP1Y, string.Format( "{0,7:######0}",TJAPlayer3.stage結果.st演奏記録.Drums.nスコア ) );
-			this.t小文字表示( TJAPlayer3.Skin.nResultGreatP1X, TJAPlayer3.Skin.nResultGreatP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.Drums.nPerfect数.ToString() ) );
-			this.t小文字表示( TJAPlayer3.Skin.nResultGoodP1X, TJAPlayer3.Skin.nResultGoodP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.Drums.nGreat数.ToString() ) );
-			this.t小文字表示( TJAPlayer3.Skin.nResultBadP1X, TJAPlayer3.Skin.nResultBadP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.Drums.nMiss数.ToString() ) );
+			this.tスコア文字表示( TJAPlayer3.Skin.nResultScoreP1X, TJAPlayer3.Skin.nResultScoreP1Y, string.Format( "{0,7:######0}",TJAPlayer3.stage結果.st演奏記録.nスコア ) );
+			this.t小文字表示( TJAPlayer3.Skin.nResultGreatP1X, TJAPlayer3.Skin.nResultGreatP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.nPerfect数.ToString() ) );
+			this.t小文字表示( TJAPlayer3.Skin.nResultGoodP1X, TJAPlayer3.Skin.nResultGoodP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.nGreat数.ToString() ) );
+			this.t小文字表示( TJAPlayer3.Skin.nResultBadP1X, TJAPlayer3.Skin.nResultBadP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.nMiss数.ToString() ) );
 
-			this.t小文字表示( TJAPlayer3.Skin.nResultComboP1X, TJAPlayer3.Skin.nResultComboP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.Drums.n最大コンボ数.ToString() ) );
-			this.t小文字表示( TJAPlayer3.Skin.nResultRollP1X, TJAPlayer3.Skin.nResultRollP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.Drums.n連打数.ToString() ) );
+			this.t小文字表示( TJAPlayer3.Skin.nResultComboP1X, TJAPlayer3.Skin.nResultComboP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.n最大コンボ数.ToString() ) );
+			this.t小文字表示( TJAPlayer3.Skin.nResultRollP1X, TJAPlayer3.Skin.nResultRollP1Y, string.Format( "{0,4:###0}", TJAPlayer3.stage結果.st演奏記録.n連打数.ToString() ) );
 			//CDTXMania.act文字コンソール.tPrint( 960, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nPerfect数.ToString()) );
 			//CDTXMania.act文字コンソール.tPrint( 960, 236, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nGreat数.ToString()) );
 			//CDTXMania.act文字コンソール.tPrint( 960, 276, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nMiss数.ToString()) );
@@ -369,8 +369,8 @@ namespace TJAPlayer3
 			#region 段位認定モード用
 			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
 			{
-				TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stage結果.st演奏記録.Drums.Dan_C);
-				switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録.Drums.Dan_C))
+				TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stage結果.st演奏記録.Dan_C);
+				switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録.Dan_C))
 				{
 					case Exam.Status.Failure:
 						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_XY[0], TJAPlayer3.Skin.Result_Dan_XY[1], new Rectangle(0, 0, TJAPlayer3.Skin.Result_Dan[0], TJAPlayer3.Skin.Result_Dan[1]));
@@ -389,15 +389,15 @@ namespace TJAPlayer3
 			}
 			else {
 				int i;
-				if (TJAPlayer3.stage結果.st演奏記録.Drums.fゲージ < 80)
+				if (TJAPlayer3.stage結果.st演奏記録.fゲージ < 80)
 				{
 					i = 0;
 				}
-				else if (TJAPlayer3.stage結果.st演奏記録.Drums.nMiss数_Auto含まない != 0)
+				else if (TJAPlayer3.stage結果.st演奏記録.nMiss数_Auto含まない != 0)
 				{
 					i = 1;
 				}
-				else if (TJAPlayer3.stage結果.st演奏記録.Drums.nGreat数_Auto含まない != 0)
+				else if (TJAPlayer3.stage結果.st演奏記録.nGreat数_Auto含まない != 0)
 				{
 					i = 2;
 				}
