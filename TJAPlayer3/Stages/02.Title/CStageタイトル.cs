@@ -166,7 +166,8 @@ namespace TJAPlayer3
 					{
 						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{
-							TJAPlayer3.Skin.soundゲーム開始音.t再生する();
+							if (!((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.A)))
+								TJAPlayer3.Skin.soundゲーム開始音.t再生する();
 						}
 						else
 						{
@@ -237,15 +238,15 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Tx.Title_Txt[this.n現在のカーソル行] = ResolveTitleTexture(titleTextureKey[this.n現在のカーソル行 + 3]);
 
-						if (this.n現在のカーソル行 != 0)
+						if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
 						{
 							TJAPlayer3.Tx.Title_Txt[0] = ResolveTitleTexture(titleTextureKey[0]);
 						}
-						if (this.n現在のカーソル行 != 1)
+						if (this.n現在のカーソル行 != (int)E戻り値.CONFIG - 1)
 						{
 							TJAPlayer3.Tx.Title_Txt[1] = ResolveTitleTexture(titleTextureKey[1]);
 						}
-						if (this.n現在のカーソル行 != 2)
+						if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
 						{
 							TJAPlayer3.Tx.Title_Txt[2] = ResolveTitleTexture(titleTextureKey[2]);
 						}
@@ -334,7 +335,10 @@ namespace TJAPlayer3
 						switch (this.n現在のカーソル行)
 						{
 							case (int)E戻り値.GAMESTART - 1:
-								return (int)E戻り値.GAMESTART;
+								if (!((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.A)))
+									return (int)E戻り値.GAMESTART;
+								else
+									return (int)E戻り値.MAINTENANCE;
 
 							case (int)E戻り値.CONFIG - 1:
 								TJAPlayer3.Tx.Kyo_mae = 3;
@@ -363,7 +367,8 @@ namespace TJAPlayer3
 			GAMESTART,
 			//			OPTION,
 			CONFIG,
-			EXIT
+			EXIT,
+			MAINTENANCE
 		}
 
 

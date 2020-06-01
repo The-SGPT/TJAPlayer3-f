@@ -617,20 +617,14 @@ namespace TJAPlayer3
 		public bool bAVI有効;
 		public bool bBGA有効;
 		public bool bBGM音を発声する;
-		public STDGBVALUE<bool> bHidden;
-		public STDGBVALUE<bool> bLeft;
-		public STDGBVALUE<bool> bLight;
 		public bool bLogDTX詳細ログ出力;
 		public bool bLog曲検索ログ出力;
 		public bool bLog作成解放ログ出力;
-		public STDGBVALUE<bool> bReverse;
 		//public STDGBVALUE<E判定表示優先度> e判定表示優先度;
 		public E判定表示優先度 e判定表示優先度;
 		public bool bScoreIniを出力する;
 		public bool bSTAGEFAILED有効;
-		public STDGBVALUE<bool> bSudden;
 		public bool bTight;
-		public STDGBVALUE<bool> bGraph;     // #24074 2011.01.23 add ikanick
 		public bool bWave再生位置自動調整機能有効;
 		public bool bストイックモード;
 		public bool bランダムセレクトで子BOXを検索対象とする;
@@ -1023,12 +1017,7 @@ namespace TJAPlayer3
 			this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
 			this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
 			this.bログ出力 = true;
-			this.bSudden = new STDGBVALUE<bool>();
-			this.bHidden = new STDGBVALUE<bool>();
-			this.bReverse = new STDGBVALUE<bool>();
 			this.eRandom = new Eランダムモード[2];
-			this.bLight = new STDGBVALUE<bool>();
-			this.bLeft = new STDGBVALUE<bool>();
 			this.判定文字表示位置 = new E判定文字表示位置();
 			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
 			this.nInputAdjustTimeMs = 0;
@@ -1039,11 +1028,6 @@ namespace TJAPlayer3
 			this.判定文字表示位置 = E判定文字表示位置.レーン上;
 			for ( int i = 0; i < 3; i++ )
 			{
-				this.bSudden[ i ] = false;
-				this.bHidden[ i ] = false;
-				this.bReverse[ i ] = false;
-				this.bLight[ i ] = false;
-				this.bLeft[ i ] = false;
 				this.n譜面スクロール速度[0][ i ] = 9;
 				this.n譜面スクロール速度[1][ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
@@ -1534,16 +1518,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "ScrollMode={0}", (int)this.eScrollMode );
 			sw.WriteLine();
 			*/
-			#region [ SUDDEN ]
-			sw.WriteLine( "; ドラムSUDDENモード(0:OFF, 1:ON)" );
-			sw.WriteLine( "DrumsSudden={0}", this.bSudden.Drums ? 1 : 0 );
-			sw.WriteLine();
-			#endregion
-			#region [ HIDDEN ]
-			sw.WriteLine( "; ドラムHIDDENモード(0:OFF, 1:ON)" );
-			sw.WriteLine( "DrumsHidden={0}", this.bHidden.Drums ? 1 : 0 );
-			sw.WriteLine();
-			#endregion
 			#region [ Invisible ]
 			//sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
 			//sw.WriteLine( "; Drums chip invisible mode" );
@@ -1556,9 +1530,6 @@ namespace TJAPlayer3
 			//sw.WriteLine( "InvisibleFadeoutTimeMs={0}", (int) this.nFadeoutTimeMs );
 			//sw.WriteLine();
 			#endregion
-			sw.WriteLine( "; ドラムREVERSEモード(0:OFF, 1:ON)" );
-			sw.WriteLine( "DrumsReverse={0}", this.bReverse.Drums ? 1 : 0 );
-			sw.WriteLine();
 			sw.WriteLine( "; RISKYモード(0:OFF, 1-10)" );									// #23559 2011.6.23 yyagi
 			sw.WriteLine( "; RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );	//
 			sw.WriteLine( "Risky={0}", this.nRisky );			//
@@ -1577,9 +1548,6 @@ namespace TJAPlayer3
 
 			sw.WriteLine("; デフォルトで選択される難易度");
 			sw.WriteLine("DefaultCourse={0}", this.nDefaultCourse);
-			sw.WriteLine();
-			sw.WriteLine( "; 譜面分岐のガイド表示(0:OFF, 1:ON)" );
-			sw.WriteLine( "BranchGuide={0}", this.bGraph.Drums ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine( "; スコア計算方法(0:旧配点, 1:旧筐体配点, 2:新配点)" );
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
@@ -2247,24 +2215,6 @@ namespace TJAPlayer3
 											{
 												this.eScrollMode = ( EScrollMode )C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
 											}
-											/*
-											else if( str3.Equals( "DrumsGraph" ) )  // #24074 2011.01.23 addikanick
-											{
-												this.bGraph.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
-											*/
-											#region [ Sudden ]
-											else if( str3.Equals( "DrumsSudden" ) )
-											{
-												this.bSudden.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
-											#endregion
-											#region [ Hidden ]
-											else if( str3.Equals( "DrumsHidden" ) )
-											{
-												this.bHidden.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
-											#endregion
 											#region [ Invisible ]
 											//else if ( str3.Equals( "DrumsInvisible" ) )
 											//{
@@ -2279,10 +2229,6 @@ namespace TJAPlayer3
 											//    this.nFadeoutTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
 											//}
 											#endregion
-											else if ( str3.Equals( "DrumsReverse" ) )
-											{
-												this.bReverse.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
 											else if( str3.Equals( "DrumsPosition" ) )
 											{
 												this.判定文字表示位置 = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置 );

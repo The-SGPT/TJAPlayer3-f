@@ -230,7 +230,6 @@
     <Compile Include="Stages\07.Game\Taiko\CAct演奏DrumsMob.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏DrumsDanger.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏Drumsキャラクター.cs" />
-    <Compile Include="Stages\07.Game\Taiko\CAct演奏Drumsグラフ.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏Drumsゲージ.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏Drumsゲームモード.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏DrumsコンボDGB.cs" />
@@ -267,6 +266,7 @@
     <Compile Include="Stages\08.Result\CStage結果.cs" />
     <Compile Include="Stages\09.Ending\CStage終了.cs" />
     <Compile Include="Stages\10.ChangeSkin\CStageChangeSkin.cs" />
+    <Compile Include="Stages\11.Maintenance\CStageメンテナンス.cs" />
     <Compile Include="Stages\CActDFPFont.cs" />
     <Compile Include="Stages\CActFIFOBlack.cs" />
     <Compile Include="Stages\CActFIFOStart.cs" />
