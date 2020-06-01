@@ -349,7 +349,6 @@ namespace TJAPlayer3
 
 			//X右座標を元にして、右座標 - ( コンボの幅 * 桁数 ) でX座標を求めていく?
 
-			int nY上辺位置px = TJAPlayer3.ConfigIni.bReverse.Drums ? 350 : 10;
 			int n数字とCOMBOを合わせた画像の全長px = ( ( 44 ) * n桁数 );
 			int x = 245 + ( n数字とCOMBOを合わせた画像の全長px / 2 );
 			//int y = 212;

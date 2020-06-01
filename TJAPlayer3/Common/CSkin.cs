@@ -2407,8 +2407,6 @@ namespace TJAPlayer3
 		//現在のデフォルト値はダミーです。
 		public int nResultPanelP1X = 515;
 		public int nResultPanelP1Y = 75;
-		public int nResultPanelP2X = 515;
-		public int nResultPanelP2Y = 75;
 		public int nResultScoreP1X = 582;
 		public int nResultScoreP1Y = 252;
 		public int nResultJudge1_P1X = 815;
@@ -2417,30 +2415,40 @@ namespace TJAPlayer3
 		public int nResultJudge2_P1Y = 174;
 		public int nResultGreatP1X = 875;
 		public int nResultGreatP1Y = 188;
-		public int nResultGreatP2X = 875;
-		public int nResultGreatP2Y = 188;
 		public int nResultGoodP1X = 875;
 		public int nResultGoodP1Y = 226;
-		public int nResultGoodP2X = 875;
-		public int nResultGoodP2Y = 226;
 		public int nResultBadP1X = 875;
 		public int nResultBadP1Y = 266;
-		public int nResultBadP2X = 875;
-		public int nResultBadP2Y = 266;
 		public int nResultComboP1X = 1144;
 		public int nResultComboP1Y = 188;
-		public int nResultComboP2X = 1144;
-		public int nResultComboP2Y = 188;
 		public int nResultRollP1X = 1144;
 		public int nResultRollP1Y = 226;
-		public int nResultRollP2X = 1144;
-		public int nResultRollP2Y = 226;
 		public int nResultGaugeBaseP1X = 555;
 		public int nResultGaugeBaseP1Y = 122;
-		public int nResultGaugeBaseP2X = 555;
-		public int nResultGaugeBaseP2Y = 122;
 		public int nResultGaugeBodyP1X = 559;
 		public int nResultGaugeBodyP1Y = 125;
+		public int nResultPanelP2X = 515;
+		public int nResultPanelP2Y = 435;
+		public int nResultScoreP2X = 582;
+		public int nResultScoreP2Y = 612;
+		public int nResultJudge1_P2X = 815;
+		public int nResultJudge1_P2Y = 542;
+		public int nResultJudge2_P2X = 968;
+		public int nResultJudge2_P2Y = 534;
+		public int nResultGreatP2X = 875;
+		public int nResultGreatP2Y = 548;
+		public int nResultGoodP2X = 875;
+		public int nResultGoodP2Y = 586;
+		public int nResultBadP2X = 875;
+		public int nResultBadP2Y = 626;
+		public int nResultComboP2X = 1144;
+		public int nResultComboP2Y = 548;
+		public int nResultRollP2X = 1144;
+		public int nResultRollP2Y = 586;
+		public int nResultGaugeBaseP2X = 555;
+		public int nResultGaugeBaseP2Y = 482;
+		public int nResultGaugeBodyP2X = 559;
+		public int nResultGaugeBodyP2Y = 485;
 		#endregion
 
 		public enum RollColorMode
@@ -2760,7 +2768,8 @@ namespace TJAPlayer3
 		public int[] Result_Dan_XY = new int[] { 100, 0 };
 		public int[] Result_Dan_Plate_XY = new int[] { 149, 416 };
 
-		public int[] Result_Crown_XY = new int[] { 350, 200};
+		public int[] Result_Crown_XY = new int[] { 350, 200 };
+		public int[] Result_Crown2P_XY = new int[] { 350, 560 };
 		#endregion
 		#region Font
 		public int Font_Edge_Ratio = 30;

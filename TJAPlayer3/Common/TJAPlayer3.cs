@@ -268,6 +268,11 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
+		public static CStageメンテナンス stageメンテ
+		{
+			get;
+			private set;
+		}
 		public static CStage r現在のステージ = null;
 		public static CStage r直前のステージ = null;
 		public static string strEXEのあるフォルダ 
@@ -837,6 +842,18 @@ namespace TJAPlayer3
 								stage終了.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage終了;
+								//-----------------------------
+								#endregion
+								break;
+							case (int)CStageタイトル.E戻り値.MAINTENANCE:
+								#region [ *** ]
+								//-----------------------------
+								r現在のステージ.On非活性化();
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ メンテ");
+								stageメンテ.On活性化();
+								r直前のステージ = r現在のステージ;
+								r現在のステージ = stageメンテ;
 								//-----------------------------
 								#endregion
 								break;
@@ -1433,7 +1450,11 @@ for (int i = 0; i < 3; i++) {
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation( "----------------------" );
 								Trace.TraceInformation( "■ 結果" );
-								stage結果.st演奏記録 = c演奏記録_Drums[0];
+								stage結果.st演奏記録[0] = c演奏記録_Drums[0];
+								if (ConfigIni.nPlayerCount == 2)
+								{
+									stage結果.st演奏記録[1] = c演奏記録_Drums[1];
+								}
 								stage結果.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage結果;
@@ -1516,6 +1537,22 @@ for (int i = 0; i < 3; i++) {
 						if( this.n進行描画の戻り値 != 0 )
 						{
 							base.Exit();
+						}
+						//-----------------------------
+						#endregion
+						break;
+
+					case CStage.Eステージ.メンテ:
+						#region [ *** ]
+						//-----------------------------
+						if (this.n進行描画の戻り値 != 0) {
+							r現在のステージ.On非活性化();
+							Trace.TraceInformation("----------------------");
+							Trace.TraceInformation("■ 選曲");
+							stage選曲.On活性化();
+							r直前のステージ = r現在のステージ;
+							r現在のステージ = stage選曲;
+							this.tガベージコレクションを実行する();
 						}
 						//-----------------------------
 						#endregion
@@ -1688,6 +1725,49 @@ for (int i = 0; i < 3; i++) {
 				return null;
 			}
 		}
+
+		public static CTexture ColorTexture(string htmlcolor, int width, int height)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
+		{
+			if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
+			{
+				Color color = ColorTranslator.FromHtml(htmlcolor);
+				Brush brush = new SolidBrush(color);
+				return ColorTexture(brush, width, height);
+			}
+			else
+				return ColorTexture(Brushes.Black);
+		}
+		public static CTexture ColorTexture(string htmlcolor)
+		{
+			if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
+			{
+				Color color = ColorTranslator.FromHtml(htmlcolor);
+				Brush brush = new SolidBrush(color);
+				return ColorTexture(brush);
+			}
+			else
+				return ColorTexture(Brushes.Black);
+		}
+		public static CTexture ColorTexture(Brush brush)
+		{
+			return ColorTexture(brush, 64, 64);
+		}
+		/// <summary>
+		/// 単色塗りつぶしテクスチャの生成
+		/// </summary>
+		/// <param name="brush">ブラシの色とかの指定</param>
+		/// <param name="width">幅</param>
+		/// <param name="height">高さ</param>
+		/// <returns></returns>
+		public static CTexture ColorTexture(Brush brush, int width, int height)
+		{
+			Bitmap bmp = new Bitmap(width, height);
+			Graphics gra = Graphics.FromImage(bmp);
+			gra.FillRectangle(brush, 0, 0, width, height);
+			gra.Dispose();
+			return TJAPlayer3.tテクスチャの生成(bmp);
+		}
+
 		public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
 		{
 			CDirectShow ds = null;
@@ -2258,6 +2338,7 @@ for (int i = 0; i < 3; i++) {
 			stage結果 = new CStage結果();
 			stageChangeSkin = new CStageChangeSkin();
 			stage終了 = new CStage終了();
+			stageメンテ = new CStageメンテナンス();
 			this.listトップレベルActivities = new List<CActivity>();
 			this.listトップレベルActivities.Add( actEnumSongs );
 			this.listトップレベルActivities.Add( act文字コンソール );
@@ -2271,6 +2352,7 @@ for (int i = 0; i < 3; i++) {
 			this.listトップレベルActivities.Add( stage結果 );
 			this.listトップレベルActivities.Add( stageChangeSkin );
 			this.listトップレベルActivities.Add( stage終了 );
+			this.listトップレベルActivities.Add( stageメンテ );
 			this.listトップレベルActivities.Add( actFlushGPU );
 			//---------------------
 			#endregion

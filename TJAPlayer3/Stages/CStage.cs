@@ -33,7 +33,8 @@ namespace TJAPlayer3
 			演奏,
 			結果,
 			ChangeSkin,						// #28195 2011.5.4 yyagi
-			終了
+			終了,
+			メンテ							//2020.06.01 Mr-Ojii
 		}
 		
 		internal Eフェーズ eフェーズID;

@@ -30,7 +30,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
 			base.list子Activities.Add( this.Rainbow = new Rainbow() );
 			base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
-			base.list子Activities.Add( this.actGraph = new CAct演奏Drumsグラフ() ); // #24074 2011.01.23 add ikanick
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
 			base.list子Activities.Add( this.actTaikoLaneFlash = new TaikoLaneFlash() );
 			base.list子Activities.Add( this.actLaneFlushGB = new CAct演奏DrumsレーンフラッシュGB() );
@@ -400,10 +399,6 @@ namespace TJAPlayer3
 				{
 					CSound管理.rc演奏用タイマ.tリセット();
 					TJAPlayer3.Timer.tリセット();
-					this.ctチップ模様アニメ.Drums = new CCounter( 0, 1, 500, TJAPlayer3.Timer );
-					this.ctチップ模様アニメ.Guitar = new CCounter( 0, 0x17, 20, TJAPlayer3.Timer );
-					this.ctチップ模様アニメ.Bass = new CCounter( 0, 0x17, 20, TJAPlayer3.Timer );
-					this.ctチップ模様アニメ.Taiko = new CCounter( 0, 1, 500, TJAPlayer3.Timer );
 
 					// this.actChipFireD.Start( Eレーン.HH );	// #31554 2013.6.12 yyagi
 					// 初チップヒット時のもたつき回避。最初にactChipFireD.Start()するときにJITが掛かって？
@@ -622,7 +617,6 @@ namespace TJAPlayer3
 		}
 		public CAct演奏DrumsチップファイアD actChipFireD;
 
-		private CAct演奏Drumsグラフ actGraph;   // #24074 2011.01.23 add ikanick
 		private CAct演奏Drumsパッド actPad;
 		public CAct演奏Drumsレーン actLane;
 		public CAct演奏DrumsMtaiko actMtaiko;
@@ -816,14 +810,6 @@ namespace TJAPlayer3
 		protected override void t進行描画_DANGER()
 		{
 			this.actDANGER.t進行描画( this.actGauge.IsDanger(E楽器パート.DRUMS), false, false );
-		}
-
-		private void t進行描画_グラフ()        
-		{
-			if( TJAPlayer3.ConfigIni.bGraph.Drums )
-			{
-				this.actGraph.On進行描画();
-			}
 		}
 
 		private void t進行描画_チップファイアD()
@@ -2212,15 +2198,15 @@ namespace TJAPlayer3
 				if( TJAPlayer3.Tx.Judge_Meter != null )
 					TJAPlayer3.Tx.Judge_Meter.t2D描画( TJAPlayer3.app.Device, 0, 360 );
 
-				this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Perfect.ToString() ), false );
-				this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Great.ToString() ), false );
-				this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Miss.ToString() ), false );
+				this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Perfect.ToString() ), false );
+				this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Great.ToString() ), false );
+				this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Miss.ToString() ), false );
 
-				int nNowTotal = this.nヒット数_Auto含まない.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Great + this.nヒット数_Auto含まない.Drums.Miss;
-				double dbたたけた率 = Math.Round((100.0 * ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great)) / (double)nNowTotal);
-				double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) / (double)nNowTotal);
-				double dbGREAT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great / (double)nNowTotal));
-				double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss / (double)nNowTotal));
+				int nNowTotal = this.nヒット数_Auto含まない[0].Perfect + this.nヒット数_Auto含まない[0].Great + this.nヒット数_Auto含まない[0].Miss;
+				double dbたたけた率 = Math.Round((100.0 * ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great)) / (double)nNowTotal);
+				double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect) / (double)nNowTotal);
+				double dbGREAT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great / (double)nNowTotal));
+				double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss / (double)nNowTotal));
 
 				if (double.IsNaN(dbたたけた率))
 					dbたたけた率 = 0;

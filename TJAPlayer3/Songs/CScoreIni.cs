@@ -158,12 +158,7 @@ namespace TJAPlayer3
 		public class C演奏記録
 		{
 			public bool bDrums有効;
-			public STDGBVALUE<bool> bHidden;
-			public STDGBVALUE<bool> bLeft;
-			public STDGBVALUE<bool> bLight;
-			public STDGBVALUE<bool> bReverse;
 			public bool bSTAGEFAILED有効;
-			public STDGBVALUE<bool> bSudden;
 			public bool bTight;
 			public bool b演奏にMIDI入力を使用した;
 			public bool b演奏にキーボードを使用した;
@@ -211,27 +206,7 @@ namespace TJAPlayer3
 
 			public C演奏記録()
 			{
-				this.bSudden = new STDGBVALUE<bool>();
-				this.bSudden.Drums = false;
-				this.bSudden.Guitar = false;
-				this.bSudden.Bass = false;
-				this.bHidden = new STDGBVALUE<bool>();
-				this.bHidden.Drums = false;
-				this.bHidden.Guitar = false;
-				this.bHidden.Bass = false;
-				this.bReverse = new STDGBVALUE<bool>();
-				this.bReverse.Drums = false;
-				this.bReverse.Guitar = false;
-				this.bReverse.Bass = false;
 				this.eRandom = Eランダムモード.OFF;
-				this.bLight = new STDGBVALUE<bool>();
-				this.bLight.Drums = false;
-				this.bLight.Guitar = false;
-				this.bLight.Bass = false;
-				this.bLeft = new STDGBVALUE<bool>();
-				this.bLeft.Drums = false;
-				this.bLeft.Guitar = false;
-				this.bLeft.Bass = false;
 				this.f譜面スクロール速度 = new STDGBVALUE<float>();
 				this.f譜面スクロール速度.Drums = 1f;
 				this.f譜面スクロール速度.Guitar = 1f;
@@ -652,71 +627,9 @@ namespace TJAPlayer3
 							{
 								c演奏記録.bTight = C変換.bONorOFF( para[ 0 ] );
 							}
-							else if ( item.Equals( "SuddenDrums" ) )
-							{
-								c演奏記録.bSudden.Drums = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "SuddenGuitar" ) )
-							{
-								c演奏記録.bSudden.Guitar = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "SuddenBass" ) )
-							{
-								c演奏記録.bSudden.Bass = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "HiddenDrums" ) )
-							{
-								c演奏記録.bHidden.Drums = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "HiddenGuitar" ) )
-							{
-								c演奏記録.bHidden.Guitar = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "HiddenBass" ) )
-							{
-								c演奏記録.bHidden.Bass = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "ReverseDrums" ) )
-							{
-								c演奏記録.bReverse.Drums = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "ReverseGuitar" ) )
-							{
-								c演奏記録.bReverse.Guitar = C変換.bONorOFF( para[ 0 ] );
-							}
-							else if ( item.Equals( "ReverseBass" ) )
-							{
-								c演奏記録.bReverse.Bass = C変換.bONorOFF( para[ 0 ] );
-							}
 							#endregion
 							else
 							{
-								#region [ LightGuitar ]
-								if ( item.Equals( "LightGuitar" ) )
-								{
-									c演奏記録.bLight.Guitar = C変換.bONorOFF( para[ 0 ] );
-								}
-								#endregion
-								#region [ LightBass ]
-								else if ( item.Equals( "LightBass" ) )
-								{
-									c演奏記録.bLight.Bass = C変換.bONorOFF( para[ 0 ] );
-								}
-								#endregion
-								#region [ LeftGuitar ]
-								else if ( item.Equals( "LeftGuitar" ) )
-								{
-									c演奏記録.bLeft.Guitar = C変換.bONorOFF( para[ 0 ] );
-								}
-								#endregion
-								#region [ LeftBass ]
-								else if ( item.Equals( "LeftBass" ) )
-								{
-									c演奏記録.bLeft.Bass = C変換.bONorOFF( para[ 0 ] );
-								}
-								#endregion
-								else
-								{
 									#region [ Dark ]
 									if ( item.Equals( "Dark" ) )
 									{
@@ -916,7 +829,7 @@ namespace TJAPlayer3
 											}
 										}
 									}
-								}
+								
 							}
 							continue;
 						}
@@ -979,21 +892,8 @@ namespace TJAPlayer3
 					writer.WriteLine("TotalChips={0}", this.stセクション[i].n全チップ数);
 					writer.WriteLine();
 					writer.WriteLine("Risky={0}", this.stセクション[i].nRisky);
-					writer.WriteLine("SuddenDrums={0}", this.stセクション[i].bSudden.Drums ? 1 : 0);
-					writer.WriteLine("SuddenGuitar={0}", this.stセクション[i].bSudden.Guitar ? 1 : 0);
-					writer.WriteLine("SuddenBass={0}", this.stセクション[i].bSudden.Bass ? 1 : 0);
-					writer.WriteLine("HiddenDrums={0}", this.stセクション[i].bHidden.Drums ? 1 : 0);
-					writer.WriteLine("HiddenGuitar={0}", this.stセクション[i].bHidden.Guitar ? 1 : 0);
-					writer.WriteLine("HiddenBass={0}", this.stセクション[i].bHidden.Bass ? 1 : 0);
-					writer.WriteLine("ReverseDrums={0}", this.stセクション[i].bReverse.Drums ? 1 : 0);
-					writer.WriteLine("ReverseGuitar={0}", this.stセクション[i].bReverse.Guitar ? 1 : 0);
-					writer.WriteLine("ReverseBass={0}", this.stセクション[i].bReverse.Bass ? 1 : 0);
 					writer.WriteLine("TightDrums={0}", this.stセクション[i].bTight ? 1 : 0);
 					writer.WriteLine("RandomDrums={0}", (int)this.stセクション[i].eRandom);
-					writer.WriteLine("LightGuitar={0}", this.stセクション[i].bLight.Guitar ? 1 : 0);
-					writer.WriteLine("LightBass={0}", this.stセクション[i].bLight.Bass ? 1 : 0);
-					writer.WriteLine("LeftGuitar={0}", this.stセクション[i].bLeft.Guitar ? 1 : 0);
-					writer.WriteLine("LeftBass={0}", this.stセクション[i].bLeft.Bass ? 1 : 0);
 					writer.WriteLine("Dark={0}", (int)this.stセクション[i].eDark);
 					writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度.Drums);
 					writer.WriteLine("ScrollSpeedGuitar={0}", this.stセクション[i].f譜面スクロール速度.Guitar);
@@ -1172,19 +1072,6 @@ namespace TJAPlayer3
 			builder.Append( cc.n最大コンボ数 );
 			builder.Append( cc.n全チップ数 );
 			builder.Append( boolToChar( cc.bTight ) );
-			builder.Append( boolToChar( cc.bSudden.Drums ) );
-			builder.Append( boolToChar( cc.bSudden.Guitar ) );
-			builder.Append( boolToChar( cc.bSudden.Bass ) );
-			builder.Append( boolToChar( cc.bHidden.Drums ) );
-			builder.Append( boolToChar( cc.bHidden.Guitar ) );
-			builder.Append( boolToChar( cc.bHidden.Bass ) );
-			builder.Append( boolToChar( cc.bReverse.Drums ) );
-			builder.Append( boolToChar( cc.bReverse.Guitar ) );
-			builder.Append( boolToChar( cc.bReverse.Bass ) );
-			builder.Append( boolToChar( cc.bLight.Guitar ) );
-			builder.Append( boolToChar( cc.bLight.Bass ) );
-			builder.Append( boolToChar( cc.bLeft.Guitar ) );
-			builder.Append( boolToChar( cc.bLeft.Bass ) );
 			builder.Append( (int) cc.eDark );
 			builder.Append( cc.f譜面スクロール速度.Drums.ToString( ".000000" ) );
 			builder.Append( cc.f譜面スクロール速度.Guitar.ToString( ".000000" ) );

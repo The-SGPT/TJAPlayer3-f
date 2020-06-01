@@ -51,7 +51,6 @@ namespace TJAPlayer3
 					this.txオプションパネル.t2D描画( device, 0x1a1, 0x24, this.rcDark[ (int) configIni.eDark ] );
 					#endregion
 					#region [ Reverse ]
-					this.txオプションパネル.t2D描画( device, 0x1b9, 12, this.rcReverse[ configIni.bReverse.Drums ? 1 : 0 ] );
 					#endregion
 					#region [ Position ]
 					this.txオプションパネル.t2D描画( device, 0x1d1, 12, this.rcPosition[ (int) configIni.判定文字表示位置 ] );

@@ -74,7 +74,7 @@ namespace TJAPlayer3
 		{
 			TitleTextureKey[] titleTextureKey = new TitleTextureKey[3];
 			#region 共通
-			Tile_Black = TxC(@"Tile_Black.png");
+			Tile_Black = TJAPlayer3.ColorTexture(Brushes.Black);
 			Menu_Title = TxC(@"Menu_Title.png");
 			Menu_Highlight = TxC(@"Menu_Highlight.png");
 			Enum_Song = TxC(@"Enum_Song.png");
