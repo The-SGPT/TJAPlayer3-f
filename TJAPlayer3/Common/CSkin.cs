@@ -2503,9 +2503,13 @@ namespace TJAPlayer3
 		public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
 		public int SongSelect_BackBoxText_Y_Diff = 0;
 		public int SongSelect_Box_Center_Header_Y_Diff = 0;
-		#endregion
-		#region SongLoading
-		public int SongLoading_Plate_X = 640;
+
+		#region[Difficulty]
+		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 640, 387, 439, 880, 600 , 125 , 25};
+        #endregion
+        #endregion
+        #region SongLoading
+        public int SongLoading_Plate_X = 640;
 		public int SongLoading_Plate_Y = 360;
 		public int SongLoading_Title_X = 640;
 		public int SongLoading_Title_Y = 340;

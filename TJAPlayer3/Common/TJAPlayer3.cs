@@ -1394,7 +1394,7 @@ for (int i = 0; i < 3; i++) {
 								}
 
 								double ps = 0.0, gs = 0.0;
-								if ( !c演奏記録_Drums[0].b全AUTOである && c演奏記録_Drums[0].n全チップ数 > 0) {
+								if (!TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && c演奏記録_Drums[0].n全チップ数 > 0) {
 									ps = c演奏記録_Drums[0].db演奏型スキル値;
 									gs = c演奏記録_Drums[0].dbゲーム型スキル値;
 								}

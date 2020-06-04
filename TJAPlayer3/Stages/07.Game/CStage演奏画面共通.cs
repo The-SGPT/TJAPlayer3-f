@@ -567,12 +567,9 @@ namespace TJAPlayer3
 
 		protected int[] nHand = new int[4];
 
-		protected CSound soundRed;
-		protected CSound soundBlue;
-		protected CSound soundAdlib;
-		protected CSound soundRed2;
-		protected CSound soundBlue2;
-		protected CSound soundAdlib2;
+		protected CSound[] soundRed = new CSound[2];
+		protected CSound[] soundBlue = new CSound[2];
+		protected CSound[] soundAdlib = new CSound[2];
 
 
 
@@ -894,36 +891,15 @@ namespace TJAPlayer3
 			int index = pChip.nチャンネル番号;
 			if (index == 0x11 || index == 0x13 || index == 0x1A)
 			{
-				if (pChip.nPlayerSide == 0)
-				{
-					this.soundRed?.t再生を開始する();
-				}
-				else
-				{
-					this.soundRed2?.t再生を開始する();
-				}
+				this.soundRed[pChip.nPlayerSide]?.t再生を開始する();
 			}
 			else if (index == 0x12 || index == 0x14 || index == 0x1B)
 			{
-				if (pChip.nPlayerSide == 0)
-				{
-					this.soundBlue?.t再生を開始する();
-				}
-				else
-				{
-					this.soundBlue2?.t再生を開始する();
-				}
+				this.soundBlue[pChip.nPlayerSide]?.t再生を開始する();
 			}
 			else if (index == 0x1F)
 			{
-				if (pChip.nPlayerSide == 0)
-				{
-					this.soundAdlib?.t再生を開始する();
-				}
-				else
-				{
-					this.soundAdlib2?.t再生を開始する();
-				}
+				this.soundAdlib[pChip.nPlayerSide]?.t再生を開始する();
 			}
 
 			if ( this.nHand[ nPlayer ] == 0 )
@@ -1035,10 +1011,8 @@ namespace TJAPlayer3
 				//赤か青かの分岐
 				if( sort == 0 )
 				{
-					if(pChip.nPlayerSide==0)
-						this.soundRed?.t再生を開始する();
-					else
-						this.soundRed2?.t再生を開始する();
+					this.soundRed[pChip.nPlayerSide]?.t再生を開始する();
+
 					if ( pChip.nチャンネル番号 == 0x15 )
 					{
 						//CDTXMania.Skin.soundRed.t再生する();
@@ -1054,10 +1028,7 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					if (pChip.nPlayerSide == 0)
-						this.soundBlue?.t再生を開始する();
-					else
-						this.soundBlue2?.t再生を開始する();
+					this.soundBlue[pChip.nPlayerSide]?.t再生を開始する();
 					if ( pChip.nチャンネル番号 == 0x15 )
 					{
 						//CDTXMania.Skin.soundBlue.t再生する();
@@ -1083,38 +1054,38 @@ namespace TJAPlayer3
 			return false;
 		}
 
-		protected bool tBalloonProcess( CDTX.CChip pChip, double dbProcess_time, int player )
+		protected bool tBalloonProcess( CDTX.CChip pChip, double dbProcess_time, int nPlayer )
 		{
 			//if( dbProcess_time >= pChip.n発声時刻ms && dbProcess_time < pChip.nノーツ終了時刻ms )
 			if ((int)(long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (int)(long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) <= pChip.nノーツ終了時刻ms)
 			{
 				if( pChip.nRollCount == 0 )
 				{
-					this.n風船残り[ player ] = pChip.nBalloon;
+					this.n風船残り[ nPlayer ] = pChip.nBalloon;
 				}
 
-				this.b連打中[ player ] = true;
-				if(actChara.CharaAction_Balloon_Breaking != null && player == 0)
+				this.b連打中[ nPlayer ] = true;
+				if(actChara.CharaAction_Balloon_Breaking != null && nPlayer == 0)
 				{
 					actChara.アクションタイマーリセット();
 					actChara.bマイどんアクション中 = true;
 					actChara.CharaAction_Balloon_Breaking = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer, TJAPlayer3.Timer);
 				   
 				}
-				if (this.actBalloon.ct風船アニメ[player].b終了値に達してない)
+				if (this.actBalloon.ct風船アニメ[nPlayer].b終了値に達してない)
 				{
-					this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
-					this.actBalloon.ct風船アニメ[player].n現在の値 = 1;
+					this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+					this.actBalloon.ct風船アニメ[nPlayer].n現在の値 = 1;
 				}
 				else
 				{
-					this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+					this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
 				}
 				this.eRollState = E連打State.balloon;
 				pChip.nRollCount++;
-				this.n風船残り[ player ]--;
+				this.n風船残り[ nPlayer ]--;
 
-				this.n合計連打数[player]++; //  成績発表の連打数に風船を含めるように (AioiLight)
+				this.n合計連打数[nPlayer]++; //  成績発表の連打数に風船を含めるように (AioiLight)
 				//分岐のための処理。実装してない。
 
 				//赤か青かの分岐
@@ -1122,25 +1093,25 @@ namespace TJAPlayer3
 				{
 					//ﾊﾟｧｰﾝ
 					TJAPlayer3.Skin.soundBalloon.t再生する();
-					//CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
-					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, player);
-					TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( player );
-					//CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[player])
+					//CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer ); //ここで飛ばす。飛ばされるのは大音符のみ。
+					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( nPlayer );
+					//CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
 					{
-						this.actScore.Add(E楽器パート.TAIKO, 6000L, player);
+						this.actScore.Add(E楽器パート.TAIKO, 6000L, nPlayer);
 					} else
 					{
-						this.actScore.Add(E楽器パート.TAIKO, 5000L, player);
+						this.actScore.Add(E楽器パート.TAIKO, 5000L, nPlayer);
 					}
 					pChip.bHit = true;
 					pChip.IsHitted = true;
-					chip現在処理中の連打チップ[ player ].bHit = true;
+					chip現在処理中の連打チップ[ nPlayer ].bHit = true;
 					//this.b連打中 = false;
 					//this.actChara.b風船連打中 = false;
 					pChip.b可視 = false;
 					this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
-					if (actChara.CharaAction_Balloon_Broke != null && player == 0)
+					if (actChara.CharaAction_Balloon_Broke != null && nPlayer == 0)
 					{
 						actChara.アクションタイマーリセット();
 						actChara.bマイどんアクション中 = true;
@@ -1151,26 +1122,23 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[player])
+					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
 					{
-						this.actScore.Add(E楽器パート.TAIKO, 360L, player);
+						this.actScore.Add(E楽器パート.TAIKO, 360L, nPlayer);
 					} else
 					{
-						this.actScore.Add(E楽器パート.TAIKO, 300L, player);
+						this.actScore.Add(E楽器パート.TAIKO, 300L, nPlayer);
 					}
-					//CDTXMania.Skin.soundRed.t再生する();
-					if(pChip.nPlayerSide == 0)
-						this.soundRed?.t再生を開始する();
-					else 
-						this.soundRed2?.t再生を開始する();
+
+					this.soundRed[pChip.nPlayerSide]?.t再生を開始する();
 				}
-				//TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[player].Start(PlayerLane.FlashType.Hit);
+				//TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
 			}
 			else
 			{
-				if ( chip現在処理中の連打チップ[ player ] != null )
-					chip現在処理中の連打チップ[ player ].bHit = true;
-				this.b連打中[ player ] = false;
+				if ( chip現在処理中の連打チップ[ nPlayer ] != null )
+					chip現在処理中の連打チップ[ nPlayer ].bHit = true;
+				this.b連打中[ nPlayer ] = false;
 				this.actChara.b風船連打中 = false;
 				return false;
 			}
@@ -2653,44 +2621,44 @@ namespace TJAPlayer3
 			if ( ( !this.bPAUSE && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
 				this.t入力処理_ドラム();
-				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.UpArrow ) && ( keyboard.bキーが押されている( (int)SlimDXKeys.Key.RightShift ) || keyboard.bキーが押されている( (int)SlimDXKeys.Key.LeftShift ) ) )
-				{	// shift (+ctrl) + UpArrow (BGMAdjust)
-					TJAPlayer3.DTX[0].t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int)SlimDXKeys.Key.LeftControl ) || keyboard.bキーが押されている( (int)SlimDXKeys.Key.RightControl ) ) ? 1 : 10 );
+				if (keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) && (keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)))
+				{   // shift (+ctrl) + UpArrow (BGMAdjust)
+					TJAPlayer3.DTX[0].t各自動再生音チップの再生時刻を変更する((keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) ? 1 : 10);
 					TJAPlayer3.DTX[0].tWave再生位置自動補正();
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.DownArrow ) && ( keyboard.bキーが押されている( (int)SlimDXKeys.Key.RightShift ) || keyboard.bキーが押されている( (int)SlimDXKeys.Key.LeftShift ) ) )
-				{	// shift + DownArrow (BGMAdjust)
-					TJAPlayer3.DTX[0].t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int)SlimDXKeys.Key.LeftControl ) || keyboard.bキーが押されている( (int)SlimDXKeys.Key.RightControl ) ) ? -1 : -10 );
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) && (keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)))
+				{   // shift + DownArrow (BGMAdjust)
+					TJAPlayer3.DTX[0].t各自動再生音チップの再生時刻を変更する((keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) ? -1 : -10);
 					TJAPlayer3.DTX[0].tWave再生位置自動補正();
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.UpArrow ) )
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow))
 				{   // UpArrow(scrollspeed up)
 					if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))//2020.05.29 Mr-Ojii Ctrlを押しているかどうかで、対象プレイヤーの変更
 						ドラムスクロール速度アップ(1);
 					else
 						ドラムスクロール速度アップ(0);
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.DownArrow ) )
-				{	// DownArrow (scrollspeed down)
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow))
+				{   // DownArrow (scrollspeed down)
 					if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
 						ドラムスクロール速度ダウン(1);
 					else
 						ドラムスクロール速度ダウン(0);
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) )
-				{	// del (debug info)
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.Delete))
+				{   // del (debug info)
 					TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.LeftArrow ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))      // #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 				{
-					ChangeInputAdjustTimeInPlaying( keyboard, -1 );
+					ChangeInputAdjustTimeInPlaying(keyboard, -1);
 				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.RightArrow ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))     // #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 				{
-					ChangeInputAdjustTimeInPlaying( keyboard, +1 );
+					ChangeInputAdjustTimeInPlaying(keyboard, +1);
 				}
-				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape )) && !this.actPauseMenu.bIsActivePopupMenu )
-				{	// escape (exit)
+				else if ((base.eフェーズID == CStage.Eフェーズ.共通_通常状態) && (keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)) && !this.actPauseMenu.bIsActivePopupMenu)
+				{   // escape (exit)
 					this.t演奏中止();
 				}
 				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D1) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
@@ -2801,7 +2769,7 @@ namespace TJAPlayer3
 
 					//判定枠に一番近いチップの情報を元に一小節分の値を計算する. 2020.04.21 akasoko26
 					var p判定枠に最も近いチップ = r指定時刻に一番近い未ヒットChipを過去方向優先で検索する((long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 0);
-					
+
 					double db一小節後 = 0.0;
 					if (p判定枠に最も近いチップ != null)
 						db一小節後 = ((15000.0 / p判定枠に最も近いチップ.dbBPM * (p判定枠に最も近いチップ.fNow_Measure_s / p判定枠に最も近いチップ.fNow_Measure_m)) * 16.0);
@@ -2817,7 +2785,7 @@ namespace TJAPlayer3
 
 					this.b強制的に分岐させた[1] = true;
 				}
-				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D6) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount>=2)
+				else if (keyboard.bキーが押された((int)SlimDXKeys.Key.D6) && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if (!TJAPlayer3.DTX[1].bHasBranch[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) return;
 

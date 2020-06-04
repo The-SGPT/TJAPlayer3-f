@@ -129,13 +129,12 @@ namespace TJAPlayer3
 			SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
 			SongSelect_Frame_BackBox = TxC(SONGSELECT + @"Frame_BackBox.png");
 			SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
-			SongSelect_Score_Select = TxC(SONGSELECT + @"Score_Select.png");
+			//SongSelect_Score_Select = TxC(SONGSELECT + @"Score_Select.png");
 			//SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
 			SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
 			SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
 			SongSelect_Bar_BackBox = TxC(SONGSELECT + @"Bar_BackBox.png");
-			SongSelect_Dan_Box = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box.png");
-			SongSelect_Dan_Box_Selecting = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box_Selecting.png");
+
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
 				SongSelect_Lyric_Text[i] = TxC(SONGSELECT + @"Lyric_Text_" + i.ToString() + ".png");
@@ -178,6 +177,44 @@ namespace TJAPlayer3
 				SongSelect_Counter_Back[i] = TxC(SONGSELECT + @"Counter_Background_" + i.ToString() + ".png");
 			}
 			SongSelect_ScoreWindow_Text = TxC(SONGSELECT + @"ScoreWindow_Text.png");
+
+
+			#region[3.5_難易度選択]
+			Difficulty_Dan_Box = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box.png");
+			Difficulty_Dan_Box_Selecting = TxC(SONGSELECT + DIFFICULITY + @"Dan_Box_Selecting.png");
+			Difficulty_Star = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Star.png");
+			Difficulty_Branch = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Branch.png");
+			Difficulty_Center_Bar = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Center_Bar.png");
+			Difficulty_Bar_Etc[0] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Back.png");
+			Difficulty_Bar_Etc[1] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Option.png");
+			Difficulty_Bar_Etc[2] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Sound.png");
+
+			for (int i = 0; i < Difficulty_Bar.Length; i++)
+			{
+				Difficulty_Bar[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < Difficulty_Anc.Length; i++)
+			{
+				Difficulty_Anc[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_" + (i+1).ToString() + "P.png");
+			}
+			for (int i = 0; i < Difficulty_Anc_Same.Length; i++)
+			{
+				Difficulty_Anc_Same[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_Same_" + (i + 1).ToString() + "P.png");
+			}
+			for (int i = 0; i < Difficulty_Anc_Box.Length; i++)
+			{
+				Difficulty_Anc_Box[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_Box_" + (i + 1).ToString() + "P.png");
+			}
+			for (int i = 0; i < Difficulty_Anc_Box_Etc.Length; i++)
+			{
+				Difficulty_Anc_Box_Etc[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_Box_Etc_" + (i + 1).ToString() + "P.png");
+			}
+			for (int i = 0; i < Difficulty_Mark.Length; i++)
+			{
+				Difficulty_Mark[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Mark_" + i.ToString() + ".png");
+			}
+			#endregion
+
 			#endregion
 
 			#region 4_読み込み画面
@@ -333,7 +370,7 @@ namespace TJAPlayer3
 			if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
 			{
 				Dancer = new CTexture[5][];
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < Dancer.Length; i++)
 				{
 					Dancer[i] = new CTexture[TJAPlayer3.Skin.Game_Dancer_Ptn];
 					for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
@@ -633,13 +670,11 @@ namespace TJAPlayer3
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Box);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_BackBox);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Random);
-			TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
+			//TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Tempcounter);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_BackBox);
-			TJAPlayer3.tテクスチャの解放(ref SongSelect_Dan_Box);
-			TJAPlayer3.tテクスチャの解放(ref SongSelect_Dan_Box_Selecting);
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Lyric_Text[i]);
@@ -682,6 +717,44 @@ namespace TJAPlayer3
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Counter_Back[i]);
 			}
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
+
+			#region[3.5難易度選択]
+			TJAPlayer3.tテクスチャの解放(ref Difficulty_Dan_Box);
+			TJAPlayer3.tテクスチャの解放(ref Difficulty_Dan_Box_Selecting);
+			TJAPlayer3.tテクスチャの解放(ref Difficulty_Star);
+			TJAPlayer3.tテクスチャの解放(ref Difficulty_Branch);
+			TJAPlayer3.tテクスチャの解放(ref Difficulty_Center_Bar);
+
+			for (int i = 0;i< Difficulty_Anc.Length;i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Anc[i]);
+			}
+			for (int i = 0; i < Difficulty_Anc_Same.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Anc_Same[i]);
+			}
+			for (int i = 0; i < Difficulty_Anc_Box.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Anc_Box[i]);
+			}
+			for (int i = 0; i < Difficulty_Anc_Box_Etc.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Anc_Box_Etc[i]);
+			}
+			for (int i = 0; i < Difficulty_Bar.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Bar[i]);
+			}
+			for (int i = 0; i < Difficulty_Bar_Etc.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Bar_Etc[i]);
+			}
+			for (int i = 0; i < Difficulty_Mark.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Difficulty_Mark[i]);
+			}
+			#endregion
+
 			#endregion
 
 			#region 4_読み込み画面
@@ -758,7 +831,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region 踊り子
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < Dancer.Length; i++)
 			{
 				for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
 				{
@@ -908,18 +981,18 @@ namespace TJAPlayer3
 			TJAPlayer3.tテクスチャの解放(ref Runner);
 			#endregion
 			#region DanC
-			DanC_Background?.Dispose();
+			TJAPlayer3.t安全にDisposeする(ref DanC_Background);
 			for (int i = 0; i < 4; i++)
 			{
-				DanC_Gauge[i]?.Dispose();
+				TJAPlayer3.t安全にDisposeする(ref DanC_Gauge[i]);
 			}
-			DanC_Base?.Dispose();
-			DanC_Failed?.Dispose();
-			DanC_Number?.Dispose();
-			DanC_ExamRange?.Dispose();
-			DanC_ExamUnit?.Dispose();
-			DanC_ExamType?.Dispose();
-			DanC_Screen?.Dispose();
+			TJAPlayer3.t安全にDisposeする(ref DanC_Base);
+			TJAPlayer3.t安全にDisposeする(ref DanC_Failed);
+			TJAPlayer3.t安全にDisposeする(ref DanC_Number);
+			TJAPlayer3.t安全にDisposeする(ref DanC_ExamRange);
+			TJAPlayer3.t安全にDisposeする(ref DanC_ExamUnit);
+			TJAPlayer3.t安全にDisposeする(ref DanC_ExamType);
+			TJAPlayer3.t安全にDisposeする(ref DanC_Screen);
 			#endregion
 			#region PuchiChara
 			TJAPlayer3.tテクスチャの解放(ref PuchiChara);
@@ -1067,9 +1140,7 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Right,
 			SongSelect_ScoreWindow_Text,
 			SongSelect_Tempcounter,
-			SongSelect_Bar_BackBox,
-			SongSelect_Dan_Box,
-			SongSelect_Dan_Box_Selecting;
+			SongSelect_Bar_BackBox;
 		public CTexture[] SongSelect_GenreBack = new CTexture[9],
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
 			SongSelect_Lyric_Text = new CTexture[9],
@@ -1082,6 +1153,22 @@ namespace TJAPlayer3
 			SongSelect_NamePlate = new CTexture[1],
 			SongSelect_Counter_Back = new CTexture[2];
 		public int SongSelect_Counter_BTime = 100;
+
+		#region[3.5_難易度選択]
+		public CTexture Difficulty_Dan_Box,
+			Difficulty_Dan_Box_Selecting,
+			Difficulty_Star,
+			Difficulty_Branch,
+			Difficulty_Center_Bar;
+		public CTexture[] Difficulty_Bar = new CTexture[5],
+			Difficulty_Bar_Etc = new CTexture[3],
+			Difficulty_Anc = new CTexture[2],
+			Difficulty_Anc_Same = new CTexture[2],
+			Difficulty_Anc_Box = new CTexture[2],
+			Difficulty_Anc_Box_Etc = new CTexture[2],
+			Difficulty_Mark = new CTexture[5];
+		#endregion
+
 		#endregion
 
 		#region 4_読み込み画面

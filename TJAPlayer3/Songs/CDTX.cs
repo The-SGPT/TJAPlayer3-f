@@ -780,6 +780,12 @@ namespace TJAPlayer3
 			}
 		}
 
+		public struct STLYRIC
+		{
+			public long Time;
+			public Bitmap TextTex;
+			public string Text;
+		}
 
 		// 構造体
 
@@ -1073,6 +1079,7 @@ namespace TJAPlayer3
 		private List<int> listBalloon; //旧構文用
 
 		public List<Bitmap> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
+		public List<STLYRIC> listLyric2;
 
 		private int listBalloon_Normal_数値管理;
 		private int listBalloon_Expert_数値管理;
@@ -2845,9 +2852,7 @@ namespace TJAPlayer3
 				}
 				#region[ 読み込ませるコースを決定 ]
 				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
-				{
-					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[0];
-				}
+					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
 				if (this.b譜面が存在する[n読み込むコース] == false)
 				{
 					n読み込むコース++;
@@ -2865,11 +2870,21 @@ namespace TJAPlayer3
 				}
 				#endregion
 
+				//Seseragi255様のプルリクより変更
+
+				//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
+				int n読み込むセッション譜面パート = 0;
+				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1])
+						n読み込むセッション譜面パート = nPlayerSide + 1;
+
 				//指定したコースの譜面の命令を消去する。
 				strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
 					strSplitした譜面[n読み込むコース],
-					TJAPlayer3.ConfigIni.nPlayerCount > 1 ? (this.nPlayerSide + 1) : 0,
+					n読み込むセッション譜面パート,
 					this.strファイル名の絶対パス);
+
+				//------
 
 				//命令をすべて消去した譜面
 				var str命令消去譜面 = strSplitした譜面[n読み込むコース].Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
@@ -4779,7 +4794,20 @@ namespace TJAPlayer3
 			{
 				if (!string.IsNullOrEmpty(strCommandParam))
 				{
-					this.bLyrics = true;
+					string strFilePath = this.strフォルダ名 + strCommandParam;
+					if (File.Exists(strFilePath))
+                    {
+						try
+						{
+							this.LyricFileParser(strFilePath);
+							this.bLyrics = true;
+						}
+						catch 
+						{
+							Console.WriteLine("lrcファイルの読み込みに失敗しましたが、");
+							Console.WriteLine("処理を続行します。");
+						}
+					}
 				}
 			}
 			if (this.nScoreModeTmp == 99)
@@ -4877,6 +4905,55 @@ namespace TJAPlayer3
 					return 3;
 			}
 		}
+
+		/// <summary>
+		/// Lyricファイルのパースもどき
+		/// 自力で作ったので、うまくパースしてくれないかも
+		/// </summary>
+		/// <param name="strFilePath">lrcファイルのパス</param>
+		private void LyricFileParser(string strFilePath)//2020.06.04 Mr-Ojii lrcファイルのパース用
+		{
+			Encoding lrcファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strFilePath);
+			StreamReader reader = new StreamReader(strFilePath, lrcファイルenc);
+			string str = reader.ReadToEnd();
+			reader.Close();
+			var strSplit後 = str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
+			Regex timeRegex = new Regex(@"^(\[)(\d{2})(:)(\d{2})([:.])(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);
+			List<long> list;
+			for (int i = 0; i < strSplit後.Length; i++)
+			{ 
+				list = new List<long>();
+				if (!String.IsNullOrEmpty(strSplit後[i]))
+				{
+					if (strSplit後[i].StartsWith("[")) 
+					{
+						var timestring = timeRegex.Match(strSplit後[i]);
+						while (timestring.Success)
+						{
+							long time = Int32.Parse(timestring.Groups[2].Value) * 60000 + Int32.Parse(timestring.Groups[4].Value) * 1000 + Int32.Parse(timestring.Groups[6].Value) * 10;
+							if (this.bOFFSETの値がマイナスである) {
+								time += this.nOFFSET;
+							}
+							list.Add(time);
+                            strSplit後[i] = strSplit後[i].Remove(0, 10);
+							timestring = timeRegex.Match(strSplit後[i]);
+						}
+						strSplit後[i] = strSplit後[i].Replace("\r", "").Replace("\n", "");
+
+						for (int listindex = 0; listindex < list.Count; listindex++) 
+						{
+							STLYRIC stlrc;
+							stlrc.Text = strSplit後[i];
+							stlrc.TextTex = this.pf歌詞フォント.DrawPrivateFont(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor);
+							stlrc.Time = list[listindex];
+							this.listLyric2.Add(stlrc);
+						}
+					}
+				}
+			}
+			this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
+		}
+
 
 		/// <summary>
 		/// 複素数のパースもどき
@@ -6675,6 +6752,7 @@ namespace TJAPlayer3
 			this.listBalloon_Master = new List<int>();
 			this.listLine = new List<CLine>();
 			this.listLyric = new List<Bitmap>();
+			this.listLyric2 = new List<STLYRIC>();
 			this.List_DanSongs = new List<DanSongs>();
 			base.On活性化();
 		}
@@ -6780,6 +6858,10 @@ namespace TJAPlayer3
 			if (this.listLyric != null)
 			{
 				this.listLyric.Clear();
+			}
+			if (this.listLyric2 != null)
+			{
+				this.listLyric2.Clear();
 			}
 
 			base.On非活性化();
