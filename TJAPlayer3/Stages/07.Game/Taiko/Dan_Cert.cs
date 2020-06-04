@@ -507,14 +507,14 @@ namespace TJAPlayer3
 			var notesRemainDigit = 0;
 			for (int i = value.ToString().Length; i > 0; i--)
 			{
-				var number = (int)(value / Math.Pow(10, value.ToString().Length - i) % 10);
-				Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_DanC_Number_Size[0] * number - 1, 0, TJAPlayer3.Skin.Game_DanC_Number_Size[0], TJAPlayer3.Skin.Game_DanC_Number_Size[1]);
 				if(TJAPlayer3.Tx.DanC_Number != null)
 				{
+					var number = (int)(value / Math.Pow(10, value.ToString().Length - i) % 10);
+					Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_DanC_Number_Size[0] * number - 1, 0, TJAPlayer3.Skin.Game_DanC_Number_Size[0], TJAPlayer3.Skin.Game_DanC_Number_Size[1]);
 					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.X = scaleX;
 					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.Y = scaleY + scaleJump;
+					TJAPlayer3.Tx.DanC_Number.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x - (notesRemainDigit * padding), y, rectangle);
 				}
-				TJAPlayer3.Tx.DanC_Number?.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x - (notesRemainDigit * padding), y, rectangle);
 				notesRemainDigit++;
 			}
 		}
