@@ -205,7 +205,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
 					{
-						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[i])
+						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
 							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new SharpDX.Color4(1f, 1f, 1f, 1f);
 						else
 							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new SharpDX.Color4(0.5f, 0.5f, 0.5f, 1f);

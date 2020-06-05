@@ -1216,7 +1216,7 @@ namespace TJAPlayer3
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
 			Dan_C = new Dan_C[3];
 		}
-		public CDTX(string str全入力文字列)
+		/*public CDTX(string str全入力文字列)
 			: this()
 		{
 			this.On活性化();
@@ -1239,7 +1239,7 @@ namespace TJAPlayer3
 		{
 			this.On活性化();
 			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, 0, false);
-		}
+		}*/
 		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion)
 			: this()
 		{
@@ -1707,29 +1707,36 @@ namespace TJAPlayer3
 					this.nPlayerSide = nPlayerSide;
 					this.bSession譜面を読み込む = bSession;
 					if (nReadVersion != 0)
-					{
-						//DTX方式
+                    {
+						if (false) 
+						{
+							//tci用の何か
+						} 
+						else
+						{
+							//DTX方式
 
-						//DateTime timeBeginLoad = DateTime.Now;
-						//TimeSpan span;
-						string[] files = Directory.GetFiles(this.strフォルダ名, "*.tja");
-						
-						Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
-						StreamReader reader = new StreamReader(strファイル名,ファイルenc);
-						string str2 = reader.ReadToEnd();
-						reader.Close();
+							//DateTime timeBeginLoad = DateTime.Now;
+							//TimeSpan span;
+							string[] files = Directory.GetFiles(this.strフォルダ名, "*.tja");
+
+							Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+							StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+							string str2 = reader.ReadToEnd();
+							reader.Close();
 
 
-						Encoding filesenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(files[0]);
-						//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
-						StreamReader reader2 = new StreamReader(files[0], filesenc);
-						string str3 = reader2.ReadToEnd();
-						reader2.Close();
+							Encoding filesenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(files[0]);
+							//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
+							StreamReader reader2 = new StreamReader(files[0], filesenc);
+							string str3 = reader2.ReadToEnd();
+							reader2.Close();
 
-						//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-						//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
+							//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
+							//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
 
-						this.t入力_全入力文字列から(str2, str3, db再生速度, nBGMAdjust);
+							this.t入力_全入力文字列から(str2, str3, db再生速度, nBGMAdjust); 
+						}
 					}
 					else
 					{
@@ -2057,6 +2064,21 @@ namespace TJAPlayer3
 						int nCount = 0;
 						this.nNowRollCount = 0;
 
+						#region[listlyric2にoffsetを適用して、ずらす]
+
+						List<STLYRIC> tmplistlyric = new List<STLYRIC>();
+						for (int index = 0; index < this.listLyric2.Count; index++)
+						{
+							STLYRIC lyrictmp = this.listLyric2[index];
+							//2020.06.05 Mr-Ojii listlyricに登録するところで行ってしまうと、OFFSETがうまく追加されない可能性があるため、ここに移動
+							if (!this.bOFFSETの値がマイナスである)
+								lyrictmp.Time += this.nOFFSET;
+							lyrictmp.Time += 2000;
+							tmplistlyric.Add(lyrictmp);
+						}
+						this.listLyric2 = tmplistlyric;
+						#endregion
+
 						foreach (CChip chip in this.listChip)
 						{
 							if (chip.nチャンネル番号 == 0x02) { }
@@ -2085,7 +2107,7 @@ namespace TJAPlayer3
 
 							switch (ch)
 							{
-								case 0x01:
+								case 0x01:  // BGM
 									{
 										n発声位置 = chip.n発声位置;
 
@@ -4919,6 +4941,7 @@ namespace TJAPlayer3
 			reader.Close();
 			var strSplit後 = str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
 			Regex timeRegex = new Regex(@"^(\[)(\d{2})(:)(\d{2})([:.])(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);
+			Regex timeRegexO = new Regex(@"^(\[)(\d{2})(:)(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);
 			List<long> list;
 			for (int i = 0; i < strSplit後.Length; i++)
 			{ 
@@ -4927,16 +4950,26 @@ namespace TJAPlayer3
 				{
 					if (strSplit後[i].StartsWith("[")) 
 					{
-						var timestring = timeRegex.Match(strSplit後[i]);
-						while (timestring.Success)
+						Match timestring = timeRegex.Match(strSplit後[i]) , timestringO = timeRegexO.Match(strSplit後[i]);
+						while ( timestringO.Success || timestring.Success)
 						{
-							long time = Int32.Parse(timestring.Groups[2].Value) * 60000 + Int32.Parse(timestring.Groups[4].Value) * 1000 + Int32.Parse(timestring.Groups[6].Value) * 10;
-							if (this.bOFFSETの値がマイナスである) {
-								time += this.nOFFSET;
+							long time;
+							if (timestring.Success)
+							{
+								time = Int32.Parse(timestring.Groups[2].Value) * 60000 + Int32.Parse(timestring.Groups[4].Value) * 1000 + Int32.Parse(timestring.Groups[6].Value) * 10;
+								strSplit後[i] = strSplit後[i].Remove(0, 10);
 							}
+							else if (timestringO.Success)
+							{
+								time = Int32.Parse(timestringO.Groups[2].Value) * 60000 + Int32.Parse(timestringO.Groups[4].Value) * 1000;
+								strSplit後[i] = strSplit後[i].Remove(0, 7);
+							}
+							else
+								break;
 							list.Add(time);
-                            strSplit後[i] = strSplit後[i].Remove(0, 10);
 							timestring = timeRegex.Match(strSplit後[i]);
+							timestringO = timeRegexO.Match(strSplit後[i]);
+
 						}
 						strSplit後[i] = strSplit後[i].Replace("\r", "").Replace("\n", "");
 

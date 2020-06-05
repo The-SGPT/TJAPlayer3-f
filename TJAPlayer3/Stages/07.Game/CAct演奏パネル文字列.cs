@@ -145,6 +145,11 @@ namespace TJAPlayer3
 			this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric, false );
 		}
 
+		public void t歌詞テクスチャを削除する()
+		{
+			TJAPlayer3.tテクスチャの解放(ref this.tx歌詞テクスチャ);
+		}
+
 		/// <summary>
 		/// レイヤー管理のため、On進行描画から分離。
 		/// </summary>

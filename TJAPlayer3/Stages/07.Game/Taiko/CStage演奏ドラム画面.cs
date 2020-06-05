@@ -533,11 +533,12 @@ namespace TJAPlayer3
 					this.t進行描画_判定文字列1_通常位置指定の場合();
 
 				this.t進行描画_演奏情報();
-
-				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time < (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) {
+				
+				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust + TJAPlayer3.ConfigIni.MusicPreTimeMs < (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+				{
 					this.actPanel.t歌詞テクスチャを生成する(TJAPlayer3.DTX[0].listLyric2[ShownLyric2].TextTex);
 					ShownLyric2++;
-				} 
+				}
 
 				this.actPanel.t歌詞テクスチャを描画する();
 				actChara.OnDraw_Balloon();
