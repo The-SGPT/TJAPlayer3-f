@@ -375,6 +375,10 @@ namespace TJAPlayer3
 						}
 						#endregion
 					}
+					else if (strExt.Equals(".tci"))
+					{
+						//CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0, 0);//tciを読み込むときは、ReadVersionを必ず0にすること
+					}
 				}
 			}
 			//-----------------------------

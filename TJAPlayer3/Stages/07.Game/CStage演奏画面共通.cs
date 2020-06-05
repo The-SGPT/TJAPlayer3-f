@@ -3470,7 +3470,7 @@ namespace TJAPlayer3
 #region[ 9B-9F: 太鼓 ]
 					case 0x9B:
 						// 段位認定モードの幕アニメーション
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0))
+						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0 )
 						{
 							pChip.bHit = true;
 							if (pChip.nコース == this.n現在のコース[nPlayer])
@@ -4170,6 +4170,7 @@ namespace TJAPlayer3
 			TJAPlayer3.DTX[0].t全チップの再生停止とミキサーからの削除();
 			this.t数値の初期化( true, true );
 			this.actAVI.tReset();
+			this.actPanel.t歌詞テクスチャを削除する();
 			this.t演奏位置の変更( 0, 0 );
 			this.t演奏位置の変更( 0, 1 );
 			TJAPlayer3.stage演奏ドラム画面.On活性化();
@@ -4533,6 +4534,8 @@ namespace TJAPlayer3
 		{
 			if ( this.tx背景 != null )
 			{
+				this.tx背景.vc拡大縮小倍率.X =(float) (1.0 / (this.tx背景.szテクスチャサイズ.Width / 1280.0));
+				this.tx背景.vc拡大縮小倍率.Y =(float) (1.0 / (this.tx背景.szテクスチャサイズ.Height / 720.0));
 				this.tx背景.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 			}
 		}

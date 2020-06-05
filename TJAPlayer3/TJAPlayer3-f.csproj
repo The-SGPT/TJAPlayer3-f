@@ -110,6 +110,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -343,14 +344,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-move /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
+    <PostBuildEvent>move /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)FDK.pdb" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
-move /y "$(TargetDir)SlimDX.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)SharpDX*" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)System*.*" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)Microsoft*.*" "$(SolutionDir)Test\dll\"
 copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"
 call "$(DevEnvDir)..\Tools\VsDevCmd.bat"</PostBuildEvent>
   </PropertyGroup>

@@ -43,7 +43,7 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				return new int[] { this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲), this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲) };
+				return new int[] { this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, 0), this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲 , 1) };
 			}
 		}
 		public Cスコア r現在選択中のスコア
@@ -137,15 +137,15 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public int n現在のアンカ難易度レベルに最も近い難易度レベルを返す(C曲リストノード song)
+		public int n現在のアンカ難易度レベルに最も近い難易度レベルを返す(C曲リストノード song, int nPlayer)
 		{
 			// 事前チェック。
 
 			if (song == null)
-				return this.n現在のアンカ難易度レベル[0];  // 曲がまったくないよ
+				return this.n現在のアンカ難易度レベル[nPlayer];  // 曲がまったくないよ
 
-			if (song.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[0]] != false)
-				return this.n現在のアンカ難易度レベル[0];  // 難易度ぴったりの曲があったよ
+			if (song.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[nPlayer]] != false)
+				return this.n現在のアンカ難易度レベル[nPlayer];  // 難易度ぴったりの曲があったよ
 
 			if ((song.eノード種別 == C曲リストノード.Eノード種別.BOX) || (song.eノード種別 == C曲リストノード.Eノード種別.BACKBOX))
 				return 0;                               // BOX と BACKBOX は関係無いよ
@@ -153,7 +153,7 @@ namespace TJAPlayer3
 
 			// 現在のアンカレベルから、難易度上向きに検索開始。
 
-			int n最も近いレベル = this.n現在のアンカ難易度レベル[0];
+			int n最も近いレベル = this.n現在のアンカ難易度レベル[nPlayer];
 
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
@@ -167,11 +167,11 @@ namespace TJAPlayer3
 			// 見つかった曲がアンカより下のレベルだった場合……
 			// アンカから下向きに検索すれば、もっとアンカに近い曲があるんじゃね？
 
-			if (n最も近いレベル < this.n現在のアンカ難易度レベル[0])
+			if (n最も近いレベル < this.n現在のアンカ難易度レベル[nPlayer])
 			{
 				// 現在のアンカレベルから、難易度下向きに検索開始。
 
-				n最も近いレベル = this.n現在のアンカ難易度レベル[0];
+				n最も近いレベル = this.n現在のアンカ難易度レベル[nPlayer];
 
 				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
@@ -350,7 +350,7 @@ namespace TJAPlayer3
 			}
 			this.b選択曲が変更された = true;
 		}
-		public void t難易度レベルをひとつ進める()
+		public void t難易度レベルをひとつ進める(int nPlayer)
 		{
 			if ((this.r現在選択中の曲 == null) || (this.r現在選択中の曲.nスコア数 <= 1))
 				return;     // 曲にスコアが０～１個しかないなら進める意味なし。
@@ -358,12 +358,12 @@ namespace TJAPlayer3
 
 			// 難易度レベルを＋１し、現在選曲中のスコアを変更する。
 
-			this.n現在のアンカ難易度レベル[0] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲);
+			this.n現在のアンカ難易度レベル[nPlayer] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, nPlayer);
 
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
-				this.n現在のアンカ難易度レベル[0] = (this.n現在のアンカ難易度レベル[0] + 1) % (int)Difficulty.Total;  // ５以上になったら０に戻る。
-				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[0]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
+				this.n現在のアンカ難易度レベル[nPlayer] = (this.n現在のアンカ難易度レベル[nPlayer] + 1) % (int)Difficulty.Total;  // ５以上になったら０に戻る。
+				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[nPlayer]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 					break;
 			}
 
@@ -374,7 +374,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 不便だったから作った。
 		/// </summary>
-		public void t難易度レベルをひとつ戻す()
+		public void t難易度レベルをひとつ戻す(int nPlayer)
 		{
 			if ((this.r現在選択中の曲 == null) || (this.r現在選択中の曲.nスコア数 <= 1))
 				return;     // 曲にスコアが０～１個しかないなら進める意味なし。
@@ -382,21 +382,21 @@ namespace TJAPlayer3
 
 			// 難易度レベルを＋１し、現在選曲中のスコアを変更する。
 
-			this.n現在のアンカ難易度レベル[0] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲);
+			this.n現在のアンカ難易度レベル[nPlayer] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, nPlayer);
 
-			this.n現在のアンカ難易度レベル[0]--;
-			if (this.n現在のアンカ難易度レベル[0] < 0) // 0より下になったら4に戻す。
+			this.n現在のアンカ難易度レベル[nPlayer]--;
+			if (this.n現在のアンカ難易度レベル[nPlayer] < 0) // 0より下になったら4に戻す。
 			{
-				this.n現在のアンカ難易度レベル[0] = 4;
+				this.n現在のアンカ難易度レベル[nPlayer] = 4;
 			}
 
 			//2016.08.13 kairera0467 かんたん譜面が無い譜面(ふつう、むずかしいのみ)で、難易度を最上位に戻せない不具合の修正。
 			bool bLabel0NotFound = true;
-			for (int i = this.n現在のアンカ難易度レベル[0]; i >= 0; i--)
+			for (int i = this.n現在のアンカ難易度レベル[nPlayer]; i >= 0; i--)
 			{
 				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
 				{
-					this.n現在のアンカ難易度レベル[0] = i;
+					this.n現在のアンカ難易度レベル[nPlayer] = i;
 					bLabel0NotFound = false;
 					break;
 				}
@@ -407,7 +407,7 @@ namespace TJAPlayer3
 				{
 					if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
 					{
-						this.n現在のアンカ難易度レベル[0] = i;
+						this.n現在のアンカ難易度レベル[nPlayer] = i;
 						break;
 					}
 				}

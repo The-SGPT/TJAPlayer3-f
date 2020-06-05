@@ -134,7 +134,7 @@ namespace TJAPlayer3
 				if (c曲リストノード != null && cスコア != null && c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE)
 				{
 					string str選択曲ファイル名 = cスコア.ファイル情報.ファイルの絶対パス;
-					int n曲番号inブロック = TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(c曲リストノード);
+					int n曲番号inブロック = TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(c曲リストノード, 0);
 
 					foreach (TJAPlayer3.STPlugin stPlugin in TJAPlayer3.app.listプラグイン)
 					{
@@ -1040,7 +1040,10 @@ namespace TJAPlayer3
 									if (CommandHistory.CheckCommand(comChangeDifficulty, E楽器パート.DRUMS))
 									{
 										Debug.WriteLine("ドラムス難易度変更");
-										this.act曲リスト.t難易度レベルをひとつ進める();
+										if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+											this.act曲リスト.t難易度レベルをひとつ進める(1);
+										else
+											this.act曲リスト.t難易度レベルをひとつ進める(0);
 										TJAPlayer3.Skin.sound変更音.t再生する();
 									}
 								}
@@ -1053,7 +1056,10 @@ namespace TJAPlayer3
 									//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
 									{
 										Debug.WriteLine("ドラムス難易度変更");
-										this.act曲リスト.t難易度レベルをひとつ進める();
+										if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+											this.act曲リスト.t難易度レベルをひとつ進める(1);
+										else
+											this.act曲リスト.t難易度レベルをひとつ進める(0);
 										TJAPlayer3.Skin.sound変更音.t再生する();
 									}
 								}
@@ -1066,7 +1072,10 @@ namespace TJAPlayer3
 									//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
 									{
 										Debug.WriteLine("ドラムス難易度変更");
-										this.act曲リスト.t難易度レベルをひとつ戻す();
+										if(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+											this.act曲リスト.t難易度レベルをひとつ戻す(1);
+										else
+											this.act曲リスト.t難易度レベルをひとつ戻す(0);
 										TJAPlayer3.Skin.sound変更音.t再生する();
 									}
 								}
@@ -1437,7 +1446,8 @@ namespace TJAPlayer3
 				}
 			}
 			this.r確定された曲 = song.listランダム用ノードリスト[ song.stackランダム演奏番号.Pop() ];
-			this.n確定された曲の難易度[0] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲 );
+			this.n確定された曲の難易度[0] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲, 0);
+			this.n確定された曲の難易度[1] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲, 1);
 			this.r確定されたスコア = this.r確定された曲.arスコア;
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
