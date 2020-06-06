@@ -92,6 +92,9 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -350,8 +353,7 @@ move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)SharpDX*" "$(SolutionDir)Test\dll\"
-move /y "$(TargetDir)System*.*" "$(SolutionDir)Test\dll\"
-move /y "$(TargetDir)Microsoft*.*" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)Newtonsoft.Json*" "$(SolutionDir)Test\dll\"
 copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"
 call "$(DevEnvDir)..\Tools\VsDevCmd.bat"</PostBuildEvent>
   </PropertyGroup>

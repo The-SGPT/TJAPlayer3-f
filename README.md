@@ -42,15 +42,17 @@ Ver.1.5.8.2 : .NET Framework 4.0にフレームワークをアップデート
 
 Ver.1.5.8.3 : 譜面分岐について・JPOSSCROLLの連打についての既知のバグを修正
 
-Ver.1.5.9.0 : 複数の文字コードに対応(β)
+Ver.1.5.9.0 : 複数の文字コードに対応
 
-Ver.1.5.9.1 : WASAPI共有に対応(β)
+Ver.1.5.9.1 : WASAPI共有に対応
 
 Ver.1.5.9.2 : .NET Framework 4.8にフレームワークをアップデート
 
 Ver.1.5.9.3 : スコアが保存されないバグを修正 & songs.dbを軽量化
 
 Ver.1.6.0.0 : 難易度選択画面を追加 & メンテモード追加(タイトル画面でCtrl+Aを押しながら、演奏ゲームを選択)
+
+Ver.1.6.0.1 : Open Taiko Chartへの対応(β)
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまった。  
@@ -81,6 +83,7 @@ VisualStudio Community 2019
 以下のライブラリを追加いたしました。
 * ReadJEnc
 * SharpDX
+* Newtonsoft.Json
 
 ライセンスは「Test/Licenses」に追加いたしました。
 

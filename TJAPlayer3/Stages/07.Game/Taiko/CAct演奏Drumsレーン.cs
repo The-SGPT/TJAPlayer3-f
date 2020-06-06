@@ -20,7 +20,7 @@ namespace TJAPlayer3
 
 		public override void On非活性化()
 		{
-			TJAPlayer3.t安全にDisposeする( ref this.ct分岐アニメ進行 );
+			this.ct分岐アニメ進行 = null;
 			base.On非活性化();
 		}
 
