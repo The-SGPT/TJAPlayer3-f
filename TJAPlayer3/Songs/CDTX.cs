@@ -2819,11 +2819,13 @@ namespace TJAPlayer3
 
 			if (n読み込むセッション譜面パート >= 1) 
 			{
-				if (obj.Courses[coursesindex[n読み込むコース]].Multiple.Length < n読み込むセッション譜面パート || string.IsNullOrEmpty(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1])) {
+				if (obj.Courses[coursesindex[n読み込むコース]].Multiple == null ||  obj.Courses[coursesindex[n読み込むコース]].Multiple.Length < n読み込むセッション譜面パート || string.IsNullOrEmpty(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1])) {
 					n読み込むセッション譜面パート = 0;
 				}
 			}
 			#endregion
+
+			this.n参照中の難易度 = strConvertCourse(obj.Courses[coursesindex[n読み込むコース]].Diffculty);
 
 			if (n読み込むセッション譜面パート == 0)
 			{
@@ -2848,27 +2850,18 @@ namespace TJAPlayer3
 
 			OTCCource obj = JsonConvert.DeserializeObject<OTCCource>(tccstr);
 
-			string scoretmp;
+			this.nScoreModeTmp = 2;
+
 			if (obj.ScoreInit != null)
 			{
-				scoretmp = obj.ScoreInit.ToString();
-				this.ParseOptionalInt16("SCOREINIT first value", scoretmp, value =>
-				{
-					this.nScoreInit[0, this.n参照中の難易度] = value;
-					this.b配点が指定されている[0, this.n参照中の難易度] = true;
-				});
+				this.nScoreInit[0, this.n参照中の難易度] = Convert.ToInt16(obj.ScoreInit);
+				this.b配点が指定されている[0, this.n参照中の難易度] = true;
 			}
-
 
 			if (obj.ScoreDiff != null)
 			{
-				scoretmp = obj.ScoreDiff.ToString();
-
-				ParseOptionalInt16("SCOREDIFF", scoretmp, value =>
-				{
-					this.nScoreDiff[this.n参照中の難易度] = value;
-					this.b配点が指定されている[1, this.n参照中の難易度] = true;
-				});
+				this.nScoreDiff[this.n参照中の難易度] = Convert.ToInt16(obj.ScoreDiff);
+				this.b配点が指定されている[1, this.n参照中の難易度] = true;
 			}
 
 			if (obj.Balloon != null)
@@ -3444,7 +3437,7 @@ namespace TJAPlayer3
 				this.n内部番号DELAY1to++;
 			}
 
-			else if (InputArr[0].Equals("#gogostart"))
+			else if (InputArr[0].Equals("#gogobegin"))
 			{
 				var chip = new CChip();
 
@@ -4544,7 +4537,6 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//起動時に重たくなってしまう問題の修正用
 					this.listLyric.Add(this.pf歌詞フォント.DrawPrivateFont(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor));
-
 
 				var chip = new CChip();
 
@@ -5752,7 +5744,8 @@ namespace TJAPlayer3
 					{
 						try
 						{
-							this.LyricFileParser(strFilePath);
+							if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
+								this.LyricFileParser(strFilePath);
 							this.bLyrics = true;
 						}
 						catch 
@@ -5908,10 +5901,7 @@ namespace TJAPlayer3
 						{
 							STLYRIC stlrc;
 							stlrc.Text = strSplit後[i];
-							if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
-								stlrc.TextTex = this.pf歌詞フォント.DrawPrivateFont(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor);
-							else
-								stlrc.TextTex = new Bitmap(1, 1);
+							stlrc.TextTex = this.pf歌詞フォント.DrawPrivateFont(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor);
 							stlrc.Time = list[listindex];
 							this.listLyric2.Add(stlrc);
 						}
