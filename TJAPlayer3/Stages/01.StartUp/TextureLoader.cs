@@ -981,18 +981,18 @@ namespace TJAPlayer3
 			TJAPlayer3.tテクスチャの解放(ref Runner);
 			#endregion
 			#region DanC
-			TJAPlayer3.t安全にDisposeする(ref DanC_Background);
+			TJAPlayer3.tテクスチャの解放(ref DanC_Background);
 			for (int i = 0; i < 4; i++)
 			{
-				TJAPlayer3.t安全にDisposeする(ref DanC_Gauge[i]);
+				TJAPlayer3.tテクスチャの解放(ref DanC_Gauge[i]);
 			}
-			TJAPlayer3.t安全にDisposeする(ref DanC_Base);
-			TJAPlayer3.t安全にDisposeする(ref DanC_Failed);
-			TJAPlayer3.t安全にDisposeする(ref DanC_Number);
-			TJAPlayer3.t安全にDisposeする(ref DanC_ExamRange);
-			TJAPlayer3.t安全にDisposeする(ref DanC_ExamUnit);
-			TJAPlayer3.t安全にDisposeする(ref DanC_ExamType);
-			TJAPlayer3.t安全にDisposeする(ref DanC_Screen);
+			TJAPlayer3.tテクスチャの解放(ref DanC_Base);
+			TJAPlayer3.tテクスチャの解放(ref DanC_Failed);
+			TJAPlayer3.tテクスチャの解放(ref DanC_Number);
+			TJAPlayer3.tテクスチャの解放(ref DanC_ExamRange);
+			TJAPlayer3.tテクスチャの解放(ref DanC_ExamUnit);
+			TJAPlayer3.tテクスチャの解放(ref DanC_ExamType);
+			TJAPlayer3.tテクスチャの解放(ref DanC_Screen);
 			#endregion
 			#region PuchiChara
 			TJAPlayer3.tテクスチャの解放(ref PuchiChara);

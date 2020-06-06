@@ -41,7 +41,7 @@ namespace TJAPlayer3
 
 		public override void On非活性化()
 		{
-			TJAPlayer3.t安全にDisposeする( ref this.ct上背景FIFOタイマー );
+			this.ct上背景FIFOタイマー = null;
 			for (int i = 0; i < 2; i++)
 			{
 				ct上背景スクロール用タイマー[i] = null;
@@ -58,7 +58,7 @@ namespace TJAPlayer3
 			{
 				ct上背景桜スクロール用タイマー[i] = null;
 			}
-			TJAPlayer3.t安全にDisposeする( ref this.ct下背景スクロール用タイマー1 );
+			this.ct下背景スクロール用タイマー1 = null;
 			base.On非活性化();
 		}
 

@@ -1800,17 +1800,13 @@ for (int i = 0; i < 3; i++) {
 		}
 
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
-		public static void t安全にDisposeする<T>(ref T obj)
+		public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable　//2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 		{
 			if (obj == null)
 				return;
 
-			var d = obj as IDisposable;
-
-			if (d != null)
-				d.Dispose();
-
-			obj = default(T);
+			obj.Dispose();
+			obj = null;
 		}
 
 		/// <summary>

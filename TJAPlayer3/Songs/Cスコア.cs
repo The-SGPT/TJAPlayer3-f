@@ -59,7 +59,6 @@ namespace TJAPlayer3
 			public string Premovie;
 			public string Presound;
 			public string Backgound;
-			public STDGBVALUE<int> レベル;
 			public STRANK 最大ランク;
 			public STSKILL 最大スキル;
 			public STDGBVALUE<bool> フルコンボ;
@@ -254,13 +253,6 @@ namespace TJAPlayer3
 		}
 
 		public bool bSongDBにキャッシュがあった;
-		public bool bスコアが有効である
-		{
-			get
-			{
-				return ( ( ( this.譜面情報.レベル[ 0 ] + this.譜面情報.レベル[ 1 ] ) + this.譜面情報.レベル[ 2 ] ) != 0 );
-			}
-		}
 
 
 		// コンストラクタ
@@ -279,7 +271,6 @@ namespace TJAPlayer3
 			this.譜面情報.Premovie = "";
 			this.譜面情報.Presound = "";
 			this.譜面情報.Backgound = "";
-			this.譜面情報.レベル = new STDGBVALUE<int>();
 			this.譜面情報.最大ランク = new ST譜面情報.STRANK();
 			this.譜面情報.最大ランク.Drums =  (int)CScoreIni.ERANK.UNKNOWN;
 			this.譜面情報.最大ランク.Guitar = (int)CScoreIni.ERANK.UNKNOWN;

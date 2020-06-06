@@ -29,7 +29,7 @@ namespace TJAPlayer3
 		{
 			NowShowingNumber = number;
 			Counter_In = new CCounter(0, 999, 1, TJAPlayer3.Timer);
-			ScreenPoint = new double[] { TJAPlayer3.Skin.nScrollFieldBGX[0] - TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 1280 };
+			ScreenPoint = new double[] { TJAPlayer3.Skin.nScrollFieldBGX[0] - (TJAPlayer3.Tx.DanC_Screen?.szテクスチャサイズ.Width ?? 1280) / 2, 1280 }; //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 			TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff);
 			IsAnimating = true;
 			TJAPlayer3.stage演奏ドラム画面.actPanel.SetPanelString(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Title, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
@@ -486,7 +486,7 @@ namespace TJAPlayer3
 				#region 条件達成失敗の画像を描画する。
 				if (dan_C[i].GetReached())
 				{
-					TJAPlayer3.Tx.DanC_Failed.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_X[count - 1], TJAPlayer3.Skin.Game_DanC_Y[count - 1] + TJAPlayer3.Skin.Game_DanC_Size[1] * i + (i * TJAPlayer3.Skin.Game_DanC_Padding));
+					TJAPlayer3.Tx.DanC_Failed?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_X[count - 1], TJAPlayer3.Skin.Game_DanC_Y[count - 1] + TJAPlayer3.Skin.Game_DanC_Size[1] * i + (i * TJAPlayer3.Skin.Game_DanC_Padding));
 				}
 				#endregion
 			}
@@ -502,7 +502,7 @@ namespace TJAPlayer3
 		/// <param name="scaleX">拡大率X</param>
 		/// <param name="scaleY">拡大率Y</param>
 		/// <param name="scaleJump">アニメーション用拡大率(Yに加算される)。</param>
-		private void DrawNumber(int value, int x, int y, int padding, float scaleX = 1.0f, float scaleY = 1.0f, float scaleJump = 0.0f)
+		private static void DrawNumber(int value, int x, int y, int padding, float scaleX = 1.0f, float scaleY = 1.0f, float scaleJump = 0.0f)
 		{
 			var notesRemainDigit = 0;
 			for (int i = value.ToString().Length; i > 0; i--)
