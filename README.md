@@ -22,7 +22,7 @@ masterブランチですべての開発を行います。
 このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。
 
 ## 追加命令について
-Testフォルダ内の「[追加命令について.md](https://github.com/Mr-Ojii/TJAPlayer3-f/blob/master/test/追加命令について.md)」で説明いたします。
+Testフォルダ内の「[追加命令について.md](https://github.com/Mr-Ojii/TJAPlayer3-f/blob/master/Test/追加命令について.md)」で説明いたします。
 
 ## 複数文字コードの対応について
 Shift-JIS, UTF-8 BOMあり/なし は読み込めることを確認しました。  
