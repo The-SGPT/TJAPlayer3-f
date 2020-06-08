@@ -363,7 +363,7 @@ namespace TJAPlayer3
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;
 			public STDGBVALUE<int> nバーからの距離dot;
-			public STDGBVALUE<int> nバーからのノーツ末端距離dot;
+			public int nバーからのノーツ末端距離dot;
 			public int n整数値;
 			public int n文字数 = 16; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public int n整数値_内部番号;
@@ -449,6 +449,7 @@ namespace TJAPlayer3
 					Drums = 0,
 					Guitar = 0,
 					Bass = 0,
+					Taiko = 0
 				};
 			}
 			public void t初期化()
@@ -479,10 +480,7 @@ namespace TJAPlayer3
 				this.nバーからの距離dot.Guitar = 0;
 				this.nバーからの距離dot.Bass = 0;
 				this.nバーからの距離dot.Taiko = 0;
-				this.nバーからのノーツ末端距離dot.Drums = 0;
-				this.nバーからのノーツ末端距離dot.Guitar = 0;
-				this.nバーからのノーツ末端距離dot.Bass = 0;
-				this.nバーからのノーツ末端距離dot.Taiko = 0;
+				this.nバーからのノーツ末端距離dot = 0;
 				this.n総移動時間 = 0;
 				this.dbBPM = 120.0;
 				this.fNow_Measure_m = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
@@ -788,6 +786,7 @@ namespace TJAPlayer3
 			public long Time;
 			public Bitmap TextTex;
 			public string Text;
+			public int index;
 		}
 
 		// 構造体
@@ -1213,7 +1212,7 @@ namespace TJAPlayer3
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
 			Dan_C = new Dan_C[3];
 		}
-		/*public CDTX(string str全入力文字列)
+		public CDTX(string str全入力文字列)
 			: this()
 		{
 			this.On活性化();
@@ -1236,7 +1235,7 @@ namespace TJAPlayer3
 		{
 			this.On活性化();
 			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, 0, false);
-		}*/
+		}
 		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion)
 			: this()
 		{
@@ -2121,20 +2120,8 @@ namespace TJAPlayer3
 				int nCount = 0;
 				this.nNowRollCount = 0;
 
-				#region[listlyric2にoffsetを適用して、ずらす]
-
 				List<STLYRIC> tmplistlyric = new List<STLYRIC>();
-				for (int index = 0; index < this.listLyric2.Count; index++)
-				{
-					STLYRIC lyrictmp = this.listLyric2[index];
-					//2020.06.05 Mr-Ojii listlyricに登録するところで行ってしまうと、OFFSETがうまく追加されない可能性があるため、ここに移動
-					if (!this.bOFFSETの値がマイナスである)
-						lyrictmp.Time += this.nOFFSET;
-					lyrictmp.Time += 2000;
-					tmplistlyric.Add(lyrictmp);
-				}
-				this.listLyric2 = tmplistlyric;
-				#endregion
+				int BGM番号 = 0;
 
 				foreach (CChip chip in this.listChip)
 				{
@@ -2162,6 +2149,8 @@ namespace TJAPlayer3
 					nCount++;
 					this.nNowRollCount++;
 
+
+
 					switch (ch)
 					{
 						case 0x01:  // BGM
@@ -2171,6 +2160,22 @@ namespace TJAPlayer3
 								if (this.bOFFSETの値がマイナスである == false)
 									chip.n発声時刻ms += this.nOFFSET;
 								ms = chip.n発声時刻ms;
+
+								#region[listlyric2の時間合わせ]
+								for (int ind = 0; ind < listLyric2.Count; ind++) {
+									if (listLyric2[ind].index == BGM番号)
+									{
+										STLYRIC lyrictmp = this.listLyric2[ind];
+
+										lyrictmp.Time += chip.n発声時刻ms;
+
+										tmplistlyric.Add(lyrictmp);
+									}
+								}
+
+
+                                BGM番号++;
+								#endregion
 								continue;
 							}
 						case 0x02:  // BarLength
@@ -2488,10 +2493,16 @@ namespace TJAPlayer3
 					}
 				}
 				#endregion
-				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-				//Trace.TraceInformation( "発声時刻計算:             {0}", span.ToString() );
-				//timeBeginLoad = DateTime.Now;
-				this.nBGMAdjust = 0;
+
+				#region[listlyricを時間順に並び替え。]
+				this.listLyric2 = tmplistlyric;
+				this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
+                #endregion
+
+                //span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
+                //Trace.TraceInformation( "発声時刻計算:             {0}", span.ToString() );
+                //timeBeginLoad = DateTime.Now;
+                this.nBGMAdjust = 0;
 				this.t各自動再生音チップの再生時刻を変更する(nBGMAdjust);
 				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 				//Trace.TraceInformation( "再生時刻変更:             {0}", span.ToString() );
@@ -5739,19 +5750,24 @@ namespace TJAPlayer3
 			{
 				if (!string.IsNullOrEmpty(strCommandParam))
 				{
-					string strFilePath = this.strフォルダ名 + strCommandParam;
-					if (File.Exists(strFilePath))
+					string[] strFiles= strCommandParam.Split(',');
+					string[] strFilePath = new string[strFiles.Length];
+					for (int index = 0; index < strFiles.Length; index++)
 					{
-						try
+						strFilePath[index] = this.strフォルダ名 + strFiles[index];
+						if (File.Exists(strFilePath[index]))
 						{
-							if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
-								this.LyricFileParser(strFilePath);
-							this.bLyrics = true;
-						}
-						catch 
-						{
-							Console.WriteLine("lrcファイルの読み込みに失敗しましたが、");
-							Console.WriteLine("処理を続行します。");
+							try
+							{
+								if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
+									this.LyricFileParser(strFilePath[index],index);
+								this.bLyrics = true;
+							}
+							catch
+							{
+								Console.WriteLine("lrcファイルNo.{0}の読み込みに失敗しましたが、", index);
+								Console.WriteLine("処理を続行します。");
+							}
 						}
 					}
 				}
@@ -5857,7 +5873,7 @@ namespace TJAPlayer3
 		/// 自力で作ったので、うまくパースしてくれないかも
 		/// </summary>
 		/// <param name="strFilePath">lrcファイルのパス</param>
-		private void LyricFileParser(string strFilePath)//2020.06.04 Mr-Ojii lrcファイルのパース用
+		private void LyricFileParser(string strFilePath ,int ordnumber)//2020.06.04 Mr-Ojii lrcファイルのパース用
 		{
 			Encoding lrcファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strFilePath);
 			StreamReader reader = new StreamReader(strFilePath, lrcファイルenc);
@@ -5903,12 +5919,12 @@ namespace TJAPlayer3
 							stlrc.Text = strSplit後[i];
 							stlrc.TextTex = this.pf歌詞フォント.DrawPrivateFont(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor);
 							stlrc.Time = list[listindex];
+							stlrc.index = ordnumber;
 							this.listLyric2.Add(stlrc);
 						}
 					}
 				}
 			}
-			this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
 		}
 
 

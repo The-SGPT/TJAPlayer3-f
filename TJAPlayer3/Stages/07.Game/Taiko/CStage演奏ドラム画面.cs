@@ -284,7 +284,7 @@ namespace TJAPlayer3
 			//}
 			// Discord Presence の更新
 			var difficultyName = TJAPlayer3.DifficultyNumberToEnum(TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
-			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + ".tja" : "",
+			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].strファイル名 : "",
 				Properties.Discord.Stage_InGame + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""),
 				0,
 				Discord.GetUnixTime() + (long)TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms / 1000,
@@ -534,7 +534,7 @@ namespace TJAPlayer3
 
 				this.t進行描画_演奏情報();
 				
-				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust + TJAPlayer3.ConfigIni.MusicPreTimeMs < (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 				{
 					this.actPanel.t歌詞テクスチャを生成する(TJAPlayer3.DTX[0].listLyric2[ShownLyric2].TextTex);
 					ShownLyric2++;
@@ -1721,7 +1721,7 @@ namespace TJAPlayer3
 				}
 				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
 				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
-				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55;
+				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
 
 				if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17 )
@@ -1734,7 +1734,7 @@ namespace TJAPlayer3
 					else
 					{
 						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
-						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55;
+						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 					}
 				}
 				else if( pChip.nチャンネル番号 == 0x18 )
@@ -1957,7 +1957,7 @@ namespace TJAPlayer3
 							if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 								x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55;
 							else if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
-								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot.Taiko - 55);
+								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55);
 
 							if ( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 								TJAPlayer3.Tx.Notes.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 1430, num9, 260, 130 ) );

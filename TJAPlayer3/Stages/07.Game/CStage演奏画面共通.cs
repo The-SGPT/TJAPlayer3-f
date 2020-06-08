@@ -3020,11 +3020,8 @@ namespace TJAPlayer3
 				pChip.nバーからの距離dot.Guitar = (int) ( time * ScrollSpeedGuitar );
 				pChip.nバーからの距離dot.Bass = (int) ( time * ScrollSpeedBass );
 				pChip.nバーからの距離dot.Taiko = (int) (  time * pChip.dbBPM * pChip.dbSCROLL * (db現在の譜面スクロール速度[nPlayer].Drums + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
-				pChip.nバーからのノーツ末端距離dot.Drums = 0;
-				pChip.nバーからのノーツ末端距離dot.Guitar = 0;
-				pChip.nバーからのノーツ末端距離dot.Bass = 0;
 				if( pChip.nノーツ終了時刻ms != 0 )
-					pChip.nバーからのノーツ末端距離dot.Taiko = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.dbBPM * pChip.dbSCROLL * (db現在の譜面スクロール速度[nPlayer].Drums + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.dbBPM * pChip.dbSCROLL * (db現在の譜面スクロール速度[nPlayer].Drums + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 				if ( configIni.eScrollMode == EScrollMode.BMSCROLL || configIni.eScrollMode == EScrollMode.HBSCROLL )
 				{
@@ -3041,7 +3038,7 @@ namespace TJAPlayer3
 					pChip.nバーからの距離dot.Taiko = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * ( db現在の譜面スクロール速度[nPlayer].Drums + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
-						pChip.nバーからのノーツ末端距離dot.Taiko = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( db現在の譜面スクロール速度[nPlayer].Drums + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( db現在の譜面スクロール速度[nPlayer].Drums + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 
 				int instIndex = (int) pChip.e楽器パート;
@@ -3473,6 +3470,7 @@ namespace TJAPlayer3
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0 )
 						{
 							pChip.bHit = true;
+							this.actPanel.t歌詞テクスチャを削除する();
 							if (pChip.nコース == this.n現在のコース[nPlayer])
 							{
 								if (this.actDan.GetFailedAllChallenges())
