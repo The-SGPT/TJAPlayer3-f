@@ -84,9 +84,12 @@ namespace FDK
 
 
 				// ビデオレンダラを除去。
-
-				CDirectShow.tビデオレンダラをグラフから除去する( graphBuilder );		// オーディオレンダラをNullに変えるより前に実行すること。（CDirectShow.tオーディオレンダラをNullレンダラに変えてフォーマットを取得する() の中で一度再生するので、そのときにActiveウィンドウが表示されてしまうため。）
-	
+				// オーディオレンダラをNullに変えるより前に実行すること。
+				// （CDirectShow.tオーディオレンダラをNullレンダラに変えてフォーマットを取得する() の中で一度再生するので、
+				// そのときにActiveウィンドウが表示されてしまうため。）
+				// chnmr0 : ウィンドウを表示しないだけなら IVideoWindow で put_AutoShow した。
+				IVideoWindow vw = graphBuilder as IVideoWindow;
+				vw.put_AutoShow(OABool.False);
 
 				// オーディオレンダラを NullRenderer に置換。
 
@@ -114,9 +117,9 @@ namespace FDK
 				bw.Write( (UInt32) ( 16 + ( ( wfx拡張領域.Length > 0 ) ? ( 2/*sizeof(WAVEFORMATEX.cbSize)*/ + wfx拡張領域.Length ) : 0 ) ) );	// fmtチャンクのサイズ[byte]
 				bw.Write( (UInt16) wfx.Encoding );						// フォーマットID（リニアPCMなら1）
 				bw.Write( (UInt16) wfx.Channels );						// チャンネル数
-				bw.Write( (UInt32) wfx.SampleRate );				// サンプリングレート
+				bw.Write( (UInt32) wfx.SampleRate );					// サンプリングレート
 				bw.Write( (UInt32) wfx.AverageBytesPerSecond );			// データ速度
-				bw.Write( (UInt16) wfx.BlockAlign );				// ブロックサイズ
+				bw.Write( (UInt16) wfx.BlockAlign );					// ブロックサイズ
 				bw.Write( (UInt16) wfx.BitsPerSample );					// サンプルあたりのビット数
 				if( wfx拡張領域.Length > 0 )
 				{

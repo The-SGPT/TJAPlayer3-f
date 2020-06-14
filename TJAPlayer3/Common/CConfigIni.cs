@@ -724,7 +724,7 @@ namespace TJAPlayer3
 		public int nScoreMode;
 		public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
-
+		public int n閉じる差し込み間隔;
 		public int nPlayerCount; //2017.08.18 kairera0467 マルチプレイ対応
 		public bool[] b太鼓パートAutoPlay = new bool[4];//2020.04.26 Mr-Ojii Auto変数の配列化
 		public bool bAuto先生の連打;
@@ -1085,6 +1085,7 @@ namespace TJAPlayer3
 			this.nBranchAnime = 1;
 
 			this.b大音符判定 = true;
+			this.n閉じる差し込み間隔 = 10;
 			this.n両手判定の待ち時間 = 25;
 			this.b両手判定待ち時間中に大音符を判定枠に合わせるか = true;
 
@@ -1494,6 +1495,10 @@ namespace TJAPlayer3
 			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
 			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
+			sw.WriteLine();
+			sw.WriteLine("; 閉じるノードの差し込み間隔");   // 2020.06.12 Mr-Ojii
+			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
+			sw.WriteLine("BackBoxInterval={0}", this.n閉じる差し込み間隔);
 			sw.WriteLine();
 			sw.WriteLine("; 各画像の表示設定");
 			sw.WriteLine("; キャラクター画像を表示する (0:OFF, 1:ON)");
@@ -2182,6 +2187,10 @@ namespace TJAPlayer3
 											if (str3.Equals("EnableRandomSongSelect"))
 											{
 												this.RandomPresence = C変換.bONorOFF(str4[0]);
+											}
+											if (str3.Equals("BackBoxInterval"))
+											{
+												this.n閉じる差し込み間隔 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
 											}
 											else if (str3.Equals("ShowChara"))
 											{

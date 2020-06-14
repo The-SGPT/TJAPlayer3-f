@@ -267,7 +267,10 @@ namespace TJAPlayer3
 
 			if ((this.r現在選択中の曲.list子リスト != null) && (this.r現在選択中の曲.list子リスト.Count > 0))
 			{
-				this.r現在選択中の曲 = this.r現在選択中の曲.list子リスト[0];
+				if (this.r現在選択中の曲.list子リスト.Count > 1 && this.r現在選択中の曲.Openindex < this.r現在選択中の曲.list子リスト.Count)//見た目だけだと気づきにくいが、Indexがずれてるので、[1]にする。閉じるだけのものは、[0]にする。
+					this.r現在選択中の曲 = this.r現在選択中の曲.list子リスト[this.r現在選択中の曲.Openindex];
+				else
+					this.r現在選択中の曲 = this.r現在選択中の曲.list子リスト[0];
 				this.t現在選択中の曲を元に曲バーを再構成する();
 				this.t選択曲が変更された(false);                                 // #27648 項目数変更を反映させる
 				this.b選択曲が変更された = true;
@@ -302,6 +305,8 @@ namespace TJAPlayer3
 			//Trace.TraceInformation( "SKIN変更BoxDef  : "+  CSkin.strBoxDefSkinSubfolderFullName );
 			if (this.r現在選択中の曲.r親ノード != null)
 			{
+				List<C曲リストノード> list = (r現在選択中の曲.r親ノード != null) ? r現在選択中の曲.r親ノード.list子リスト : TJAPlayer3.Songs管理.list曲ルート;//t前の曲 t次の曲から、流用。
+				this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
 				this.r現在選択中の曲 = this.r現在選択中の曲.r親ノード;
 				this.t現在選択中の曲を元に曲バーを再構成する();
 				this.t選択曲が変更された(false);                                 // #27648 項目数変更を反映させる

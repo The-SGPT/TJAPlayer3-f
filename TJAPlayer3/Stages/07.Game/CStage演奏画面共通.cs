@@ -44,7 +44,10 @@ namespace TJAPlayer3
 				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Poor;
 				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Miss;
 				Drums.n連打数 = this.n合計連打数[ nPlayer ];
-				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
+				if (nPlayer == 0)
+					Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
+				else
+					Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P2最高値;
 				Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
 				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
 				Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
