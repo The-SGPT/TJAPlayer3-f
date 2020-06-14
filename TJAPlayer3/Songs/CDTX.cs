@@ -1738,6 +1738,16 @@ namespace TJAPlayer3
 							this.t入力tci(tcistr, db再生速度);
 
 						}
+						else if (Path.GetExtension(strファイル名).Equals(".tcm"))
+						{
+							Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+							StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+							string tcistr = reader.ReadToEnd();
+							reader.Close();
+
+							this.t入力tcm(tcistr, db再生速度);
+
+						}
 						else
 						{
 							//次郎方式
@@ -1872,53 +1882,8 @@ namespace TJAPlayer3
 			}
 		}
 
-		private void t入力tci(string 入力文字列, double 再生速度)
+		private void チップについての共通部分()
 		{
-			if (!string.IsNullOrEmpty(入力文字列))
-			{
-				#region [ 初期化 ]
-				this.db再生速度 = 再生速度;
-				for (int j = 0; j < 36 * 36; j++)
-				{
-					this.n無限管理WAV[j] = -j;
-					this.n無限管理BPM[j] = -j;
-					this.n無限管理PAN[j] = -10000 - j;
-					this.n無限管理SIZE[j] = -j;
-				}
-				this.n内部番号WAV1to = 1;
-				this.n内部番号BPM1to = 1;
-				this.bstackIFからENDIFをスキップする = new Stack<bool>();
-				this.bstackIFからENDIFをスキップする.Push(false);
-				this.n現在の乱数 = 0;
-				for (int k = 0; k < 7; k++)
-				{
-					this.nRESULTIMAGE用優先順位[k] = 0;
-					this.nRESULTMOVIE用優先順位[k] = 0;
-					this.nRESULTSOUND用優先順位[k] = 0;
-				}
-				this.dbNowScroll = 1.0;
-				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
-				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
-				this.dbNowSCROLL_Master = new double[] { 1.0, 0.0 };
-				this.n現在のコース = 0;
-				#endregion
-
-				if (this.listChip.Count == 0)
-				{
-					try
-					{
-						this.t入力tciファイル(入力文字列);
-					}
-					catch (Exception ex)
-					{
-						Debug.Print(ex.ToString());
-					}
-				}
-				チップについての共通部分();
-			}
-		}
-
-		private void チップについての共通部分() {
 			#region[コピペ]
 			//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 			//Trace.TraceInformation( "抜き出し時間:             {0}", span.ToString() );
@@ -2162,7 +2127,8 @@ namespace TJAPlayer3
 								ms = chip.n発声時刻ms;
 
 								#region[listlyric2の時間合わせ]
-								for (int ind = 0; ind < listLyric2.Count; ind++) {
+								for (int ind = 0; ind < listLyric2.Count; ind++)
+								{
 									if (listLyric2[ind].index == BGM番号)
 									{
 										STLYRIC lyrictmp = this.listLyric2[ind];
@@ -2174,7 +2140,7 @@ namespace TJAPlayer3
 								}
 
 
-                                BGM番号++;
+								BGM番号++;
 								#endregion
 								continue;
 							}
@@ -2497,12 +2463,12 @@ namespace TJAPlayer3
 				#region[listlyricを時間順に並び替え。]
 				this.listLyric2 = tmplistlyric;
 				this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
-                #endregion
+				#endregion
 
-                //span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-                //Trace.TraceInformation( "発声時刻計算:             {0}", span.ToString() );
-                //timeBeginLoad = DateTime.Now;
-                this.nBGMAdjust = 0;
+				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
+				//Trace.TraceInformation( "発声時刻計算:             {0}", span.ToString() );
+				//timeBeginLoad = DateTime.Now;
+				this.nBGMAdjust = 0;
 				this.t各自動再生音チップの再生時刻を変更する(nBGMAdjust);
 				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 				//Trace.TraceInformation( "再生時刻変更:             {0}", span.ToString() );
@@ -2615,28 +2581,581 @@ namespace TJAPlayer3
 			#endregion
 		}
 
+		private void t入力tcm(string 入力文字列,　double 再生速度) {
+			if (!string.IsNullOrEmpty(入力文字列))
+			{
+				#region [ 初期化 ]
+				this.db再生速度 = 再生速度;
+				for (int j = 0; j < 36 * 36; j++)
+				{
+					this.n無限管理WAV[j] = -j;
+					this.n無限管理BPM[j] = -j;
+					this.n無限管理PAN[j] = -10000 - j;
+					this.n無限管理SIZE[j] = -j;
+				}
+				this.n内部番号WAV1to = 1;
+				this.n内部番号BPM1to = 1;
+				this.bstackIFからENDIFをスキップする = new Stack<bool>();
+				this.bstackIFからENDIFをスキップする.Push(false);
+				this.n現在の乱数 = 0;
+				for (int k = 0; k < 7; k++)
+				{
+					this.nRESULTIMAGE用優先順位[k] = 0;
+					this.nRESULTMOVIE用優先順位[k] = 0;
+					this.nRESULTSOUND用優先順位[k] = 0;
+				}
+				this.dbNowScroll = 1.0;
+				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
+				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
+				this.dbNowSCROLL_Master = new double[] { 1.0, 0.0 };
+				this.n現在のコース = 0;
+				#endregion
+				
+				OTCMedley obj = JsonConvert.DeserializeObject<OTCMedley>(入力文字列);
+				
+				if (obj.Jouken != null)
+                    for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
+                    {
+                        if (!string.IsNullOrEmpty(obj.Jouken[joukenindex].Type) && !string.IsNullOrEmpty(obj.Jouken[joukenindex].Range) && obj.Jouken[joukenindex].Value[0] != null)
+                        {
+                            Exam.Type examType;
+                            Exam.Range examRange;
+							int[] examValue;
+                            switch (obj.Jouken[joukenindex].Type)
+                            {
+                                case "gauge":
+                                    examType = Exam.Type.Gauge;
+                                    break;
+                                case "judgeperfect":
+                                    examType = Exam.Type.JudgePerfect;
+                                    break;
+                                case "judgegood":
+                                    examType = Exam.Type.JudgeGood;
+                                    break;
+                                case "judgebad":
+                                    examType = Exam.Type.JudgeBad;
+                                    break;
+                                case "score":
+                                    examType = Exam.Type.Score;
+                                    break;
+                                case "roll":
+                                    examType = Exam.Type.Roll;
+                                    break;
+                                case "hit":
+                                    examType = Exam.Type.Hit;
+                                    break;
+                                case "combo":
+                                    examType = Exam.Type.Combo;
+                                    break;
+                                default:
+                                    examType = Exam.Type.Gauge;
+                                    break;
+                            }
+                            switch (obj.Jouken[joukenindex].Range)
+                            {
+                                case "more":
+                                    examRange = Exam.Range.More;
+                                    break;
+                                case "less":
+                                    examRange = Exam.Range.Less;
+                                    break;
+                                default:
+                                    examRange = Exam.Range.More;
+                                    break;
+							}
+							if (obj.Jouken[joukenindex].Value[1] != null)
+							{
+								try
+								{
+									examValue = new int[] {(int) obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[1] };
+								}
+								catch (Exception)
+								{
+									try
+									{
+										examValue = new int[] { (int)obj.Jouken[joukenindex].Value[0], (int) obj.Jouken[joukenindex].Value[0] };
+									}
+									catch (Exception)
+									{
+										examValue = new int[] { 100, 100 };
+									}
+								}
+							}
+							else
+							{
+								try
+								{
+									examValue = new int[] {(int) obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[0] };
+								}
+								catch (Exception)
+								{
+									examValue = new int[] { 100, 100 };
+								}
+							}
+
+							Dan_C[joukenindex] = new Dan_C(examType, examValue, examRange);
+                        }
+                    }
+				
+				this.b譜面が存在する[(int)Difficulty.Dan] = true;
+
+				#region[ 最初の処理 ]
+				//1小節の時間を挿入して開始時間を調節。
+				this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
+				#endregion
+
+				#region[#START命令の挿入]
+				//#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
+				AddMusicPreTimeMs(); // 音源を鳴らす前に遅延。
+				var chip = new CChip();
+
+				chip.nチャンネル番号 = 0x01;
+				chip.n発声位置 = 384;
+				chip.n発声時刻ms = (int)this.dbNowTime;
+				chip.fNow_Measure_m = this.fNow_Measure_m;
+				chip.fNow_Measure_s = this.fNow_Measure_s;
+				chip.fBMSCROLLTime = this.dbNowBMScollTime;
+				chip.n整数値 = 0x01;
+				chip.n整数値_内部番号 = 1;
+
+				// チップを配置。
+				this.listChip.Add(chip);
+
+				var chip1 = new CChip();
+				chip1.nチャンネル番号 = 0x54;
+				//chip1.n発声位置 = 384;
+				//chip1.n発声時刻ms = (int)this.dbNowTime;
+				if (this.nMOVIEOFFSET == 0)
+					chip1.n発声時刻ms = (int)this.dbNowTime;
+				else
+					chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
+				chip1.dbBPM = this.dbNowBPM;
+				chip1.dbSCROLL = this.dbNowScroll;
+				chip1.fNow_Measure_m = this.fNow_Measure_m;
+				chip1.fNow_Measure_s = this.fNow_Measure_s;
+				chip1.n整数値 = 0x01;
+				chip1.n整数値_内部番号 = 1;
+				chip1.eAVI種別 = EAVI種別.AVI;
+
+				// チップを配置。
+
+				this.listChip.Add(chip1);
+                #endregion
+
+                #region[一応、TJAで最初に入ってるやつ]
+                #region[BPM]
+				double dbBPM = Convert.ToDouble(120);
+				this.BPM = dbBPM;
+				this.BASEBPM = dbBPM;
+				this.dbNowBPM = dbBPM;
+
+				this.listBPM.Add(this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = this.n内部番号BPM1to - 1, dbBPM値 = dbBPM, });
+				this.n内部番号BPM1to++;
+
+
+				//チップ追加して割り込んでみる。
+				var chipbpm = new CChip();
+
+				chipbpm.nチャンネル番号 = 0x03;
+				chipbpm.n発声位置 = ((this.n現在の小節数 - 1) * 384);
+				chipbpm.n整数値 = 0x00;
+				chipbpm.n整数値_内部番号 = 1;
+
+				this.listChip.Add(chip);
+				#endregion
+
+				#region[DEMOSTART]
+				this.nデモBGMオフセット = 0;
+				#endregion
+
+				#region[LEVEL]
+				var level = (int)Convert.ToDouble(5);
+				this.LEVELtaiko[(int)Difficulty.Dan] = level;
+				#endregion
+				#endregion
+
+				if (obj.Humen != null)
+					for (int humenindex = 0; humenindex < obj.Humen.Length; humenindex++) {
+
+
+						string 読み込みtci名 = this.strフォルダ名 + obj.Humen[humenindex].File;
+						int diff = strConvertCourse(obj.Humen[humenindex].Diff);
+
+						Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(読み込みtci名);
+						StreamReader reader = new StreamReader(読み込みtci名, ファイルenc);
+						string tcistr = reader.ReadToEnd();
+						reader.Close();
+
+						#region[段位道場の幕]
+						var delayTime = 6200.0; // 6.2秒ディレイ
+												//チップ追加して割り込んでみる。
+						chip = new CChip();
+
+						chip.nチャンネル番号 = 0x9B;
+						chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
+						chip.n発声時刻ms = (int)this.dbNowTime;
+						chip.fNow_Measure_m = this.fNow_Measure_m;
+						chip.fNow_Measure_s = this.fNow_Measure_s;
+						this.dbNowTime += delayTime;
+						this.dbNowBMScollTime += delayTime * this.dbNowBPM / 15000;
+						chip.n整数値_内部番号 = 0;
+						chip.nコース = this.n現在のコース;
+
+						// チップを配置。
+						this.listChip.Add(chip);
+
+						AddMusicPreTimeMs(); // 段位の幕が開いてからの遅延。
+
+
+						OTCInfomation objtci = JsonConvert.DeserializeObject<OTCInfomation>(tcistr);
+
+						int n譜面数 = 0;
+
+						int[] coursesindex = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
+
+						for (int i = 0; i < objtci.Courses.Length; i++)
+						{
+							this.n参照中の難易度 = strConvertCourse(objtci.Courses[i].Diffculty);
+							coursesindex[n参照中の難易度] = i;
+							n譜面数++;
+						}
+
+						string 読み込むtccファイル = this.strフォルダ名 + objtci.Courses[coursesindex[diff]].Single;
+
+						Encoding ファイルenctcc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(読み込むtccファイル);
+						StreamReader readertcc = new StreamReader(読み込むtccファイル, ファイルenctcc);
+						string tccstr = readertcc.ReadToEnd();
+						readertcc.Close();
+
+						OTCCource objtcc = JsonConvert.DeserializeObject<OTCCource>(tccstr);
+
+						var dansongs = new DanSongs();
+						if (objtci.SubTitle != null)
+						{
+							if (objtci.SubTitle.StartsWith("++") || objtci.SubTitle.StartsWith("--"))
+							{
+								objtci.SubTitle = objtci.SubTitle.Substring(3);
+							}
+						}
+						else {
+							objtci.SubTitle = "";
+						}
+						dansongs.Title = objtci.Title;
+						dansongs.SubTitle = objtci.SubTitle;
+						dansongs.Genre = "";
+						dansongs.FileName = objtci.WAVFile;
+						dansongs.ScoreInit = (int)objtcc.ScoreInit;
+						dansongs.ScoreDiff = (int)objtcc.ScoreDiff;
+						dansongs.Wave = new CWAV
+						{
+							n内部番号 = this.n内部番号WAV1to,
+							n表記上の番号 = this.n内部番号WAV1to,
+							nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
+							n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+							SongVol = this.SongVol,
+							SongLoudnessMetadata = this.SongLoudnessMetadata,
+							strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
+							strコメント文 = "TJA BGM"
+						};
+						dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strファイル名);
+						List_DanSongs.Add(dansongs);
+						this.listWAV.Add(this.n内部番号WAV1to, dansongs.Wave);
+						this.n内部番号WAV1to++;
+
+						var nextSongnextSongChip = new CChip();
+
+						nextSongnextSongChip.nチャンネル番号 = 0x01;
+						nextSongnextSongChip.n発声位置 = 384;
+						nextSongnextSongChip.n発声時刻ms = (int)this.dbNowTime;
+						nextSongnextSongChip.fNow_Measure_m = this.fNow_Measure_m;
+						nextSongnextSongChip.fNow_Measure_s = this.fNow_Measure_s;
+						nextSongnextSongChip.n整数値 = 0x01;
+						nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
+
+						this.listWAV[1].strファイル名 = "";
+
+						// チップを配置。
+						this.listChip.Add(nextSongnextSongChip);
+						#endregion
+
+
+						t入力tci_tcm用(tcistr, 再生速度, coursesindex[diff]);
+					}
+				
+				#region[#END命令の挿入]
+				//ためしに割り込む。
+				chip = new CChip();
+
+				chip.nチャンネル番号 = 0xFF;
+				chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
+				//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
+				chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
+				chip.fNow_Measure_m = this.fNow_Measure_m;
+				chip.fNow_Measure_s = this.fNow_Measure_s;
+				chip.n整数値 = 0xFF;
+				chip.n整数値_内部番号 = 1;
+				// チップを配置。
+
+				this.listChip.Add(chip);
+				#endregion
+
+				チップについての共通部分();
+				this.TITLE = obj.Title;
+			}
+		}
+
+		private void t入力tci_tcm用(string 入力文字列, double 再生速度, int cindex) {
+
+			OTCInfomation obj = JsonConvert.DeserializeObject<OTCInfomation>(入力文字列);
+
+			#region[BGM]
+			if (strBGM_PATH != null)
+			{
+				Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strファイル名の絶対パス}");
+			}
+			else
+			{
+				this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.WAVFile);
+				//tbWave.Text = strCommandParam;
+				if (this.listWAV != null)
+				{
+					// 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+					//                           TJAP3 is either launching, enumerating songs, or is about to
+					//                           begin playing a song. If metadata is available, we want it now.
+					//                           If is not yet available then we wish to queue scanning.
+					var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
+					this.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(absoluteBgmPath);
+
+					var wav = new CWAV()
+					{
+						n内部番号 = this.n内部番号WAV1to,
+						n表記上の番号 = 1,
+						nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
+						n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+						SongVol = this.SongVol,
+						SongLoudnessMetadata = this.SongLoudnessMetadata,
+						strファイル名 = this.strBGM_PATH,
+						strコメント文 = "TJA BGM",
+					};
+
+					this.listWAV.Add(this.n内部番号WAV1to, wav);
+					this.n内部番号WAV1to++;
+				}
+			}
+			#endregion
+
+			if (obj.BPM != null) //BPMCHANGEもかませる
+			{
+				double dbBPM = Convert.ToDouble(obj.BPM);
+				this.dbNowBPM = dbBPM;
+
+				this.listBPM.Add(this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = 0, dbBPM値 = dbBPM, bpm_change_time = this.dbNowTime, bpm_change_bmscroll_time = this.dbNowBMScollTime, bpm_change_course = this.n現在のコース });
+
+
+				//チップ追加して割り込んでみる。
+				var chip = new CChip();
+
+				chip.nチャンネル番号 = 0x08;
+				chip.n発声位置 = ((this.n現在の小節数) * 384);
+				chip.n発声時刻ms = (int)this.dbNowTime;
+				chip.fNow_Measure_m = this.fNow_Measure_m;
+				chip.fNow_Measure_s = this.fNow_Measure_s;
+				chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
+				chip.dbBPM = dbBPM;
+				chip.n整数値_内部番号 = this.n内部番号BPM1to - 1;
+
+				// チップを配置。
+
+				this.listChip.Add(chip);
+
+				var chip1 = new CChip();
+				chip1.nチャンネル番号 = 0x9C;
+				chip1.n発声位置 = ((this.n現在の小節数) * 384);
+				chip1.n発声時刻ms = (int)this.dbNowTime;
+				chip1.fNow_Measure_m = this.fNow_Measure_m;
+				chip1.fNow_Measure_s = this.fNow_Measure_s;
+				chip1.fBMSCROLLTime = (float)this.dbNowBMScollTime;
+				chip1.dbBPM = dbBPM;
+				chip1.dbSCROLL = this.dbNowScroll;
+				chip1.n整数値_内部番号 = this.n内部番号BPM1to - 1;
+
+				// チップを配置。
+
+				this.listChip.Add(chip1);
+
+				this.n内部番号BPM1to++;
+			}
+
+			if (obj.Offset != null) //TJAと同じようにDELAYをかませる
+			{
+				double nDELAY = (Convert.ToDouble(-obj.Offset) * 1000.0);
+
+
+				this.listDELAY.Add(this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
+
+
+				//チップ追加して割り込んでみる。
+				var chip = new CChip();
+
+				chip.nチャンネル番号 = 0xDC;
+				chip.n発声位置 = ((this.n現在の小節数) * 384);
+				chip.db発声時刻ms = this.dbNowTime;
+				chip.fNow_Measure_m = this.fNow_Measure_m;
+				chip.fNow_Measure_s = this.fNow_Measure_s;
+				chip.nコース = this.n現在のコース;
+				chip.n整数値_内部番号 = this.n内部番号DELAY1to;
+				chip.fBMSCROLLTime = this.dbNowBMScollTime;
+				// チップを配置。
+
+				this.dbNowTime += nDELAY;
+				this.dbNowBMScollTime += nDELAY * this.dbNowBPM / 15000;
+
+				this.listChip.Add(chip);
+				this.n内部番号DELAY1to++;
+			}
+
+            #region[4/4拍子にする]
+            string[] strArray = "4/4".Split('/');
+			WarnSplitLength("#MEASURE subsplit", strArray, 2);
+
+			double[] dbLength = new double[2];
+			dbLength[0] = Convert.ToDouble(strArray[0]);
+			dbLength[1] = Convert.ToDouble(strArray[1]);
+
+			double db小節長倍率 = dbLength[0] / dbLength[1];
+			this.dbBarLength = db小節長倍率;
+			this.fNow_Measure_m = (float)dbLength[1];
+			this.fNow_Measure_s = (float)dbLength[0];
+
+			var chipme = new CChip();
+
+			chipme.nチャンネル番号 = 0x02;
+			chipme.n発声位置 = ((this.n現在の小節数) * 384);
+			chipme.n発声時刻ms = (int)this.dbNowTime;
+			chipme.fNow_Measure_m = this.fNow_Measure_m;
+			chipme.fNow_Measure_s = this.fNow_Measure_s;
+			chipme.dbSCROLL = this.dbNowScroll;
+			chipme.db実数値 = db小節長倍率;
+			chipme.n整数値_内部番号 = 1;
+			// チップを配置。
+
+			this.listChip.Add(chipme);
+
+            //lbMaster.Items.Add( ";拍子変更 " + strArray[0] + "/" + strArray[1] );
+            #endregion
+
+            #region[scrollを1にする]
+            double dbSCROLL = Convert.ToDouble(1);
+			this.dbNowScroll = dbSCROLL;
+			this.dbNowScrollY = 0.0;
+
+			this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbSCROLL, dbSCROLL値Y = 0.0 });
+
+			switch (this.n現在のコース)
+			{
+				case 0:
+					this.dbNowSCROLL_Normal[0] = dbSCROLL;
+					break;
+				case 1:
+					this.dbNowSCROLL_Expert[0] = dbSCROLL;
+					break;
+				case 2:
+					this.dbNowSCROLL_Master[0] = dbSCROLL;
+					break;
+			}
+
+            //チップ追加して割り込んでみる。
+            var chipsc = new CChip();
+
+			chipsc.nチャンネル番号 = 0x9D;
+			chipsc.n発声位置 = ((this.n現在の小節数) * 384) - 1;
+			chipsc.n発声時刻ms = (int)this.dbNowTime;
+			chipsc.fNow_Measure_m = this.fNow_Measure_m;
+			chipsc.fNow_Measure_s = this.fNow_Measure_s;
+			chipsc.n整数値_内部番号 = this.n内部番号SCROLL1to;
+			chipsc.dbSCROLL = dbSCROLL;
+			chipsc.dbSCROLL_Y = 0.0;
+			chipsc.nコース = this.n現在のコース;
+
+			// チップを配置。
+
+			this.listChip.Add(chipsc);
+
+			this.n内部番号SCROLL1to++;
+			#endregion
+
+			t入力tccファイル(obj.Courses[cindex].Single);
+
+        }
+
+
+        private void t入力tci(string 入力文字列, double 再生速度)
+		{
+			if (!string.IsNullOrEmpty(入力文字列))
+			{
+				#region [ 初期化 ]
+				this.db再生速度 = 再生速度;
+				for (int j = 0; j < 36 * 36; j++)
+				{
+					this.n無限管理WAV[j] = -j;
+					this.n無限管理BPM[j] = -j;
+					this.n無限管理PAN[j] = -10000 - j;
+					this.n無限管理SIZE[j] = -j;
+				}
+				this.n内部番号WAV1to = 1;
+				this.n内部番号BPM1to = 1;
+				this.bstackIFからENDIFをスキップする = new Stack<bool>();
+				this.bstackIFからENDIFをスキップする.Push(false);
+				this.n現在の乱数 = 0;
+				for (int k = 0; k < 7; k++)
+				{
+					this.nRESULTIMAGE用優先順位[k] = 0;
+					this.nRESULTMOVIE用優先順位[k] = 0;
+					this.nRESULTSOUND用優先順位[k] = 0;
+				}
+				this.dbNowScroll = 1.0;
+				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
+				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
+				this.dbNowSCROLL_Master = new double[] { 1.0, 0.0 };
+				this.n現在のコース = 0;
+				#endregion
+
+				if (this.listChip.Count == 0)
+				{
+					try
+					{
+						this.t入力tciファイル(入力文字列);
+					}
+					catch (Exception ex)
+					{
+						Debug.Print(ex.ToString());
+					}
+				}
+				チップについての共通部分();
+			}
+		}
 
 		private void t入力tciファイル(string 全入力文字列) 
 		{
-
 			OTCInfomation obj = JsonConvert.DeserializeObject<OTCInfomation>(全入力文字列);
 
 			#region[タイトル&サブタイ]
 			this.TITLE = obj.Title;
-
-			if (obj.SubTitle.StartsWith("--"))
-			{
-				this.SUBTITLE = obj.SubTitle.Substring(2);
-			}
-			else if (obj.SubTitle.StartsWith("++"))
-			{
-				this.SUBTITLEDisp = true;
-				this.SUBTITLE = obj.SubTitle.Substring(2);
-			}
-			else
-			{
-				this.SUBTITLEDisp = true;
-				this.SUBTITLE = obj.SubTitle;
+			if (obj.SubTitle != null) {
+				if (obj.SubTitle.StartsWith("--"))
+				{
+					this.SUBTITLE = obj.SubTitle.Substring(2);
+				}
+				else if (obj.SubTitle.StartsWith("++"))
+				{
+					this.SUBTITLEDisp = true;
+					this.SUBTITLE = obj.SubTitle.Substring(2);
+				}
+				else
+				{
+					this.SUBTITLEDisp = true;
+					this.SUBTITLE = obj.SubTitle;
+				}
 			}
 			#endregion
 
@@ -2787,8 +3306,8 @@ namespace TJAPlayer3
 			int n読み込むコース = 3;
 			int n譜面数 = 0;
 
-			int[] coursesindex = new int[(int)Difficulty.Total] {0,0,0,0,0,0,0};
-
+			int[] coursesindex = new int[(int)Difficulty.Total] {-1,-1,-1,-1,-1,-1,-1};
+			
 			for (int i = 0; i < obj.Courses.Length; i++)
 			{
 				this.n参照中の難易度 = strConvertCourse(obj.Courses[i].Diffculty);
@@ -2804,6 +3323,7 @@ namespace TJAPlayer3
 			#region[ 読み込ませるコースを決定 ]
 			if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 				n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
+			
 			if (this.b譜面が存在する[n読み込むコース] == false)
 			{
 				n読み込むコース++;
@@ -2838,6 +3358,50 @@ namespace TJAPlayer3
 
 			this.n参照中の難易度 = strConvertCourse(obj.Courses[coursesindex[n読み込むコース]].Diffculty);
 
+			//2020.06.09 tcmにtccのコードを再利用するには、ここにつけるしかなかったんだ～許して～
+			#region[ 最初の処理 ]
+			//1小節の時間を挿入して開始時間を調節。
+			this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
+			#endregion
+
+			#region[#START命令の挿入]
+			//#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
+			AddMusicPreTimeMs(); // 音源を鳴らす前に遅延。
+			chip = new CChip();
+
+			chip.nチャンネル番号 = 0x01;
+			chip.n発声位置 = 384;
+			chip.n発声時刻ms = (int)this.dbNowTime;
+			chip.fNow_Measure_m = this.fNow_Measure_m;
+			chip.fNow_Measure_s = this.fNow_Measure_s;
+			chip.fBMSCROLLTime = this.dbNowBMScollTime;
+			chip.n整数値 = 0x01;
+			chip.n整数値_内部番号 = 1;
+
+			// チップを配置。
+			this.listChip.Add(chip);
+
+			var chip1 = new CChip();
+			chip1.nチャンネル番号 = 0x54;
+			//chip1.n発声位置 = 384;
+			//chip1.n発声時刻ms = (int)this.dbNowTime;
+			if (this.nMOVIEOFFSET == 0)
+				chip1.n発声時刻ms = (int)this.dbNowTime;
+			else
+				chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
+			chip1.dbBPM = this.dbNowBPM;
+			chip1.dbSCROLL = this.dbNowScroll;
+			chip1.fNow_Measure_m = this.fNow_Measure_m;
+			chip1.fNow_Measure_s = this.fNow_Measure_s;
+			chip1.n整数値 = 0x01;
+			chip1.n整数値_内部番号 = 1;
+			chip1.eAVI種別 = EAVI種別.AVI;
+
+			// チップを配置。
+
+			this.listChip.Add(chip1);
+			#endregion
+
 			if (n読み込むセッション譜面パート == 0)
 			{
 				t入力tccファイル(obj.Courses[coursesindex[n読み込むコース]].Single);
@@ -2846,7 +3410,23 @@ namespace TJAPlayer3
 			{
 				t入力tccファイル(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1]);
 			}
-			
+
+			#region[#END命令の挿入]
+			//ためしに割り込む。
+			chip = new CChip();
+
+			chip.nチャンネル番号 = 0xFF;
+			chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
+			//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
+			chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
+			chip.fNow_Measure_m = this.fNow_Measure_m;
+			chip.fNow_Measure_s = this.fNow_Measure_s;
+			chip.n整数値 = 0xFF;
+			chip.n整数値_内部番号 = 1;
+			// チップを配置。
+
+			this.listChip.Add(chip);
+			#endregion
 
 		}
 
@@ -2889,70 +3469,11 @@ namespace TJAPlayer3
 
 			try
 			{
-				#region[ 最初の処理 ]
-				//1小節の時間を挿入して開始時間を調節。
-				this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
-				#endregion
-
-				#region[#START命令の挿入]
-				//#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
-				AddMusicPreTimeMs(); // 音源を鳴らす前に遅延。
-				var chip = new CChip();
-
-				chip.nチャンネル番号 = 0x01;
-				chip.n発声位置 = 384;
-				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
-				chip.fBMSCROLLTime = this.dbNowBMScollTime;
-				chip.n整数値 = 0x01;
-				chip.n整数値_内部番号 = 1;
-
-				// チップを配置。
-				this.listChip.Add(chip);
-
-				var chip1 = new CChip();
-				chip1.nチャンネル番号 = 0x54;
-				//chip1.n発声位置 = 384;
-				//chip1.n発声時刻ms = (int)this.dbNowTime;
-				if (this.nMOVIEOFFSET == 0)
-					chip1.n発声時刻ms = (int)this.dbNowTime;
-				else
-					chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
-				chip1.dbBPM = this.dbNowBPM;
-				chip1.dbSCROLL = this.dbNowScroll;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
-				chip1.n整数値 = 0x01;
-				chip1.n整数値_内部番号 = 1;
-				chip1.eAVI種別 = EAVI種別.AVI;
-
-				// チップを配置。
-
-				this.listChip.Add(chip1);
-				#endregion
 
 				for (int i = 0; obj.Measures.Length > i; i++)//小節ごとに分けてInputする
 				{
 					this.t入力tcc小節(obj.Measures[i]);
 				}
-
-				#region[#END命令の挿入]
-				//ためしに割り込む。
-				chip = new CChip();
-
-				chip.nチャンネル番号 = 0xFF;
-				chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
-				//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
-				chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
-				chip.n整数値 = 0xFF;
-				chip.n整数値_内部番号 = 1;
-				// チップを配置。
-
-				this.listChip.Add(chip);
-				#endregion
 
 			}
 			catch (Exception ex)
@@ -4812,8 +5333,17 @@ namespace TJAPlayer3
 
 				if (InputText.StartsWith("#"))
 				{
-					this.t命令を挿入する(InputText);
+					try
+					{
+						this.t命令を挿入する(InputText);
+					}
+					catch(Exception e) 
+					{
+						Trace.WriteLine(e);
+						Trace.WriteLine("命令挿入中にエラーが発生しましたが、処理を継続します。");
+					}
 					return;
+
 				}
 				else
 				{
@@ -7950,6 +8480,37 @@ namespace TJAPlayer3
 			public int?[] Balloon { get; set; }
 			[JsonProperty("measures")]
 			public string[][] Measures { get; set; }
+		}
+
+		[JsonObject("medley")]
+		private class OTCMedley
+		{
+			[JsonProperty("title")]
+			public string Title { get; set; }
+			[JsonProperty("exams")]
+			public OTCMedleyJouken[] Jouken { get; set; }
+			[JsonProperty("charts")]
+			public OTCMedleyHumen[] Humen { get; set; }
+		}
+
+		[JsonObject("medleyjouken")]
+		private class OTCMedleyJouken
+		{
+			[JsonProperty("type")]
+			public string Type { get; set; }
+			[JsonProperty("range")]
+			public string Range { get; set; }
+			[JsonProperty("value")]
+			public int?[] Value { get; set; }
+		}
+
+		[JsonObject("medleyHumen")]
+		private class OTCMedleyHumen
+		{
+			[JsonProperty("file")]
+			public string File { get; set; }
+			[JsonProperty("difficulty")]
+			public string Diff { get; set; }
 		}
 
 		private void t行のコメント処理(ref string strText)
