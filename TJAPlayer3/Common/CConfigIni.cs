@@ -736,6 +736,7 @@ namespace TJAPlayer3
 		public bool bJudgeCountDisplay;
 
 		public bool RandomPresence;
+		public bool OpenOneSide;
 
 		// 各画像の表示・非表示設定
 		public bool ShowChara;
@@ -991,6 +992,7 @@ namespace TJAPlayer3
 			this.FontName = "MS UI Gothic";
 			this.FontNamed = "MS UI Gothic";
 			this.RandomPresence = true;
+			this.OpenOneSide = false;
 			this.ApplyLoudnessMetadata = true;
 
 			// 2018-08-28 twopointzero:
@@ -1085,7 +1087,7 @@ namespace TJAPlayer3
 			this.nBranchAnime = 1;
 
 			this.b大音符判定 = true;
-			this.n閉じる差し込み間隔 = 10;
+			this.n閉じる差し込み間隔 = 15;
 			this.n両手判定の待ち時間 = 25;
 			this.b両手判定待ち時間中に大音符を判定枠に合わせるか = true;
 
@@ -1496,8 +1498,12 @@ namespace TJAPlayer3
 			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
+			sw.WriteLine("; 片開きにするかどうか(0:全開き,1:片開き)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Box Open One Side.(0:No, 1:Yes)");     //
+			sw.WriteLine("EnableOpenOneSide={0}", this.OpenOneSide ? 1 : 0);    //
+			sw.WriteLine();
 			sw.WriteLine("; 閉じるノードの差し込み間隔");   // 2020.06.12 Mr-Ojii
-			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
+			sw.WriteLine("; BackBoxes Interval.");     //
 			sw.WriteLine("BackBoxInterval={0}", this.n閉じる差し込み間隔);
 			sw.WriteLine();
 			sw.WriteLine("; 各画像の表示設定");
@@ -2188,7 +2194,11 @@ namespace TJAPlayer3
 											{
 												this.RandomPresence = C変換.bONorOFF(str4[0]);
 											}
-											if (str3.Equals("BackBoxInterval"))
+											else if (str3.Equals("EnableOpenOneSide"))
+											{
+												this.OpenOneSide = C変換.bONorOFF(str4[0]);
+											}
+											else if (str3.Equals("BackBoxInterval"))
 											{
 												this.n閉じる差し込み間隔 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
 											}

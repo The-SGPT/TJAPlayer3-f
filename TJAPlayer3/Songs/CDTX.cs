@@ -986,7 +986,6 @@ namespace TJAPlayer3
 		public E種別 e種別;
 		public string GENRE;
 		public bool bLyrics;
-		public Eジャンル eジャンル;
 		public bool HIDDENLEVEL;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
 		public Dictionary<int, CAVI> listAVI;
@@ -1147,7 +1146,6 @@ namespace TJAPlayer3
 			this.PANEL = "";
 			this.GENRE = "";
 			this.bLyrics = false;
-			this.eジャンル = Eジャンル.None;
 			this.PREVIEW = "";
 			this.PREIMAGE = "";
 			this.BACKGROUND = "";

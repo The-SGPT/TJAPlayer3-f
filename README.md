@@ -79,6 +79,9 @@ VisualStudio Community 2019
 - kairera0467様
 - AioiLight様
 
+また、他のTJAPlayer関係のソースコードを参考にさせてもらっている箇所があります。  
+ありがとうございます。
+
 ## ライセンス関係
 以下のライブラリを追加いたしました。
 * ReadJEnc
