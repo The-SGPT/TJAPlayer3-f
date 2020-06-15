@@ -80,10 +80,6 @@ namespace TJAPlayer3
 					"FDK.dll またはその依存するdllが存在しません。" + newLine + "DTXManiaをダウンロードしなおしてください。",
 					"FDK.dll, or its depended DLL, is not found." + newLine + "Please download DTXMania again."
 					) ) bDLLnotfound = true;
-				if ( !tDLLの存在チェック( "dll\\xadec.dll",
-					"xadec.dll が存在しません。" + newLine + "DTXManiaをダウンロードしなおしてください。",
-					"xadec.dll is not found." + newLine + "Please download DTXMania again."
-					) ) bDLLnotfound = true;
 				if ( !tDLLの存在チェック( "dll\\SoundDecoder.dll",
 					"SoundDecoder.dll またはその依存するdllが存在しません。" + newLine + "DTXManiaをダウンロードしなおしてください。",
 					"SoundDecoder.dll, or its depended DLL, is not found." + newLine + "Please download DTXMania again."
