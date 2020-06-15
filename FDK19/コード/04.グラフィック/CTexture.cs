@@ -418,6 +418,10 @@ namespace FDK
 		{
 			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (this.szテクスチャサイズ.Height / 2), this.rc全画像);
 		}
+		public void t2D中央基準描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
+		{
+			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (this.szテクスチャサイズ.Height / 2), rc画像内の描画領域);
+		}
 		public void t2D下中央基準描画(Device device, int x, int y)
 		{
 			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (szテクスチャサイズ.Height), this.rc全画像);

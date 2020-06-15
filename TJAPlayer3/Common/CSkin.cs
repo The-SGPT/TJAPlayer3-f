@@ -2505,7 +2505,7 @@ namespace TJAPlayer3
 		public int SongSelect_Box_Center_Header_Y_Diff = 0;
 
 		#region[Difficulty]
-		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 640, 387, 439, 880, 600 , 125 , 25};
+		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 600 , 125 , 25};
         #endregion
         #endregion
         #region SongLoading
