@@ -54,9 +54,11 @@ Ver.1.6.0.0 : 難易度選択画面を追加 & メンテモード追加(タイ�
 
 Ver.1.6.0.1 : Open Taiko Chartへの対応(β)
 
+Ver.1.6.0.2 : 片開き(仮)実装
+
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまった。  
-バイナリを頒布するならここでします。  
+バイナリを頒布するならここでします。(けど、ソースからのビルド推奨)  
 私のモチベにもなるから、気軽に入ってね。  
 [https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
 
@@ -89,6 +91,9 @@ VisualStudio Community 2019
 * Newtonsoft.Json
 
 ライセンスは「Test/Licenses」に追加いたしました。
+
+以下のライブラリを削除いたしました。
+* xadec
 
 # 以下AioiLight様作成のReadmeです
 
