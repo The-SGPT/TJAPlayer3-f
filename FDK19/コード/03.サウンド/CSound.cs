@@ -871,11 +871,10 @@ namespace FDK
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-			if ( String.Compare( Path.GetExtension( strファイル名 ), ".xa", true ) == 0 ||
-				 String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
+			if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
 				 String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )	// caselessで文字列比較
 			{
-				tDirectSoundサウンドを作成するXaOggMp3( strファイル名, DirectSound );
+				tDirectSoundサウンドを作成するOggMp3( strファイル名, DirectSound );
 				return;
 			}
 
@@ -932,7 +931,7 @@ namespace FDK
 
 			this.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, DirectSound );
 		}
-		public void tDirectSoundサウンドを作成するXaOggMp3( string strファイル名, DirectSound DirectSound )
+		public void tDirectSoundサウンドを作成するOggMp3( string strファイル名, DirectSound DirectSound )
 		{
 			try
 			{
@@ -1668,13 +1667,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 		private void tBASSサウンドを作成する( string strファイル名, int hMixer, BASSFlag flags )
 		{
-			#region [ xaとwav(RIFF chunked vorbis)に対しては専用の処理をする ]
+			#region [ wav(RIFF chunked vorbis)に対しては専用の処理をする ]
 			switch ( Path.GetExtension( strファイル名 ).ToLower() )
 			{
-				case ".xa":
-					tBASSサウンドを作成するXA( strファイル名, hMixer, flags );
-					return;
-
 				case ".wav":
 					if ( tRIFFchunkedVorbisならDirectShowでDecodeする( strファイル名, ref byArrWAVファイルイメージ ) )
 					{
@@ -1769,43 +1764,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 			return bファイルにVorbisコンテナが含まれている;
 		}
-
-		private void tBASSサウンドを作成するXA( string strファイル名, int hMixer, BASSFlag flags )
-		{
-			int nPCMデータの先頭インデックス;
-			CWin32.WAVEFORMATEX wfx;
-			int totalPCMSize;
-
-			tオンメモリ方式でデコードする( strファイル名, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out totalPCMSize, out wfx, true );
-
-			nBytes = totalPCMSize;
-
-			this.e作成方法 = E作成方法.WAVファイルイメージから;		//.ファイルから;	// 再構築時はデコード後のイメージを流用する&Dispose時にhGCを解放する
-			this.strファイル名 = strファイル名;
-			this.hGC = GCHandle.Alloc( this.byArrWAVファイルイメージ, GCHandleType.Pinned );		// byte[] をピン留め
-
-			//_cbStreamXA = new STREAMPROC( CallbackPlayingXA );
-
-			// BASSファイルストリームを作成。
-
-			//this.hBassStream = Bass.BASS_StreamCreate( xa.xaheader.nSamplesPerSec, xa.xaheader.nChannels, BASSFlag.BASS_STREAM_DECODE, _myStreamCreate, IntPtr.Zero );
-			//this._hBassStream = Bass.BASS_StreamCreate( (int) wfx.nSamplesPerSec, (int) wfx.nChannels, BASSFlag.BASS_STREAM_DECODE, _cbStreamXA, IntPtr.Zero );
-
-			// StreamCreate()で作成したstreamはseek不可のため、StreamCreateFile()を使う。
-			this._hBassStream = Bass.BASS_StreamCreateFile( this.hGC.AddrOfPinnedObject(), 0L, totalPCMSize, flags );
-			if ( this._hBassStream == 0 )
-			{
-				hGC.Free();
-				throw new Exception( string.Format( "サウンドストリームの生成に失敗しました。(BASS_SampleCreate)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
-			}
-
-			nBytes = Bass.BASS_ChannelGetLength( this._hBassStream );
-
-
-			tBASSサウンドを作成する_ストリーム生成後の共通処理( hMixer );
-		}
-
 
 		private void tBASSサウンドを作成する_ストリーム生成後の共通処理( int hMixer )
 		{
