@@ -176,6 +176,10 @@ namespace TJAPlayer3
 			{
 				SongSelect_Counter_Back[i] = TxC(SONGSELECT + @"Counter_Background_" + i.ToString() + ".png");
 			}
+			for (int i = 0; i < SongSelect_Counter_Num.Length; i++)
+			{
+				SongSelect_Counter_Num[i] = TxC(SONGSELECT + @"Counter_Number_" + i.ToString() + ".png");
+			}
 			SongSelect_ScoreWindow_Text = TxC(SONGSELECT + @"ScoreWindow_Text.png");
 
 
@@ -673,7 +677,6 @@ namespace TJAPlayer3
 			//TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
-			TJAPlayer3.tテクスチャの解放(ref SongSelect_Tempcounter);
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_BackBox);
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
@@ -715,6 +718,10 @@ namespace TJAPlayer3
 			for (int i = 0; i < SongSelect_Counter_Back.Length; i++)
 			{ 
 				TJAPlayer3.tテクスチャの解放(ref SongSelect_Counter_Back[i]);
+			}
+			for (int i = 0; i < SongSelect_Counter_Num.Length; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref SongSelect_Counter_Num[i]);
 			}
 			TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
 
@@ -1139,7 +1146,6 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Left,
 			SongSelect_Cursor_Right,
 			SongSelect_ScoreWindow_Text,
-			SongSelect_Tempcounter,
 			SongSelect_Bar_BackBox;
 		public CTexture[] SongSelect_GenreBack = new CTexture[9],
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
@@ -1151,9 +1157,8 @@ namespace TJAPlayer3
 			SongSelect_Bar_Genre = new CTexture[9],
 			SongSelect_Bar_Box_Genre = new CTexture[9],
 			SongSelect_NamePlate = new CTexture[1],
-			SongSelect_Counter_Back = new CTexture[2];
-		public int SongSelect_Counter_BTime = 100;
-
+			SongSelect_Counter_Back = new CTexture[2],
+			SongSelect_Counter_Num = new CTexture[2];
 		#region[3.5_難易度選択]
 		public CTexture Difficulty_Dan_Box,
 			Difficulty_Dan_Box_Selecting,
