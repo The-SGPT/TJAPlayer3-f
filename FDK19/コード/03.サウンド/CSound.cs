@@ -871,8 +871,7 @@ namespace FDK
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-			if ( String.Compare( Path.GetExtension( strファイル名 ), ".xa", true) == 0 ||
-				 String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
+			if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
 				 String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )	// caselessで文字列比較
 			{
 				tDirectSoundサウンドを作成するXaOggMp3( strファイル名, DirectSound );
@@ -1895,11 +1894,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			//int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
 
 			SoundDecoder sounddecoder;
-			if (String.Compare(Path.GetExtension(strファイル名), ".xa", true) == 0)
-			{
-				sounddecoder = new Cxa();
-			}
-			else if (String.Compare(Path.GetExtension(strファイル名), ".ogg", true) == 0)
+			if (String.Compare(Path.GetExtension(strファイル名), ".ogg", true) == 0)
 			{
 				sounddecoder = new Cogg();
 			}

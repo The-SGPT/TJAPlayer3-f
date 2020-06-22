@@ -11,6 +11,7 @@
 *.swp
 *.dms
 *.ust
+*.score.ini
 *.DotSettings.user
 /packages
 /Test/Capture_img
@@ -25,14 +26,6 @@
 /Test/System/Honkehuu/Sounds/Game*
 /Test/System/Honkehuu/Sounds/Select*
 /Test/System/Honkehuu/Sounds/title*
-/Test/1*/
-/Test/2*/
-/Test/3*/
-/Test/4*/
-/Test/5*/
-/Test/6*/
-/Test/7*/
-/Test/8*/
-/Test/9*/
+/Test/Songs/
 !/bin/**/*
 /Test/テスト譜面*/

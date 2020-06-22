@@ -1498,7 +1498,7 @@ namespace TJAPlayer3
 			sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
 			sw.WriteLine();
-			sw.WriteLine("; 片開きにするかどうか(0:全開き,1:片開き)");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; 片開きにするかどうか(0:全開き,1:片開き(バグの塊))");   // 2020.03.24 Mr-Ojii
 			sw.WriteLine("; Box Open One Side.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableOpenOneSide={0}", this.OpenOneSide ? 1 : 0);    //
 			sw.WriteLine();
