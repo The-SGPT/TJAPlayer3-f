@@ -939,7 +939,7 @@ namespace TJAPlayer3
 														DanSelectingRow = 0;
 														現在の選曲画面状況 = E選曲画面.Dan選択;
 													}
-													else if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower)
+													else if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan)
 													{
 														if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
 															TJAPlayer3.Skin.sound曲決定音.t再生する();

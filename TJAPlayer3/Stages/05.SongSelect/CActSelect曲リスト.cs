@@ -1231,7 +1231,8 @@ namespace TJAPlayer3
 								}
 							}
 							int sixx = this.ptバーの座標[5].X + 100 + lo * 100;
-							TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
+							if(TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
+								TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
 						}
 
 					}
@@ -1475,14 +1476,18 @@ namespace TJAPlayer3
 										basho = 0;
 									else if (this.stバー情報[i].song.r親ノード.list子リスト.IndexOf(this.stバー情報[i].song) == (this.stバー情報[i].song.r親ノード.list子リスト.Count - 1))
 										basho = 2;
-									TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
+									if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null) 
+										TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[i].X, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
 									
 								}
 								if (i == 7 && this.r現在選択中の曲.r親ノード != null)
 								{
 									int genreheader = this.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル);
-									TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vc拡大縮小倍率 = new Vector3(1f);
-									TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
+									if (TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader] != null)
+									{
+										TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vc拡大縮小倍率 = new Vector3(1f);
+										TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
+									}
 								}
 							}
 							#endregion
@@ -1596,7 +1601,8 @@ namespace TJAPlayer3
 								}
 								int sixx = this.ptバーの座標[5].X + 100 + lo * 100;
 								sixx -= this.n現在のスクロールカウンタ;
-								TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
+								if(TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
+									TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
 							}
 						}
 
@@ -1610,12 +1616,14 @@ namespace TJAPlayer3
 								basho = 2;
 							if (n見た目の行番号 != 5 && n見た目の行番号 != 6 && n見た目の行番号 != 7)
 							{
-								TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
+								if(TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
+									TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
 							}
 							else if(n見た目の行番号 != 6)
 							{
 								int fivesevenx = this.ptバーの座標[n見た目の行番号].X;
 								fivesevenx -= this.n現在のスクロールカウンタ;
+								if(TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
 								TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, fivesevenx, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szテクスチャサイズ.Height));
 							
 							}
@@ -1623,8 +1631,11 @@ namespace TJAPlayer3
 						if (n見た目の行番号 == 7 && this.r現在選択中の曲.r親ノード != null)
 						{
 							int genreheader = this.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル);
-							TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vc拡大縮小倍率 = new Vector3(1f);
-							TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
+							if (TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader] != null)
+							{
+								TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vc拡大縮小倍率 = new Vector3(1f);
+								TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
+							}
 						}
 					}
 					#endregion
