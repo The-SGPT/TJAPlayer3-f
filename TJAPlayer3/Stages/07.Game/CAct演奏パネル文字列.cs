@@ -219,6 +219,7 @@ namespace TJAPlayer3
 				TJAPlayer3.tテクスチャの解放(ref this.txPanel);
 				TJAPlayer3.tテクスチャの解放(ref this.tx歌詞テクスチャ);
 				TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
+				TJAPlayer3.t安全にDisposeする(ref this.tx難易度とステージ数);
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -328,10 +329,6 @@ namespace TJAPlayer3
 							this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - this.tx難易度とステージ数.szテクスチャサイズ.Width, TJAPlayer3.Skin.Game_MusicName_Y);
 						}
 				}
-
-				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.ct進行用.n現在の値.ToString() );
-
-				//this.txMusicName.t2D描画( CDTXMania.app.Device, 1250 - this.txMusicName.szテクスチャサイズ.Width, 14 );
 			}
 			return 0;
 		}
