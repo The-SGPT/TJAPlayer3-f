@@ -418,7 +418,7 @@ namespace SampleFramework
 
 		void game_FrameEnd(object sender, EventArgs e)
 		{
-			Result result = SharpDX.Direct3D9.ResultCode.Success;
+			Result result = ResultCode.Success;
 
 			try
 			{
@@ -430,7 +430,7 @@ namespace SampleFramework
 				deviceLost = true;
 			}
 
-			if (result == SharpDX.Direct3D9.ResultCode.DeviceLost)
+			if (result == ResultCode.DeviceLost)
 				deviceLost = true;
 		}
 		void game_FrameStart(object sender, CancelEventArgs e)
@@ -450,7 +450,7 @@ namespace SampleFramework
 			if (deviceLost)
 			{
 				Result result = Direct3D9.Device.TestCooperativeLevel();
-				if (result == SharpDX.Direct3D9.ResultCode.DeviceLost)
+				if (result == ResultCode.DeviceLost)
 				{
 					e.Cancel = true;
 					return;

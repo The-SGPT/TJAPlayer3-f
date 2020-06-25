@@ -395,6 +395,7 @@ namespace TJAPlayer3
 				if ( base.b初めての進行描画 )
 				{
 					CSound管理.rc演奏用タイマ.tリセット();
+					//CSound管理.rc演奏用タイマ.n現在時刻ms += 50000;
 					TJAPlayer3.Timer.tリセット();
 
 					// this.actChipFireD.Start( Eレーン.HH );	// #31554 2013.6.12 yyagi

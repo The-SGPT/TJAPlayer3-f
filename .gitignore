@@ -12,6 +12,8 @@
 *.dms
 *.ust
 *.score.ini
+*.blend
+*.blend1
 *.DotSettings.user
 /packages
 /Test/Capture_img
