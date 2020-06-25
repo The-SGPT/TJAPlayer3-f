@@ -291,7 +291,7 @@ namespace TJAPlayer3
 			private set;
 		}
 		public static Format TextureFormat = Format.A8R8G8B8;
-		internal static IPluginActivity act現在入力を占有中のプラグイン = null;
+
 		public bool bApplicationActive
 		{
 			get; 
@@ -313,19 +313,6 @@ namespace TJAPlayer3
 			{
 				return base.GraphicsDeviceManager.Direct3D9.Device;
 			}
-		}
-		public CPluginHost PluginHost
-		{
-			get;
-			private set;
-		}
-		public List<STPlugin> listプラグイン = new List<STPlugin>();
-		public struct STPlugin
-		{
-			public IPluginActivity plugin;
-			public string strプラグインフォルダ;
-			public string strアセンブリ簡易名;
-			public Version Version;
 		}
 		private static Size currentClientSize		// #23510 2010.10.27 add yyagi to keep current window size
 		{
@@ -465,12 +452,6 @@ namespace TJAPlayer3
 					activity.OnManagedリソースの作成();
 			}
 
-			foreach( STPlugin st in this.listプラグイン )
-			{
-				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
-				st.plugin.OnManagedリソースの作成();
-				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-			}
 #if GPUFlushAfterPresent
 			FrameEnd += dtxmania_FrameEnd;
 #endif
@@ -522,13 +503,6 @@ namespace TJAPlayer3
 				foreach( CActivity activity in this.listトップレベルActivities )
 					activity.OnUnmanagedリソースの作成();
 			}
-
-			foreach( STPlugin st in this.listプラグイン )
-			{
-				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
-				st.plugin.OnUnmanagedリソースの作成();
-				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-			}
 		}
 		protected override void UnloadContent()
 		{
@@ -536,13 +510,6 @@ namespace TJAPlayer3
 			{
 				foreach( CActivity activity in this.listトップレベルActivities )
 					activity.OnUnmanagedリソースの解放();
-			}
-
-			foreach( STPlugin st in this.listプラグイン )
-			{
-				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
-				st.plugin.OnUnmanagedリソースの解放();
-				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 			}
 		}
 		protected override void OnExiting( EventArgs e )
@@ -636,24 +603,7 @@ namespace TJAPlayer3
 			if ( r現在のステージ != null )
 			{
 				this.n進行描画の戻り値 = ( r現在のステージ != null ) ? r現在のステージ.On進行描画() : 0;
-
-				#region [ プラグインの進行描画 ]
-				//---------------------
-				foreach( STPlugin sp in this.listプラグイン )
-				{
-					Directory.SetCurrentDirectory( sp.strプラグインフォルダ );
-
-					if( TJAPlayer3.act現在入力を占有中のプラグイン == null || TJAPlayer3.act現在入力を占有中のプラグイン == sp.plugin )
-						sp.plugin.On進行描画(TJAPlayer3.Pad, TJAPlayer3.Input管理.Keyboard );
-					else
-						sp.plugin.On進行描画( null, null );
-
-					Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-				}
-				//---------------------
-				#endregion
-
-
+				
 				CScoreIni scoreIni = null;
 
 				if ( Control.IsKeyLocked( Keys.CapsLock ) )				// #30925 2013.3.11 yyagi; capslock=ON時は、EnumSongsしないようにして、起動負荷とASIOの音切れの関係を確認する
@@ -774,12 +724,6 @@ namespace TJAPlayer3
 								r現在のステージ = stage曲読み込み;
 
 							}
-							foreach( STPlugin pg in this.listプラグイン )
-							{
-								Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-								pg.plugin.Onステージ変更();
-								Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-							}
 
 							this.tガベージコレクションを実行する();
 						}
@@ -859,13 +803,6 @@ namespace TJAPlayer3
 								break;
 						}
 
-						foreach( STPlugin pg in this.listプラグイン )
-						{
-							Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-							pg.plugin.Onステージ変更();
-							Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-						}
-
 						//this.tガベージコレクションを実行する();		// #31980 2013.9.3 yyagi タイトル画面でだけ、毎フレームGCを実行して重くなっていた問題の修正
 						//-----------------------------
 						#endregion
@@ -887,14 +824,7 @@ namespace TJAPlayer3
 //									stageタイトル.On活性化();
 //									r直前のステージ = r現在のステージ;
 //									r現在のステージ = stageタイトル;
-//						
-//									foreach( STPlugin pg in this.listプラグイン )
-//									{
-//										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-//										pg.plugin.Onステージ変更();
-//										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
-//									}
-//						
+//				
 //									this.tガベージコレクションを実行する();
 //									break;
 //								//-----------------------------
@@ -909,13 +839,6 @@ namespace TJAPlayer3
 //									stage選曲.On活性化();
 //									r直前のステージ = r現在のステージ;
 //									r現在のステージ = stage選曲;
-//
-//									foreach( STPlugin pg in this.listプラグイン )
-//									{
-//										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-//										pg.plugin.Onステージ変更();
-//										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
-//									}
 //
 //									this.tガベージコレクションを実行する();
 //									break;
@@ -944,13 +867,6 @@ namespace TJAPlayer3
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stageタイトル;
 
-									foreach( STPlugin pg in this.listプラグイン )
-									{
-										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-									}
-
 									this.tガベージコレクションを実行する();
 									break;
 								//-----------------------------
@@ -965,13 +881,6 @@ namespace TJAPlayer3
 									stage選曲.On活性化();
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stage選曲;
-
-									foreach( STPlugin pg in this.listプラグイン )
-									{
-										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-									}
 
 									this.tガベージコレクションを実行する();
 									break;
@@ -998,13 +907,6 @@ namespace TJAPlayer3
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageタイトル;
 
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
-
 								this.tガベージコレクションを実行する();
 								break;
 							//-----------------------------
@@ -1019,13 +921,6 @@ namespace TJAPlayer3
 								stage曲読み込み.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage曲読み込み;
-
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -1042,13 +937,6 @@ namespace TJAPlayer3
 //								r直前のステージ = r現在のステージ;
 //								r現在のステージ = stageオプション;
 //
-//								foreach( STPlugin pg in this.listプラグイン )
-//								{
-//									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-//									pg.plugin.Onステージ変更();
-//									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
-//								}
-//
 //								this.tガベージコレクションを実行する();
 //								break;
 //							//-----------------------------
@@ -1063,13 +951,6 @@ namespace TJAPlayer3
 								stageコンフィグ.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageコンフィグ;
-
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -1115,12 +996,6 @@ namespace TJAPlayer3
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
-								foreach ( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
 								break;
 							}
 							#endregion
@@ -1141,12 +1016,6 @@ for (int i = 0; i < 3; i++) {
 #endif
 							r直前のステージ = r現在のステージ;
 							r現在のステージ = stage演奏ドラム画面;
-							foreach( STPlugin pg in this.listプラグイン )
-							{
-								Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-								pg.plugin.Onステージ変更();
-								Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-							}
 
 							this.tガベージコレクションを実行する();
 						}
@@ -1291,17 +1160,6 @@ for (int i = 0; i < 3; i++) {
 								//swlist3.Clear();
 								//swlist4.Clear();
 		
-								#region [ プラグイン On演奏キャンセル() の呼び出し ]
-								//---------------------
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.On演奏キャンセル( scoreIni );
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
-								//---------------------
-								#endregion
-
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
@@ -1316,17 +1174,6 @@ for (int i = 0; i < 3; i++) {
 									stage選曲.On活性化();
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stage選曲;
-
-									#region [ プラグイン Onステージ変更() の呼び出し ]
-									//---------------------
-									foreach( STPlugin pg in this.listプラグイン )
-									{
-										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-									}
-									//---------------------
-									#endregion
 
 									this.tガベージコレクションを実行する();
 								}
@@ -1340,17 +1187,6 @@ for (int i = 0; i < 3; i++) {
 								//-----------------------------
 								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新( "Stage failed" );
 
-								#region [ プラグイン On演奏失敗() の呼び出し ]
-								//---------------------
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.On演奏失敗( scoreIni );
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
-								//---------------------
-								#endregion
-
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
@@ -1365,17 +1201,6 @@ for (int i = 0; i < 3; i++) {
 									stage選曲.On活性化();
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stage選曲;
-
-									#region [ プラグイン Onステージ変更() の呼び出し ]
-									//---------------------
-									foreach( STPlugin pg in this.listプラグイン )
-									{
-										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-									}
-									//---------------------
-									#endregion
 
 									this.tガベージコレクションを実行する();
 								}
@@ -1436,17 +1261,6 @@ for (int i = 0; i < 3; i++) {
 
 								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新( str );
 
-								#region [ プラグイン On演奏クリア() の呼び出し ]
-								//---------------------
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.On演奏クリア( scoreIni );
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
-								//---------------------
-								#endregion
-
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation( "----------------------" );
 								Trace.TraceInformation( "■ 結果" );
@@ -1458,17 +1272,6 @@ for (int i = 0; i < 3; i++) {
 								stage結果.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage結果;
-
-								#region [ プラグイン Onステージ変更() の呼び出し ]
-								//---------------------
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
-								//---------------------
-								#endregion
 
 								break;
 								//-----------------------------
@@ -1495,13 +1298,6 @@ for (int i = 0; i < 3; i++) {
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
-
-								foreach( STPlugin pg in this.listプラグイン )
-								{
-									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-								}
 
 								this.tガベージコレクションを実行する();
 							}
@@ -2352,54 +2148,6 @@ for (int i = 0; i < 3; i++) {
 			this.listトップレベルActivities.Add( actFlushGPU );
 			//---------------------
 			#endregion
-			#region [ プラグインの検索と生成 ]
-			//---------------------
-			PluginHost = new CPluginHost();
-
-			Trace.TraceInformation( "プラグインの検索と生成を行います。" );
-			Trace.Indent();
-			try
-			{
-				this.tプラグイン検索と生成();
-				Trace.TraceInformation( "プラグインの検索と生成を完了しました。" );
-			}
-			finally
-			{
-				Trace.Unindent();
-			}
-			//---------------------
-			#endregion
-			#region [ プラグインの初期化 ]
-			//---------------------
-			if( this.listプラグイン != null && this.listプラグイン.Count > 0 )
-			{
-				Trace.TraceInformation( "プラグインの初期化を行います。" );
-				Trace.Indent();
-				try
-				{
-					foreach( STPlugin st in this.listプラグイン )
-					{
-						Directory.SetCurrentDirectory( st.strプラグインフォルダ );
-						st.plugin.On初期化( this.PluginHost );
-						st.plugin.OnManagedリソースの作成();
-						st.plugin.OnUnmanagedリソースの作成();
-						Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-					}
-					Trace.TraceInformation( "すべてのプラグインの初期化を完了しました。" );
-				}
-				catch
-				{
-					Trace.TraceError( "プラグインのどれかの初期化に失敗しました。" );
-					throw;
-				}
-				finally
-				{
-					Trace.Unindent();
-				}
-			}
-
-			//---------------------
-			#endregion
             #region Discordの処理
             Discord.Initialize("692578108997632051");
 			StartupTime = Discord.GetUnixTime();
@@ -2480,32 +2228,6 @@ for (int i = 0; i < 3; i++) {
 					{
 						r現在のステージ.On非活性化();
 						Trace.TraceInformation( "現在のステージの終了処理を完了しました。" );
-					}
-					finally
-					{
-						Trace.Unindent();
-					}
-				}
-				//---------------------
-				#endregion
-				#region [ プラグインの終了処理 ]
-				//---------------------
-				if (this.listプラグイン != null && this.listプラグイン.Count > 0)
-				{
-					Trace.TraceInformation( "すべてのプラグインを終了します。" );
-					Trace.Indent();
-					try
-					{
-						foreach( STPlugin st in this.listプラグイン )
-						{
-							Directory.SetCurrentDirectory( st.strプラグインフォルダ );
-							st.plugin.OnUnmanagedリソースの解放();
-							st.plugin.OnManagedリソースの解放();
-							st.plugin.On終了();
-							Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
-						}
-						PluginHost = null;
-						Trace.TraceInformation( "すべてのプラグインの終了処理を完了しました。" );
 					}
 					finally
 					{
@@ -2831,18 +2553,6 @@ for (int i = 0; i < 3; i++) {
 			GC.WaitForPendingFinalizers();
 			GC.Collect(GC.MaxGeneration);
 		}
-		private void tプラグイン検索と生成()
-		{
-			this.listプラグイン = new List<STPlugin>();
-
-			string strIPluginActivityの名前 = typeof( IPluginActivity ).FullName;
-			string strプラグインフォルダパス = strEXEのあるフォルダ + "Plugins\\";
-
-			this.t指定フォルダ内でのプラグイン検索と生成( strプラグインフォルダパス, strIPluginActivityの名前 );
-
-			if( this.listプラグイン.Count > 0 )
-				Trace.TraceInformation( this.listプラグイン.Count + " 個のプラグインを読み込みました。" );
-		}
 
 		public void RefleshSkin()
 		{
@@ -2861,56 +2571,6 @@ for (int i = 0; i < 3; i++) {
 			TJAPlayer3.act文字コンソール.On活性化();
 		}
 		#region [ Windowイベント処理 ]
-		private void t指定フォルダ内でのプラグイン検索と生成( string strプラグインフォルダパス, string strプラグイン型名 )
-		{
-			// 指定されたパスが存在しないとエラー
-			if( !Directory.Exists( strプラグインフォルダパス ) )
-			{
-				Trace.TraceWarning( "プラグインフォルダが存在しません。(" + strプラグインフォルダパス + ")" );
-				return;
-			}
-
-			// (1) すべての *.dll について…
-			string[] strDLLs = System.IO.Directory.GetFiles( strプラグインフォルダパス, "*.dll" );
-			foreach( string dllName in strDLLs )
-			{
-				try
-				{
-					// (1-1) dll をアセンブリとして読み込む。
-					System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFrom( dllName );
-
-					// (1-2) アセンブリ内のすべての型について、プラグインとして有効か調べる
-					foreach( Type t in asm.GetTypes() )
-					{
-						//  (1-3) ↓クラスであり↓Publicであり↓抽象クラスでなく↓IPlugin型のインスタンスが作れる　型を持っていれば有効
-						if( t.IsClass && t.IsPublic && !t.IsAbstract && t.GetInterface( strプラグイン型名 ) != null )
-						{
-							// (1-4) クラス名からインスタンスを作成する
-							var st = new STPlugin() {
-								plugin = (IPluginActivity) asm.CreateInstance( t.FullName ),
-								strプラグインフォルダ = Path.GetDirectoryName( dllName ),
-								strアセンブリ簡易名 = asm.GetName().Name,
-								Version = asm.GetName().Version,
-							};
-
-							// (1-5) プラグインリストへ登録
-							this.listプラグイン.Add( st );
-							Trace.TraceInformation( "プラグイン {0} ({1}, {2}, {3}) を読み込みました。", t.FullName, Path.GetFileName( dllName ), st.strアセンブリ簡易名, st.Version.ToString() );
-						}
-					}
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceInformation( dllName + " からプラグインを生成することに失敗しました。スキップします。" );
-				}
-			}
-
-			// (2) サブフォルダがあれば再帰する
-			string[] strDirs = Directory.GetDirectories( strプラグインフォルダパス, "*" );
-			foreach( string dir in strDirs )
-				this.t指定フォルダ内でのプラグイン検索と生成( dir + "\\", strプラグイン型名 );
-		}
 		//-----------------
 		private void Window_ApplicationActivated( object sender, EventArgs e )
 		{

@@ -123,29 +123,6 @@ namespace TJAPlayer3
 			this.act演奏履歴パネル.t選択曲が変更された();
 			this.actステータスパネル.t選択曲が変更された();
 			this.actArtistComment.t選択曲が変更された();
-
-			#region [ プラグインにも通知する（BOX, RANDOM, BACK なら通知しない）]
-			//---------------------
-			if (TJAPlayer3.app != null)
-			{
-				var c曲リストノード = TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲;
-				var cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
-
-				if (c曲リストノード != null && cスコア != null && c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE)
-				{
-					string str選択曲ファイル名 = cスコア.ファイル情報.ファイルの絶対パス;
-					int n曲番号inブロック = TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(c曲リストノード, 0);
-
-					foreach (TJAPlayer3.STPlugin stPlugin in TJAPlayer3.app.listプラグイン)
-					{
-						Directory.SetCurrentDirectory(stPlugin.strプラグインフォルダ);
-						stPlugin.plugin.On選択曲変更(str選択曲ファイル名, n曲番号inブロック);
-						Directory.SetCurrentDirectory(TJAPlayer3.strEXEのあるフォルダ);
-					}
-				}
-			}
-			//---------------------
-			#endregion
 		}
 
 		// CStage 実装
@@ -520,8 +497,7 @@ namespace TJAPlayer3
 				}
 
 				// キー入力
-				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 
-					&& TJAPlayer3.act現在入力を占有中のプラグイン == null )
+				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 )
                 {
 					#region[もし段位道場の確認状態だったら]
 					if (現在の選曲画面状況 == E選曲画面.Dan選択)

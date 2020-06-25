@@ -598,9 +598,7 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if( TJAPlayer3.act現在入力を占有中のプラグイン == null )
-					this.tキー入力();
-
+				this.tキー入力();
 
 				// 確認用 18_04_26(AioiLight)
 				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.actGauge.db現在のゲージ値[0].ToString());

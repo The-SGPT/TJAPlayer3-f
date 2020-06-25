@@ -146,8 +146,7 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態        // 通常状態、かつ
-					&& TJAPlayer3.act現在入力を占有中のプラグイン == null)    // プラグインの入力占有がない
+				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態)        // 通常状態
 				{
 					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
