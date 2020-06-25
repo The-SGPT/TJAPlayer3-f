@@ -596,8 +596,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? TJAPlayer3.DTX[0].dbDTXVPlaySpeed : TJAPlayer3.DTX[0].db再生速度;
-				return (int)(nDuration / _db再生速度);
+				return (int)(nDuration / TJAPlayer3.DTX[0].db再生速度);
 			}
 
 			#region [ IComparable 実装 ]
@@ -1022,7 +1021,6 @@ namespace TJAPlayer3
 		public string SUBTITLE;
 		public string TITLE;
 		public bool SUBTITLEDisp;
-		public double dbDTXVPlaySpeed;
 		public double dbScrollSpeed;
 		public int nデモBGMオフセット;
 
@@ -1179,7 +1177,6 @@ namespace TJAPlayer3
 
 			this.nBGMAdjust = 0;
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
-			this.dbDTXVPlaySpeed = 1.0f;
 
 			//this.nScoreModeTmp = 1;
 			for (int y = 0; y < (int)Difficulty.Total; y++)
@@ -2448,12 +2445,11 @@ namespace TJAPlayer3
 				}
 				if (this.db再生速度 > 0.0)
 				{
-					double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
 					foreach (CChip chip in this.listChip)
 					{
-						chip.n発声時刻ms = (int)(((double)chip.n発声時刻ms) / _db再生速度);
-						chip.db発声時刻ms = (((double)chip.n発声時刻ms) / _db再生速度);
-						chip.nノーツ終了時刻ms = (int)(((double)chip.nノーツ終了時刻ms) / _db再生速度);
+						chip.n発声時刻ms = (int)(((double)chip.n発声時刻ms) / this.db再生速度);
+						chip.db発声時刻ms = (((double)chip.n発声時刻ms) / this.db再生速度);
+						chip.nノーツ終了時刻ms = (int)(((double)chip.nノーツ終了時刻ms) / this.db再生速度);
 					}
 				}
 				#endregion
@@ -8064,8 +8060,7 @@ namespace TJAPlayer3
 						int duration = 0;
 						if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
 						{
-							double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
-							duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].n総演奏時間ms / _db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
+							duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].n総演奏時間ms / this.db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
 						}
 						//Debug.WriteLine("duration=" + duration );
 						int n新RemoveMixer時刻ms, n新RemoveMixer位置;
@@ -8785,20 +8780,6 @@ namespace TJAPlayer3
 				else if (strコマンド.StartsWith("BPM", StringComparison.OrdinalIgnoreCase))
 				{
 					//this.t入力_行解析_BPM_BPMzz( strコマンド, strパラメータ, strコメント );
-				}
-				//-----------------
-				#endregion
-				#region [ DTXVPLAYSPEED ]
-				//-----------------
-				else if (strコマンド.StartsWith("DTXVPLAYSPEED", StringComparison.OrdinalIgnoreCase))
-				{
-					this.t入力_パラメータ食い込みチェック("DTXVPLAYSPEED", ref strコマンド, ref strパラメータ);
-
-					double dtxvplayspeed = 0.0;
-					if (TryParse(strパラメータ, out dtxvplayspeed) && dtxvplayspeed > 0.0)
-					{
-						this.dbDTXVPlaySpeed = dtxvplayspeed;
-					}
 				}
 				//-----------------
 				#endregion
