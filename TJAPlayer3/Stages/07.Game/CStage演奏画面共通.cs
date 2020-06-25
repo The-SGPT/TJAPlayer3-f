@@ -2904,12 +2904,11 @@ namespace TJAPlayer3
 		{
 			this.actChipFireGB.On進行描画();
 		}
-		protected abstract void t進行描画_パネル文字列();
-		protected void t進行描画_パネル文字列( int x, int y )
+		protected void t進行描画_パネル文字列()
 		{
 			if ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
-				this.actPanel.t進行描画( x, y );
+				this.actPanel.t進行描画();
 			}
 		}
 		protected void tパネル文字列の設定()
