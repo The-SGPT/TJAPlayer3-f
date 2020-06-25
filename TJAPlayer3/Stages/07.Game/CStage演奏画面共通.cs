@@ -189,11 +189,6 @@ namespace TJAPlayer3
 			this.nヒット数_Auto含む[1] = new CHITCOUNTOFRANK();
 			for ( int k = 0; k < 4; k++ )
 			{
-				if ( TJAPlayer3.DTXVmode.Enabled )
-				{
-					TJAPlayer3.ConfigIni.n譜面スクロール速度[0][ k ] = TJAPlayer3.ConfigIni.nViewerScrollSpeed[ k ];
-				}
-
 				//this.nJudgeLinePosY_delta[ k ] = CDTXMania.ConfigIni.nJudgeLinePosOffset[ k ];		// #31602 2013.6.23 yyagi
 
 				this.演奏判定ライン座標.nJudgeLinePosY_delta[ k ] = TJAPlayer3.ConfigIni.nJudgeLinePosOffset[ k ];
@@ -262,17 +257,9 @@ namespace TJAPlayer3
 			bIsDirectSound = ( TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "DirectSound" );
 			bUseOSTimer = TJAPlayer3.ConfigIni.bUseOSTimer;
 			this.bPAUSE = false;
-			if ( TJAPlayer3.DTXVmode.Enabled )
-			{
-				db再生速度 = TJAPlayer3.DTX[0].dbDTXVPlaySpeed;
-				TJAPlayer3.ConfigIni.n演奏速度 = (int) (TJAPlayer3.DTX[0].dbDTXVPlaySpeed * 20 + 0.5 );
-			}
-			else
-			{
-				db再生速度 = ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0;
-			}
-			bValidScore = ( TJAPlayer3.DTXVmode.Enabled ) ? false : true;
-
+			
+			db再生速度 = ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0;
+			
 			#region [ 演奏開始前にmixer登録しておくべきサウンド(開幕してすぐに鳴らすことになるチップ音)を登録しておく ]
 			foreach ( CDTX.CChip pChip in listChip[0] )
 			{
@@ -515,7 +502,6 @@ namespace TJAPlayer3
 		protected DateTime dtLastQueueOperation;				//
 		protected bool bIsDirectSound;							//
 		protected double db再生速度;
-		protected bool bValidScore;
 //		protected bool bDTXVmode;
 //		protected STDGBVALUE<int> nJudgeLinePosY_delta;			// #31602 2013.6.23 yyagi 表示遅延対策として、判定ラインの表示位置をずらす機能を追加する
 
@@ -913,11 +899,7 @@ namespace TJAPlayer3
 
 		protected void tステータスパネルの選択()
 		{
-			if ( TJAPlayer3.bコンパクトモード )
-			{
-				this.actStatusPanels.tラベル名からステータスパネルを決定する( null );
-			}
-			else if ( TJAPlayer3.stage選曲.r確定された曲 != null )
+			if ( TJAPlayer3.stage選曲.r確定された曲 != null )
 			{
 				this.actStatusPanels.tラベル名からステータスパネルを決定する( TJAPlayer3.stage選曲.r確定された曲.ar難易度ラベル[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] );
 			}
@@ -4369,36 +4351,6 @@ namespace TJAPlayer3
 			this.actFO.tフェードアウト開始();
 			base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.演奏中断;
-		}
-
-		/// <summary>
-		/// DTXV用の設定をする。(全AUTOなど)
-		/// 元の設定のバックアップなどはしないので、あとでConfig.iniを上書き保存しないこと。
-		/// </summary>
-		protected void tDTXV用の設定()
-		{
-			TJAPlayer3.ConfigIni.bAVI有効 = true;
-			TJAPlayer3.ConfigIni.bBGA有効 = true;
-			TJAPlayer3.ConfigIni.eRandom[0] = Eランダムモード.OFF;
-			TJAPlayer3.ConfigIni.eRandom[1] = Eランダムモード.OFF;
-			TJAPlayer3.ConfigIni.判定文字表示位置 = E判定文字表示位置.表示OFF;
-			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = 65535;
-			//TJAPlayer3.ConfigIni.eInvisible = EInvisible.OFF;
-			for ( int i = 0; i < 3; i++ )
-			{
-				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。
-																												// そうしないと、演奏開始直後にスクロール速度が変化して見苦しい。
-			}
-
-			TJAPlayer3.ConfigIni.eDark = Eダークモード.OFF;
-
-			TJAPlayer3.ConfigIni.b演奏情報を表示する = TJAPlayer3.ConfigIni.bViewerShowDebugStatus;
-			TJAPlayer3.ConfigIni.bScoreIniを出力する = false;
-			TJAPlayer3.ConfigIni.bSTAGEFAILED有効 = false;
-			TJAPlayer3.ConfigIni.bTight = false;
-			TJAPlayer3.ConfigIni.bストイックモード = false;
-
-			TJAPlayer3.ConfigIni.nRisky = 0;
 		}
 
 		protected abstract void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );

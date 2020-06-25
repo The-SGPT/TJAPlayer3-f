@@ -856,10 +856,6 @@ namespace TJAPlayer3
 		public bool bTimeStretch;					// #23664 2013.2.24 yyagi ピッチ変更無しで再生速度を変更するかどうか
 		public int nDisplayTimesMs, nFadeoutTimeMs;
 
-		public STDGBVALUE<int> nViewerScrollSpeed;
-		public bool bViewerVSyncWait;
-		public bool bViewerShowDebugStatus;
-		public bool bViewerTimeStretch;
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
 		public bool[] ShinuchiMode = new bool[2]; // 真打モード
@@ -1033,7 +1029,6 @@ namespace TJAPlayer3
 				this.n譜面スクロール速度[0][ i ] = 9;
 				this.n譜面スクロール速度[1][ i ] = 9;
 				this.nJudgeLinePosOffset[ i ] = 0;
-				this.nViewerScrollSpeed[ i ] = 9;
 				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
 			}
 			this.n演奏速度 = 20;
@@ -1074,13 +1069,7 @@ namespace TJAPlayer3
 			this.bTimeStretch = false;					// #23664 2013.2.24 yyagi 初期値はfalse (再生速度変更を、ピッチ変更にて行う)
 			this.nDisplayTimesMs = 3000;				// #32072 2013.10.24 yyagi Semi-Invisibleでの、チップ再表示期間
 			this.nFadeoutTimeMs = 2000;					// #32072 2013.10.24 yyagi Semi-Invisibleでの、チップフェードアウト時間
-
-			bViewerVSyncWait = true;
-			bViewerShowDebugStatus = true;
-			bViewerTimeStretch = false;
 			
-			
-
 			this.bBranchGuide = false;
 			this.nScoreMode = 2;
 			this.nDefaultCourse = 3;
@@ -1751,10 +1740,6 @@ namespace TJAPlayer3
 							{
 								unknown = Eセクション種別.PlayOption;
 							}
-							else if ( str2.Equals( "ViewerOption" ) )
-							{
-								unknown = Eセクション種別.ViewerOption;
-							}
 							else if ( str2.Equals( "GUID" ) )
 							{
 								unknown = Eセクション種別.GUID;
@@ -2373,31 +2358,6 @@ namespace TJAPlayer3
 									//-----------------------------
 									#endregion
 
-									#region [ [ViewerOption] ]
-									//-----------------------------
-									case Eセクション種別.ViewerOption:
-										{
-											if ( str3.Equals( "ViewerDrumsScrollSpeed" ) )
-											{
-												this.nViewerScrollSpeed.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1999, this.nViewerScrollSpeed.Drums );
-											}
-											else if ( str3.Equals( "ViewerVSyncWait" ) )
-											{
-												this.bViewerVSyncWait = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if ( str3.Equals( "ViewerShowDebugStatus" ) )
-											{
-												this.bViewerShowDebugStatus = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if ( str3.Equals( "ViewerTimeStretch" ) )
-											{
-												this.bViewerTimeStretch = C変換.bONorOFF( str4[ 0 ] );
-											}
-											continue;
-										}
-									//-----------------------------
-									#endregion
-
 									#region [ [GUID] ]
 									//-----------------------------
 									case Eセクション種別.GUID:
@@ -2487,7 +2447,6 @@ namespace TJAPlayer3
 			System,
 			Log,
 			PlayOption,
-			ViewerOption,
 			AutoPlay,
 			HitRange,
 			GUID,
