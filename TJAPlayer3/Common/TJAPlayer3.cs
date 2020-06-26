@@ -29,8 +29,6 @@ namespace TJAPlayer3
 		#region [ properties ]
 		public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
 
-		public static readonly string D3DXDLL = "d3dx9_43.dll";		// June 2010
-
 		public static TJAPlayer3 app
 		{
 			get;
