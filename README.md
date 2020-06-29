@@ -92,9 +92,6 @@ VisualStudio Community 2019
 
 ライセンスは「Test/Licenses」に追加いたしました。
 
-以下のライブラリを削除いたしました。
-* xadec
-
 # 以下AioiLight様作成のReadmeです
 
 > # TJAPlayer3
