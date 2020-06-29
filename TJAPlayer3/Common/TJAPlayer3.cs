@@ -35,13 +35,13 @@ namespace TJAPlayer3
 			private set;
 		}
 		public static C文字コンソール act文字コンソール
-		{ 
+		{
 			get;
 			private set;
 		}
 		public static CConfigIni ConfigIni
 		{
-			get; 
+			get;
 			private set;
 		}
 		public static CDTX[] DTX
@@ -80,12 +80,12 @@ namespace TJAPlayer3
 		}
 
 		public static CJudgeTextEncoding JudgeTextEncoding
-		{ 
-			get; 
+		{
+			get;
 			private set;
 		}
 
-		public static CInput管理 Input管理 
+		public static CInput管理 Input管理
 		{
 			get;
 			private set;
@@ -95,10 +95,10 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if( stage選曲.r確定された曲 != null )
+				if (stage選曲.r確定された曲 != null)
 				{
 					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if( ( ( c曲リストノード != null ) && ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX ) ) && ( c曲リストノード.nPerfect範囲ms >= 0 ) )
+					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nPerfect範囲ms >= 0))
 					{
 						return c曲リストノード.nPerfect範囲ms;
 					}
@@ -110,10 +110,10 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if( stage選曲.r確定された曲 != null )
+				if (stage選曲.r確定された曲 != null)
 				{
 					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if( ( ( c曲リストノード != null ) && ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX ) ) && ( c曲リストノード.nGreat範囲ms >= 0 ) )
+					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nGreat範囲ms >= 0))
 					{
 						return c曲リストノード.nGreat範囲ms;
 					}
@@ -125,10 +125,10 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if( stage選曲.r確定された曲 != null )
+				if (stage選曲.r確定された曲 != null)
 				{
 					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if( ( ( c曲リストノード != null ) && ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX ) ) && ( c曲リストノード.nGood範囲ms >= 0 ) )
+					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nGood範囲ms >= 0))
 					{
 						return c曲リストノード.nGood範囲ms;
 					}
@@ -140,10 +140,10 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if( stage選曲.r確定された曲 != null )
+				if (stage選曲.r確定された曲 != null)
 				{
 					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if( ( ( c曲リストノード != null ) && ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX ) ) && ( c曲リストノード.nPoor範囲ms >= 0 ) )
+					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nPoor範囲ms >= 0))
 					{
 						return c曲リストノード.nPoor範囲ms;
 					}
@@ -152,7 +152,7 @@ namespace TJAPlayer3
 			}
 		}
 		#endregion
-		public static CPad Pad 
+		public static CPad Pad
 		{
 			get;
 			private set;
@@ -164,13 +164,13 @@ namespace TJAPlayer3
 		}
 		public static CSkin Skin
 		{
-			get; 
+			get;
 			private set;
 		}
-		public static CSongs管理 Songs管理 
+		public static CSongs管理 Songs管理
 		{
 			get;
-			set;	// 2012.1.26 yyagi private解除 CStage起動でのdesirialize読み込みのため
+			set;    // 2012.1.26 yyagi private解除 CStage起動でのdesirialize読み込みのため
 		}
 		public static CEnumSongs EnumSongs
 		{
@@ -211,9 +211,9 @@ namespace TJAPlayer3
 			private set;
 		}
 
-		public static CStage起動 stage起動 
+		public static CStage起動 stage起動
 		{
-			get; 
+			get;
 			private set;
 		}
 		public static CStageタイトル stageタイトル
@@ -221,14 +221,14 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-//		public static CStageオプション stageオプション
-//		{ 
-//			get;
-//			private set;
-//		}
-		public static CStageコンフィグ stageコンフィグ 
-		{ 
-			get; 
+		//		public static CStageオプション stageオプション
+		//		{ 
+		//			get;
+		//			private set;
+		//		}
+		public static CStageコンフィグ stageコンフィグ
+		{
+			get;
 			private set;
 		}
 		public static CStage選曲 stage選曲
@@ -268,7 +268,7 @@ namespace TJAPlayer3
 		}
 		public static CStage r現在のステージ = null;
 		public static CStage r直前のステージ = null;
-		public static string strEXEのあるフォルダ 
+		public static string strEXEのあるフォルダ
 		{
 			get;
 			private set;
@@ -282,12 +282,12 @@ namespace TJAPlayer3
 
 		public bool bApplicationActive
 		{
-			get; 
+			get;
 			private set;
 		}
 		public bool b次のタイミングで垂直帰線同期切り替えを行う
 		{
-			get; 
+			get;
 			set;
 		}
 		public bool b次のタイミングで全画面_ウィンドウ切り替えを行う
@@ -302,13 +302,13 @@ namespace TJAPlayer3
 				return base.GraphicsDeviceManager.Direct3D9.Device;
 			}
 		}
-		private static Size currentClientSize		// #23510 2010.10.27 add yyagi to keep current window size
+		private static Size currentClientSize       // #23510 2010.10.27 add yyagi to keep current window size
 		{
 			get;
 			set;
 		}
 		//		public static CTimer ct;
-		public IntPtr WindowHandle					// 2012.10.24 yyagi; to add ASIO support
+		public IntPtr WindowHandle                  // 2012.10.24 yyagi; to add ASIO support
 		{
 			get { return base.Window.Handle; }
 		}
@@ -332,23 +332,23 @@ namespace TJAPlayer3
 			if ( ConfigIni != null )
 #else
 			DeviceSettings settings = base.GraphicsDeviceManager.CurrentSettings.Clone();
-			if ( ( ConfigIni != null ) && ( ConfigIni.bウィンドウモード != settings.Windowed ) )
+			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != settings.Windowed))
 #endif
 			{
 #if !WindowedFullscreen
 				settings.Windowed = ConfigIni.bウィンドウモード;
 #endif
-				if ( ConfigIni.bウィンドウモード == false )	// #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
+				if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 				{
 					currentClientSize = this.Window.ClientSize;
 					ConfigIni.nウインドウwidth = this.Window.ClientSize.Width;
 					ConfigIni.nウインドウheight = this.Window.ClientSize.Height;
-//					FDK.CTaskBar.ShowTaskBar( false );
+					//					FDK.CTaskBar.ShowTaskBar( false );
 				}
 #if !WindowedFullscreen
-				base.GraphicsDeviceManager.ChangeDevice( settings );
+				base.GraphicsDeviceManager.ChangeDevice(settings);
 #endif
-				if ( ConfigIni.bウィンドウモード == true )	// #23510 2010.10.27 yyagi: to resume window size from backuped value
+				if (ConfigIni.bウィンドウモード == true)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 				{
 #if WindowedFullscreen
 															// #30666 2013.2.2 yyagi Don't use Fullscreen mode becasue NVIDIA GeForce is
@@ -359,9 +359,9 @@ namespace TJAPlayer3
 					app.Window.WindowState = FormWindowState.Normal;
 #endif
 					base.Window.ClientSize =
-						new Size( currentClientSize.Width, currentClientSize.Height );
+						new Size(currentClientSize.Width, currentClientSize.Height);
 					base.Window.Icon = Properties.Resources.tjap3;
-//					FDK.CTaskBar.ShowTaskBar( true );
+					//					FDK.CTaskBar.ShowTaskBar( true );
 				}
 #if WindowedFullscreen
 				else 
@@ -392,27 +392,27 @@ namespace TJAPlayer3
 		/// リザルト画像のキャプチャと保存。
 		/// </summary>
 		/// <param name="strFilename">保存するファイル名(フルパス)</param>
-		public bool SaveResultScreen( string strFullPath )
+		public bool SaveResultScreen(string strFullPath)
 		{
-			string strSavePath = Path.GetDirectoryName( strFullPath );
-			if ( !Directory.Exists( strSavePath ) )
+			string strSavePath = Path.GetDirectoryName(strFullPath);
+			if (!Directory.Exists(strSavePath))
 			{
 				try
 				{
-					Directory.CreateDirectory( strSavePath );
+					Directory.CreateDirectory(strSavePath);
 				}
 				catch (Exception e)
 				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (0bfe6bff-2a56-4df4-9333-2df26d9b765b)" );
+					Trace.TraceError(e.ToString());
+					Trace.TraceError("例外が発生しましたが処理を継続します。 (0bfe6bff-2a56-4df4-9333-2df26d9b765b)");
 					return false;
 				}
 			}
 
 			// http://www.gamedev.net/topic/594369-dx9slimdxati-incorrect-saving-surface-to-file/
-			using ( Surface pSurface = TJAPlayer3.app.Device.GetRenderTarget( 0 ) )
+			using (Surface pSurface = TJAPlayer3.app.Device.GetRenderTarget(0))
 			{
-				Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
+				Surface.ToFile(pSurface, strFullPath, ImageFileFormat.Png);
 			}
 			return true;
 		}
@@ -422,16 +422,16 @@ namespace TJAPlayer3
 
 		protected override void Initialize()
 		{
-//			new GCBeep();
+			//			new GCBeep();
 			//sw.Start();
 			//swlist1 = new List<int>( 8192 );
 			//swlist2 = new List<int>( 8192 );
 			//swlist3 = new List<int>( 8192 );
 			//swlist4 = new List<int>( 8192 );
 			//swlist5 = new List<int>( 8192 );
-			if ( this.listトップレベルActivities != null )
+			if (this.listトップレベルActivities != null)
 			{
-				foreach( CActivity activity in this.listトップレベルActivities )
+				foreach (CActivity activity in this.listトップレベルActivities)
 					activity.OnManagedリソースの作成();
 			}
 
@@ -448,15 +448,15 @@ namespace TJAPlayer3
 #endif
 		protected override void LoadContent()
 		{
-			if ( ConfigIni.bウィンドウモード )
+			if (ConfigIni.bウィンドウモード)
 			{
-				if( !this.bマウスカーソル表示中 )
+				if (!this.bマウスカーソル表示中)
 				{
 					Cursor.Show();
 					this.bマウスカーソル表示中 = true;
 				}
 			}
-			else if( this.bマウスカーソル表示中 )
+			else if (this.bマウスカーソル表示中)
 			{
 				Cursor.Hide();
 				this.bマウスカーソル表示中 = false;
@@ -464,120 +464,120 @@ namespace TJAPlayer3
 			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-SampleFramework.GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
 			this.Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(C変換.DegreeToRadian((float)60f), ((float)this.Device.Viewport.Width) / ((float)this.Device.Viewport.Height), -100f, 100f));
 			this.Device.SetRenderState(RenderState.Lighting, false);
-			this.Device.SetRenderState( RenderState.ZEnable, false );
-			this.Device.SetRenderState( RenderState.AntialiasedLineEnable, false );
-			this.Device.SetRenderState( RenderState.AlphaTestEnable, true );
-			this.Device.SetRenderState( RenderState.AlphaRef, 10 );
+			this.Device.SetRenderState(RenderState.ZEnable, false);
+			this.Device.SetRenderState(RenderState.AntialiasedLineEnable, false);
+			this.Device.SetRenderState(RenderState.AlphaTestEnable, true);
+			this.Device.SetRenderState(RenderState.AlphaRef, 10);
 
-			this.Device.SetRenderState( RenderState.MultisampleAntialias, true );
-			this.Device.SetSamplerState( 0, SamplerState.MinFilter, TextureFilter.Linear );
-			this.Device.SetSamplerState( 0, SamplerState.MagFilter, TextureFilter.Linear );
+			this.Device.SetRenderState(RenderState.MultisampleAntialias, true);
+			this.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Linear);
+			this.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
 
-			this.Device.SetRenderState<Compare>( RenderState.AlphaFunc, Compare.Greater );
-			this.Device.SetRenderState( RenderState.AlphaBlendEnable, true );
-			this.Device.SetRenderState<Blend>( RenderState.SourceBlend, Blend.SourceAlpha );
-			this.Device.SetRenderState<Blend>( RenderState.DestinationBlend, Blend.InverseSourceAlpha );
-			this.Device.SetTextureStageState( 0, TextureStage.AlphaOperation, TextureOperation.Modulate );
-			this.Device.SetTextureStageState( 0, TextureStage.AlphaArg1, 2 );
-			this.Device.SetTextureStageState( 0, TextureStage.AlphaArg2, 1 );
+			this.Device.SetRenderState<Compare>(RenderState.AlphaFunc, Compare.Greater);
+			this.Device.SetRenderState(RenderState.AlphaBlendEnable, true);
+			this.Device.SetRenderState<Blend>(RenderState.SourceBlend, Blend.SourceAlpha);
+			this.Device.SetRenderState<Blend>(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
+			this.Device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
+			this.Device.SetTextureStageState(0, TextureStage.AlphaArg1, 2);
+			this.Device.SetTextureStageState(0, TextureStage.AlphaArg2, 1);
 
-			if( this.listトップレベルActivities != null )
+			if (this.listトップレベルActivities != null)
 			{
-				foreach( CActivity activity in this.listトップレベルActivities )
+				foreach (CActivity activity in this.listトップレベルActivities)
 					activity.OnUnmanagedリソースの作成();
 			}
 		}
 		protected override void UnloadContent()
 		{
-			if( this.listトップレベルActivities != null )
+			if (this.listトップレベルActivities != null)
 			{
-				foreach( CActivity activity in this.listトップレベルActivities )
+				foreach (CActivity activity in this.listトップレベルActivities)
 					activity.OnUnmanagedリソースの解放();
 			}
 		}
-		protected override void OnExiting( EventArgs e )
+		protected override void OnExiting(EventArgs e)
 		{
-			CPowerManagement.tEnableMonitorSuspend();		// スリープ抑止状態を解除
+			CPowerManagement.tEnableMonitorSuspend();       // スリープ抑止状態を解除
 			this.t終了処理();
-			base.OnExiting( e );
+			base.OnExiting(e);
 		}
-		protected override void Update( GameTime gameTime )
+		protected override void Update(GameTime gameTime)
 		{
 		}
-		protected override void Draw( GameTime gameTime )
+		protected override void Draw(GameTime gameTime)
 		{
 			Sound管理?.t再生中の処理をする();
 			Timer?.t更新();
 			CSound管理.rc演奏用タイマ?.t更新();
-			Input管理?.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
+			Input管理?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う);
 			FPS?.tカウンタ更新();
 
-			if( this.Device == null )
+			if (this.Device == null)
 				return;
 
-			if ( this.bApplicationActive )	// DTXMania本体起動中の本体/モニタの省電力モード移行を抑止
+			if (this.bApplicationActive)    // DTXMania本体起動中の本体/モニタの省電力モード移行を抑止
 				CPowerManagement.tDisableMonitorSuspend();
 
 			// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 			#region [ スリープ ]
-			if ( ConfigIni.nフレーム毎スリープms >= 0 )			// #xxxxx 2011.11.27 yyagi
+			if (ConfigIni.nフレーム毎スリープms >= 0)            // #xxxxx 2011.11.27 yyagi
 			{
-				Thread.Sleep( ConfigIni.nフレーム毎スリープms );
+				Thread.Sleep(ConfigIni.nフレーム毎スリープms);
 			}
 			#endregion
 
 			this.Device.BeginScene();
 			this.Device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, SharpDX.Color.Black, 1f, 0);
 
-			if ( r現在のステージ != null )
+			if (r現在のステージ != null)
 			{
-				this.n進行描画の戻り値 = ( r現在のステージ != null ) ? r現在のステージ.On進行描画() : 0;
-				
+				this.n進行描画の戻り値 = (r現在のステージ != null) ? r現在のステージ.On進行描画() : 0;
+
 				CScoreIni scoreIni = null;
 
-				if ( Control.IsKeyLocked( Keys.CapsLock ) )				// #30925 2013.3.11 yyagi; capslock=ON時は、EnumSongsしないようにして、起動負荷とASIOの音切れの関係を確認する
-				{														// → songs.db等の書き込み時だと音切れするっぽい
+				if (Control.IsKeyLocked(Keys.CapsLock))             // #30925 2013.3.11 yyagi; capslock=ON時は、EnumSongsしないようにして、起動負荷とASIOの音切れの関係を確認する
+				{                                                       // → songs.db等の書き込み時だと音切れするっぽい
 					actEnumSongs.On非活性化();
 					EnumSongs.SongListEnumCompletelyDone();
 					TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
 				}
 				#region [ 曲検索スレッドの起動/終了 ]					// ここに"Enumerating Songs..."表示を集約
-				actEnumSongs.On進行描画();							// "Enumerating Songs..."アイコンの描画
-				switch ( r現在のステージ.eステージID )
+				actEnumSongs.On進行描画();                          // "Enumerating Songs..."アイコンの描画
+				switch (r現在のステージ.eステージID)
 				{
 					case CStage.Eステージ.タイトル:
 					case CStage.Eステージ.コンフィグ:
 					case CStage.Eステージ.選曲:
 					case CStage.Eステージ.曲読み込み:
-						if ( EnumSongs != null )
+						if (EnumSongs != null)
 						{
 							#region [ (特定条件時) 曲検索スレッドの起動_開始 ]
-							if ( r現在のステージ.eステージID == CStage.Eステージ.タイトル &&
+							if (r現在のステージ.eステージID == CStage.Eステージ.タイトル &&
 								 r直前のステージ.eステージID == CStage.Eステージ.起動 &&
-								 this.n進行描画の戻り値 == (int) CStageタイトル.E戻り値.継続 &&
-								 !EnumSongs.IsSongListEnumStarted )
+								 this.n進行描画の戻り値 == (int)CStageタイトル.E戻り値.継続 &&
+								 !EnumSongs.IsSongListEnumStarted)
 							{
 								actEnumSongs.On活性化();
 								TJAPlayer3.stage選曲.bIsEnumeratingSongs = true;
-								EnumSongs.Init( TJAPlayer3.Songs管理.listSongsDB, TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 );	// songs.db情報と、取得した曲数を、新インスタンスにも与える
-								EnumSongs.StartEnumFromDisk();		// 曲検索スレッドの起動_開始
-								if ( TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 == 0 )	// もし初回起動なら、検索スレッドのプライオリティをLowestでなくNormalにする
+								EnumSongs.Init(TJAPlayer3.Songs管理.listSongsDB, TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数); // songs.db情報と、取得した曲数を、新インスタンスにも与える
+								EnumSongs.StartEnumFromDisk();      // 曲検索スレッドの起動_開始
+								if (TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 == 0)    // もし初回起動なら、検索スレッドのプライオリティをLowestでなくNormalにする
 								{
-									EnumSongs.ChangeEnumeratePriority( ThreadPriority.Normal );
+									EnumSongs.ChangeEnumeratePriority(ThreadPriority.Normal);
 								}
 							}
 							#endregion
-							
+
 							#region [ 曲検索の中断と再開 ]
-							if ( r現在のステージ.eステージID == CStage.Eステージ.選曲 && !EnumSongs.IsSongListEnumCompletelyDone )
+							if (r現在のステージ.eステージID == CStage.Eステージ.選曲 && !EnumSongs.IsSongListEnumCompletelyDone)
 							{
-								switch ( this.n進行描画の戻り値 )
+								switch (this.n進行描画の戻り値)
 								{
-									case 0:		// 何もない
-										//if ( CDTXMania.stage選曲.bIsEnumeratingSongs )
-										if ( !TJAPlayer3.stage選曲.bIsPlayingPremovie )
+									case 0:     // 何もない
+												//if ( CDTXMania.stage選曲.bIsEnumeratingSongs )
+										if (!TJAPlayer3.stage選曲.bIsPlayingPremovie)
 										{
-											EnumSongs.Resume();						// #27060 2012.2.6 yyagi 中止していたバックグランド曲検索を再開
+											EnumSongs.Resume();                     // #27060 2012.2.6 yyagi 中止していたバックグランド曲検索を再開
 											EnumSongs.IsSlowdown = false;
 										}
 										else
@@ -588,8 +588,8 @@ namespace TJAPlayer3
 										actEnumSongs.On活性化();
 										break;
 
-									case 2:		// 曲決定
-										EnumSongs.Suspend();						// #27060 バックグラウンドの曲検索を一時停止
+									case 2:     // 曲決定
+										EnumSongs.Suspend();                        // #27060 バックグラウンドの曲検索を一時停止
 										actEnumSongs.On非活性化();
 										break;
 								}
@@ -597,22 +597,22 @@ namespace TJAPlayer3
 							#endregion
 
 							#region [ 曲探索中断待ち待機 ]
-							if ( r現在のステージ.eステージID == CStage.Eステージ.曲読み込み && !EnumSongs.IsSongListEnumCompletelyDone &&
-								EnumSongs.thDTXFileEnumerate != null )							// #28700 2012.6.12 yyagi; at Compact mode, enumerating thread does not exist.
+							if (r現在のステージ.eステージID == CStage.Eステージ.曲読み込み && !EnumSongs.IsSongListEnumCompletelyDone &&
+								EnumSongs.thDTXFileEnumerate != null)                           // #28700 2012.6.12 yyagi; at Compact mode, enumerating thread does not exist.
 							{
-								EnumSongs.WaitUntilSuspended();									// 念のため、曲検索が一時中断されるまで待機
+								EnumSongs.WaitUntilSuspended();                                 // 念のため、曲検索が一時中断されるまで待機
 							}
 							#endregion
 
 							#region [ 曲検索が完了したら、実際の曲リストに反映する ]
 							// CStage選曲.On活性化() に回した方がいいかな？
-							if ( EnumSongs.IsSongListEnumerated )
+							if (EnumSongs.IsSongListEnumerated)
 							{
 								actEnumSongs.On非活性化();
 								TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
 
-								bool bRemakeSongTitleBar = ( r現在のステージ.eステージID == CStage.Eステージ.選曲 ) ? true : false;
-								TJAPlayer3.stage選曲.Refresh( EnumSongs.Songs管理, bRemakeSongTitleBar );
+								bool bRemakeSongTitleBar = (r現在のステージ.eステージID == CStage.Eステージ.選曲) ? true : false;
+								TJAPlayer3.stage選曲.Refresh(EnumSongs.Songs管理, bRemakeSongTitleBar);
 								EnumSongs.SongListEnumCompletelyDone();
 							}
 							#endregion
@@ -621,7 +621,7 @@ namespace TJAPlayer3
 				}
 				#endregion
 
-				switch ( r現在のステージ.eステージID )
+				switch (r現在のステージ.eステージID)
 				{
 					case CStage.Eステージ.何もしない:
 						break;
@@ -629,11 +629,11 @@ namespace TJAPlayer3
 					case CStage.Eステージ.起動:
 						#region [ *** ]
 						//-----------------------------
-						if( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
 							r現在のステージ.On非活性化();
-							Trace.TraceInformation( "----------------------" );
-							Trace.TraceInformation( "■ タイトル" );
+							Trace.TraceInformation("----------------------");
+							Trace.TraceInformation("■ タイトル");
 							stageタイトル.On活性化();
 							r直前のステージ = r現在のステージ;
 							r現在のステージ = stageタイトル;
@@ -647,14 +647,14 @@ namespace TJAPlayer3
 					case CStage.Eステージ.タイトル:
 						#region [ *** ]
 						//-----------------------------
-						switch( this.n進行描画の戻り値 )
+						switch (this.n進行描画の戻り値)
 						{
 							case (int)CStageタイトル.E戻り値.GAMESTART:
 								#region [ 選曲処理へ ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 選曲" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 選曲");
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
@@ -663,17 +663,17 @@ namespace TJAPlayer3
 								break;
 
 							#region [ OPTION: 廃止済 ]
-//							case 2:									// #24525 OPTIONとCONFIGの統合に伴い、OPTIONは廃止
-//								#region [ *** ]
-//								//-----------------------------
-//								r現在のステージ.On非活性化();
-//								Trace.TraceInformation( "----------------------" );
-//								Trace.TraceInformation( "■ オプション" );
-//								stageオプション.On活性化();
-//								r直前のステージ = r現在のステージ;
-//								r現在のステージ = stageオプション;
-//								//-----------------------------
-//								#endregion
+							//							case 2:									// #24525 OPTIONとCONFIGの統合に伴い、OPTIONは廃止
+							//								#region [ *** ]
+							//								//-----------------------------
+							//								r現在のステージ.On非活性化();
+							//								Trace.TraceInformation( "----------------------" );
+							//								Trace.TraceInformation( "■ オプション" );
+							//								stageオプション.On活性化();
+							//								r直前のステージ = r現在のステージ;
+							//								r現在のステージ = stageオプション;
+							//								//-----------------------------
+							//								#endregion
 							//								break;
 							#endregion
 
@@ -681,8 +681,8 @@ namespace TJAPlayer3
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ コンフィグ" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ コンフィグ");
 								stageコンフィグ.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageコンフィグ;
@@ -694,8 +694,8 @@ namespace TJAPlayer3
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 終了" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 終了");
 								stage終了.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage終了;
@@ -721,61 +721,61 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-//					case CStage.Eステージ.オプション:
-						#region [ *** ]
-//						//-----------------------------
-//						if( this.n進行描画の戻り値 != 0 )
-//						{
-//							switch( r直前のステージ.eステージID )
-//							{
-//								case CStage.Eステージ.タイトル:
-//									#region [ *** ]
-//									//-----------------------------
-//									r現在のステージ.On非活性化();
-//									Trace.TraceInformation( "----------------------" );
-//									Trace.TraceInformation( "■ タイトル" );
-//									stageタイトル.On活性化();
-//									r直前のステージ = r現在のステージ;
-//									r現在のステージ = stageタイトル;
-//				
-//									this.tガベージコレクションを実行する();
-//									break;
-//								//-----------------------------
-//									#endregion
-//
-//								case CStage.Eステージ.選曲:
-//									#region [ *** ]
-//									//-----------------------------
-//									r現在のステージ.On非活性化();
-//									Trace.TraceInformation( "----------------------" );
-//									Trace.TraceInformation( "■ 選曲" );
-//									stage選曲.On活性化();
-//									r直前のステージ = r現在のステージ;
-//									r現在のステージ = stage選曲;
-//
-//									this.tガベージコレクションを実行する();
-//									break;
-//								//-----------------------------
-//									#endregion
-//							}
-//						}
-//						//-----------------------------
-						#endregion
-//						break;
+					//					case CStage.Eステージ.オプション:
+					#region [ *** ]
+					//						//-----------------------------
+					//						if( this.n進行描画の戻り値 != 0 )
+					//						{
+					//							switch( r直前のステージ.eステージID )
+					//							{
+					//								case CStage.Eステージ.タイトル:
+					//									#region [ *** ]
+					//									//-----------------------------
+					//									r現在のステージ.On非活性化();
+					//									Trace.TraceInformation( "----------------------" );
+					//									Trace.TraceInformation( "■ タイトル" );
+					//									stageタイトル.On活性化();
+					//									r直前のステージ = r現在のステージ;
+					//									r現在のステージ = stageタイトル;
+					//				
+					//									this.tガベージコレクションを実行する();
+					//									break;
+					//								//-----------------------------
+					//									#endregion
+					//
+					//								case CStage.Eステージ.選曲:
+					//									#region [ *** ]
+					//									//-----------------------------
+					//									r現在のステージ.On非活性化();
+					//									Trace.TraceInformation( "----------------------" );
+					//									Trace.TraceInformation( "■ 選曲" );
+					//									stage選曲.On活性化();
+					//									r直前のステージ = r現在のステージ;
+					//									r現在のステージ = stage選曲;
+					//
+					//									this.tガベージコレクションを実行する();
+					//									break;
+					//								//-----------------------------
+					//									#endregion
+					//							}
+					//						}
+					//						//-----------------------------
+					#endregion
+					//						break;
 
 					case CStage.Eステージ.コンフィグ:
 						#region [ *** ]
 						//-----------------------------
-						if( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
-							switch( r直前のステージ.eステージID )
+							switch (r直前のステージ.eステージID)
 							{
 								case CStage.Eステージ.タイトル:
 									#region [ *** ]
 									//-----------------------------
 									r現在のステージ.On非活性化();
-									Trace.TraceInformation( "----------------------" );
-									Trace.TraceInformation( "■ タイトル" );
+									Trace.TraceInformation("----------------------");
+									Trace.TraceInformation("■ タイトル");
 									stageタイトル.On活性化();
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stageタイトル;
@@ -783,21 +783,21 @@ namespace TJAPlayer3
 									this.tガベージコレクションを実行する();
 									break;
 								//-----------------------------
-									#endregion
+								#endregion
 
 								case CStage.Eステージ.選曲:
 									#region [ *** ]
 									//-----------------------------
 									r現在のステージ.On非活性化();
-									Trace.TraceInformation( "----------------------" );
-									Trace.TraceInformation( "■ 選曲" );
+									Trace.TraceInformation("----------------------");
+									Trace.TraceInformation("■ 選曲");
 									stage選曲.On活性化();
 									r直前のステージ = r現在のステージ;
 									r現在のステージ = stage選曲;
 
 									this.tガベージコレクションを実行する();
 									break;
-								//-----------------------------
+									//-----------------------------
 									#endregion
 							}
 						}
@@ -808,14 +808,14 @@ namespace TJAPlayer3
 					case CStage.Eステージ.選曲:
 						#region [ *** ]
 						//-----------------------------
-						switch( this.n進行描画の戻り値 )
+						switch (this.n進行描画の戻り値)
 						{
-							case (int) CStage選曲.E戻り値.タイトルに戻る:
+							case (int)CStage選曲.E戻り値.タイトルに戻る:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ タイトル" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ タイトル");
 								stageタイトル.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageタイトル;
@@ -823,14 +823,14 @@ namespace TJAPlayer3
 								this.tガベージコレクションを実行する();
 								break;
 							//-----------------------------
-								#endregion
+							#endregion
 
-							case (int) CStage選曲.E戻り値.選曲した:
+							case (int)CStage選曲.E戻り値.選曲した:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 曲読み込み" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 曲読み込み");
 								stage曲読み込み.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage曲読み込み;
@@ -838,29 +838,29 @@ namespace TJAPlayer3
 								this.tガベージコレクションを実行する();
 								break;
 							//-----------------------------
-								#endregion
+							#endregion
 
-//							case (int) CStage選曲.E戻り値.オプション呼び出し:
-								#region [ *** ]
-//								//-----------------------------
-//								r現在のステージ.On非活性化();
-//								Trace.TraceInformation( "----------------------" );
-//								Trace.TraceInformation( "■ オプション" );
-//								stageオプション.On活性化();
-//								r直前のステージ = r現在のステージ;
-//								r現在のステージ = stageオプション;
-//
-//								this.tガベージコレクションを実行する();
-//								break;
-//							//-----------------------------
-								#endregion
+							//							case (int) CStage選曲.E戻り値.オプション呼び出し:
+							#region [ *** ]
+							//								//-----------------------------
+							//								r現在のステージ.On非活性化();
+							//								Trace.TraceInformation( "----------------------" );
+							//								Trace.TraceInformation( "■ オプション" );
+							//								stageオプション.On活性化();
+							//								r直前のステージ = r現在のステージ;
+							//								r現在のステージ = stageオプション;
+							//
+							//								this.tガベージコレクションを実行する();
+							//								break;
+							//							//-----------------------------
+							#endregion
 
-							case (int) CStage選曲.E戻り値.コンフィグ呼び出し:
+							case (int)CStage選曲.E戻り値.コンフィグ呼び出し:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ コンフィグ" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ コンフィグ");
 								stageコンフィグ.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageコンフィグ;
@@ -868,20 +868,20 @@ namespace TJAPlayer3
 								this.tガベージコレクションを実行する();
 								break;
 							//-----------------------------
-								#endregion
+							#endregion
 
-							case (int) CStage選曲.E戻り値.スキン変更:
+							case (int)CStage選曲.E戻り値.スキン変更:
 
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ スキン切り替え" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ スキン切り替え");
 								stageChangeSkin.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageChangeSkin;
 								break;
-							//-----------------------------
+								//-----------------------------
 								#endregion
 						}
 						//-----------------------------
@@ -891,20 +891,20 @@ namespace TJAPlayer3
 					case CStage.Eステージ.曲読み込み:
 						#region [ *** ]
 						//-----------------------------
-						if( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
-							TJAPlayer3.Pad.st検知したデバイス.Clear();	// 入力デバイスフラグクリア(2010.9.11)
+							TJAPlayer3.Pad.st検知したデバイス.Clear();  // 入力デバイスフラグクリア(2010.9.11)
 							r現在のステージ.On非活性化();
 							#region [ ESC押下時は、曲の読み込みを中止して選曲画面に戻る ]
-							if ( this.n進行描画の戻り値 == (int) E曲読込画面の戻り値.読込中止 )
+							if (this.n進行描画の戻り値 == (int)E曲読込画面の戻り値.読込中止)
 							{
 								//DTX.t全チップの再生停止();
-								if (DTX[0] != null )
+								if (DTX[0] != null)
 									DTX[0].On非活性化();
-								Trace.TraceInformation( "曲の読み込みを中止しました。" );
+								Trace.TraceInformation("曲の読み込みを中止しました。");
 								this.tガベージコレクションを実行する();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 選曲" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 選曲");
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
@@ -912,9 +912,9 @@ namespace TJAPlayer3
 							}
 							#endregion
 
-							Trace.TraceInformation( "----------------------" );
-							Trace.TraceInformation( "■ 演奏（ドラム画面）" );
-#if false		// #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
+							Trace.TraceInformation("----------------------");
+							Trace.TraceInformation("■ 演奏（ドラム画面）");
+#if false       // #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
 for (int i = 0; i < 5; i++)
 {
 	for (int j = 0; j < 2; j++)
@@ -950,9 +950,9 @@ for (int i = 0; i < 3; i++) {
 						//swlist4.Add( Convert.ToInt32( n4 ) );
 						//swlist5.Add( Convert.ToInt32( n5 ) );
 
-						switch( this.n進行描画の戻り値 )
+						switch (this.n進行描画の戻り値)
 						{
-							case (int) E演奏画面の戻り値.再読込_再演奏:
+							case (int)E演奏画面の戻り値.再読込_再演奏:
 								#region [ DTXファイルを再読み込みして、再演奏 ]
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
@@ -962,63 +962,63 @@ for (int i = 0; i < 3; i++) {
 								r現在のステージ = stage曲読み込み;
 								this.tガベージコレクションを実行する();
 								break;
-								#endregion
+							#endregion
 
 							//case (int) E演奏画面の戻り値.再演奏:
 							#region [ 再読み込み無しで、再演奏 ]
 							#endregion
 							//	break;
 
-							case (int) E演奏画面の戻り値.継続:
+							case (int)E演奏画面の戻り値.継続:
 								break;
 
-							case (int) E演奏画面の戻り値.演奏中断:
+							case (int)E演奏画面の戻り値.演奏中断:
 								#region [ 演奏キャンセル ]
 								//-----------------------------
-								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新( "Play canceled" );
+								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Play canceled");
 
-		
+
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
 
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 選曲" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 選曲");
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
 
 								this.tガベージコレクションを実行する();
-								
-								break;
-								//-----------------------------
-								#endregion
 
-							case (int) E演奏画面の戻り値.ステージ失敗:
+								break;
+							//-----------------------------
+							#endregion
+
+							case (int)E演奏画面の戻り値.ステージ失敗:
 								#region [ 演奏失敗(StageFailed) ]
 								//-----------------------------
-								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新( "Stage failed" );
+								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Stage failed");
 
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
 
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 選曲" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 選曲");
 								stage選曲.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stage選曲;
 
 								this.tガベージコレクションを実行する();
 								break;
-								//-----------------------------
-								#endregion
+							//-----------------------------
+							#endregion
 
-							case (int) E演奏画面の戻り値.ステージクリア:
+							case (int)E演奏画面の戻り値.ステージクリア:
 								#region [ 演奏クリア ]
 								//-----------------------------
 								CScoreIni.C演奏記録[] c演奏記録_Drums = new CScoreIni.C演奏記録[4];
-								stage演奏ドラム画面.t演奏結果を格納する( out c演奏記録_Drums[0] , 0);
+								stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[0], 0);
 								if (ConfigIni.nPlayerCount == 2)
 								{
 									stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[1], 1);
@@ -1030,46 +1030,46 @@ for (int i = 0; i < 3; i++) {
 									gs = c演奏記録_Drums[0].dbゲーム型スキル値;
 								}
 								string str = "Cleared";
-								switch( CScoreIni.t総合ランク値を計算して返す( c演奏記録_Drums[0]) )
+								switch (CScoreIni.t総合ランク値を計算して返す(c演奏記録_Drums[0]))
 								{
 									case (int)CScoreIni.ERANK.SS:
-										str = string.Format( "Cleared (SS: {0:F2})", ps );
+										str = string.Format("Cleared (SS: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.S:
-										str = string.Format( "Cleared (S: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.S:
+										str = string.Format("Cleared (S: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.A:
-										str = string.Format( "Cleared (A: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.A:
+										str = string.Format("Cleared (A: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.B:
-										str = string.Format( "Cleared (B: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.B:
+										str = string.Format("Cleared (B: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.C:
-										str = string.Format( "Cleared (C: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.C:
+										str = string.Format("Cleared (C: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.D:
-										str = string.Format( "Cleared (D: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.D:
+										str = string.Format("Cleared (D: {0:F2})", ps);
 										break;
 
-									case (int) CScoreIni.ERANK.E:
-										str = string.Format( "Cleared (E: {0:F2})", ps );
+									case (int)CScoreIni.ERANK.E:
+										str = string.Format("Cleared (E: {0:F2})", ps);
 										break;
 
-									case (int)CScoreIni.ERANK.UNKNOWN:	// #23534 2010.10.28 yyagi add: 演奏チップが0個のとき
+									case (int)CScoreIni.ERANK.UNKNOWN:  // #23534 2010.10.28 yyagi add: 演奏チップが0個のとき
 										str = "Cleared (No chips)";
 										break;
 								}
 
-								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新( str );
+								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新(str);
 
 								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 結果" );
+								Trace.TraceInformation("----------------------");
+								Trace.TraceInformation("■ 結果");
 								stage結果.st演奏記録[0] = c演奏記録_Drums[0];
 								if (ConfigIni.nPlayerCount == 2)
 								{
@@ -1090,7 +1090,7 @@ for (int i = 0; i < 3; i++) {
 					case CStage.Eステージ.結果:
 						#region [ *** ]
 						//-----------------------------
-						if( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
 							//DTX.t全チップの再生一時停止();
 							DTX[0].t全チップの再生停止とミキサーからの削除();
@@ -1098,8 +1098,8 @@ for (int i = 0; i < 3; i++) {
 							r現在のステージ.On非活性化();
 							this.tガベージコレクションを実行する();
 
-							Trace.TraceInformation( "----------------------" );
-							Trace.TraceInformation( "■ 選曲" );
+							Trace.TraceInformation("----------------------");
+							Trace.TraceInformation("■ 選曲");
 							stage選曲.On活性化();
 							r直前のステージ = r現在のステージ;
 							r現在のステージ = stage選曲;
@@ -1113,11 +1113,11 @@ for (int i = 0; i < 3; i++) {
 					case CStage.Eステージ.ChangeSkin:
 						#region [ *** ]
 						//-----------------------------
-						if ( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
 							r現在のステージ.On非活性化();
-							Trace.TraceInformation( "----------------------" );
-							Trace.TraceInformation( "■ 選曲" );
+							Trace.TraceInformation("----------------------");
+							Trace.TraceInformation("■ 選曲");
 							stage選曲.On活性化();
 							r直前のステージ = r現在のステージ;
 							r現在のステージ = stage選曲;
@@ -1130,7 +1130,7 @@ for (int i = 0; i < 3; i++) {
 					case CStage.Eステージ.終了:
 						#region [ *** ]
 						//-----------------------------
-						if( this.n進行描画の戻り値 != 0 )
+						if (this.n進行描画の戻り値 != 0)
 						{
 							base.Exit();
 						}
@@ -1171,19 +1171,19 @@ for (int i = 0; i < 3; i++) {
 					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
 				}
 			}
-			this.Device.EndScene();			// Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
+			this.Device.EndScene();         // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
 #if !GPUFlushAfterPresent
-			actFlushGPU?.On進行描画();		// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
+			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
 #endif
-			if ( Sound管理?.GetCurrentSoundDeviceType() != "DirectSound" )
+			if (Sound管理?.GetCurrentSoundDeviceType() != "DirectSound")
 			{
-				Sound管理?.t再生中の処理をする();	// サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
+				Sound管理?.t再生中の処理をする();  // サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
 			}
 
 
 			#region [ 全画面_ウインドウ切り替え ]
-			if ( this.b次のタイミングで全画面_ウィンドウ切り替えを行う )
+			if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
 			{
 				ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
 				app.t全画面_ウィンドウモード切り替え();
@@ -1191,18 +1191,18 @@ for (int i = 0; i < 3; i++) {
 			}
 			#endregion
 			#region [ 垂直基線同期切り替え ]
-			if ( this.b次のタイミングで垂直帰線同期切り替えを行う )
+			if (this.b次のタイミングで垂直帰線同期切り替えを行う)
 			{
-				bool bIsMaximized = this.Window.IsMaximized;											// #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
-				currentClientSize = this.Window.ClientSize;												// #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
+				bool bIsMaximized = this.Window.IsMaximized;                                            // #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
+				currentClientSize = this.Window.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
 				DeviceSettings currentSettings = app.GraphicsDeviceManager.CurrentSettings;
 				currentSettings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
-				app.GraphicsDeviceManager.ChangeDevice( currentSettings );
+				app.GraphicsDeviceManager.ChangeDevice(currentSettings);
 				this.b次のタイミングで垂直帰線同期切り替えを行う = false;
-				base.Window.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);	// #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
+				base.Window.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
 				if (bIsMaximized)
 				{
-					this.Window.WindowState = FormWindowState.Maximized;								// #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
+					this.Window.WindowState = FormWindowState.Maximized;                                // #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
 				}
 			}
 			#endregion
@@ -1212,64 +1212,64 @@ for (int i = 0; i < 3; i++) {
 
 		#region [ 汎用ヘルパー ]
 		//-----------------
-		public static CTexture tテクスチャの生成( string fileName )
+		public static CTexture tテクスチャの生成(string fileName)
 		{
-			return tテクスチャの生成( fileName, false );
+			return tテクスチャの生成(fileName, false);
 		}
-		public static CTexture tテクスチャの生成( string fileName, bool b黒を透過する )
+		public static CTexture tテクスチャの生成(string fileName, bool b黒を透過する)
 		{
-			if ( app == null )
+			if (app == null)
 			{
 				return null;
 			}
 			try
 			{
-				return new CTexture( app.Device, fileName, TextureFormat, b黒を透過する );
+				return new CTexture(app.Device, fileName, TextureFormat, b黒を透過する);
 			}
-			catch ( CTextureCreateFailedException e )
+			catch (CTextureCreateFailedException e)
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("テクスチャの生成に失敗しました。({0})", fileName);
 				return null;
 			}
-			catch ( FileNotFoundException )
+			catch (FileNotFoundException)
 			{
-				Trace.TraceWarning( "テクスチャファイルが見つかりませんでした。({0})", fileName );
+				Trace.TraceWarning("テクスチャファイルが見つかりませんでした。({0})", fileName);
 				return null;
 			}
 		}
-		public static void tテクスチャの解放(ref CTexture tx )
+		public static void tテクスチャの解放(ref CTexture tx)
 		{
-			TJAPlayer3.t安全にDisposeする( ref tx );
+			TJAPlayer3.t安全にDisposeする(ref tx);
 		}
-		public static CTexture tテクスチャの生成( byte[] txData )
+		public static CTexture tテクスチャの生成(byte[] txData)
 		{
-			return tテクスチャの生成( txData, false );
+			return tテクスチャの生成(txData, false);
 		}
-		public static CTexture tテクスチャの生成( byte[] txData, bool b黒を透過する )
+		public static CTexture tテクスチャの生成(byte[] txData, bool b黒を透過する)
 		{
-			if ( app == null )
+			if (app == null)
 			{
 				return null;
 			}
 			try
 			{
-				return new CTexture( app.Device, txData, TextureFormat, b黒を透過する );
+				return new CTexture(app.Device, txData, TextureFormat, b黒を透過する);
 			}
-			catch ( CTextureCreateFailedException e )
+			catch (CTextureCreateFailedException e)
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "テクスチャの生成に失敗しました。(txData)" );
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
 				return null;
 			}
 		}
-		public static CTexture tテクスチャの生成( Bitmap bitmap )
+		public static CTexture tテクスチャの生成(Bitmap bitmap)
 		{
-			return tテクスチャの生成( bitmap, false );
+			return tテクスチャの生成(bitmap, false);
 		}
-		public static CTexture tテクスチャの生成( Bitmap bitmap, bool b黒を透過する )
+		public static CTexture tテクスチャの生成(Bitmap bitmap, bool b黒を透過する)
 		{
-			if ( app == null )
+			if (app == null)
 			{
 				return null;
 			}
@@ -1280,12 +1280,12 @@ for (int i = 0; i < 3; i++) {
 			}
 			try
 			{
-				return new CTexture( app.Device, bitmap, TextureFormat, b黒を透過する );
+				return new CTexture(app.Device, bitmap, TextureFormat, b黒を透過する);
 			}
-			catch ( CTextureCreateFailedException e )
+			catch (CTextureCreateFailedException e)
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "テクスチャの生成に失敗しました。(txData)" );
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
 				return null;
 			}
 		}
@@ -1335,7 +1335,7 @@ for (int i = 0; i < 3; i++) {
 		public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
 		{
 			CDirectShow ds = null;
-			if( File.Exists( fileName ) )
+			if (File.Exists(fileName))
 			{
 				try
 				{
@@ -1343,13 +1343,13 @@ for (int i = 0; i < 3; i++) {
 				}
 				catch (FileNotFoundException e)
 				{
-					Trace.TraceError( e.ToString() );
+					Trace.TraceError(e.ToString());
 					Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
 					ds = null;      // Dispose はコンストラクタ内で実施済み
 				}
 				catch (Exception e)
 				{
-					Trace.TraceError( e.ToString() );
+					Trace.TraceError(e.ToString());
 					Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
 					ds = null;      // Dispose はコンストラクタ内で実施済み
 				}
@@ -1364,7 +1364,7 @@ for (int i = 0; i < 3; i++) {
 		}
 
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
-		public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable　//2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
+		public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 		{
 			if (obj == null)
 				return;
@@ -1379,7 +1379,7 @@ for (int i = 0; i < 3; i++) {
 		public static int t連番画像の枚数を数える(string ディレクトリ名, string プレフィックス = "", string 拡張子 = ".png")
 		{
 			int num = 0;
-			while(File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
+			while (File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
 			{
 				num++;
 			}
@@ -1436,7 +1436,7 @@ for (int i = 0; i < 3; i++) {
 		//-----------------
 		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
-		private static CDTX[] dtx = new CDTX[ 4 ];
+		private static CDTX[] dtx = new CDTX[4];
 
 		public static TextureLoader Tx = new TextureLoader();
 
@@ -1454,7 +1454,7 @@ for (int i = 0; i < 3; i++) {
 		{
 			#region [ strEXEのあるフォルダを決定する ]
 			//-----------------
-// BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
+			// BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
 #if DEBUG
 			strEXEのあるフォルダ = Environment.CurrentDirectory + @"\";
 #else
@@ -1471,53 +1471,53 @@ for (int i = 0; i < 3; i++) {
 			//---------------------
 			ConfigIni = new CConfigIni();
 			string path = strEXEのあるフォルダ + "Config.ini";
-			if( File.Exists( path ) )
+			if (File.Exists(path))
 			{
 				try
 				{
-					ConfigIni.tファイルから読み込み( path );
+					ConfigIni.tファイルから読み込み(path);
 				}
 				catch (Exception e)
 				{
 					//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)" );
+					Trace.TraceError(e.ToString());
+					Trace.TraceError("例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)");
 				}
 			}
-			this.Window.EnableSystemMenu = TJAPlayer3.ConfigIni.bIsEnabledSystemMenu;	// #28200 2011.5.1 yyagi
-			// 2012.8.22 Config.iniが無いときに初期値が適用されるよう、この設定行をifブロック外に移動
+			this.Window.EnableSystemMenu = TJAPlayer3.ConfigIni.bIsEnabledSystemMenu;   // #28200 2011.5.1 yyagi
+																						// 2012.8.22 Config.iniが無いときに初期値が適用されるよう、この設定行をifブロック外に移動
 
 			//---------------------
 			#endregion
 			#region [ ログ出力開始 ]
 			//---------------------
 			Trace.AutoFlush = true;
-			if( ConfigIni.bログ出力 )
+			if (ConfigIni.bログ出力)
 			{
 				try
 				{
-					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3-f.log" ), false, new UTF8Encoding(false)) ) );
+					Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
 				}
-				catch ( System.UnauthorizedAccessException )			// #24481 2011.2.20 yyagi
+				catch (System.UnauthorizedAccessException)          // #24481 2011.2.20 yyagi
 				{
-					int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja")? 0 : 1;
+					int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 					string[] mes_writeErr = {
 						"TJAPlayer3-f.logへの書き込みができませんでした。書き込みできるようにしてから、再度起動してください。",
 						"Failed to write TJAPlayer3-f.log. Please set it writable and try again."
 					};
-					MessageBox.Show( mes_writeErr[c], "DTXMania boot error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+					MessageBox.Show(mes_writeErr[c], "DTXMania boot error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					Environment.Exit(1);
 				}
 			}
 			Trace.WriteLine("");
-			Trace.WriteLine( "DTXMania powered by YAMAHA Silent Session Drums" );
-			Trace.WriteLine( string.Format( "Release: {0}", VERSION ) );
-			Trace.WriteLine( "" );
-			Trace.TraceInformation( "----------------------" );
-			Trace.TraceInformation( "■ アプリケーションの初期化" );
-			Trace.TraceInformation( "OS Version: " + Environment.OSVersion );
-			Trace.TraceInformation( "ProcessorCount: " + Environment.ProcessorCount.ToString() );
-			Trace.TraceInformation( "CLR Version: " + Environment.Version.ToString() );
+			Trace.WriteLine("DTXMania powered by YAMAHA Silent Session Drums");
+			Trace.WriteLine(string.Format("Release: {0}", VERSION));
+			Trace.WriteLine("");
+			Trace.TraceInformation("----------------------");
+			Trace.TraceInformation("■ アプリケーションの初期化");
+			Trace.TraceInformation("OS Version: " + Environment.OSVersion);
+			Trace.TraceInformation("ProcessorCount: " + Environment.ProcessorCount.ToString());
+			Trace.TraceInformation("CLR Version: " + Environment.Version.ToString());
 			//---------------------
 			#endregion
 
@@ -1525,34 +1525,34 @@ for (int i = 0; i < 3; i++) {
 			#region [ ウィンドウ初期化 ]
 			//---------------------
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
-			base.Window.Location = new Point( ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y );   // #30675 2013.02.04 ikanick add
+			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
 
-			
+
 			base.Window.Text = "";
 
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
 			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
 
-			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);	// #34510 yyagi 2010.10.31 to change window size got from Config.ini
+			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
 #if !WindowedFullscreen
-			if (!ConfigIni.bウィンドウモード)						// #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
-			{														// #30666 2013.02.02 yyagi: currentClientSize should be always made
+			if (!ConfigIni.bウィンドウモード)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
+			{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
 #endif
-				currentClientSize = new Size( ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight );
+				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
 #if !WindowedFullscreen
 			}
 #endif
-			base.Window.MaximizeBox = true;							// #23510 2010.11.04 yyagi: to support maximizing window
-			base.Window.FormBorderStyle = FormBorderStyle.Sizable;	// #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
-																		// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
+			base.Window.MaximizeBox = true;                         // #23510 2010.11.04 yyagi: to support maximizing window
+			base.Window.FormBorderStyle = FormBorderStyle.Sizable;  // #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
+																	// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
 			base.Window.ShowIcon = true;
 			base.Window.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
-			base.Window.KeyDown += new KeyEventHandler( this.Window_KeyDown );
-			base.Window.MouseUp +=new MouseEventHandler( this.Window_MouseUp);
-			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);	// #23510 2010.11.13 yyagi: to go fullscreen mode
-			base.Window.ResizeEnd += new EventHandler(this.Window_ResizeEnd);						// #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+			base.Window.KeyDown += new KeyEventHandler(this.Window_KeyDown);
+			base.Window.MouseUp += new MouseEventHandler(this.Window_MouseUp);
+			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);    // #23510 2010.11.13 yyagi: to go fullscreen mode
+			base.Window.ResizeEnd += new EventHandler(this.Window_ResizeEnd);                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
 			base.Window.ApplicationActivated += new EventHandler(this.Window_ApplicationActivated);
-			base.Window.ApplicationDeactivated += new EventHandler( this.Window_ApplicationDeactivated );
+			base.Window.ApplicationDeactivated += new EventHandler(this.Window_ApplicationDeactivated);
 			//---------------------
 			#endregion
 			#region [ Direct3D9Exを使うかどうか判定 ]
@@ -1567,14 +1567,14 @@ for (int i = 0; i < 3; i++) {
 #endif
 			settings.BackBufferWidth = SampleFramework.GameWindowSize.Width;
 			settings.BackBufferHeight = SampleFramework.GameWindowSize.Height;
-//			settings.BackBufferCount = 3;
+			//			settings.BackBufferCount = 3;
 			settings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
-//			settings.BackBufferFormat = Format.A8R8G8B8;
-//			settings.MultisampleType = MultisampleType.FourSamples;
-//			settings.MultisampleQuality = 4;
-//			settings.MultisampleType = MultisampleType.None;
-//			settings.MultisampleQuality = 0;
-			
+			//			settings.BackBufferFormat = Format.A8R8G8B8;
+			//			settings.MultisampleType = MultisampleType.FourSamples;
+			//			settings.MultisampleQuality = 4;
+			//			settings.MultisampleType = MultisampleType.None;
+			//			settings.MultisampleQuality = 0;
+
 			try
 			{
 				base.GraphicsDeviceManager.ChangeDevice(settings);
@@ -1585,12 +1585,12 @@ for (int i = 0; i < 3; i++) {
 				MessageBox.Show(e.ToString(), "DTXMania failed to boot: DirectX9 Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				Environment.Exit(-1);
 			}
-			
+
 			base.IsFixedTimeStep = false;
-//			base.TargetElapsedTime = TimeSpan.FromTicks( 10000000 / 75 );
-			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);	// #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
-			base.InactiveSleepTime = TimeSpan.FromMilliseconds((float)(ConfigIni.n非フォーカス時スリープms));	// #23568 2010.11.3 yyagi: to support valiable sleep value when !IsActive
-																												// #23568 2010.11.4 ikanick changed ( 1 -> ConfigIni )
+			//			base.TargetElapsedTime = TimeSpan.FromTicks( 10000000 / 75 );
+			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
+			base.InactiveSleepTime = TimeSpan.FromMilliseconds((float)(ConfigIni.n非フォーカス時スリープms));  // #23568 2010.11.3 yyagi: to support valiable sleep value when !IsActive
+																									// #23568 2010.11.4 ikanick changed ( 1 -> ConfigIni )
 #if WindowedFullscreen
 			this.t全画面_ウィンドウモード切り替え();				// #30666 2013.2.2 yyagi: finalize settings for "Maximized window mode"
 #endif
@@ -1603,17 +1603,17 @@ for (int i = 0; i < 3; i++) {
 
 			#region [ Skin の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "スキンの初期化を行います。" );
+			Trace.TraceInformation("スキンの初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Skin = new CSkin( TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
-				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );	// 旧指定のSkinフォルダが消滅していた場合に備える
-				Trace.TraceInformation( "スキンの初期化を完了しました。" );
+				Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
+				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+				Trace.TraceInformation("スキンの初期化を完了しました。");
 			}
 			catch
 			{
-				Trace.TraceInformation( "スキンの初期化に失敗しました。" );
+				Trace.TraceInformation("スキンの初期化に失敗しました。");
 				throw;
 			}
 			finally
@@ -1625,12 +1625,12 @@ for (int i = 0; i < 3; i++) {
 			//-----------
 			#region [ Timer の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "タイマの初期化を行います。" );
+			Trace.TraceInformation("タイマの初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Timer = new CTimer( CTimer.E種別.MultiMedia );
-				Trace.TraceInformation( "タイマの初期化を完了しました。" );
+				Timer = new CTimer(CTimer.E種別.MultiMedia);
+				Trace.TraceInformation("タイマの初期化を完了しました。");
 			}
 			finally
 			{
@@ -1642,12 +1642,12 @@ for (int i = 0; i < 3; i++) {
 
 			#region [ FPS カウンタの初期化 ]
 			//---------------------
-			Trace.TraceInformation( "FPSカウンタの初期化を行います。" );
+			Trace.TraceInformation("FPSカウンタの初期化を行います。");
 			Trace.Indent();
 			try
 			{
 				FPS = new CFPS();
-				Trace.TraceInformation( "FPSカウンタを生成しました。" );
+				Trace.TraceInformation("FPSカウンタを生成しました。");
 			}
 			finally
 			{
@@ -1657,20 +1657,20 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ act文字コンソールの初期化 ]
 			//---------------------
-			Trace.TraceInformation( "文字コンソールの初期化を行います。" );
+			Trace.TraceInformation("文字コンソールの初期化を行います。");
 			Trace.Indent();
 			try
 			{
 				act文字コンソール = new C文字コンソール();
-				Trace.TraceInformation( "文字コンソールを生成しました。" );
+				Trace.TraceInformation("文字コンソールを生成しました。");
 				act文字コンソール.On活性化();
-				Trace.TraceInformation( "文字コンソールを活性化しました。" );
-				Trace.TraceInformation( "文字コンソールの初期化を完了しました。" );
+				Trace.TraceInformation("文字コンソールを活性化しました。");
+				Trace.TraceInformation("文字コンソールの初期化を完了しました。");
 			}
-			catch( Exception exception )
+			catch (Exception exception)
 			{
-				Trace.TraceError( exception.ToString() );
-				Trace.TraceError( "文字コンソールの初期化に失敗しました。" );
+				Trace.TraceError(exception.ToString());
+				Trace.TraceError("文字コンソールの初期化に失敗しました。");
 			}
 			finally
 			{
@@ -1680,43 +1680,43 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ Input管理 の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "DirectInput, MIDI入力の初期化を行います。" );
+			Trace.TraceInformation("DirectInput, MIDI入力の初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Input管理 = new CInput管理( base.Window.Handle);
-				foreach( IInputDevice device in Input管理.list入力デバイス )
+				Input管理 = new CInput管理(base.Window.Handle);
+				foreach (IInputDevice device in Input管理.list入力デバイス)
 				{
-					if( ( device.e入力デバイス種別 == E入力デバイス種別.Joystick ) && !ConfigIni.dicJoystick.ContainsValue( device.GUID ) )
+					if ((device.e入力デバイス種別 == E入力デバイス種別.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
 					{
 						int key = 0;
-						while( ConfigIni.dicJoystick.ContainsKey( key ) )
+						while (ConfigIni.dicJoystick.ContainsKey(key))
 						{
 							key++;
 						}
-						ConfigIni.dicJoystick.Add( key, device.GUID );
+						ConfigIni.dicJoystick.Add(key, device.GUID);
 					}
 				}
-				foreach( IInputDevice device2 in Input管理.list入力デバイス )
+				foreach (IInputDevice device2 in Input管理.list入力デバイス)
 				{
-					if( device2.e入力デバイス種別 == E入力デバイス種別.Joystick )
+					if (device2.e入力デバイス種別 == E入力デバイス種別.Joystick)
 					{
-						foreach( KeyValuePair<int, string> pair in ConfigIni.dicJoystick )
+						foreach (KeyValuePair<int, string> pair in ConfigIni.dicJoystick)
 						{
-							if( device2.GUID.Equals( pair.Value ) )
+							if (device2.GUID.Equals(pair.Value))
 							{
-								( (CInputJoystick) device2 ).SetID( pair.Key );
+								((CInputJoystick)device2).SetID(pair.Key);
 								break;
 							}
 						}
 						continue;
 					}
 				}
-				Trace.TraceInformation( "DirectInput の初期化を完了しました。" );
+				Trace.TraceInformation("DirectInput の初期化を完了しました。");
 			}
 			catch
 			{
-				Trace.TraceError( "DirectInput, MIDI入力の初期化に失敗しました。" );
+				Trace.TraceError("DirectInput, MIDI入力の初期化に失敗しました。");
 				throw;
 			}
 			finally
@@ -1727,17 +1727,17 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ Pad の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "パッドの初期化を行います。" );
+			Trace.TraceInformation("パッドの初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Pad = new CPad( ConfigIni, Input管理 );
-				Trace.TraceInformation( "パッドの初期化を完了しました。" );
+				Pad = new CPad(ConfigIni, Input管理);
+				Trace.TraceInformation("パッドの初期化を完了しました。");
 			}
-			catch( Exception exception3 )
+			catch (Exception exception3)
 			{
-				Trace.TraceError( exception3.ToString() );
-				Trace.TraceError( "パッドの初期化に失敗しました。" );
+				Trace.TraceError(exception3.ToString());
+				Trace.TraceError("パッドの初期化に失敗しました。");
 			}
 			finally
 			{
@@ -1747,12 +1747,12 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ Sound管理 の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "サウンドデバイスの初期化を行います。" );
+			Trace.TraceInformation("サウンドデバイスの初期化を行います。");
 			Trace.Indent();
 			try
 			{
 				ESoundDeviceType soundDeviceType;
-				switch ( TJAPlayer3.ConfigIni.nSoundDeviceType )
+				switch (TJAPlayer3.ConfigIni.nSoundDeviceType)
 				{
 					case 0:
 						soundDeviceType = ESoundDeviceType.DirectSound;
@@ -1773,7 +1773,7 @@ for (int i = 0; i < 3; i++) {
 				Sound管理 = new CSound管理(base.Window.Handle,
 											soundDeviceType,
 											TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
-					// CDTXMania.ConfigIni.nASIOBufferSizeMs,
+											// CDTXMania.ConfigIni.nASIOBufferSizeMs,
 											0,
 											TJAPlayer3.ConfigIni.nASIODevice,
 											TJAPlayer3.ConfigIni.bUseOSTimer
@@ -1808,7 +1808,7 @@ for (int i = 0; i < 3; i++) {
 				FDK.CSound管理.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
 				Sound管理.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
 				//FDK.CSound管理.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
-				Trace.TraceInformation( "サウンドデバイスの初期化を完了しました。" );
+				Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
 			}
 			catch (Exception e)
 			{
@@ -1822,20 +1822,20 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ Songs管理 の初期化 ]
 			//---------------------
-			Trace.TraceInformation( "曲リストの初期化を行います。" );
+			Trace.TraceInformation("曲リストの初期化を行います。");
 			Trace.Indent();
 			try
 			{
 				Songs管理 = new CSongs管理();
-//				Songs管理_裏読 = new CSongs管理();
+				//				Songs管理_裏読 = new CSongs管理();
 				EnumSongs = new CEnumSongs();
 				actEnumSongs = new CActEnumSongs();
-				Trace.TraceInformation( "曲リストの初期化を完了しました。" );
+				Trace.TraceInformation("曲リストの初期化を完了しました。");
 			}
-			catch( Exception e )
+			catch (Exception e)
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "曲リストの初期化に失敗しました。" );
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("曲リストの初期化に失敗しました。");
 			}
 			finally
 			{
@@ -1850,7 +1850,7 @@ for (int i = 0; i < 3; i++) {
 			#endregion
 			#region [ Random の初期化 ]
 			//---------------------
-			Random = new Random( (int) Timer.nシステム時刻 );
+			Random = new Random((int)Timer.nシステム時刻);
 			//---------------------
 			#endregion
 			#region [ ステージの初期化 ]
@@ -1859,7 +1859,7 @@ for (int i = 0; i < 3; i++) {
 			r直前のステージ = null;
 			stage起動 = new CStage起動();
 			stageタイトル = new CStageタイトル();
-//			stageオプション = new CStageオプション();
+			//			stageオプション = new CStageオプション();
 			stageコンフィグ = new CStageコンフィグ();
 			stage選曲 = new CStage選曲();
 			stage曲読み込み = new CStage曲読み込み();
@@ -1869,39 +1869,39 @@ for (int i = 0; i < 3; i++) {
 			stage終了 = new CStage終了();
 			stageメンテ = new CStageメンテナンス();
 			this.listトップレベルActivities = new List<CActivity>();
-			this.listトップレベルActivities.Add( actEnumSongs );
-			this.listトップレベルActivities.Add( act文字コンソール );
-			this.listトップレベルActivities.Add( stage起動 );
-			this.listトップレベルActivities.Add( stageタイトル );
-//			this.listトップレベルActivities.Add( stageオプション );
-			this.listトップレベルActivities.Add( stageコンフィグ );
-			this.listトップレベルActivities.Add( stage選曲 );
-			this.listトップレベルActivities.Add( stage曲読み込み );
-			this.listトップレベルActivities.Add( stage演奏ドラム画面 );
-			this.listトップレベルActivities.Add( stage結果 );
-			this.listトップレベルActivities.Add( stageChangeSkin );
-			this.listトップレベルActivities.Add( stage終了 );
-			this.listトップレベルActivities.Add( stageメンテ );
-			this.listトップレベルActivities.Add( actFlushGPU );
+			this.listトップレベルActivities.Add(actEnumSongs);
+			this.listトップレベルActivities.Add(act文字コンソール);
+			this.listトップレベルActivities.Add(stage起動);
+			this.listトップレベルActivities.Add(stageタイトル);
+			//			this.listトップレベルActivities.Add( stageオプション );
+			this.listトップレベルActivities.Add(stageコンフィグ);
+			this.listトップレベルActivities.Add(stage選曲);
+			this.listトップレベルActivities.Add(stage曲読み込み);
+			this.listトップレベルActivities.Add(stage演奏ドラム画面);
+			this.listトップレベルActivities.Add(stage結果);
+			this.listトップレベルActivities.Add(stageChangeSkin);
+			this.listトップレベルActivities.Add(stage終了);
+			this.listトップレベルActivities.Add(stageメンテ);
+			this.listトップレベルActivities.Add(actFlushGPU);
 			//---------------------
 			#endregion
-            #region Discordの処理
-            Discord.Initialize("692578108997632051");
+			#region Discordの処理
+			Discord.Initialize("692578108997632051");
 			StartupTime = Discord.GetUnixTime();
 			Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
 			#endregion
 
 
-			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+			Trace.TraceInformation("アプリケーションの初期化を完了しました。");
 
 
 			#region [ 最初のステージの起動 ]
 			//---------------------
-			Trace.TraceInformation( "----------------------" );
-			Trace.TraceInformation( "■ 起動" );
+			Trace.TraceInformation("----------------------");
+			Trace.TraceInformation("■ 起動");
 
 			r現在のステージ = stage起動;
-			
+
 			r現在のステージ.On活性化();
 
 			//---------------------
@@ -1911,12 +1911,20 @@ for (int i = 0; i < 3; i++) {
 		public void ShowWindowTitleWithSoundType()
 		{
 			string delay = "";
-			if ( Sound管理.GetCurrentSoundDeviceType() != "DirectSound" )
+			if (Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
 			{
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
 			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 			base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+		}
+
+		public void ChangeWindowTitle(string Name, bool AfterInitialize = true, bool Concat = true) {
+			if(AfterInitialize)
+				this.ShowWindowTitleWithSoundType();
+			if (Concat)
+				Name = Name + base.Window.Text;
+			base.Window.Text = Name;
 		}
 
 		private void t終了処理()
