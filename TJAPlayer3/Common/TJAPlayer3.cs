@@ -1919,11 +1919,11 @@ for (int i = 0; i < 3; i++) {
 			base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
-		public void ChangeWindowTitle(string Name, bool AfterInitialize = true, bool Concat = true) {
-			if(AfterInitialize)
+		public void ChangeWindowTitle(string Name, bool StringInitialize = true, bool Concat = true) {
+			if(StringInitialize)
 				this.ShowWindowTitleWithSoundType();
 			if (Concat)
-				Name = Name + base.Window.Text;
+				Name = base.Window.Text + Name;
 			base.Window.Text = Name;
 		}
 
