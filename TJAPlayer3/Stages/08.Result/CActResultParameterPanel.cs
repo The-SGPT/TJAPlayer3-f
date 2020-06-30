@@ -338,7 +338,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Result_Gauge.t2D描画( TJAPlayer3.app.Device, 559 + 591, y - 20, new Rectangle( 49, 0, 13, 40 ) );
 				if( Rate > 98 )
 					TJAPlayer3.Tx.Result_Gauge.t2D描画( TJAPlayer3.app.Device, 559 + 604, y - 20, new Rectangle( 37, 0, 12, 40 ) );
-				if( Rate > 100 )
+				if( Rate >= 100 )
 					TJAPlayer3.Tx.Result_Gauge.t2D描画( TJAPlayer3.app.Device, 559 + 616, y - 20, new Rectangle( 49, 0, 10, 40 ) );
 
 				#endregion
@@ -540,7 +540,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Result_Gauge.t2D描画(TJAPlayer3.app.Device, 559 + 591, y - 20, new Rectangle(49, 0, 13, 40));
 					if (Rate > 98)
 						TJAPlayer3.Tx.Result_Gauge.t2D描画(TJAPlayer3.app.Device, 559 + 604, y - 20, new Rectangle(37, 0, 12, 40));
-					if (Rate > 100)
+					if (Rate >= 100)
 						TJAPlayer3.Tx.Result_Gauge.t2D描画(TJAPlayer3.app.Device, 559 + 616, y - 20, new Rectangle(49, 0, 10, 40));
 
 					#endregion
