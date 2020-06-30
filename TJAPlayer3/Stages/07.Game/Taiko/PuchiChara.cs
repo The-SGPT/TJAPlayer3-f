@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using SharpDX;
 using Rectangle = System.Drawing.Rectangle;
+using System.Diagnostics;
 
 namespace TJAPlayer3
 {
@@ -32,8 +33,15 @@ namespace TJAPlayer3
 		
 		public void ChangeBPM(double bpm)
 		{
+			int n値 = Counter.n現在の値;
 			Counter = new CCounter(0, TJAPlayer3.Skin.Game_PuchiChara[2] - 1, (int)(TJAPlayer3.Skin.Game_PuchiChara_Timer * bpm / TJAPlayer3.Skin.Game_PuchiChara[2]), TJAPlayer3.Timer);
+			Counter.t時間Reset();
+			Counter.n現在の値 = n値;
+
+			double db値 = SineCounter.db現在の値;
 			SineCounter = new CCounter(1, 360, TJAPlayer3.Skin.Game_PuchiChara_SineTimer * bpm / 180, CSound管理.rc演奏用タイマ);
+			SineCounter.db現在の値 = db値;
+			SineCounter.t時間Resetdb();
 		}
 
 		/// <summary>

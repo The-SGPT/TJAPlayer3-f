@@ -234,6 +234,18 @@ namespace FDK
 		}
 
 
+		/// <summary>
+		/// 2020.06.30 Mr-Ojii 前回のt進行読み込みだと、思った動作してくれなかったので、追加。
+		/// n現在の値=0とかにしたときに一緒に使うべし。
+		/// </summary>
+		public void t時間Resetdb()
+		{
+			if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.n未使用))
+			{
+				this.db現在の経過時間 = this.timerdb.n現在時刻;
+			}
+		}
+
 
 		/// <summary>
 		/// 前回の t進行() の呼び出しからの経過時間をもとに、必要なだけカウント値を増加させる。

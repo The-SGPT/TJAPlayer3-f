@@ -216,46 +216,86 @@ namespace TJAPlayer3
 				 
 				*/
 
-
-				if( TJAPlayer3.Tx.Gauge_Base[0] != null )
+				if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 				{
-					TJAPlayer3.Tx.Gauge_Base[0].t2D描画( TJAPlayer3.app.Device, 492, 144, new Rectangle( 0, 0, 700, 44 ) );
-				}
-				if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge_Base[1] != null )
-				{
-					TJAPlayer3.Tx.Gauge_Base[1].t2D描画( TJAPlayer3.app.Device, 492, 532, new Rectangle( 0, 0, 700, 44 ) );
-				}
-				#region[ ゲージ1P ]
-				if( TJAPlayer3.Tx.Gauge[0] != null )
-				{
-					TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 492, 144, new Rectangle( 0, 0, nRectX, 44 ) );
-
-					if(TJAPlayer3.Tx.Gauge_Line[0] != null )
+					if (TJAPlayer3.Tx.Gauge_Base[0] != null)
 					{
-						if( this.db現在のゲージ値[ 0 ] >= 100.0 )
+						TJAPlayer3.Tx.Gauge_Base[0].t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, 700, 44));
+					}
+					if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge_Base[1] != null)
+					{
+						TJAPlayer3.Tx.Gauge_Base[1].t2D描画(TJAPlayer3.app.Device, 492, 532, new Rectangle(0, 0, 700, 44));
+					}
+				}
+				else
+				{
+					if (TJAPlayer3.Tx.Gauge_Base_Danc[0] != null)
+					{
+						TJAPlayer3.Tx.Gauge_Base_Danc[0].t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, 700, 44));
+					}
+					if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge_Base[1] != null)
+					{
+						TJAPlayer3.Tx.Gauge_Base_Danc[1].t2D描画(TJAPlayer3.app.Device, 492, 532, new Rectangle(0, 0, 700, 44));
+					}
+				}
+				#region[ ゲージ1P ]				
+				if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
+				{
+					if (TJAPlayer3.Tx.Gauge[0] != null)
+					{
+						TJAPlayer3.Tx.Gauge[0].t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX, 44));
+
+						if (TJAPlayer3.Tx.Gauge_Line[0] != null)
 						{
-							this.ct虹アニメ.t進行Loop();
-				this.ct虹透明度.t進行Loop();
-							if(TJAPlayer3.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ] != null )
+							if (this.db現在のゲージ値[0] >= 100.0)
 							{
-				TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].Opacity = 255;
-				TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
-								TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].Opacity = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値)/1;
-								TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
+								this.ct虹アニメ.t進行Loop();
+								this.ct虹透明度.t進行Loop();
+								if (TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
+								{
+									TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].Opacity = 255;
+									TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
+									TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].Opacity = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
+									TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
+								}
 							}
+							TJAPlayer3.Tx.Gauge_Line[0].t2D描画(TJAPlayer3.app.Device, 492, 144);
 						}
-						TJAPlayer3.Tx.Gauge_Line[0].t2D描画( TJAPlayer3.app.Device, 492, 144 );
+						#region[ 「クリア」文字 ]
+						if (this.db現在のゲージ値[0] >= 80.0)
+						{
+							TJAPlayer3.Tx.Gauge[0].t2D描画(TJAPlayer3.app.Device, 1038, 144, new Rectangle(0, 44, 58, 24));
+						}
+						else
+						{
+							TJAPlayer3.Tx.Gauge[0].t2D描画(TJAPlayer3.app.Device, 1038, 144, new Rectangle(58, 44, 58, 24));
+						}
+						#endregion
 					}
-					#region[ 「クリア」文字 ]
-					if( this.db現在のゲージ値[ 0 ] >= 80.0 )
+				}
+				else {
+
+					if (TJAPlayer3.Tx.Gauge_Danc[0] != null)
 					{
-						TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 1038, 144, new Rectangle( 0, 44, 58, 24 ) );
+						TJAPlayer3.Tx.Gauge_Danc[0].t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX, 44));
+
+						if (TJAPlayer3.Tx.Gauge_Line_Danc[0] != null)
+						{
+							if (this.db現在のゲージ値[0] >= 100.0)
+							{
+								this.ct虹アニメ.t進行Loop();
+								this.ct虹透明度.t進行Loop();
+								if (TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値] != null)
+								{
+									TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].Opacity = 255;
+									TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
+									TJAPlayer3.Tx.Gauge_Rainbow_Danc[虹ベース].Opacity = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
+									TJAPlayer3.Tx.Gauge_Rainbow_Danc[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
+								}
+							}
+							TJAPlayer3.Tx.Gauge_Line_Danc[0].t2D描画(TJAPlayer3.app.Device, 492, 144);
+						}
 					}
-					else
-					{
-						TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 1038, 144, new Rectangle( 58, 44, 58, 24 ) );
-					}
-					#endregion
 				}
 				#endregion
 				#region[ ゲージ2P ]

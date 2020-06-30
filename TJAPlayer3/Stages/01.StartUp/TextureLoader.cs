@@ -476,9 +476,31 @@ namespace TJAPlayer3
 			Gauge_Soul_Explosion = new CTexture[2];
 			Gauge_Soul_Explosion[0] = TxC(GAME + GAUGE + @"1P_Explosion.png");
 			Gauge_Soul_Explosion[1] = TxC(GAME + GAUGE + @"2P_Explosion.png");
-			#endregion
-			#region 吹き出し
-			Balloon_Combo = new CTexture[2];
+
+            #region[Gauge_DanC]
+            Gauge_Danc = new CTexture[2];
+			Gauge_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P.png");
+			Gauge_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P.png");
+			Gauge_Base_Danc = new CTexture[2];
+			Gauge_Base_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P_Base.png");
+			Gauge_Base_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P_Base.png");
+			Gauge_Line_Danc = new CTexture[2];
+			Gauge_Line_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P_Line.png");
+			Gauge_Line_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P_Line.png");
+			TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"DanC\" + @"Rainbow\"));
+			if (TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn != 0)
+			{
+				Gauge_Rainbow_Danc = new CTexture[TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn];
+				for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn; i++)
+				{
+					Gauge_Rainbow_Danc[i] = TxC(GAME + GAUGE + @"DanC\" + @"Rainbow\" + i.ToString() + ".png");
+				}
+			}
+            #endregion
+
+            #endregion
+            #region 吹き出し
+            Balloon_Combo = new CTexture[2];
 			Balloon_Combo[0] = TxC(GAME + BALLOON + @"Combo_1P.png");
 			Balloon_Combo[1] = TxC(GAME + BALLOON + @"Combo_2P.png");
 			Balloon_Roll = TxC(GAME + BALLOON + @"Roll.png");
@@ -913,9 +935,23 @@ namespace TJAPlayer3
 			TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Fire);
 			TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Explosion[0]);
 			TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Explosion[1]);
-			#endregion
-			#region 吹き出し
-			TJAPlayer3.tテクスチャの解放(ref Balloon_Combo[0]);
+
+            #region[Gauge_DanC]
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Danc[0]);
+			TJAPlayer3.tテクスチャの解放(ref Gauge_Danc[1]);
+			TJAPlayer3.tテクスチャの解放(ref Gauge_Base_Danc[0]);
+			TJAPlayer3.tテクスチャの解放(ref Gauge_Base_Danc[1]);
+			TJAPlayer3.tテクスチャの解放(ref Gauge_Line_Danc[0]);
+			TJAPlayer3.tテクスチャの解放(ref Gauge_Line_Danc[1]);
+			for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn; i++)
+			{
+				TJAPlayer3.tテクスチャの解放(ref Gauge_Rainbow_Danc[i]);
+			}
+            #endregion
+
+            #endregion
+            #region 吹き出し
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Combo[0]);
 			TJAPlayer3.tテクスチャの解放(ref Balloon_Combo[1]);
 			TJAPlayer3.tテクスチャの解放(ref Balloon_Roll);
 			TJAPlayer3.tテクスチャの解放(ref Balloon_Balloon);
@@ -1248,7 +1284,11 @@ namespace TJAPlayer3
 			Gauge_Base,
 			Gauge_Line,
 			Gauge_Rainbow,
-			Gauge_Soul_Explosion;
+			Gauge_Soul_Explosion,
+			Gauge_Danc,
+			Gauge_Base_Danc,
+			Gauge_Line_Danc,
+			Gauge_Rainbow_Danc;
 		public CTexture Gauge_Soul,
 			Gauge_Soul_Fire;
 		#endregion
