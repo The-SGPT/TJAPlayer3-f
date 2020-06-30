@@ -620,7 +620,7 @@ namespace TJAPlayer3
 		public bool bLogDTX詳細ログ出力;
 		public bool bLog曲検索ログ出力;
 		public bool bLog作成解放ログ出力;
-		//public STDGBVALUE<E判定表示優先度> e判定表示優先度;
+
 		public E判定表示優先度 e判定表示優先度;
 		public bool bScoreIniを出力する;
 		public bool bSTAGEFAILED有効;
