@@ -768,7 +768,6 @@ namespace TJAPlayer3
 //		public int nハイハット切り捨て下限Velocity;
 //		public int n切り捨て下限Velocity;			// #23857 2010.12.12 yyagi VelocityMin
 		public int nInputAdjustTimeMs;
-		public STDGBVALUE<int> nJudgeLinePosOffset;	// #31602 2013.6.23 yyagi 判定ライン表示位置のオフセット
 		public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
 		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 		public bool bバッファ入力を行う;
@@ -1019,7 +1018,6 @@ namespace TJAPlayer3
 			this.判定文字表示位置 = new E判定文字表示位置();
 			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
 			this.nInputAdjustTimeMs = 0;
-			this.nJudgeLinePosOffset = new STDGBVALUE<int>();	// #31602 2013.6.23 yyagi
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			this.eRandom[0] = Eランダムモード.OFF;
 			this.eRandom[1] = Eランダムモード.OFF;
@@ -1028,7 +1026,6 @@ namespace TJAPlayer3
 			{
 				this.n譜面スクロール速度[0][ i ] = 9;
 				this.n譜面スクロール速度[1][ i ] = 9;
-				this.nJudgeLinePosOffset[ i ] = 0;
 				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
 			}
 			this.n演奏速度 = 20;
@@ -1427,11 +1424,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 判定タイミング調整(-99～99)[ms]" );
 			sw.WriteLine("; Revision value to adjust judgment timing.");	//
 			sw.WriteLine("InputAdjustTime={0}", this.nInputAdjustTimeMs);		//
-			sw.WriteLine();
-
-			sw.WriteLine( "; 判定ラインの表示位置調整(ドラム)(-99～99)[px]" );	// #31602 2013.6.23 yyagi 判定ラインの表示位置オフセット
-			sw.WriteLine( "; Offset value to adjust displaying judgement line for the drums." );	//
-			sw.WriteLine( "JudgeLinePosOffsetDrums={0}",  this.nJudgeLinePosOffset.Drums );		//		
 			sw.WriteLine();
 			#endregion
 			sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON)" );
@@ -2074,10 +2066,6 @@ namespace TJAPlayer3
 											else if( str3.Equals( "InputAdjustTime" ) )
 											{
 												this.nInputAdjustTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs );
-											}
-											else if ( str3.Equals( "JudgeLinePosOffsetDrums" ) )		// #31602 2013.6.23 yyagi
-											{
-												this.nJudgeLinePosOffset.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nJudgeLinePosOffset.Drums );
 											}
 											#endregion
 											else if( str3.Equals( "BufferedInput" ) )

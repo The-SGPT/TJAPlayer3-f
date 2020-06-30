@@ -156,7 +156,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		public virtual int t進行描画( C演奏判定ライン座標共通 演奏判定ライン座標共通 )
+		public virtual int t進行描画()
 		{
 			return 0;
 		}

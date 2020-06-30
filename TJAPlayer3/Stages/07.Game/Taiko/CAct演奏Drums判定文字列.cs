@@ -20,9 +20,9 @@ namespace TJAPlayer3
 		// CActivity 実装（共通クラスからの差分のみ）
 		public override int On進行描画()
 		{
-			throw new InvalidOperationException( "t進行描画(C演奏判定ライン座標共通 演奏判定ライン共通 ) のほうを使用してください。" );
+			throw new InvalidOperationException( "t進行描画() のほうを使用してください。" );
 		}
-		public override int t進行描画( C演奏判定ライン座標共通 演奏判定ライン座標 )
+		public override int t進行描画()
 		{
 			if( !base.b活性化してない )
 			{
