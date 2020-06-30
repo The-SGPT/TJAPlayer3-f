@@ -1002,7 +1002,13 @@ namespace TJAPlayer3
 								}
 								if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && TJAPlayer3.ConfigIni.b大音符判定 )
 								{
-									if( chipNoHit.eNoteState == ENoteState.none )
+									if (e判定 == E判定.Poor) 
+									{
+										this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer);
+										bHitted = true;
+										this.nWaitButton = 0;
+									}
+									else if( chipNoHit.eNoteState == ENoteState.none )
 									{
 										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										if (time <= 110)
@@ -1061,7 +1067,13 @@ namespace TJAPlayer3
 								}
 								if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && TJAPlayer3.ConfigIni.b大音符判定 )
 								{
-									if( chipNoHit.eNoteState == ENoteState.none )
+									if (e判定 == E判定.Poor)
+									{
+										this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer);
+										bHitted = true;
+										this.nWaitButton = 0;
+									}
+									else if ( chipNoHit.eNoteState == ENoteState.none )
 									{
 										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										if( time <= 110 )
@@ -1123,7 +1135,13 @@ namespace TJAPlayer3
 								}
 								if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && TJAPlayer3.ConfigIni.b大音符判定 )
 								{
-									if( chipNoHit.eNoteState == ENoteState.none )
+									if (e判定 == E判定.Poor)
+									{
+										this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer);
+										bHitted = true;
+										this.nWaitButton = 0;
+									}
+									else if ( chipNoHit.eNoteState == ENoteState.none )
 									{
 										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										if( time <= 110 )
@@ -1182,7 +1200,13 @@ namespace TJAPlayer3
 								}
 								if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && TJAPlayer3.ConfigIni.b大音符判定 )
 								{
-									if( chipNoHit.eNoteState == ENoteState.none )
+									if (e判定 == E判定.Poor)
+									{
+										this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer);
+										bHitted = true;
+										this.nWaitButton = 0;
+									}
+									else if ( chipNoHit.eNoteState == ENoteState.none )
 									{
 										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										if( time <= 110 )
