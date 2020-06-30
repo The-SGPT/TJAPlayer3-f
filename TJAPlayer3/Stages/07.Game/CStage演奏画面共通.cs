@@ -182,19 +182,10 @@ namespace TJAPlayer3
 			}
 
 			cInvisibleChip = new CInvisibleChip( TJAPlayer3.ConfigIni.nDisplayTimesMs, TJAPlayer3.ConfigIni.nFadeoutTimeMs );
-			this.演奏判定ライン座標 = new C演奏判定ライン座標共通();
 			this.nヒット数_Auto含まない[0] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含まない[1] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含む[0] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含む[1] = new CHITCOUNTOFRANK();
-			for ( int k = 0; k < 4; k++ )
-			{
-				//this.nJudgeLinePosY_delta[ k ] = CDTXMania.ConfigIni.nJudgeLinePosOffset[ k ];		// #31602 2013.6.23 yyagi
-
-				this.演奏判定ライン座標.nJudgeLinePosY_delta[ k ] = TJAPlayer3.ConfigIni.nJudgeLinePosOffset[ k ];
-
-			}
-			actCombo.演奏判定ライン座標 = 演奏判定ライン座標;
 
 			this.b演奏にキーボードを使った = false;
 			this.b演奏にジョイパッドを使った = false;
@@ -458,7 +449,6 @@ namespace TJAPlayer3
 		public CAct演奏ステージ失敗 actStageFailed;
 		protected CAct演奏ステータスパネル共通 actStatusPanels;
 		protected CAct演奏スクロール速度 act譜面スクロール速度;
-		public    C演奏判定ライン座標共通 演奏判定ライン座標;
 		protected CAct演奏Drums連打 actRoll;
 		protected CAct演奏Drums風船 actBalloon;
 		public CAct演奏Drumsキャラクター actChara;
@@ -4468,20 +4458,20 @@ namespace TJAPlayer3
 		
 		protected void t進行描画_判定文字列()
 		{
-			this.actJudgeString.t進行描画( 演奏判定ライン座標 );
+			this.actJudgeString.t進行描画();
 		}
 		protected void t進行描画_判定文字列1_通常位置指定の場合()
 		{
 			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
-				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
+				this.actJudgeString.t進行描画();
 			}
 		}
 		protected void t進行描画_判定文字列2_判定ライン上指定の場合()
 		{
 			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
-				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
+				this.actJudgeString.t進行描画();
 			}
 		}
 
