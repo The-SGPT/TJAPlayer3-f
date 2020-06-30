@@ -20,12 +20,14 @@ DirectX 9c
 一部画像は、TJAPlayer3のデフォルトスキンから流用しています。
 SkinConfig.iniのパラメータも追加しています。
 追加したパラメータは、Systemフォルダ内の「SkinConfig.iniについて.txt」の下部に記載しています。
-作成ツール : AviUtl/GIMP
 
 スキンのサウンドについては徐々に自作にすり替えていきます。  
 耳コピできないので、Domino & Softalkで適当に作った音声類になると思います。
 
-==追加命令==
+スキン作成ツール : AviUtl/Blender/FFmpeg/GIMP/Domino/Audacity/Softalk/UTAU & それぞれのソフトのプラグインなど
+とてもお世話になっています。ありがとうございます。
+
+==追加命令について==
 「追加命令について.md」で説明いたします。
 
 ==エラーについて==
