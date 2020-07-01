@@ -525,7 +525,10 @@ namespace TJAPlayer3
 				}
 
 				this.actPanel.t歌詞テクスチャを描画する();
-				actChara.OnDraw_Balloon();
+
+				if (TJAPlayer3.ConfigIni.ShowChara)
+					actChara.OnDraw_Balloon();
+
 				this.t全体制御メソッド();
 
 				
