@@ -218,7 +218,6 @@
     <Compile Include="Stages\07.Game\CAct演奏レーンフラッシュGB共通.cs" />
     <Compile Include="Stages\07.Game\CAct演奏判定文字列共通.cs" />
     <Compile Include="Stages\07.Game\CAct演奏演奏情報.cs" />
-    <Compile Include="Stages\07.Game\CInvisibleChip.cs" />
     <Compile Include="Stages\07.Game\CLagLogger.cs" />
     <Compile Include="Stages\07.Game\CStage演奏画面共通.cs" />
     <Compile Include="Stages\07.Game\Taiko\Dan_Cert.cs" />
