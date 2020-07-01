@@ -18,10 +18,7 @@ namespace TJAPlayer3
 		public STDGBVALUE<float> fGood率;
 		public STDGBVALUE<float> fPoor率;
 		public STDGBVALUE<float> fMiss率;
-		public STDGBVALUE<bool> bオート;        // #23596 10.11.16 add ikanick
-												//        10.11.17 change (int to bool) ikanick
 		public STDGBVALUE<int> nランク値;
-		public STDGBVALUE<int> n演奏回数;
 		public int n総合ランク値;
 		public CDTX.CChip[] r空うちドラムチップ;
 		public CScoreIni.C演奏記録[] st演奏記録;
@@ -101,8 +98,6 @@ namespace TJAPlayer3
 						this.fGood率[ i ] = bIsAutoPlay ? 0f : ( ( 100f * part.nGood数 ) / ( (float) part.n全チップ数 ) );
 						this.fPoor率[ i ] = bIsAutoPlay ? 0f : ( ( 100f * part.nPoor数 ) / ( (float) part.n全チップ数 ) );
 						this.fMiss率[ i ] = bIsAutoPlay ? 0f : ( ( 100f * part.nMiss数 ) / ( (float) part.n全チップ数 ) );
-						this.bオート[ i ] = bIsAutoPlay;	// #23596 10.11.16 add ikanick そのパートがオートなら1
-															//        10.11.17 change (int to bool) ikanick
 						this.nランク値[ i ] = CScoreIni.tランク値を計算して返す( part );
 					}
 				}
@@ -181,12 +176,6 @@ namespace TJAPlayer3
 				//---------------------
 				#endregion
 
-				#region [ リザルト画面への演奏回数の更新 #24281 2011.1.30 yyagi]
-				if ( TJAPlayer3.ConfigIni.bScoreIniを出力する )
-				{
-					this.n演奏回数.Drums = ini.stファイル.PlayCountDrums;
-				}
-				#endregion
 				#region [ 選曲画面の譜面情報の更新 ]
 				//---------------------
 

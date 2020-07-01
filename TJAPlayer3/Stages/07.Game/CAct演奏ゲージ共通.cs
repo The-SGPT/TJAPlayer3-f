@@ -403,17 +403,13 @@ namespace TJAPlayer3
 		// ----------------------------------
 #endregion
 #endif
-
-		public void Damage(int nHitCourse, E楽器パート screenmode, E楽器パート part, E判定 e今回の判定, int nPlayer)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
+		public void Damage(int nHitCourse, E判定 e今回の判定, int nPlayer)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 		{
 			float fDamage;
 			//現在のコースを当てるのではなくヒットしたノーツのコースを当ててあげる.2020.04.21.akasoko26
 			var nコース = nHitCourse;
 
 
-
-
-#if true  // DAMAGELEVELTUNING
 			switch ( e今回の判定 )
 			{
 				case E判定.Perfect:
@@ -476,51 +472,7 @@ namespace TJAPlayer3
 							fDamage = 0;
 						break;
 					}
-
-
 			}
-#else													// before applying #23625 modifications
-			switch (e今回の判定)
-			{
-				case E判定.Perfect:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.01 : 0.015;
-					break;
-
-				case E判定.Great:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.006 : 0.009;
-					break;
-
-				case E判定.Good:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.002 : 0.003;
-					break;
-
-				case E判定.Poor:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.0 : 0.0;
-					break;
-
-				case E判定.Miss:
-					fDamage = ( part == E楽器パート.DRUMS ) ? -0.035 : -0.035;
-					switch( CDTXMania.ConfigIni.eダメージレベル )
-					{
-						case Eダメージレベル.少ない:
-							fDamage *= 0.6;
-							break;
-
-						case Eダメージレベル.普通:
-							fDamage *= 1.0;
-							break;
-
-						case Eダメージレベル.大きい:
-							fDamage *= 1.6;
-							break;
-					}
-					break;
-
-				default:
-					fDamage = 0.0;
-					break;
-			}
-#endif
 			
 
 			this.db現在のゲージ値[ nPlayer ] = Math.Round(this.db現在のゲージ値[ nPlayer ] + fDamage, 5, MidpointRounding.ToEven);
@@ -529,8 +481,6 @@ namespace TJAPlayer3
 				this.db現在のゲージ値[nPlayer] = 100.0;
 			else if (this.db現在のゲージ値[nPlayer] <= 0.0)
 				this.db現在のゲージ値[nPlayer] = 0.0;
-
-			//CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
 
 		}
 

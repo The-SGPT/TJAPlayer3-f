@@ -178,7 +178,6 @@ namespace TJAPlayer3
 				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
 			}
 
-			cInvisibleChip = new CInvisibleChip( TJAPlayer3.ConfigIni.nDisplayTimesMs, TJAPlayer3.ConfigIni.nFadeoutTimeMs );
 			this.nヒット数_Auto含まない[0] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含まない[1] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含む[0] = new CHITCOUNTOFRANK();
@@ -190,7 +189,6 @@ namespace TJAPlayer3
 			this.b演奏にマウスを使った = false;
 
 			this.bAUTOでないチップが１つでもバーを通過した = false;
-			cInvisibleChip.Reset();
 			base.On活性化();
 			this.tステータスパネルの選択();
 			this.tパネル文字列の設定();
@@ -304,8 +302,6 @@ namespace TJAPlayer3
 			listChip = null;
 			queueMixerSound.Clear();
 			queueMixerSound = null;
-			cInvisibleChip.Dispose();
-			cInvisibleChip = null;
 //			GCSettings.LatencyMode = this.gclatencymode;
 
 			var meanLag = CLagLogger.LogAndReturnMeanLag();
@@ -499,7 +495,6 @@ namespace TJAPlayer3
 		protected int nPolyphonicSounds;
 		protected List<CDTX.CChip>[] listChip = new List<CDTX.CChip>[4];
 		protected Dictionary<int, CDTX.CWAV> listWAV;
-		protected CInvisibleChip cInvisibleChip;
 		protected bool bUseOSTimer;
 		protected E判定表示優先度 e判定表示優先度;
 
@@ -1312,7 +1307,7 @@ namespace TJAPlayer3
 			{
 				if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F)
 				{
-						actGauge.Damage(pChip.nコース,screenmode, pChip.e楽器パート, eJudgeResult, nPlayer);
+						actGauge.Damage(pChip.nコース, eJudgeResult, nPlayer);
 				}
 
 			}
@@ -1368,7 +1363,6 @@ namespace TJAPlayer3
 					this.bIsAlreadyCleared[nPlayer] = false;
 					//CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
 				}
-				cInvisibleChip.ShowChipTemporally( pChip.e楽器パート );
 			}
 			switch ( pChip.e楽器パート )
 			{
@@ -1839,15 +1833,14 @@ namespace TJAPlayer3
 			}
 		}
 
-		protected void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part, int nLane, E楽器パート screenmode)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
+		protected void tチップのヒット処理_BadならびにTight時のMiss(int nCource, E楽器パート part)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 		{
 			//まだpChipでのチャンネル判別に対応していない。
 
 			this.bAUTOでないチップが１つでもバーを通過した = true;
-			cInvisibleChip.ShowChipTemporally( part );
 
 			//ChipのCourseをベースにゲージの伸びを調節
-			actGauge.Damage(nCource, screenmode, part, E判定.Miss, 0 );
+			actGauge.Damage(nCource, E判定.Miss, 0 );
 			switch ( part )
 			{
 				case E楽器パート.DRUMS:
