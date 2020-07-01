@@ -13,7 +13,6 @@ namespace TJAPlayer3
 		public enum Eノード種別
 		{
 			SCORE,
-			SCORE_MIDI,
 			BOX,
 			BACKBOX,
 			RANDOM,

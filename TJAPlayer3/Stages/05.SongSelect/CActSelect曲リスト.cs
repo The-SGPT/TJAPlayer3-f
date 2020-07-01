@@ -2273,7 +2273,6 @@ namespace TJAPlayer3
 				switch (song.eノード種別)
 				{
 					case C曲リストノード.Eノード種別.SCORE:
-					case C曲リストノード.Eノード種別.SCORE_MIDI:
 						return Eバー種別.Score;
 
 					case C曲リストノード.Eノード種別.BOX:
