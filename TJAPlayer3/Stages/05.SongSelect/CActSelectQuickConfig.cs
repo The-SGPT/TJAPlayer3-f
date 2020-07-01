@@ -55,7 +55,7 @@ namespace TJAPlayer3
 			#region [ 共通 Target/AutoMode/AutoLane ]
 			#endregion
 			#region [ 個別 ScrollSpeed ]
-			l.Add( new CItemInteger( "ばいそく", 0, 1999, TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][ nInst ],
+			l.Add( new CItemInteger( "ばいそく", 0, 1999, TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer],
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
 				"x0.1 ～ x200.0 を指定可能です。",
@@ -127,7 +127,7 @@ namespace TJAPlayer3
 			switch ( n現在の選択行 )
 			{
 				case (int) EOrder.ScrollSpeed:
-					TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][ nCurrentTarget ] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
+					TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
 					break;
 				case (int) EOrder.PlaySpeed:
 					TJAPlayer3.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
@@ -241,7 +241,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private int nCurrentTarget = 0;
 		private int nCurrentConfigSet = 0;
 		private List<List<List<CItemBase>>> lci;		// DrGtBs, ConfSet, 選択肢一覧。都合、3次のListとなる。
 		private enum EOrder : int

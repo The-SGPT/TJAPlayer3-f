@@ -36,7 +36,7 @@ namespace TJAPlayer3
 				if( this.txオプションパネル != null )
 				{
 					#region [ ScrollSpeed ]
-					int drums = configIni.n譜面スクロール速度[0].Drums;
+					int drums = configIni.n譜面スクロール速度[0];
 					if( drums > 15 )
 					{
 						drums = 15;

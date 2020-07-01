@@ -786,11 +786,11 @@ namespace TJAPlayer3
 
 		protected override void ドラムスクロール速度アップ(int nPlayer)
 		{
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer].Drums = Math.Min( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer].Drums + 1, 1999 );
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] = Math.Min( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1, 1999 );
 		}
 		protected override void ドラムスクロール速度ダウン(int nPlayer)
 		{
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer].Drums = Math.Max( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer].Drums - 1, 0 );
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] = Math.Max( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] - 1, 0 );
 		}
 
 	

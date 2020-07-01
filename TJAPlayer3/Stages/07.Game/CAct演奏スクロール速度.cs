@@ -30,7 +30,7 @@ namespace TJAPlayer3
 			{
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
-					this.db現在の譜面スクロール速度[nPlayer][i] = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][i];
+					this.db現在の譜面スクロール速度[nPlayer][i] = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer];
 					this.n速度変更制御タイマ[nPlayer][i] = -1;
 				}
 			}
@@ -54,7 +54,7 @@ namespace TJAPlayer3
 				{
 					for (int i = 0; i < 3; i++)
 					{
-						double db譜面スクロールスピード = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][i];
+						double db譜面スクロールスピード = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer];
 						if (n現在時刻 < this.n速度変更制御タイマ[nPlayer][i])
 						{
 							this.n速度変更制御タイマ[nPlayer][i] = n現在時刻;
