@@ -1497,7 +1497,7 @@ namespace TJAPlayer3
 			{
 				foreach( C曲リストノード c曲リストノード in TJAPlayer3.Songs管理.list曲ルート )
 				{
-					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ) || ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
+					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ))
 					{
 						list.Add( c曲リストノード );
 					}
@@ -1517,7 +1517,7 @@ namespace TJAPlayer3
 			{
 				foreach( C曲リストノード c曲リストノード in r親.list子リスト )
 				{
-					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ) || ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
+					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ))
 					{
 						list.Add( c曲リストノード );
 					}

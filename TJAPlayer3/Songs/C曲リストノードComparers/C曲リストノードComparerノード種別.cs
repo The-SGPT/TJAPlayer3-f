@@ -17,7 +17,6 @@ namespace TJAPlayer3.C曲リストノードComparers
 				case C曲リストノード.Eノード種別.BOX:
 					return 0;
 				case C曲リストノード.Eノード種別.SCORE:
-				case C曲リストノード.Eノード種別.SCORE_MIDI:
 					return 1;
 				case C曲リストノード.Eノード種別.UNKNOWN:
 					return 2;

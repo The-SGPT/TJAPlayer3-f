@@ -307,10 +307,6 @@ namespace TJAPlayer3
 						str = c曲リストノード.strジャンル;
 						break;
 
-					case C曲リストノード.Eノード種別.SCORE_MIDI:
-						str = "MIDI";
-						break;
-
 					case C曲リストノード.Eノード種別.BOX:
 						str = "MusicBox";
 						break;
