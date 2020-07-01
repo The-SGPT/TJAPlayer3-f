@@ -169,7 +169,7 @@ namespace TJAPlayer3
 			public Eダークモード eDark;
 			public Eランダムモード eRandom;
 			public Eダメージレベル eダメージレベル;
-			public STDGBVALUE<float> f譜面スクロール速度;
+			public float f譜面スクロール速度;
 			public string Hash;
 			public int nGoodになる範囲ms;
 			public int nGood数;
@@ -207,10 +207,8 @@ namespace TJAPlayer3
 			public C演奏記録()
 			{
 				this.eRandom = Eランダムモード.OFF;
-				this.f譜面スクロール速度 = new STDGBVALUE<float>();
-				this.f譜面スクロール速度.Drums = 1f;
-				this.f譜面スクロール速度.Guitar = 1f;
-				this.f譜面スクロール速度.Bass = 1f;
+				this.f譜面スクロール速度 = new float();
+				this.f譜面スクロール速度 = 1f;
 				this.n演奏速度分子 = 20;
 				this.n演奏速度分母 = 20;
 				this.bDrums有効 = true;
@@ -657,19 +655,7 @@ namespace TJAPlayer3
 									#region [ ScrollSpeedDrums ]
 									if ( item.Equals( "ScrollSpeedDrums" ) )
 									{
-										c演奏記録.f譜面スクロール速度.Drums = (float) decimal.Parse( para );
-									}
-									#endregion
-									#region [ ScrollSpeedGuitar ]
-									else if ( item.Equals( "ScrollSpeedGuitar" ) )
-									{
-										c演奏記録.f譜面スクロール速度.Guitar = (float) decimal.Parse( para );
-									}
-									#endregion
-									#region [ ScrollSpeedBass ]
-									else if ( item.Equals( "ScrollSpeedBass" ) )
-									{
-										c演奏記録.f譜面スクロール速度.Bass = (float) decimal.Parse( para );
+										c演奏記録.f譜面スクロール速度 = (float) decimal.Parse( para );
 									}
 									#endregion
 									#region [ PlaySpeed ]
@@ -895,9 +881,7 @@ namespace TJAPlayer3
 					writer.WriteLine("TightDrums={0}", this.stセクション[i].bTight ? 1 : 0);
 					writer.WriteLine("RandomDrums={0}", (int)this.stセクション[i].eRandom);
 					writer.WriteLine("Dark={0}", (int)this.stセクション[i].eDark);
-					writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度.Drums);
-					writer.WriteLine("ScrollSpeedGuitar={0}", this.stセクション[i].f譜面スクロール速度.Guitar);
-					writer.WriteLine("ScrollSpeedBass={0}", this.stセクション[i].f譜面スクロール速度.Bass);
+					writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度);
 					writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
 					writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
 					writer.WriteLine("StageFailed={0}", this.stセクション[i].bSTAGEFAILED有効 ? 1 : 0);
@@ -1073,9 +1057,7 @@ namespace TJAPlayer3
 			builder.Append( cc.n全チップ数 );
 			builder.Append( boolToChar( cc.bTight ) );
 			builder.Append( (int) cc.eDark );
-			builder.Append( cc.f譜面スクロール速度.Drums.ToString( ".000000" ) );
-			builder.Append( cc.f譜面スクロール速度.Guitar.ToString( ".000000" ) );
-			builder.Append( cc.f譜面スクロール速度.Bass.ToString( ".000000" ) );
+			builder.Append( cc.f譜面スクロール速度.ToString( ".000000" ) );
 			builder.Append( cc.n演奏速度分子 );
 			builder.Append( cc.n演奏速度分母 );
 			builder.Append( boolToChar( cc.bDrums有効 ) );

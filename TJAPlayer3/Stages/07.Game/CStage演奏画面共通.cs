@@ -52,10 +52,7 @@ namespace TJAPlayer3
 				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
 				Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
 				//Drums.eInvisible = TJAPlayer3.ConfigIni.eInvisible;
-				for ( int i = 0; i < 3; i++ )
-				{
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][ i ] + 1 ) ) * 0.1f;
-				}
+				Drums.f譜面スクロール速度 = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer][ 0 ] + 1 ) ) * 0.1f;
 				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
