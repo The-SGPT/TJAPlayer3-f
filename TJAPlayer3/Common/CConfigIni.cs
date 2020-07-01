@@ -715,7 +715,7 @@ namespace TJAPlayer3
 		}
 
 		public int n表示可能な最小コンボ数;
-		public STDGBVALUE<int>[] n譜面スクロール速度;
+		public int[] n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
 		public string FontName;
@@ -1016,18 +1016,15 @@ namespace TJAPlayer3
 			this.bログ出力 = true;
 			this.eRandom = new Eランダムモード[2];
 			this.判定文字表示位置 = new E判定文字表示位置();
-			this.n譜面スクロール速度 = new STDGBVALUE<int>[2];
+			this.n譜面スクロール速度 = new int[2];
 			this.nInputAdjustTimeMs = 0;
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			this.eRandom[0] = Eランダムモード.OFF;
 			this.eRandom[1] = Eランダムモード.OFF;
 			this.判定文字表示位置 = E判定文字表示位置.レーン上;
-			for ( int i = 0; i < 3; i++ )
-			{
-				this.n譜面スクロール速度[0][ i ] = 9;
-				this.n譜面スクロール速度[1][ i ] = 9;
-				//this.e判定表示優先度[ i ] = E判定表示優先度.Chipより下;
-			}
+			this.n譜面スクロール速度[0] = 9;
+			this.n譜面スクロール速度[1] = 9;
+
 			this.n演奏速度 = 20;
 			#region [ AutoPlay ]
 			this.b太鼓パートAutoPlay[0] = true;
@@ -1531,8 +1528,8 @@ namespace TJAPlayer3
 			sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 14:x1.5,…,1999:x200.0)" );
-			sw.WriteLine( "1PDrumsScrollSpeed={0}", this.n譜面スクロール速度[0].Drums );
-			sw.WriteLine( "2PDrumsScrollSpeed={0}", this.n譜面スクロール速度[1].Drums);
+			sw.WriteLine( "1PDrumsScrollSpeed={0}", this.n譜面スクロール速度[0]);
+			sw.WriteLine( "2PDrumsScrollSpeed={0}", this.n譜面スクロール速度[1]);
 			sw.WriteLine();
 			sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );
 			sw.WriteLine( "PlaySpeed={0}", this.n演奏速度 );
@@ -2227,11 +2224,11 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{
-												this.n譜面スクロール速度[0].Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0].Drums );
+												this.n譜面スクロール速度[0] = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0] );
 											}
 											else if (str3.Equals( "2PDrumsScrollSpeed" ) )
 											{
-												this.n譜面スクロール速度[1].Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[1].Drums );
+												this.n譜面スクロール速度[1] = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[1] );
 											}
 											else if( str3.Equals( "PlaySpeed" ) )
 											{

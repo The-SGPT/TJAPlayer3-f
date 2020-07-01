@@ -543,7 +543,7 @@ namespace TJAPlayer3
 			this.list項目リスト.Add( this.iTaikoAutoRoll );
 			#endregion
 
-			this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[0].Drums,
+			this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[0],
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
 				"x0.1 ～ x200.0 を指定可能です。",
@@ -553,7 +553,7 @@ namespace TJAPlayer3
 				"(ScrollSpeed=x0.5 means half speed)" );
 			this.list項目リスト.Add( this.iDrumsScrollSpeed1P );
 
-			this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[1].Drums,
+			this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[1],
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
 				"x0.1 ～ x200.0 を指定可能です。",
@@ -1764,8 +1764,8 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = this.iTaikoAutoPlay2P.bON;
 			TJAPlayer3.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[0].Drums = this.iDrumsScrollSpeed1P.n現在の値;
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[1].Drums = this.iDrumsScrollSpeed2P.n現在の値;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[0] = this.iDrumsScrollSpeed1P.n現在の値;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[1] = this.iDrumsScrollSpeed2P.n現在の値;
 			//CDTXMania.ConfigIni.bドラムコンボ表示 = this.iDrumsComboDisp.bON;
 			// "Sudden" || "Sud+Hid"
 			//CDTXMania.ConfigIni.bSudden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 1 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
