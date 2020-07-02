@@ -17,14 +17,6 @@ namespace TJAPlayer3
 		#region [ 二重起動チェック]
 		//-----------------------------
 		private static Mutex mutex二重起動防止用;
-
-		#region [DllImport]
-		[DllImport( "kernel32", CharSet = CharSet.Unicode, SetLastError = true )]
-		internal static extern void FreeLibrary( IntPtr hModule );
-
-		[DllImport( "kernel32", CharSet = CharSet.Unicode, SetLastError = true )]
-		internal static extern IntPtr LoadLibrary( string lpFileName );
-		#endregion
 		//-----------------------------
 		#endregion
 
@@ -128,28 +120,11 @@ namespace TJAPlayer3
 			}
 			else		// DTXManiaが既に起動中
 			{
-				//多重起動の回数の記録のためだけにレジストリを使っています。2020.04.07 Mr-Ojii
-				Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\tjaplayer3f");
-				int times = (int)regkey.GetValue("Times", 0);
-				times++;
-				if (times >= 20) {
-					times = 0;
+				DialogResult dr = MessageBox.Show("すでにTJAPlayer3-fが起動していますが、起動しますか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+				if (dr == DialogResult.Yes) { 
+				
 				}
-				regkey.SetValue("Times", times);
-				string hyoujimoji = "一応の文字";
-				if (times >= 10)
-				{
-					hyoujimoji = "何回も言わせるんじゃないよ。\nこのスカポンタン。\n多重起動はできないって言ってるでしょ。";
-				}
-				else if(times >= 5)
-				{
-					hyoujimoji = "何回言えばいいんでしょうか。\n多重起動はできませんよ。";
-				}
-				else
-				{
-					hyoujimoji = "多重起動はできないよ。";
-				}
-				MessageBox.Show(hyoujimoji, "注意", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
 			}
 		}
 	}
