@@ -1493,20 +1493,25 @@ for (int i = 0; i < 3; i++) {
 			//---------------------
 			Trace.AutoFlush = true;
 			if (ConfigIni.bログ出力)
-			{
-				try
+			{ 
+				bool log出力ok = false;
+				int num = 0;
+				while (!log出力ok)
 				{
-					Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
-				}
-				catch (System.UnauthorizedAccessException)          // #24481 2011.2.20 yyagi
-				{
-					int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
-					string[] mes_writeErr = {
-						"TJAPlayer3-f.logへの書き込みができませんでした。書き込みできるようにしてから、再度起動してください。",
-						"Failed to write TJAPlayer3-f.log. Please set it writable and try again."
-					};
-					MessageBox.Show(mes_writeErr[c], "DTXMania boot error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Environment.Exit(1);
+					try
+					{
+						string logname;
+						if (num == 0)
+							logname = "TJAPlayer3-f.log";
+						else
+							logname = "TJAPlayer3-f_" + num.ToString() + ".log";
+						Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, logname), false, new UTF8Encoding(false))));
+						log出力ok = true;
+					}
+					catch (Exception)
+					{
+						num++;
+					}
 				}
 			}
 			Trace.WriteLine("");

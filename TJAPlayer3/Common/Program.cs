@@ -24,8 +24,9 @@ namespace TJAPlayer3
 		private static void Main()
 		{
 			mutex二重起動防止用 = new Mutex( false, "TJAPlayer3-f" );
-
-			if ( mutex二重起動防止用.WaitOne( 0, false ) )
+			bool mutexbool = mutex二重起動防止用.WaitOne(0, false);
+		kidou:
+			if (mutexbool)
 			{
 				string newLine = Environment.NewLine;
 				bool bDLLnotfound = false;
@@ -112,7 +113,6 @@ namespace TJAPlayer3
 				}
 
 				// BEGIN #24615 2011.03.09 from: Mutex.WaitOne() が true を返した場合は、Mutex のリリースが必要である。
-
 				mutex二重起動防止用.ReleaseMutex();
 				mutex二重起動防止用 = null;
 
@@ -121,10 +121,14 @@ namespace TJAPlayer3
 			else		// DTXManiaが既に起動中
 			{
 				DialogResult dr = MessageBox.Show("すでにTJAPlayer3-fが起動していますが、起動しますか？", "注意", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-				if (dr == DialogResult.Yes) { 
-				
+				if (dr == DialogResult.Yes)
+				{
+					mutexbool = true;
+					goto kidou;
 				}
-
+				else {
+					Environment.Exit(0);
+				}
 			}
 		}
 	}

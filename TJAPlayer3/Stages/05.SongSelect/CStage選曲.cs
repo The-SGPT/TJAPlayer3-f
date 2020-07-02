@@ -461,19 +461,16 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.Skin.SongSelect_Counter_XY[0], TJAPlayer3.Skin.SongSelect_Counter_XY[1], new Rectangle((TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10 ), 0, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Height));
 				}
 
-				//this.actステータスパネル.On進行描画();
+
 				if (this.act曲リスト.n現在選択中の曲の難易度レベル[0] != (int)Difficulty.Dan)
 					this.actPresound.On進行描画();
-				//if( this.txコメントバー != null )
-				{
-					//this.txコメントバー.t2D描画( CDTXMania.app.Device, 484, 314 );
-				}
-				//this.actArtistComment.On進行描画();
+
+
 				this.act演奏履歴パネル.On進行描画();
-				//this.actオプションパネル.On進行描画();
+
 				this.actShowCurrentPosition.On進行描画();                               // #27648 2011.3.28 yyagi
 
-				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
+
 				if (act曲リスト.r現在選択中の曲 != null)
 				{
 					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
@@ -485,7 +482,7 @@ namespace TJAPlayer3
 					this.bBGM再生済み = true;
 				}
 
-//Debug.WriteLine( "パンくず=" + this.r現在選択中の曲.strBreadcrumbs );
+
 				if( this.ctDiffSelect移動待ち != null )
 					this.ctDiffSelect移動待ち.t進行();
 
