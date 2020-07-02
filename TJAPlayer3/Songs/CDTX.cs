@@ -1730,7 +1730,7 @@ namespace TJAPlayer3
 							string tcistr = reader.ReadToEnd();
 							reader.Close();
 
-							this.t入力tci(tcistr, db再生速度);
+							this.t入力tci(tcistr, db再生速度, nBGMAdjust);
 
 						}
 						else if (Path.GetExtension(strファイル名).Equals(".tcm"))
@@ -1740,7 +1740,7 @@ namespace TJAPlayer3
 							string tcistr = reader.ReadToEnd();
 							reader.Close();
 
-							this.t入力tcm(tcistr, db再生速度);
+							this.t入力tcm(tcistr, db再生速度, nBGMAdjust);
 
 						}
 						else
@@ -1871,13 +1871,13 @@ namespace TJAPlayer3
 
 					#endregion
 
-					チップについての共通部分();
+					チップについての共通部分(nBGMAdjust);
 
 				}
 			}
 		}
 
-		private void チップについての共通部分()
+		private void チップについての共通部分(int nBGMAdjust)
 		{
 			#region[コピペ]
 			//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
@@ -2575,7 +2575,7 @@ namespace TJAPlayer3
 			#endregion
 		}
 
-		private void t入力tcm(string 入力文字列,　double 再生速度) {
+		private void t入力tcm(string 入力文字列,　double 再生速度,int nBGMAdjust) {
 			if (!string.IsNullOrEmpty(入力文字列))
 			{
 				#region [ 初期化 ]
@@ -2893,7 +2893,7 @@ namespace TJAPlayer3
 				this.listChip.Add(chip);
 				#endregion
 
-				チップについての共通部分();
+				チップについての共通部分(nBGMAdjust);
 				this.TITLE = obj.Title;
 			}
 		}
@@ -3083,7 +3083,7 @@ namespace TJAPlayer3
         }
 
 
-        private void t入力tci(string 入力文字列, double 再生速度)
+        private void t入力tci(string 入力文字列, double 再生速度,int nBGMAdjust)
 		{
 			if (!string.IsNullOrEmpty(入力文字列))
 			{
@@ -3125,7 +3125,7 @@ namespace TJAPlayer3
 						Debug.Print(ex.ToString());
 					}
 				}
-				チップについての共通部分();
+				チップについての共通部分(nBGMAdjust);
 			}
 		}
 
