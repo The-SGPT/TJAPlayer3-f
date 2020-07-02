@@ -309,63 +309,11 @@ namespace FDK
 		}
 		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
 		{
-			try
-			{
-				this.Format = format;
-				this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
-				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-				int colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
-				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-#if TEST_Direct3D9Ex
-				pool = poolvar;
-#endif
-				//Trace.TraceInformation( "CTExture() start: " );
-				unsafe  // Bitmapの内部データ(a8r8g8b8)を自前でゴリゴリコピーする
-				{
-					int tw =
-#if TEST_Direct3D9Ex
-					288;		// 32の倍数にする(グラフによっては2のべき乗にしないとダメかも)
-#else
-					this.sz画像サイズ.Width;
-#endif
-#if TEST_Direct3D9Ex
-					this.texture = new Texture( device, tw, this.sz画像サイズ.Height, 1, Usage.Dynamic, format, Pool.Default );
-#else
-					this.texture = new Texture(device, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool);
-#endif
-					BitmapData srcBufData = bitmap.LockBits(new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-					DataRectangle destDataRectangle = texture.LockRectangle(0, LockFlags.Discard);  // None
-#if TEST_Direct3D9Ex
-					byte[] filldata = null;
-					if ( tw > this.sz画像サイズ.Width )
-					{
-						filldata = new byte[ (tw - this.sz画像サイズ.Width) * 4 ];
-					}
-					for ( int y = 0; y < this.sz画像サイズ.Height; y++ )
-					{
-						IntPtr src_scan0 = (IntPtr) ( (Int64) srcBufData.Scan0 + y * srcBufData.Stride );
-						destDataRectangle.Data.WriteRange( src_scan0, this.sz画像サイズ.Width * 4  );
-						if ( tw > this.sz画像サイズ.Width )
-						{
-							destDataRectangle.Data.WriteRange( filldata );
-						}
-					}
-#else
-					IntPtr src_scan0 = (IntPtr)((Int64)srcBufData.Scan0);
-					//destDataRectangle.Data.WriteRange( src_scan0, this.sz画像サイズ.Width * 4 * this.sz画像サイズ.Height );
-					CopyMemory(destDataRectangle.DataPointer.ToPointer(), src_scan0.ToPointer(), this.sz画像サイズ.Width * 4 * this.sz画像サイズ.Height);
-#endif
-					texture.UnlockRectangle(0);
-					bitmap.UnlockBits(srcBufData);
-				}
-				//Trace.TraceInformation( "CTExture() End: " );
-			}
-			catch
-			{
-				this.Dispose();
-				// throw new CTextureCreateFailedException( string.Format( "テクスチャの生成に失敗しました。\n{0}", strファイル名 ) );
-				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
-			}
+
+			MemoryStream ms = new MemoryStream();
+			bitmap.Save(ms,ImageFormat.Png);
+			byte[] img = ms.GetBuffer();
+			MakeTexture(device, img, format, b黒を透過する, pool);
 		}
 		// メソッド
 
@@ -1094,13 +1042,6 @@ namespace FDK
 		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
 		public Color4 color4 = new Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
 															//-----------------
-		#endregion
-
-		#region " Win32 API "
-		//-----------------
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern unsafe void CopyMemory(void* dst, void* src, int size);
-		//-----------------
 		#endregion
 	}
 }
