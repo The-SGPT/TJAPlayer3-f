@@ -338,6 +338,10 @@ namespace TJAPlayer3
 				裏表示 = !裏表示;
 				裏カウント[0] = 0;
 				裏カウント[1] = 0;
+				if(裏表示)
+					TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベル[0] = 4;
+				else
+					TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベル[0] = 3;
 			}
 
 			return 0;
