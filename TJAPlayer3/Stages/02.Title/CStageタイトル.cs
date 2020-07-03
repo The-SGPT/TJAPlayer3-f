@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using FDK;
 using System.Reflection;
-using CSharpTest.Net.Collections;
 
 namespace TJAPlayer3
 {
@@ -38,7 +37,7 @@ namespace TJAPlayer3
 				}
 				this.ct上移動用 = new CCounter();
 				this.ct下移動用 = new CCounter();
-				this.ctカーソルフラッシュ用 = new CCounter();
+
 				base.On活性化();
 				Discord.UpdatePresence("", "Title", TJAPlayer3.StartupTime);
 			}
@@ -60,7 +59,6 @@ namespace TJAPlayer3
 				}
 				this.ct上移動用 = null;
 				this.ct下移動用 = null;
-				this.ctカーソルフラッシュ用 = null;
 			}
 			finally
 			{
@@ -71,21 +69,26 @@ namespace TJAPlayer3
 		}
 		public override void OnManagedリソースの作成()
 		{
-			//if( !base.b活性化してない )
-			//{
-			//	this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\2_background.png"));
-			//	this.txメニュー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_menu.png" ));
-			//	base.OnManagedリソースの作成();
-			//}
+			if( !base.b活性化してない) { 
+				texttexture[0] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("演奏ゲーム", Color.White, Color.SaddleBrown));
+				texttexture[1] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("コンフィグ", Color.White, Color.SaddleBrown));
+				texttexture[2] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("やめる", Color.White, Color.SaddleBrown));
+				texttexture[3] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("演奏ゲーム", Color.White, Color.Black));
+				texttexture[4] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("コンフィグ", Color.White, Color.Black));
+				texttexture[5] = this.GenerateTitleTexture(this.ttk曲名テクスチャを生成する("やめる", Color.White, Color.Black));
+				base.OnManagedリソースの作成();
+			}
 		}
 		public override void OnManagedリソースの解放()
 		{
-			//if( !base.b活性化してない )
-			//{
-			//	CDTXMania.tテクスチャの解放( ref this.tx背景 );
-			//	CDTXMania.tテクスチャの解放( ref this.txメニュー );
-			//	base.OnManagedリソースの解放();
-			//}
+			if( !base.b活性化してない )
+			{
+				for (int i = 0; i < texttexture.Length; i++)
+				{
+					TJAPlayer3.tテクスチャの解放(ref texttexture[i]);
+				}
+				base.OnManagedリソースの解放();
+			}
 		}
 		public override int On進行描画()
 		{
@@ -105,8 +108,6 @@ namespace TJAPlayer3
 						this.actFI.tフェードイン開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
 					}
-					this.ctカーソルフラッシュ用.t開始(0, 700, 5, TJAPlayer3.Timer);
-					this.ctカーソルフラッシュ用.n現在の値 = 100;
 					base.b初めての進行描画 = false;
 				}
 				//---------------------
@@ -136,11 +137,6 @@ namespace TJAPlayer3
 						this.ct下移動用.t停止();
 					}
 				}
-				//---------------------
-				#endregion
-				#region [ カーソルフラッシュ ]
-				//---------------------
-				this.ctカーソルフラッシュ用.t進行Loop();
 				//---------------------
 				#endregion
 
@@ -226,36 +222,24 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.sz画像サイズ.Width / 2, MENU_YT);
 					}
 
-
-					titleTextureKey[0] = this.ttk曲名テクスチャを生成する("演奏ゲーム", Color.White, Color.SaddleBrown);
-					titleTextureKey[1] = this.ttk曲名テクスチャを生成する("コンフィグ", Color.White, Color.SaddleBrown);
-					titleTextureKey[2] = this.ttk曲名テクスチャを生成する("やめる", Color.White, Color.SaddleBrown);
-					titleTextureKey[3] = this.ttk曲名テクスチャを生成する("演奏ゲーム", Color.White, Color.Black);
-					titleTextureKey[4] = this.ttk曲名テクスチャを生成する("コンフィグ", Color.White, Color.Black);
-					titleTextureKey[5] = this.ttk曲名テクスチャを生成する("やめる", Color.White, Color.Black);
-					if (TJAPlayer3.Tx.Kyo_mae != this.n現在のカーソル行)
+					TJAPlayer3.Tx.Title_Txt[this.n現在のカーソル行] = texttexture[this.n現在のカーソル行 + 3];
+					
+					if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
 					{
-						TJAPlayer3.Tx.Title_Txt[this.n現在のカーソル行] = ResolveTitleTexture(titleTextureKey[this.n現在のカーソル行 + 3]);
-
-						if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
-						{
-							TJAPlayer3.Tx.Title_Txt[0] = ResolveTitleTexture(titleTextureKey[0]);
-						}
-						if (this.n現在のカーソル行 != (int)E戻り値.CONFIG - 1)
-						{
-							TJAPlayer3.Tx.Title_Txt[1] = ResolveTitleTexture(titleTextureKey[1]);
-						}
-						if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
-						{
-							TJAPlayer3.Tx.Title_Txt[2] = ResolveTitleTexture(titleTextureKey[2]);
-						}
+						TJAPlayer3.Tx.Title_Txt[0] = texttexture[0];
+					}
+					if (this.n現在のカーソル行 != (int)E戻り値.CONFIG - 1)
+					{
+						TJAPlayer3.Tx.Title_Txt[1] = texttexture[1];
+					}
+					if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
+					{
+						TJAPlayer3.Tx.Title_Txt[2] = texttexture[2];
 					}
 
 					for (int i = 0; i < 3; i++)
 					{
-
 						TJAPlayer3.Tx.Title_Txt[i].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.Tx.Title_Txt[i].szテクスチャサイズ.Width / 2, MENU_YT + 30);
-						TJAPlayer3.Tx.Kyo_mae = this.n現在のカーソル行;
 
 					}
 				}
@@ -272,16 +256,6 @@ namespace TJAPlayer3
 						else if (this.ct下移動用.b進行中)
 						{
 							y -= (int)((double)MENU_H / 2 * (Math.Cos(Math.PI * (((double)this.ct下移動用.n現在の値) / 100.0)) + 1.0));
-						}
-						if (this.ctカーソルフラッシュ用.n現在の値 <= 100)
-						{
-							float nMag = (float)(1.0 + ((((double)this.ctカーソルフラッシュ用.n現在の値) / 100.0) * 0.5));
-							TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.X = nMag;
-							TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.Y = nMag;
-							TJAPlayer3.Tx.Title_Menu.Opacity = (int)(255.0 * (1.0 - (((double)this.ctカーソルフラッシュ用.n現在の値) / 100.0)));
-							int x_magnified = x + ((int)((MENU_W * (1.0 - nMag)) / 2.0));
-							int y_magnified = y + ((int)((MENU_H * (1.0 - nMag)) / 2.0));
-							TJAPlayer3.Tx.Title_Menu.t2D描画(TJAPlayer3.app.Device, x_magnified, y_magnified, new Rectangle(0, MENU_H * 5, MENU_W, MENU_H));
 						}
 						TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.X = 1f;
 						TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.Y = 1f;
@@ -340,7 +314,6 @@ namespace TJAPlayer3
 									return (int)E戻り値.MAINTENANCE;
 
 							case (int)E戻り値.CONFIG - 1:
-								TJAPlayer3.Tx.Kyo_mae = 3;
 								return (int)E戻り値.CONFIG;
 
 							case (int)E戻り値.EXIT - 1:
@@ -427,19 +400,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		
-		private CTexture ResolveTitleTexture(TitleTextureKey titleTextureKey)
-		{
-			if (!_titleTextures.TryGetValue(titleTextureKey, out var texture))
-			{
-				texture = GenerateTitleTexture(titleTextureKey);
-				_titleTextures.Add(titleTextureKey, texture);
-			}
-
-			return texture;
-		}
-
-		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
+		private CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
 		{
 			using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
@@ -517,13 +478,10 @@ namespace TJAPlayer3
 			return new TitleTextureKey(str文字, new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 28), forecolor, backcolor, 410);
 		}
 
-		private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
-		new LurchTable<TitleTextureKey, CTexture>(LurchTableOrder.Access, 2500);
-		TitleTextureKey[] titleTextureKey = new TitleTextureKey[6];
+		CTexture[] texttexture = new CTexture[6];
 		private CActFIFOBlack actFI;
 		private CActFIFOBlack actFIfromSetup;
 		private CActFIFOBlack actFO;
-		private CCounter ctカーソルフラッシュ用;
 		private STキー反復用カウンタ ctキー反復用;
 		private CCounter ct下移動用;
 		private CCounter ct上移動用;
@@ -532,8 +490,6 @@ namespace TJAPlayer3
 		private const int MENU_X = 506;
 		private const int MENU_Y = 513;
 		//縦スタイル用
-		private const int MENU_HT = 39;
-		private const int MENU_WT = 227;
 		private readonly int[] MENU_XT = {300,640,980 };
 		private const int MENU_YT = 100;
 		//------------------------------------

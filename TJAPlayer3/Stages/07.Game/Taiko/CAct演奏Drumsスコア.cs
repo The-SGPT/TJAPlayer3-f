@@ -19,23 +19,6 @@ namespace TJAPlayer3
 				{
 					base.b初めての進行描画 = false;
 				}
-				long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
-				//if (num < base.n進行用タイマ)
-				//{
-				//    base.n進行用タイマ = num;
-				//}
-				//while ((num - base.n進行用タイマ) >= 10)
-				//{
-				//    for (int j = 0; j < 4; j++)
-				//    {
-				//        this.n現在表示中のスコア[j] += this.nスコアの増分[j];
-
-				//        if (this.n現在表示中のスコア[j] > (long) this.n現在の本当のスコア[j])
-				//            this.n現在表示中のスコア[j] = (long) this.n現在の本当のスコア[j];
-				//    }
-				//    base.n進行用タイマ += 10;
-
-				//}
 				if( !this.ctTimer.b停止中 )
 				{
 					this.ctTimer.t進行();
@@ -43,8 +26,6 @@ namespace TJAPlayer3
 					{
 						this.ctTimer.t停止();
 					}
-
-					//base.t小文字表示( 20, 150, string.Format( "{0,7:######0}", this.nスコアの増分.Guitar ) );
 				}
 
 				for (int i = 0; i < 4; i++)
@@ -71,8 +52,6 @@ namespace TJAPlayer3
 						}
 					}
 				}
-
-				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ctボーナス加算タイマ[0].n現在の値.ToString());
 
 				base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[0], TJAPlayer3.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
 				if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[1], TJAPlayer3.Skin.Game_Score_Y[1], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
@@ -206,35 +185,7 @@ namespace TJAPlayer3
 							}
 						}
 					}
-					//CDTXMania.act文字コンソール.tPrint(50, 0, C文字コンソール.Eフォント種別.白, this.ct点数アニメタイマ[0].n現在の値.ToString());
-					//CDTXMania.act文字コンソール.tPrint(50, 20, C文字コンソール.Eフォント種別.白, this.ct点数アニメタイマ[0].b進行中.ToString());
 				}
-
-
-				//this.n現在表示中のスコア.Taiko = (long)this.n現在の本当のスコア.Taiko;
-
-				//string str = this.n現在表示中のスコア.Taiko.ToString( "0000000" );
-				//for ( int i = 0; i < 7; i++ )
-				//{
-				//    Rectangle rectangle;
-				//    char ch = str[i];
-				//    if( ch.Equals(' ') )
-				//    {
-				//        rectangle = new Rectangle(0, 0, 24, 34);
-				//    }
-				//    else
-				//    {
-				//        int num4 = int.Parse(str.Substring(i, 1));
-				//        rectangle = new Rectangle(num4 * 24, 0, 24, 34);
-				//    }
-				//    if( base.txScore != null )
-				//    {
-				//        base.txScore.t2D描画(CDTXMania.app.Device, 20 + (i * 20), 192, rectangle);
-				//    }
-				//}
-
-
-				//CDTXMania.act文字コンソール.tPrint( 50, 200, C文字コンソール.Eフォント種別.白, str  );
 			}
 			return 0;
 		}

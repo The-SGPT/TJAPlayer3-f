@@ -53,7 +53,6 @@ namespace TJAPlayer3
 				Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
 				//Drums.eInvisible = TJAPlayer3.ConfigIni.eInvisible;
 				Drums.f譜面スクロール速度 = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1 ) ) * 0.1f;
-				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
 				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
@@ -423,7 +422,6 @@ namespace TJAPlayer3
 
 		public CAct演奏AVI actAVI;
 		public Rainbow Rainbow;
-		protected CAct演奏チップファイアGB actChipFireGB;
 		public CAct演奏Combo共通 actCombo;
 		protected CAct演奏Danger共通 actDANGER;
 		//protected CActFIFOBlack actFI;
@@ -455,7 +453,6 @@ namespace TJAPlayer3
 		public CAct演奏DrumsMob actMob;
 		public Dan_Cert actDan;
 		public bool bPAUSE;
-		public bool bTjiroPRESSSPACE;
 		public bool[] bIsAlreadyCleared;
 		public bool[] bIsAlreadyMaxed;
 		protected bool b演奏にMIDI入力を使った;
@@ -2878,10 +2875,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		protected void t進行描画_チップファイアGB()
-		{
-			this.actChipFireGB.On進行描画();
-		}
 		protected void t進行描画_パネル文字列()
 		{
 			if ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
@@ -4445,20 +4438,6 @@ namespace TJAPlayer3
 		protected void t進行描画_判定文字列()
 		{
 			this.actJudgeString.t進行描画();
-		}
-		protected void t進行描画_判定文字列1_通常位置指定の場合()
-		{
-			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
-			{
-				this.actJudgeString.t進行描画();
-			}
-		}
-		protected void t進行描画_判定文字列2_判定ライン上指定の場合()
-		{
-			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置 ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
-			{
-				this.actJudgeString.t進行描画();
-			}
 		}
 
 		protected void t進行描画_譜面スクロール速度()

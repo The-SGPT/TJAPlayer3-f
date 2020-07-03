@@ -166,7 +166,6 @@ namespace TJAPlayer3
 			public bool b演奏にマウスを使用した;
 			public double dbゲーム型スキル値;
 			public double db演奏型スキル値;
-			public Eダークモード eDark;
 			public Eランダムモード eRandom;
 			public Eダメージレベル eダメージレベル;
 			public float f譜面スクロール速度;
@@ -628,30 +627,6 @@ namespace TJAPlayer3
 							#endregion
 							else
 							{
-									#region [ Dark ]
-									if ( item.Equals( "Dark" ) )
-									{
-										switch ( int.Parse( para ) )
-										{
-											case 0:
-												{
-													c演奏記録.eDark = Eダークモード.OFF;
-													continue;
-												}
-											case 1:
-												{
-													c演奏記録.eDark = Eダークモード.HALF;
-													continue;
-												}
-											case 2:
-												{
-													c演奏記録.eDark = Eダークモード.FULL;
-													continue;
-												}
-										}
-										throw new Exception( "Dark の値が無効です。" );
-									}
-									#endregion
 									#region [ ScrollSpeedDrums ]
 									if ( item.Equals( "ScrollSpeedDrums" ) )
 									{
@@ -880,7 +855,6 @@ namespace TJAPlayer3
 					writer.WriteLine("Risky={0}", this.stセクション[i].nRisky);
 					writer.WriteLine("TightDrums={0}", this.stセクション[i].bTight ? 1 : 0);
 					writer.WriteLine("RandomDrums={0}", (int)this.stセクション[i].eRandom);
-					writer.WriteLine("Dark={0}", (int)this.stセクション[i].eDark);
 					writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度);
 					writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
 					writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
@@ -1056,7 +1030,6 @@ namespace TJAPlayer3
 			builder.Append( cc.n最大コンボ数 );
 			builder.Append( cc.n全チップ数 );
 			builder.Append( boolToChar( cc.bTight ) );
-			builder.Append( (int) cc.eDark );
 			builder.Append( cc.f譜面スクロール速度.ToString( ".000000" ) );
 			builder.Append( cc.n演奏速度分子 );
 			builder.Append( cc.n演奏速度分母 );

@@ -166,18 +166,8 @@ namespace TJAPlayer3
 						#region[ 拡張子を取得 ]
 						string strExt = fileinfo.Extension.ToLower();
 						#endregion
-						if ((strExt.Equals(".tja") || strExt.Equals(".dtx")))
+						if ((strExt.Equals(".tja")))
 						{
-							if (strExt.Equals(".tja"))
-							{
-								//tja、dtxが両方存在していた場合、tjaを読み込まずにtjaと同名のdtxだけを使う。
-								string dtxscoreini = str基点フォルダ + (fileinfo.Name.Replace(strExt, ".dtx"));
-								if (File.Exists(dtxscoreini))
-								{
-									continue;
-								}
-							}
-
 							#region[ 新処理 ]
 							CDTX dtx = new CDTX(fileinfo.FullName, false, 1.0, 0, 1);
 							C曲リストノード c曲リストノード = new C曲リストノード();
@@ -249,19 +239,8 @@ namespace TJAPlayer3
 					SlowOrSuspendSearchTask();      // #27060 中断要求があったら、解除要求が来るまで待機, #PREMOVIE再生中は検索負荷を落とす
 					string strExt = fileinfo.Extension.ToLower();
 
-					if ((strExt.Equals(".tja") || strExt.Equals(".dtx")))
+					if ((strExt.Equals(".tja")))
 					{
-						// 2017.06.02 kairera0467 廃止。
-						//if( strExt.Equals( ".tja" ) )
-						//{
-						//    //tja、dtxが両方存在していた場合、tjaを読み込まずにdtxだけ使う。
-						//    string[] dtxscoreini = Directory.GetFiles( str基点フォルダ, "*.dtx");
-						//    if(dtxscoreini.Length != 0 )
-						//    {
-						//        continue;
-						//    }
-						//}
-
 						#region[ 新処理 ]
 						CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0, 0);
 						C曲リストノード c曲リストノード = new C曲リストノード();
@@ -373,6 +352,7 @@ namespace TJAPlayer3
 								}
 							}
 						}
+						dtx = null;
 						#endregion
 					}
 					else if (strExt.Equals(".tcm"))
@@ -488,6 +468,7 @@ namespace TJAPlayer3
 								}
 							}
 						}
+						dtx = null;
 						#endregion
 					}
 					else if (strExt.Equals(".tci"))
@@ -603,6 +584,7 @@ namespace TJAPlayer3
 								}
 							}
 						}
+						dtx = null;
 						#endregion
 					}
 				}
@@ -844,7 +826,6 @@ namespace TJAPlayer3
 			cスコア.譜面情報.ジャンル = br.ReadString();
 			cスコア.譜面情報.Preimage = br.ReadString();
 			cスコア.譜面情報.Premovie = br.ReadString();
-			cスコア.譜面情報.Presound = br.ReadString();
 			cスコア.譜面情報.Backgound = br.ReadString();
 			cスコア.譜面情報.最大ランク.Drums = br.ReadInt32();
 			cスコア.譜面情報.最大ランク.Guitar = br.ReadInt32();
@@ -864,7 +845,6 @@ namespace TJAPlayer3
 			cスコア.譜面情報.演奏履歴.行6 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行7 = br.ReadString();
 			cスコア.譜面情報.レベルを非表示にする = br.ReadBoolean();
-			cスコア.譜面情報.曲種別 = (CDTX.E種別)br.ReadInt32();
 			cスコア.譜面情報.Bpm = br.ReadDouble();
 			cスコア.譜面情報.Duration = br.ReadInt32();
 			cスコア.譜面情報.strBGMファイル名 = br.ReadString();
@@ -965,7 +945,6 @@ namespace TJAPlayer3
 									c曲リストノード.arスコア.譜面情報.コメント = cdtx.COMMENT;
 									c曲リストノード.arスコア.譜面情報.ジャンル = cdtx.GENRE;
 									c曲リストノード.arスコア.譜面情報.Preimage = cdtx.PREIMAGE;
-									c曲リストノード.arスコア.譜面情報.Presound = cdtx.PREVIEW;
 									c曲リストノード.arスコア.譜面情報.Backgound = ((cdtx.BACKGROUND != null) && (cdtx.BACKGROUND.Length > 0)) ? cdtx.BACKGROUND : cdtx.BACKGROUND_GR;
 									c曲リストノード.arスコア.譜面情報.レベルを非表示にする = cdtx.HIDDENLEVEL;
 									c曲リストノード.arスコア.譜面情報.Bpm = cdtx.BPM;
@@ -1005,10 +984,8 @@ namespace TJAPlayer3
 										sb.Append(", genre=" + c曲リストノード.arスコア.譜面情報.ジャンル);
 										sb.Append(", preimage=" + c曲リストノード.arスコア.譜面情報.Preimage);
 										sb.Append(", premovie=" + c曲リストノード.arスコア.譜面情報.Premovie);
-										sb.Append(", presound=" + c曲リストノード.arスコア.譜面情報.Presound);
 										sb.Append(", background=" + c曲リストノード.arスコア.譜面情報.Backgound);
 										sb.Append(", lvHide=" + c曲リストノード.arスコア.譜面情報.レベルを非表示にする);
-										sb.Append(", type=" + c曲リストノード.arスコア.譜面情報.曲種別);
 										sb.Append(", bpm=" + c曲リストノード.arスコア.譜面情報.Bpm);
 										sb.Append(", lyrics=" + c曲リストノード.arスコア.譜面情報.b歌詞あり);
 										Trace.TraceInformation(sb.ToString());
@@ -1289,7 +1266,6 @@ namespace TJAPlayer3
 			bw.Write(node.arスコア.譜面情報.ジャンル);
 			bw.Write(node.arスコア.譜面情報.Preimage);
 			bw.Write(node.arスコア.譜面情報.Premovie);
-			bw.Write(node.arスコア.譜面情報.Presound);
 			bw.Write(node.arスコア.譜面情報.Backgound);
 			bw.Write(node.arスコア.譜面情報.最大ランク.Drums);
 			bw.Write(node.arスコア.譜面情報.最大ランク.Guitar);
@@ -1309,7 +1285,6 @@ namespace TJAPlayer3
 			bw.Write(node.arスコア.譜面情報.演奏履歴.行6);
 			bw.Write(node.arスコア.譜面情報.演奏履歴.行7);
 			bw.Write(node.arスコア.譜面情報.レベルを非表示にする);
-			bw.Write((int)node.arスコア.譜面情報.曲種別);
 			bw.Write(node.arスコア.譜面情報.Bpm);
 			bw.Write(node.arスコア.譜面情報.Duration);
 			bw.Write(node.arスコア.譜面情報.strBGMファイル名);

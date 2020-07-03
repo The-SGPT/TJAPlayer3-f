@@ -167,12 +167,9 @@ namespace TJAPlayer3
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 			if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト)
 			{
-				string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Presound;
+				string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
 				try
 				{
-					strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
-					//this.sound = TJAPlayer3.Sound管理.tサウンドを生成する(strPreviewFilename, ESoundGroup.SongPreview);
-
 					// 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------
 					// 2019.03.22 kairera0467 簡易マルチスレッド化
 					Task<CSound> task = Task.Run<CSound>(() => {
@@ -197,19 +194,10 @@ namespace TJAPlayer3
 						this.sound.t再生位置を変更する(cスコア.譜面情報.nデモBGMオフセット);
 						this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
 					}
-					/*if( long再生位置 == this.sound.n総演奏時間ms - 10 )
-						this.long再生位置 = -1;*/
 
 					this.str現在のファイル名 = strPreviewFilename;
 					this.tBGMフェードアウト開始();
 					Trace.TraceInformation("プレビューサウンドを生成しました。({0})", strPreviewFilename);
-					#region[ DTXMania(コメントアウト) ]
-					//this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-					//this.sound.t再生を開始する( true );
-					//this.str現在のファイル名 = strPreviewFilename;
-					//this.tBGMフェードアウト開始();
-					//Trace.TraceInformation( "プレビューサウンドを生成しました。({0})", strPreviewFilename );
-					#endregion
 				}
 				catch (Exception e)
 				{

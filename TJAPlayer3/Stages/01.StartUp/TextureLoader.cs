@@ -1145,7 +1145,6 @@ namespace TJAPlayer3
 			Title_AcBar,
 			Title_InBar;
 		public CTexture[] Title_Txt = new CTexture[3];
-		public int Kyo_mae = 2;
 		#endregion
 
 		#region 2_コンフィグ画面
@@ -1173,7 +1172,6 @@ namespace TJAPlayer3
 			SongSelect_Frame_Box,
 			SongSelect_Frame_BackBox,
 			SongSelect_Frame_Random,
-			SongSelect_Score_Select,
 			SongSelect_Bar_Center,
 			SongSelect_Cursor_Left,
 			SongSelect_Cursor_Right,

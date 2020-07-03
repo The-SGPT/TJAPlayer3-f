@@ -57,7 +57,6 @@ namespace TJAPlayer3
 			public string ジャンル;
 			public string Preimage;
 			public string Premovie;
-			public string Presound;
 			public string Backgound;
 			public STRANK 最大ランク;
 			public STSKILL 最大スキル;
@@ -65,7 +64,6 @@ namespace TJAPlayer3
 			public int 演奏回数;
 			public STHISTORY 演奏履歴;
 			public bool レベルを非表示にする;
-			public CDTX.E種別 曲種別;
 			public double Bpm;
 			public int Duration;
 			public string strBGMファイル名;
@@ -269,7 +267,6 @@ namespace TJAPlayer3
 			this.譜面情報.ジャンル = "";
 			this.譜面情報.Preimage = "";
 			this.譜面情報.Premovie = "";
-			this.譜面情報.Presound = "";
 			this.譜面情報.Backgound = "";
 			this.譜面情報.最大ランク = new ST譜面情報.STRANK();
 			this.譜面情報.最大ランク.Drums =  (int)CScoreIni.ERANK.UNKNOWN;
@@ -287,7 +284,6 @@ namespace TJAPlayer3
 			this.譜面情報.演奏履歴.行7 = "";
 			this.譜面情報.レベルを非表示にする = false;
 			this.譜面情報.最大スキル = new ST譜面情報.STSKILL();
-			this.譜面情報.曲種別 = CDTX.E種別.DTX;
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";
