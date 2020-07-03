@@ -291,20 +291,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.t背景テクスチャの生成();
-				//this.tx太鼓ノーツ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes.png" ) );
-				//this.txHand = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes_arm.png" ) );
-				//this.txSenotes = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_senotes.png" ) );
-				//this.tx小節線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_bar_line.png" ) );
-				//this.tx小節線_branch = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_bar_line_branch.png" ) );
-	//            this.tx判定数小文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
-	//            this.txNamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txNamePlate2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
-	//            this.txPlayerNumber = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
-
-	//            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
-
 				// When performing calibration, reduce audio distraction from user input.
 				// For users who play primarily by listening to the music,
 				// you might think that we want them to hear drum sound effects during
@@ -324,7 +310,7 @@ namespace TJAPlayer3
 					this.soundBlue[1] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\ka.ogg"), ESoundGroup.SoundEffect);
 					this.soundAdlib[1] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect);
 
-					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2)//2020.05.06 Mr-Ojii左右に出したかったから、追加。
+					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
 					{
 						this.soundRed[0].n位置 = -100;
 						this.soundBlue[0].n位置 = -100;

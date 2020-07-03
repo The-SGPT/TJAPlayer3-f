@@ -209,34 +209,6 @@ namespace TJAPlayer3
 		フェードイン,
 		フェードアウト
 	}
-	internal enum Eレーン
-	{
-		LC = 0,
-		HH,
-		SD,
-		BD,
-		HT,
-		LT,
-		FT,
-		CY,
-		LP,
-		RD,		// 将来の独立レーン化/独立AUTO設定を見越して追加
-		LBD = 10,
-		Guitar,	// AUTOレーン判定を容易にするため、便宜上定義しておく(未使用)
-		Bass,	// (未使用)
-		GtR,
-		GtG,
-		GtB,
-		GtPick,
-		GtW,
-		BsR,
-		BsG,
-		BsB,
-		BsPick,
-		BsW,
-		MAX,	// 要素数取得のための定義 ("BGM"は使わない前提で)
-		BGM
-	}
 	internal enum E演奏画面の戻り値
 	{
 		継続,

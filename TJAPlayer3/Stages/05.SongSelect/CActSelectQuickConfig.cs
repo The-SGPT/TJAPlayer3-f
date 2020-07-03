@@ -152,13 +152,11 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] = !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer];
 					break;
 				case (int) EOrder.More:
-					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
 					this.bGotoDetailConfig = true;
 					this.tDeativatePopupMenu();
 					break;
 
 				case (int) EOrder.Return:
-					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
 					this.tDeativatePopupMenu();
 					break;
 				default:
@@ -168,9 +166,6 @@ namespace TJAPlayer3
 
 		public override void tCancel()
 		{
-			SetAutoParameters();
-			// Autoの設定値保持のロジックを書くこと！
-			// (Autoのパラメータ切り替え時は実際に値設定していないため、キャンセルまたはRetern, More...時に値設定する必要有り)
 		}
 
 		/// <summary>
@@ -183,19 +178,6 @@ namespace TJAPlayer3
 			for ( int i = 0; i < 3; i++ )
 			{
 				lci[ nCurrentConfigSet ][ i ][ order ].SetIndex( index );
-			}
-		}
-		
-
-		/// <summary>
-		/// ConfigIni.bAutoPlayに簡易CONFIGの状態を反映する
-		/// </summary>
-		private void SetAutoParameters()
-		{
-			for ( int target = 0; target < 3; target++ )
-			{
-				int[] pa = { (int) Eレーン.LC, (int) Eレーン.GtR, (int) Eレーン.BsR };
-				int start = pa[ target ];
 			}
 		}
 
