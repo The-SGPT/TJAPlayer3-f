@@ -313,6 +313,8 @@ namespace TJAPlayer3
 				TJAPlayer3.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
 			}
 
+			this.actDan.IsAnimating = false;//2020.07.03 Mr-Ojii IsAnimating=trueのときにそのまま選曲画面に戻ると、文字列が描画されない問題修正用。
+
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
