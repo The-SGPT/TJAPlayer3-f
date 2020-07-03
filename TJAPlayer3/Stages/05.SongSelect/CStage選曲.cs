@@ -140,7 +140,7 @@ namespace TJAPlayer3
 				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
 				this.ftフォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel);
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < 2; i++)
 					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 
 				//this.act難易度選択画面.bIsDifficltSelect = true;
@@ -172,7 +172,7 @@ namespace TJAPlayer3
 					this.ftフォント.Dispose();
 					this.ftフォント = null;
 				}
-				for( int i = 0; i < 4; i++ )
+				for( int i = 0; i < 2; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
 				}
@@ -1165,8 +1165,6 @@ namespace TJAPlayer3
 		{
 			public CCounter Up;
 			public CCounter Down;
-			public CCounter R;
-			public CCounter B;
 			public CCounter this[ int index ]
 			{
 				get
@@ -1178,12 +1176,6 @@ namespace TJAPlayer3
 
 						case 1:
 							return this.Down;
-
-						case 2:
-							return this.R;
-
-						case 3:
-							return this.B;
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -1197,14 +1189,6 @@ namespace TJAPlayer3
 
 						case 1:
 							this.Down = value;
-							return;
-
-						case 2:
-							this.R = value;
-							return;
-
-						case 3:
-							this.B = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();
