@@ -7,12 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using FDK;
 using CSharpTest.Net.Collections;
-using SharpDX;
 
 using Rectangle = System.Drawing.Rectangle;
-using Point = System.Drawing.Point;
-using Color = System.Drawing.Color;
-using System.Windows.Forms;
 
 namespace TJAPlayer3
 {
@@ -92,7 +88,6 @@ namespace TJAPlayer3
 			base.eステージID = CStage.Eステージ.選曲;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
-			base.list子Activities.Add(this.actオプションパネル = new CActオプションパネル());
 			base.list子Activities.Add(this.actFIFO = new CActFIFOBlack());
 			base.list子Activities.Add(this.actFIfrom結果画面 = new CActFIFOBlack());
 			//base.list子Activities.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
@@ -106,7 +101,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actArtistComment = new CActSelectArtistComment());
 			base.list子Activities.Add(this.actInformation = new CActSelectInformation());
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
-			base.list子Activities.Add(this.actShowCurrentPosition = new CActSelectShowCurrentPosition());
 			base.list子Activities.Add(this.actQuickConfig = new CActSelectQuickConfig());
 			//base.list子Activities.Add( this.act難易度選択画面 = new CActSelect難易度選択画面() );
 
@@ -467,8 +461,6 @@ namespace TJAPlayer3
 
 
 				this.act演奏履歴パネル.On進行描画();
-
-				this.actShowCurrentPosition.On進行描画();                               // #27648 2011.3.28 yyagi
 
 
 				if (act曲リスト.r現在選択中の曲 != null)
@@ -1227,11 +1219,9 @@ namespace TJAPlayer3
 		private CActSelectInformation actInformation;
 		private CActSelectPreimageパネル actPreimageパネル;
 		public CActSelectPresound actPresound;
-		private CActオプションパネル actオプションパネル;
 		private CActSelectステータスパネル actステータスパネル;
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
-		private CActSelectShowCurrentPosition actShowCurrentPosition;
 		private CActSelect難易度選択画面 act難易度選択画面;
 		private bool 完全に選択済み = false;
 

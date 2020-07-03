@@ -637,7 +637,6 @@ namespace TJAPlayer3
 		public int nウインドウwidth;				// #23510 2010.10.31 yyagi add
 		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
 		public Dictionary<int, string> dicJoystick;
-		public Eダークモード eDark;
 		public Eランダムモード[] eRandom;
 		public Eダメージレベル eダメージレベル;
 		public CKeyAssign KeyAssign;
@@ -762,11 +761,6 @@ namespace TJAPlayer3
 
 		public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
 
-		public bool bTaikojiromode = false;
-
-		public E判定文字表示位置 判定文字表示位置;
-//		public int nハイハット切り捨て下限Velocity;
-//		public int n切り捨て下限Velocity;			// #23857 2010.12.12 yyagi VelocityMin
 		public int nInputAdjustTimeMs;
 		public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
 		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
@@ -1014,13 +1008,11 @@ namespace TJAPlayer3
 			this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
 			this.bログ出力 = true;
 			this.eRandom = new Eランダムモード[2];
-			this.判定文字表示位置 = new E判定文字表示位置();
 			this.n譜面スクロール速度 = new int[2];
 			this.nInputAdjustTimeMs = 0;
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			this.eRandom[0] = Eランダムモード.OFF;
 			this.eRandom[1] = Eランダムモード.OFF;
-			this.判定文字表示位置 = E判定文字表示位置.レーン上;
 			this.n譜面スクロール速度[0] = 9;
 			this.n譜面スクロール速度[1] = 9;
 
@@ -1142,18 +1134,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "[System]" );
 			sw.WriteLine();
 
-#if false		// #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
-	//------------------------------
-			sw.WriteLine("; ライフゲージのパラメータ調整(調整完了後削除予定)");
-			sw.WriteLine("; GaugeFactorD: ドラムのPerfect, Great,... の回復量(ライフMAXを1.0としたときの値を指定)");
-			sw.WriteLine("; GaugeFactorG:  Gt/BsのPerfect, Great,... の回復量(ライフMAXを1.0としたときの値を指定)");
-			sw.WriteLine("; DamageFactorD: DamageLevelがSmall, Normal, Largeの時に対するダメージ係数");
-			sw.WriteLine("GaugeFactorD={0}, {1}, {2}, {3}, {4}", this.fGaugeFactor[0, 0], this.fGaugeFactor[1, 0], this.fGaugeFactor[2, 0], this.fGaugeFactor[3, 0], this.fGaugeFactor[4, 0]);
-			sw.WriteLine("GaugeFactorG={0}, {1}, {2}, {3}, {4}", this.fGaugeFactor[0, 1], this.fGaugeFactor[1, 1], this.fGaugeFactor[2, 1], this.fGaugeFactor[3, 1], this.fGaugeFactor[4, 1]);
-			sw.WriteLine("DamageFactor={0}, {1}, {2}", this.fDamageLevelFactor[0], this.fDamageLevelFactor[1], fDamageLevelFactor[2]);
-			sw.WriteLine();
-	//------------------------------
-#endif
 			#region [ Version ]
 			sw.WriteLine( "; リリースバージョン" );
 			sw.WriteLine( "; Release Version." );
@@ -1326,9 +1306,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 			sw.WriteLine();
 			#endregion
-			//sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
-			//sw.WriteLine( "AdjustWaves={0}", this.bWave再生位置自動調整機能有効 ? 1 : 0 );
-			#region [ BGM/ドラムヒット音の再生 ]
+			#region [ BGMの再生 ]
 			sw.WriteLine( "; BGM の再生(0:OFF, 1:ON)" );
 			sw.WriteLine( "BGMSound={0}", this.bBGM音を発声する ? 1 : 0 );
 			sw.WriteLine();
@@ -1406,13 +1384,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; (Only available when you're using using WASAPI or ASIO)" );	//
 			sw.WriteLine( "TimeStretch={0}", this.bTimeStretch ? 1 : 0 );					//
 			sw.WriteLine();
-			//sw.WriteLine( "; WASAPI/ASIO使用時に、MP3をストリーム再生するかどうか(0:ストリーム再生する, 1:しない)" );			//
-			//sw.WriteLine( "; (mp3のシークがおかしくなる場合は、これを1にしてください) " );	//
-			//sw.WriteLine( "; Set \"0\" if you'd like to use mp3 streaming playback on WASAPI/ASIO." );		//
-			//sw.WriteLine( "; Set \"1\" not to use streaming playback for mp3." );			//
-			//sw.WriteLine( "; (If you feel illegal seek with mp3, please set it to 1.)" );	//
-			//sw.WriteLine( "NoMP3Streaming={0}", this.bNoMP3Streaming ? 1 : 0 );				//
-			//sw.WriteLine();
 
 			#region [ Adjust ]
 			sw.WriteLine( "; 判定タイミング調整(-99～99)[ms]" );
@@ -1495,15 +1466,6 @@ namespace TJAPlayer3
 			sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
 			sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
 			sw.WriteLine();
-			sw.WriteLine( "; DARKモード(0:OFF, 1:HALF, 2:FULL)" );
-			sw.WriteLine( "Dark={0}", (int) this.eDark );
-			sw.WriteLine();
-			/*
-			sw.WriteLine( "; スクロール方法(※β版)" );
-			sw.WriteLine( "; (0:通常, 1:BMSCROLL, 2:HSSCROLL)" );
-			sw.WriteLine( "ScrollMode={0}", (int)this.eScrollMode );
-			sw.WriteLine();
-			*/
 			#region [ Invisible ]
 			//sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
 			//sw.WriteLine( "; Drums chip invisible mode" );
@@ -1543,9 +1505,6 @@ namespace TJAPlayer3
 			sw.WriteLine("{0}={1}", "1PShinuchiMode", ShinuchiMode[0] ? 1 : 0);
 			sw.WriteLine("{0}={1}", "2PShinuchiMode", ShinuchiMode[1] ? 1 : 0);
 			sw.WriteLine();
-			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
-			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
-			//sw.WriteLine();
 			sw.WriteLine("; 両手判定の待ち時間中に大音符を判定枠に合わせる(0:OFF, 1:ON)");
 			sw.WriteLine("BigNotesJudgeFrame={0}", this.b両手判定待ち時間中に大音符を判定枠に合わせるか ? 1 : 0);
 			sw.WriteLine();
@@ -1585,12 +1544,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; プレイ人数" );
 			sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
 			sw.WriteLine();
-			//sw.WriteLine("; 次郎モード");
-			//sw.WriteLine("Taikojiromode={0}", this.bTaikojiromode ? 1 : 0);
-			///sw.WriteLine();
-			//sw.WriteLine( "; 選曲画面の初期選択難易度(ベータ版)" );
-			//sw.WriteLine( "DifficultPriority={0}", this.bJudgeCountDisplay ? 1 : 0 );
-			//sw.WriteLine();
 
 			sw.WriteLine( ";-------------------" );
 			#endregion
@@ -2193,10 +2146,6 @@ namespace TJAPlayer3
 											{
 												ShowPuchiChara = C変換.bONorOFF(str4[0]);
 											}
-											else if( str3.Equals( "Dark" ) )
-											{
-												this.eDark = (Eダークモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eDark );
-											}
 											else if( str3.Equals( "ScrollMode" ) )
 											{
 												this.eScrollMode = ( EScrollMode )C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
@@ -2215,10 +2164,6 @@ namespace TJAPlayer3
 											//    this.nFadeoutTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
 											//}
 											#endregion
-											else if( str3.Equals( "DrumsPosition" ) )
-											{
-												this.判定文字表示位置 = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置 );
-											}
 											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{
 												this.n譜面スクロール速度[0] = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0] );

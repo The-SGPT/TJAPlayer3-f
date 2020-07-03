@@ -662,21 +662,6 @@ namespace TJAPlayer3
 								#endregion
 								break;
 
-							#region [ OPTION: 廃止済 ]
-							//							case 2:									// #24525 OPTIONとCONFIGの統合に伴い、OPTIONは廃止
-							//								#region [ *** ]
-							//								//-----------------------------
-							//								r現在のステージ.On非活性化();
-							//								Trace.TraceInformation( "----------------------" );
-							//								Trace.TraceInformation( "■ オプション" );
-							//								stageオプション.On活性化();
-							//								r直前のステージ = r現在のステージ;
-							//								r現在のステージ = stageオプション;
-							//								//-----------------------------
-							//								#endregion
-							//								break;
-							#endregion
-
 							case (int)CStageタイトル.E戻り値.CONFIG:
 								#region [ *** ]
 								//-----------------------------
@@ -702,6 +687,7 @@ namespace TJAPlayer3
 								//-----------------------------
 								#endregion
 								break;
+
 							case (int)CStageタイトル.E戻り値.MAINTENANCE:
 								#region [ *** ]
 								//-----------------------------
@@ -1159,8 +1145,7 @@ for (int i = 0; i < 3; i++) {
 
 				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay_Online != null && TJAPlayer3.Tx.Overlay_Offline != null)
 				{
-					int 捨てflag;
-					if (InternetGetConnectedState(out 捨てflag, 0))
+					if (InternetGetConnectedState(out _, 0))
 						TJAPlayer3.Tx.Overlay_Online.t2D描画(app.Device, 0, 0);
 					else
 						TJAPlayer3.Tx.Overlay_Offline.t2D描画(app.Device, 0, 0);
@@ -1443,7 +1428,6 @@ for (int i = 0; i < 3; i++) {
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
 		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;
-		private CSound previewSound;
 		public static long StartupTime
 		{
 			get;
@@ -1559,8 +1543,6 @@ for (int i = 0; i < 3; i++) {
 			base.Window.ApplicationActivated += new EventHandler(this.Window_ApplicationActivated);
 			base.Window.ApplicationDeactivated += new EventHandler(this.Window_ApplicationDeactivated);
 			//---------------------
-			#endregion
-			#region [ Direct3D9Exを使うかどうか判定 ]
 			#endregion
 			#region [ Direct3D9 デバイスの生成 ]
 			//---------------------

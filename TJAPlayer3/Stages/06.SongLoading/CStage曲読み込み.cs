@@ -391,25 +391,6 @@ namespace TJAPlayer3
 							}
 						}
 
-						//2017.01.28 DD Config.iniに反映しないように変更
-						/*
-						switch( CDTXMania.DTX.nScoreModeTmp )
-						{
-							case 0:
-								CDTXMania.ConfigIni.nScoreMode = 0;
-								break;
-							case 1:
-								CDTXMania.ConfigIni.nScoreMode = 1;
-								break;
-							case 2:
-								CDTXMania.ConfigIni.nScoreMode = 2;
-								break;
-							case -1:
-								CDTXMania.ConfigIni.nScoreMode = 1;
-								break;
-						}
-						*/
-
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAV読み込み待機;
 						timeBeginLoadWAV = DateTime.Now;
 						return (int) E曲読込画面の戻り値.継続;

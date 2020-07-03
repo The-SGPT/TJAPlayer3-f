@@ -39,12 +39,6 @@ namespace TJAPlayer3
 		n曲目に表示 = 1,
 		mtaikoに画像で表示 = 2,
 	}
-	public enum Eダークモード
-	{
-		OFF,
-		HALF,
-		FULL
-	}
 	public enum Eダメージレベル
 	{
 		少ない	= 0,
@@ -192,13 +186,6 @@ namespace TJAPlayer3
 		AutoPerfect = 6,
 		AutoGreat   = 7,
 		AutoGood    = 8,
-	}
-	internal enum E判定文字表示位置
-	{
-		表示OFF,
-		レーン上,
-		判定ライン上,
-		コンボ下
 	}
 	internal enum E判定位置
 	{

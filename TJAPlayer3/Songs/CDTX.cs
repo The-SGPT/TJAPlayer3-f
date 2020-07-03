@@ -20,8 +20,6 @@ namespace TJAPlayer3
 	{
 		// 定数
 
-		public enum E種別 { DTX, GDA, G2D, BMS, BME, SMF }
-
 		// クラス
 
 		public class CAVI : IDisposable
@@ -340,7 +338,6 @@ namespace TJAPlayer3
 			public bool bHit;
 			public bool b可視 = true;
 			public bool bShow;
-			public bool bShowRoll; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public bool bBranch = false;
 			public double dbチップサイズ倍率 = 1.0;
 			public double db実数値;
@@ -352,7 +349,6 @@ namespace TJAPlayer3
 			public double dbSCROLL_Y;
 			public int nコース;
 			public int nSenote;
-			public int nState;
 			public int nRollCount;
 			public int nBalloon;
 			public int nProcessTime;
@@ -368,11 +364,9 @@ namespace TJAPlayer3
 			public int n文字数 = 16; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public int n整数値_内部番号;
 			public int n総移動時間;
-			public int n透明度 = 0xff;
 			public int n発声位置;
 			public double db条件数値A; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public double db条件数値B; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-			public double db分岐時間のズレ; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public int n分岐の種類; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public double db発声位置;  // 発声時刻を格納していた変数のうちの１つをfloat型からdouble型に変更。(kairera0467)
 			public double fBMSCROLLTime;
@@ -390,9 +384,6 @@ namespace TJAPlayer3
 			public CDTX.CAVI rAVI;
 			public CDTX.CAVIPAN rAVIPan;
 			public CDTX.CDirectShow rDShow;
-			public double db発声時刻;
-			public double db判定終了時刻;//連打系音符で使用
-			public double dbProcess_Time;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
 			public int nList上の位置;
@@ -475,7 +466,6 @@ namespace TJAPlayer3
 				this.IsMissed = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 				this.b可視 = true;
 				this.e楽器パート = E楽器パート.UNKNOWN;
-				this.n透明度 = 0xff;
 				this.nバーからの距離dot.Drums = 0;
 				this.nバーからの距離dot.Guitar = 0;
 				this.nバーからの距離dot.Bass = 0;
@@ -553,7 +543,7 @@ namespace TJAPlayer3
 					"0xF0", "歌詞", "??", "SUDDEN", "??", "??", "??", "??",
 					"??", "??", "??", "??", "??", "??", "??", "??", "譜面終了"
 				};
-				return string.Format("CChip: 位置:{0:D4}.{1:D3}, 時刻{2:D6}, Ch:{3:X2}({4}), Pn:{5}({11})(内部{6}), Pd:{7}, Sz:{8}, BMScroll:{9}, Auto:{10}, コース:{11}",
+				return string.Format("CChip: Position:{0:D4}.{1:D3}, Time{2:D6}, Ch:{3:X2}({4}), Pn:{5}({11})(Internal{6}), Pd:{7}, Sz:{8}, BMScroll:{9}, Cource:{10}",
 					this.n発声位置 / 384, this.n発声位置 % 384,
 					this.n発声時刻ms,
 					this.nチャンネル番号, chToStr[this.nチャンネル番号],
@@ -561,7 +551,6 @@ namespace TJAPlayer3
 					this.db実数値,
 					this.dbチップサイズ倍率,
 					this.fBMSCROLLTime,
-					this.b自動再生音チャンネルである,
 					this.nコース,
 					CDTX.tZZ(this.n整数値));
 			}
@@ -982,7 +971,6 @@ namespace TJAPlayer3
 		public STチップがある bチップがある;
 		public string COMMENT;
 		public double db再生速度;
-		public E種別 e種別;
 		public string GENRE;
 		public bool bLyrics;
 		public bool HIDDENLEVEL;
@@ -1008,13 +996,9 @@ namespace TJAPlayer3
 		public Dictionary<int, CDELAY> listDELAY;
 		public Dictionary<int, CBRANCH> listBRANCH;
 		public STLANEINT n可視チップ数;
-		public const int n最大音数 = 4;
-		public const int n小節の解像度 = 384;
 		public string PANEL;
 		public string PATH_WAV;
 		public string PREIMAGE;
-		public string PREVIEW;
-		public string strハッシュofDTXファイル;
 		public string strファイル名;
 		public string strファイル名の絶対パス;
 		public string strフォルダ名;
@@ -1036,7 +1020,6 @@ namespace TJAPlayer3
 		private int nMOVIEOFFSET = 0;
 		private bool bMOVIEOFFSETの値がマイナスである = false;
 		private double dbNowBPM = 120.0;
-		private int nDELAY = 0;
 		public bool[] bHasBranch = new bool[(int)Difficulty.Total] { false, false, false, false, false, false, false };
 
 		//分岐関連
@@ -1144,7 +1127,6 @@ namespace TJAPlayer3
 			this.PANEL = "";
 			this.GENRE = "";
 			this.bLyrics = false;
-			this.PREVIEW = "";
 			this.PREIMAGE = "";
 			this.BACKGROUND = "";
 			this.BACKGROUND_GR = "";
@@ -1838,9 +1820,14 @@ namespace TJAPlayer3
 						}
 						if (this.listChip.Count == 0)
 						{
-							//this.t入力(str1);
-							//this.t入力_V3( str1, 3 );
-							this.t入力_V4(str1);
+							try
+							{
+								this.t入力_V4(str1);
+							}
+							catch (Exception e)
+							{ 
+							
+							}
 						}
 						if (ce.Current == '#')
 						{
@@ -1865,7 +1852,6 @@ namespace TJAPlayer3
 							}
 							break;
 						}
-						//this.t入力(str1);
 					}
 					while (this.t入力_コメントをスキップする(ref ce));
 
@@ -3622,7 +3608,6 @@ namespace TJAPlayer3
 						chip.bHit = false;
 						chip.b可視 = true;
 						chip.bShow = true;
-						chip.bShowRoll = true;
 						chip.nチャンネル番号 = 0x10 + nObjectNum;
 						//chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 						chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
@@ -5471,7 +5456,6 @@ namespace TJAPlayer3
 								chip.bHit = false;
 								chip.b可視 = true;
 								chip.bShow = true;
-								chip.bShowRoll = true;
 								chip.nチャンネル番号 = 0x10 + nObjectNum;
 								//chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 								chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
@@ -8740,15 +8724,6 @@ namespace TJAPlayer3
 				{
 					this.t入力_パラメータ食い込みチェック("HIDDENLEVEL", ref strコマンド, ref strパラメータ);
 					this.HIDDENLEVEL = strパラメータ.ToLower().Equals("on");
-				}
-				//-----------------
-				#endregion
-				#region [ PREVIEW ]
-				//-----------------
-				else if (strコマンド.StartsWith("PREVIEW", StringComparison.OrdinalIgnoreCase))
-				{
-					this.t入力_パラメータ食い込みチェック("PREVIEW", ref strコマンド, ref strパラメータ);
-					this.PREVIEW = strパラメータ;
 				}
 				//-----------------
 				#endregion

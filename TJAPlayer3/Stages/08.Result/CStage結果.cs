@@ -31,15 +31,12 @@ namespace TJAPlayer3
 			this.st演奏記録 = new CScoreIni.C演奏記録[2];
 			this.r空うちドラムチップ = new CDTX.CChip[ 10 ];
 			this.n総合ランク値 = -1;
-			this.nチャンネル0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 7, 0 };
 			base.eステージID = CStage.Eステージ.結果;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add( this.actResultImage = new CActResultImage() );
 			base.list子Activities.Add( this.actParameterPanel = new CActResultParameterPanel() );
-			base.list子Activities.Add( this.actRank = new CActResultRank() );
 			base.list子Activities.Add( this.actSongBar = new CActResultSongBar() );
-			base.list子Activities.Add( this.actOption = new CActオプションパネル() );
 			base.list子Activities.Add( this.actFI = new CActFIFOResult() );
 			base.list子Activities.Add( this.actFO = new CActFIFOBlack() );
 		}
@@ -58,8 +55,6 @@ namespace TJAPlayer3
 				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bアニメが完了 = false;
 				this.bIsCheckedWhetherResultScreenShouldSaveOrNot = false;				// #24609 2011.3.14 yyagi
-				this.n最後に再生したHHのWAV番号 = -1;
-				this.n最後に再生したHHのチャンネル番号 = 0;
 				for( int i = 0; i < 3; i++ )
 				{
 					this.b新記録スキル[ i ] = false;
@@ -233,10 +228,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background.png" ) );
-				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_header.png" ) );
-				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_footer panel.png" ), true );
-				//this.txオプションパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen option panels.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -248,10 +239,6 @@ namespace TJAPlayer3
 				{
 					this.ct登場用 = null;
 				}
-				//CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				//CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
-				//CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
-				//CDTXMania.tテクスチャの解放( ref this.txオプションパネル );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -397,21 +384,13 @@ namespace TJAPlayer3
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private CActFIFOResult actFI;
 		private CActFIFOBlack actFO;
-		private CActオプションパネル actOption;
 		private CActResultParameterPanel actParameterPanel;
-		private CActResultRank actRank;
 		private CActResultImage actResultImage;
 		private CActResultSongBar actSongBar;
 		private bool bアニメが完了;
 		private bool bIsCheckedWhetherResultScreenShouldSaveOrNot;				// #24509 2011.3.14 yyagi
-		private readonly int[] nチャンネル0Atoレーン07;
-		private int n最後に再生したHHのWAV番号;
-		private int n最後に再生したHHのチャンネル番号;
+
 		private CSound rResultSound;
-		//private CTexture txオプションパネル;
-		//private CTexture tx下部パネル;
-		//private CTexture tx上部パネル;
-		//private CTexture tx背景;
 
 		#region [ #24609 リザルト画像をpngで保存する ]		// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
 		/// <summary>

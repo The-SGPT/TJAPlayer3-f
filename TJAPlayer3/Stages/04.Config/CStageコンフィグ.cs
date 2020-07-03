@@ -28,7 +28,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actFIFO = new CActFIFOBlack() );
 			base.list子Activities.Add( this.actList = new CActConfigList() );
 			base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );
-			base.list子Activities.Add( this.actオプションパネル = new CActオプションパネル() );
 			base.b活性化してない = true;
 		}
 		
@@ -472,7 +471,6 @@ namespace TJAPlayer3
 		private CActFIFOBlack actFIFO;
 		private CActConfigKeyAssign actKeyAssign;
 		private CActConfigList actList;
-		private CActオプションパネル actオプションパネル;
 		private bool bメニューにフォーカス中;
 		private STキー反復用カウンタ ctキー反復用;
 		private const int DESC_H = 0x80;
