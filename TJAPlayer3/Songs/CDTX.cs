@@ -1552,14 +1552,10 @@ namespace TJAPlayer3
 		}
 
 		#region [ チップの再生と停止 ]
-		public void tチップの再生(CChip pChip, long n再生開始システム時刻ms, int nLane)
+		public void tチップの再生(CChip pChip, long n再生開始システム時刻ms)
 		{
 			if (pChip.n整数値_内部番号 >= 0)
 			{
-				if ((nLane < (int)Eレーン.LC) || ((int)Eレーン.BGM < nLane))
-				{
-					throw new ArgumentOutOfRangeException();
-				}
 				if (this.listWAV.TryGetValue(pChip.n整数値_内部番号, out CWAV wc))
 				{
 					int index = wc.n現在再生中のサウンド番号 = (wc.n現在再生中のサウンド番号 + 1) % nPolyphonicSounds;
