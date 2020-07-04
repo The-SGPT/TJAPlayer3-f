@@ -31,7 +31,7 @@ namespace TJAPlayer3
 			//if (  )
 			{
 				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, nPlayer );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX[nPlayer].LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[0]], TJAPlayer3.DTX[nPlayer].n可視チップ数.Drums, this.nヒット数_Auto含まない[nPlayer].Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS );
+				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX[nPlayer].LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[0]], TJAPlayer3.DTX[nPlayer].n可視チップ数.Drums, this.nヒット数_Auto含まない[nPlayer].Perfect, this.actCombo.n現在のコンボ数.最高値[0], E楽器パート.DRUMS );
 				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX[nPlayer].n可視チップ数.Drums, this.nヒット数_Auto含まない[nPlayer].Perfect, this.nヒット数_Auto含まない[nPlayer].Great, this.nヒット数_Auto含まない[nPlayer].Good, this.nヒット数_Auto含まない[nPlayer].Poor, this.nヒット数_Auto含まない[nPlayer].Miss, E楽器パート.DRUMS );
 				Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Perfect : this.nヒット数_Auto含まない[nPlayer].Perfect;
 				Drums.nGreat数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Great : this.nヒット数_Auto含まない[nPlayer].Great;
@@ -44,10 +44,7 @@ namespace TJAPlayer3
 				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Poor;
 				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Miss;
 				Drums.n連打数 = this.n合計連打数[ nPlayer ];
-				if (nPlayer == 0)
-					Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
-				else
-					Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P2最高値;
+				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.最高値[nPlayer];
 				Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
 				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
 				Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
@@ -2830,7 +2827,7 @@ namespace TJAPlayer3
 #endregion
 		}
 
-		protected void t入力メソッド記憶( E楽器パート part )
+		protected void t入力メソッド記憶()
 		{
 			if ( TJAPlayer3.Pad.st検知したデバイス.Keyboard )
 			{
@@ -2917,11 +2914,7 @@ namespace TJAPlayer3
 		{
 			this.actStatusPanels.On進行描画();
 		}
-		protected bool t進行描画_チップ( E楽器パート ePlayMode )
-		{
-			return this.t進行描画_チップ( ePlayMode, 0 );
-		}
-		protected bool t進行描画_チップ( E楽器パート ePlayMode, int nPlayer )
+		protected bool t進行描画_チップ( int nPlayer )
 		{
 			if ( ( base.eフェーズID == CStage.Eフェーズ.演奏_STAGE_FAILED ) || ( base.eフェーズID == CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
@@ -3745,6 +3738,7 @@ namespace TJAPlayer3
 					case 0xFF:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
+							pChip.bHit = true;
 							return true;
 						}
 						break;
@@ -3764,7 +3758,7 @@ namespace TJAPlayer3
 			return false;
 		}
 
-		protected bool t進行描画_チップ_連打( E楽器パート ePlayMode, int nPlayer )
+		protected bool t進行描画_チップ_連打( int nPlayer )
 		{
 			if ( ( base.eフェーズID == CStage.Eフェーズ.演奏_STAGE_FAILED ) || ( base.eフェーズID == CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
