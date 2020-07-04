@@ -172,31 +172,31 @@ namespace TJAPlayer3
 				if (string.IsNullOrEmpty(this.strファイル名))
 					throw new InvalidOperationException("ファイル名が無効です。");
 
-				if( !File.Exists( CSkin.Path( this.strファイル名 ) ) )
+				if (!File.Exists(CSkin.Path(this.strファイル名)))
 				{
 					Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
 					return;
 				}
-////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
-////				{
-//                    try
-//                    {
-//                        this.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ) );
-//                    }
-//                    catch
-//                    {
-//                        this.rSound[ 0 ] = null;
-//                        throw;
-//                    }
-//                    if ( this.rSound[ 0 ] == null )	// #28243 2012.5.3 yyagi "this.rSound[ 0 ].bストリーム再生する"時もCloneするようにし、rSound[1]がnullにならないよう修正→rSound[1]の再生正常化
-//                    {
-//                        this.rSound[ 1 ] = null;
-//                    }
-//                    else
-//                    {
-//                        this.rSound[ 1 ] = ( CSound ) this.rSound[ 0 ].Clone();	// #27790 2012.3.10 yyagi add: to accelerate loading chip sounds
-//                        CDTXMania.Sound管理.tサウンドを登録する( this.rSound[ 1 ] );	// #28243 2012.5.3 yyagi add (登録漏れによりストリーム再生処理が発生していなかった)
-//                    }
+				////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
+				////				{
+				//                    try
+				//                    {
+				//                        this.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ) );
+				//                    }
+				//                    catch
+				//                    {
+				//                        this.rSound[ 0 ] = null;
+				//                        throw;
+				//                    }
+				//                    if ( this.rSound[ 0 ] == null )	// #28243 2012.5.3 yyagi "this.rSound[ 0 ].bストリーム再生する"時もCloneするようにし、rSound[1]がnullにならないよう修正→rSound[1]の再生正常化
+				//                    {
+				//                        this.rSound[ 1 ] = null;
+				//                    }
+				//                    else
+				//                    {
+				//                        this.rSound[ 1 ] = ( CSound ) this.rSound[ 0 ].Clone();	// #27790 2012.3.10 yyagi add: to accelerate loading chip sounds
+				//                        CDTXMania.Sound管理.tサウンドを登録する( this.rSound[ 1 ] );	// #28243 2012.5.3 yyagi add (登録漏れによりストリーム再生処理が発生していなかった)
+				//                    }
 
 				////				}
 
@@ -629,7 +629,7 @@ namespace TJAPlayer3
 			//this.soundBlue              = new Cシステムサウンド( @"Sounds\ka.ogg",              false, false, true, ESoundType.SoundEffect );
 			this.soundBalloon = new Cシステムサウンド(@"Sounds\balloon.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, ESoundGroup.Voice);
-			this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false,  ESoundGroup.Voice);
+			this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, ESoundGroup.Voice);
 			this.soundDanするカッ = new Cシステムサウンド(@"Sounds\Dan_Select.ogg", false, false, ESoundGroup.SoundEffect);
 			ReloadSkin();
 			tReadSkinConfig();
@@ -660,7 +660,7 @@ namespace TJAPlayer3
 					Trace.TraceWarning(e.ToString());
 					Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名);
 				}
-				
+
 			}
 		}
 
@@ -868,7 +868,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		private void t文字列から読み込み(string strAllSettings)	// 2011.4.13 yyagi; refactored to make initial KeyConfig easier.
+		private void t文字列から読み込み(string strAllSettings)  // 2011.4.13 yyagi; refactored to make initial KeyConfig easier.
 		{
 			string[] delimiter = { "\n" };
 			string[] strSingleLine = strAllSettings.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
@@ -962,34 +962,6 @@ namespace TJAPlayer3
 								this.b現在のステージ数を表示しない = C変換.bONorOFF(strParam[0]);
 							}
 
-							//-----------------------------
-							#endregion
-							#region[ 成績発表 ]
-							//-----------------------------
-							else if (strCommand == "ResultPanelP1X")
-							{
-								this.nResultPanelP1X = C変換.n値を文字列から取得して返す(strParam, 515);
-							}
-							else if (strCommand == "ResultPanelP1Y")
-							{
-								this.nResultPanelP1Y = C変換.n値を文字列から取得して返す(strParam, 75);
-							}
-							else if (strCommand == "ResultPanelP2X")
-							{
-								this.nResultPanelP2X = C変換.n値を文字列から取得して返す(strParam, 515);
-							}
-							else if (strCommand == "ResultPanelP2Y")
-							{
-								this.nResultPanelP2Y = C変換.n値を文字列から取得して返す(strParam, 75);
-							}
-							else if (strCommand == "ResultScoreP1X")
-							{
-								this.nResultScoreP1X = C変換.n値を文字列から取得して返す(strParam, 582);
-							}
-							else if (strCommand == "ResultScoreP1Y")
-							{
-								this.nResultScoreP1Y = C変換.n値を文字列から取得して返す(strParam, 252);
-							}
 							//-----------------------------
 							#endregion
 							#region[ その他 ]
@@ -2279,7 +2251,7 @@ namespace TJAPlayer3
 							{
 								Result_Dan_Plate_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if(strCommand == nameof(Result_Crown_XY))
+							else if (strCommand == nameof(Result_Crown_XY))
 							{
 								Result_Crown_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
@@ -2307,7 +2279,7 @@ namespace TJAPlayer3
 							#endregion
 							#endregion
 						}
-                        continue;
+						continue;
 					}
 					catch (Exception exception)
 					{
@@ -2403,50 +2375,26 @@ namespace TJAPlayer3
 
 		//リザルト画面
 		//現在のデフォルト値はダミーです。
-		public int nResultPanelP1X = 515;
-		public int nResultPanelP1Y = 75;
-		public int nResultScoreP1X = 582;
-		public int nResultScoreP1Y = 252;
-		public int nResultJudge1_P1X = 815;
-		public int nResultJudge1_P1Y = 182;
-		public int nResultJudge2_P1X = 968;
-		public int nResultJudge2_P1Y = 174;
-		public int nResultGreatP1X = 875;
-		public int nResultGreatP1Y = 188;
-		public int nResultGoodP1X = 875;
-		public int nResultGoodP1Y = 226;
-		public int nResultBadP1X = 875;
-		public int nResultBadP1Y = 266;
-		public int nResultComboP1X = 1144;
-		public int nResultComboP1Y = 188;
-		public int nResultRollP1X = 1144;
-		public int nResultRollP1Y = 226;
-		public int nResultGaugeBaseP1X = 555;
-		public int nResultGaugeBaseP1Y = 122;
-		public int nResultGaugeBodyP1X = 559;
-		public int nResultGaugeBodyP1Y = 125;
-		public int nResultPanelP2X = 515;
-		public int nResultPanelP2Y = 435;
-		public int nResultScoreP2X = 582;
-		public int nResultScoreP2Y = 612;
-		public int nResultJudge1_P2X = 815;
-		public int nResultJudge1_P2Y = 542;
-		public int nResultJudge2_P2X = 968;
-		public int nResultJudge2_P2Y = 534;
-		public int nResultGreatP2X = 875;
-		public int nResultGreatP2Y = 548;
-		public int nResultGoodP2X = 875;
-		public int nResultGoodP2Y = 586;
-		public int nResultBadP2X = 875;
-		public int nResultBadP2Y = 626;
-		public int nResultComboP2X = 1144;
-		public int nResultComboP2Y = 548;
-		public int nResultRollP2X = 1144;
-		public int nResultRollP2Y = 586;
-		public int nResultGaugeBaseP2X = 555;
-		public int nResultGaugeBaseP2Y = 482;
-		public int nResultGaugeBodyP2X = 559;
-		public int nResultGaugeBodyP2Y = 485;
+		public int[] nResultPanelX = { 515, 515 };
+		public int[] nResultPanelY = { 75, 435 };
+		public int[] nResultScoreX = { 582, 582 };
+		public int[] nResultScoreY = { 252, 612 };
+		public int[] nResultJudge_X = { 815, 815 };
+		public int[] nResultJudge_Y = { 182, 542 };
+		public int[] nResultGreatX = { 875, 875 };
+		public int[] nResultGreatY = { 188, 548 };
+		public int[] nResultGoodX = { 875, 875 };
+		public int[] nResultGoodY = { 226, 586 };
+		public int[] nResultBadX = { 875, 875 };
+		public int[] nResultBadY = { 266, 626 };
+		public int[] nResultComboX = { 1144, 1144 };
+		public int[] nResultComboY = { 188, 548 };
+		public int[] nResultRollX = { 1144, 1144 };
+		public int[] nResultRollY = { 226, 586 };
+		public int[] nResultGaugeBaseX = { 555, 555 };
+		public int[] nResultGaugeBaseY = { 122, 482 };
+		public int[] nResultGaugeBodyX = { 559, 559 };
+		public int[] nResultGaugeBodyY = { 125, 485 };
 		#endregion
 
 		public enum RollColorMode

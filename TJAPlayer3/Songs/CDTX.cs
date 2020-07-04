@@ -3204,11 +3204,11 @@ namespace TJAPlayer3
 				this.nOFFSET = (int)((double)obj.Offset * 1000);
 			else
 				this.nOFFSET = 0;
-			this.bOFFSETの値がマイナスである = this.nOFFSET < 0 ? true : false;
+			this.bOFFSETの値がマイナスである = this.nOFFSET < 0 ? false : true;	//2020.07.04 Mr-Ojii OTC規格ではOFFSETがTJAと逆なので真と偽が逆になる。
 
 			this.listBPM[0].bpm_change_bmscroll_time = -2000 * this.dbNowBPM / 15000;
-			if (this.bOFFSETの値がマイナスである == true)
-				this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
+			if (this.bOFFSETの値がマイナスである == false)						//↑trueとfalseが逆になるのでここの比較も逆
+				this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。 
 			#endregion
 
 			#region[MOVIEOFFSET]
