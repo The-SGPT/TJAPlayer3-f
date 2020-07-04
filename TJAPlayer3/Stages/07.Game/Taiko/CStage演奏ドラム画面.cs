@@ -191,6 +191,7 @@ namespace TJAPlayer3
 			this.n待機中の大音符の座標 = 0;
 			this.actGame.t叩ききりまショー_初期化();
 			base.ReSetScore(TJAPlayer3.DTX[0].nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度[0]], TJAPlayer3.DTX[0].nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]);
+			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;//初期化すれば、リザルト変遷は止まる。
 			#region [ branch ]//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			for (int i = 0; i < 2; i++)
 			{
@@ -442,8 +443,8 @@ namespace TJAPlayer3
 
 				for ( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 				{
-					bIsFinishedPlaying = this.t進行描画_チップ( E楽器パート.DRUMS, i );
-					this.t進行描画_チップ_連打( E楽器パート.DRUMS, i );
+					bIsFinishedPlaying = this.t進行描画_チップ( i );
+					this.t進行描画_チップ_連打( i );
 				}
 
 				this.actDan.On進行描画();
@@ -500,10 +501,9 @@ namespace TJAPlayer3
 
 				
 				this.actPauseMenu.t進行描画();
-				//this.actEnd.On進行描画();
+
 				this.t進行描画_STAGEFAILED();
 
-			   
 
 				bIsFinishedEndAnime = this.actEnd.On進行描画() == 1 ? true : false;
 				bIsFinishedFadeout = this.t進行描画_フェードイン_アウト();
@@ -799,7 +799,7 @@ namespace TJAPlayer3
 				if( ( listInputEvent == null ) || ( listInputEvent.Count == 0 ) )
 					continue;
 
-				this.t入力メソッド記憶( E楽器パート.DRUMS );
+				this.t入力メソッド記憶();
 
 				foreach( STInputEvent inputEvent in listInputEvent )
 				{

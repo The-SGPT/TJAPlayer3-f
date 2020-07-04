@@ -26,8 +26,9 @@ namespace TJAPlayer3
 		public void Start()
 		{
 			this.ct進行メイン = new CCounter(0, 300, 22, TJAPlayer3.Timer);
+			this.bリザルトボイス再生済み = false;
 			// モードの決定。クリア失敗・フルコンボも事前に作っとく。
-			if(TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
+			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
 			{
 				// 段位認定モード。
 				if (!TJAPlayer3.stage演奏ドラム画面.actDan.GetFailedAllChallenges())
@@ -58,6 +59,10 @@ namespace TJAPlayer3
 					}
 				}
 			}
+		}
+
+		public void Stop() {
+			this.ct進行メイン = null;//nullにすれば、必然的に止まる。
 		}
 
 		public override void On活性化()
@@ -282,6 +287,8 @@ namespace TJAPlayer3
 							break;
 						case EndMode.StageFullCombo:
 							break;
+						case EndMode.StageDondaFullCombo:
+							break;
 						default:
 							break;
 					}
@@ -319,7 +326,8 @@ namespace TJAPlayer3
 		{
 			StageFailed,
 			StageCleared,
-			StageFullCombo
+			StageFullCombo,
+			StageDondaFullCombo
 		}
 		//-----------------
 		#endregion
