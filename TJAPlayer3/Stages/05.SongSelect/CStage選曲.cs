@@ -550,7 +550,7 @@ namespace TJAPlayer3
 							if ((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)) &&
 								TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F1))
 							{   // [SHIFT] + [F1] CONFIG
-								this.actPresound.tサウンド停止();
+								this.actPresound.tサウンドの停止MT();
 								this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
 								this.actFIFO.tフェードアウト開始();
 								base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
@@ -796,7 +796,8 @@ namespace TJAPlayer3
 						if (!this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu /*&&  !this.act難易度選択画面.bIsDifficltSelect */ )
 						{
 							#region [ ESC ]
-							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))// && (  ) ) )
+							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))
+							{
 								if (this.act曲リスト.r現在選択中の曲.r親ノード == null)
 								{   // [ESC]
 									TJAPlayer3.Skin.sound取消音.t再生する();
@@ -809,14 +810,16 @@ namespace TJAPlayer3
 								{
 									TJAPlayer3.Skin.sound取消音.t再生する();
 									bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
-									this.actPresound.tサウンド停止();
 								}
+								this.actPresound.tサウンドの停止MT();
+							}
+						
 							#endregion
 							#region [ Shift-F1: CONFIG画面 ]
 							if ((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)) &&
 								TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F1))
 							{   // [SHIFT] + [F1] CONFIG
-								this.actPresound.tサウンド停止();
+								this.actPresound.tサウンドの停止MT();
 								this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
 								this.actFIFO.tフェードアウト開始();
 								base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
@@ -977,7 +980,7 @@ namespace TJAPlayer3
 								#region [ Upstairs ]
 								if (((this.act曲リスト.r現在選択中の曲 != null) && (this.act曲リスト.r現在選択中の曲.r親ノード != null)) && (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.FT) || TJAPlayer3.Pad.b押されたGB(Eパッド.Cancel)))
 								{
-									this.actPresound.tサウンド停止();
+									this.actPresound.tサウンドの停止MT();
 									TJAPlayer3.Skin.sound取消音.t再生する();
 									this.act曲リスト.tBOXを出る();
 									this.t選択曲変更通知();

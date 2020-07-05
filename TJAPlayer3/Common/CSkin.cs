@@ -2251,9 +2251,13 @@ namespace TJAPlayer3
 							{
 								Result_Dan_Plate_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(Result_Crown_XY))
+							else if (strCommand == nameof(Result_Crown_X))
 							{
-								Result_Crown_XY = strParam.Split(',').Select(int.Parse).ToArray();
+								Result_Crown_X = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Result_Crown_Y))
+							{
+								Result_Crown_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 
 							#endregion
@@ -2720,8 +2724,8 @@ namespace TJAPlayer3
 		public int[] Result_Dan_XY = new int[] { 100, 0 };
 		public int[] Result_Dan_Plate_XY = new int[] { 149, 416 };
 
-		public int[] Result_Crown_XY = new int[] { 350, 200 };
-		public int[] Result_Crown2P_XY = new int[] { 350, 560 };
+		public int[] Result_Crown_X = new int[] { 350, 350 };
+		public int[] Result_Crown_Y = new int[] { 200, 560 };
 		#endregion
 		#region Font
 		public int Font_Edge_Ratio = 30;

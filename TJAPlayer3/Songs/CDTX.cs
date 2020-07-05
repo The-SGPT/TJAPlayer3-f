@@ -2964,7 +2964,7 @@ namespace TJAPlayer3
 
 			if (obj.Offset != null) //TJAと同じようにDELAYをかませる
 			{
-				double nDELAY = (Convert.ToDouble(-obj.Offset) * 1000.0);
+				double nDELAY = (Convert.ToDouble(obj.Offset) * 1000.0);
 
 
 				this.listDELAY.Add(this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
@@ -3061,7 +3061,6 @@ namespace TJAPlayer3
 			#endregion
 
 			t入力tccファイル(obj.Courses[cindex].Single);
-
         }
 
 
