@@ -16,16 +16,6 @@ namespace TJAPlayer3
 		{
 			base.b活性化してない = true;
 		}
-		public void tサウンド停止()
-		{
-			this.tサウンドの停止MT();
-			/*if (this.sound != null)
-			{
-				this.sound.t再生を停止する();
-				TJAPlayer3.Sound管理.tサウンドを破棄する(this.sound);
-				this.sound = null;
-			}*/
-		}
 		public void t選択曲が変更された()
 		{
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
@@ -38,25 +28,9 @@ namespace TJAPlayer3
 				if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
 				{
 					//this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
-					if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
-					{
-						this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
-					} else
-					{
-						this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.Timer);
-					}
+					this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
 				}
 			}
-
-			//if( ( cスコア != null ) && ( ( !( cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Presound ).Equals( this.str現在のファイル名 ) || ( this.sound == null ) ) || !this.sound.b再生中 ) )
-			//{
-			//    this.tサウンド停止();
-			//    this.tBGMフェードイン開始();
-			//    if( ( cスコア.譜面情報.Presound != null ) && ( cスコア.譜面情報.Presound.Length > 0 ) )
-			//    {
-			//        this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
-			//    }
-			//}
 		}
 
 
@@ -76,7 +50,8 @@ namespace TJAPlayer3
 		}
 		public override void On非活性化()
 		{
-			this.tサウンド停止();
+			this.tサウンドの停止MT();
+			this.token.Cancel();
 			this.ct再生待ちウェイト = null;
 			this.ctBGMフェードイン用 = null;
 			this.ctBGMフェードアウト用 = null;
@@ -121,8 +96,6 @@ namespace TJAPlayer3
 						if (this.long再生位置 >= this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) //2020.04.18 Mr-Ojii #DEMOSTARTから何度も再生するために追加
 							this.long再生位置 = -1;
 					}
-					//if (this.long再生位置 >= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) - 1 && this.long再生位置 <= (this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) + 0)
-					//this.long再生位置 = -1;
 				}
 			}
 			return 0;
@@ -185,6 +158,8 @@ namespace TJAPlayer3
 					var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
 										   ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
 					TJAPlayer3.SongGainController.Set(cスコア.譜面情報.SongVol, loudnessMetadata, this.sound);
+
+					token.Token.ThrowIfCancellationRequested();
 
 					this.sound.t再生を開始する(true);
 					if (this.long再生位置 == -1)

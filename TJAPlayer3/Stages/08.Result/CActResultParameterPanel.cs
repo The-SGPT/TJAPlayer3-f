@@ -402,7 +402,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = 1.0f;
 						TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = 1.0f;
-						TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Crown_XY[0], TJAPlayer3.Skin.Result_Crown_XY[1], new Rectangle(j * 100, 0, 100, 100));
+						TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Crown_X[i], TJAPlayer3.Skin.Result_Crown_Y[i], new Rectangle(j * 100, 0, 100, 100));
 					}
 				}
 				#endregion

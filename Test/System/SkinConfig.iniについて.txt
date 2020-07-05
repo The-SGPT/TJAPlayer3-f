@@ -72,7 +72,8 @@ SongSelect_BackBoxText_Y_Diff=0
 SongSelect_Box_Center_Header_Y_Diff=0
 
 //リザルト画面での王冠の座標
-Result_Crown_XY=350,200
+Result_Crown_X=350,350
+Result_Crown_Y=200,560
 
 //ゲームのBGAの上背景の上下に動くとこの動きパターン。1P,2Pの順(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく)
 Background_Scroll_PatternY=0,0
