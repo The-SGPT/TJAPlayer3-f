@@ -71,7 +71,7 @@ namespace TJAPlayer3
 							comboVoice.nPlayer = i;
 							comboVoice.strFilePath = item;
 							comboVoice.soundComboVoice = TJAPlayer3.Sound管理.tサウンドを生成する(item, ESoundGroup.Voice);
-							if (TJAPlayer3.ConfigIni.nPlayerCount >= 2) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
+							if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
 							{
 								if (i == 0)
 									comboVoice.soundComboVoice.n位置 = -100;
