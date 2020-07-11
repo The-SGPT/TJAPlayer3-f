@@ -2197,7 +2197,6 @@ for (int i = 0; i < 3; i++) {
 				#endregion
 				Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
 
-
 				this.b終了処理完了済み = true;
 			}
 		}

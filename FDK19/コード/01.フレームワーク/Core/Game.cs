@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using SharpDX;
-using System.Collections.ObjectModel;
 
 namespace SampleFramework
 {
