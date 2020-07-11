@@ -1139,6 +1139,30 @@ namespace TJAPlayer3
 							{
 								SongSelect_Box_Center_Header_Y_Diff = int.Parse(strParam);
 							}
+
+							#region Difficulty
+							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
+							{
+								Difficulty_Bar_Center_X_WH_WH_Y_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_Bar_XY))
+							{
+								Difficulty_Bar_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_Bar_Padding))
+							{
+								Difficulty_Bar_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_BarEtc_XY))
+							{
+								Difficulty_Bar_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_BarEtc_Padding))
+							{
+								Difficulty_Bar_Padding = int.Parse(strParam);
+							}
+							#endregion
+
 							#endregion
 							#region SongLoading
 							else if (strCommand == nameof(SongLoading_Plate_X))
@@ -2183,41 +2207,25 @@ namespace TJAPlayer3
 							{
 								Game_Training_ScrollTime = int.Parse(strParam);
 							}
-							else if (strCommand == nameof(Game_Training_ProgressBar_X))
+							else if (strCommand == nameof(Game_Training_ProgressBar_XY))
 							{
-								Game_Training_ProgressBar_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_ProgressBar_Y))
-							{
-								Game_Training_ProgressBar_Y = int.Parse(strParam);
+								Game_Training_ProgressBar_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(Game_Training_GoGoPoint_Y))
 							{
 								Game_Training_GoGoPoint_Y = int.Parse(strParam);
 							}
-							else if (strCommand == nameof(Game_Training_MaxMeasureCount_X))
+							else if (strCommand == nameof(Game_Training_MaxMeasureCount_XY))
 							{
-								Game_Training_MaxMeasureCount_X = int.Parse(strParam);
+								Game_Training_MaxMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(Game_Training_MaxMeasureCount_Y))
+							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_XY))
 							{
-								Game_Training_MaxMeasureCount_Y = int.Parse(strParam);
+								Game_Training_CurrentMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_X))
+							else if (strCommand == nameof(Game_Training_SpeedDisplay_XY))
 							{
-								Game_Training_CurrentMeasureCount_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_Y))
-							{
-								Game_Training_CurrentMeasureCount_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_SpeedDisplay_X))
-							{
-								Game_Training_SpeedDisplay_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_SpeedDisplay_Y))
-							{
-								Game_Training_SpeedDisplay_Y = int.Parse(strParam);
+								Game_Training_CurrentMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(Game_Training_SmallNumber_Width))
 							{
@@ -2536,10 +2544,14 @@ namespace TJAPlayer3
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 600 , 125 , 25};
-        #endregion
-        #endregion
-        #region SongLoading
-        public int SongLoading_Plate_X = 640;
+		public int[] Difficulty_Bar_XY = new int[2] { 440, 90 };
+		public int Difficulty_Bar_Padding = 100;
+		public int[] Difficulty_BarEtc_XY = new int[2] { 225, 150 };
+		public int Difficulty_BarEtc_Padding = 75;
+		#endregion
+		#endregion
+		#region SongLoading
+		public int SongLoading_Plate_X = 640;
 		public int SongLoading_Plate_Y = 360;
 		public int SongLoading_Title_X = 640;
 		public int SongLoading_Title_Y = 340;
@@ -2777,15 +2789,11 @@ namespace TJAPlayer3
 		#endregion
 		#region Training
 		public int Game_Training_ScrollTime = 350;
-		public int Game_Training_ProgressBar_X = 333;
-		public int Game_Training_ProgressBar_Y = 378;
+		public int[] Game_Training_ProgressBar_XY = { 333, 378 };
 		public int Game_Training_GoGoPoint_Y = 396;
-		public int Game_Training_MaxMeasureCount_X = 284;
-		public int Game_Training_MaxMeasureCount_Y = 377;
-		public int Game_Training_CurrentMeasureCount_X = 254;
-		public int Game_Training_CurrentMeasureCount_Y = 370;
-		public int Game_Training_SpeedDisplay_X = 115;
-		public int Game_Training_SpeedDisplay_Y = 370;
+		public int[] Game_Training_MaxMeasureCount_XY = { 284, 377 };
+		public int[] Game_Training_CurrentMeasureCount_XY = { 254, 370 };
+		public int[] Game_Training_SpeedDisplay_XY = { 115, 370 };
 		public int Game_Training_SmallNumber_Width = 17;
 		public int Game_Training_BigNumber_Width = 20;
 		#endregion
