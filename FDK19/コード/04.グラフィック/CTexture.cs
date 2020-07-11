@@ -126,26 +126,8 @@ namespace FDK
 		public CTexture(Device device, Bitmap bitmap, Format format)
 			: this()
 		{
-			try
-			{
-				this.Format = format;
-				this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
-				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-
-				using (var stream = new MemoryStream())
-				{
-					bitmap.Save(stream, ImageFormat.Bmp);
-					stream.Seek(0L, SeekOrigin.Begin);
-					int colorKey = unchecked((int)0xFF000000);
-					this.texture = Texture.FromStream(device, stream, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height, 1, Usage.None, format, poolvar, Filter.Point, Filter.None, colorKey);
-				}
-			}
-			catch (Exception e)
-			{
-				this.Dispose();
-				throw new CTextureCreateFailedException("ビットマップからのテクスチャの生成に失敗しました。", e);
-			}
+			//投げる
+			MakeTexture(device, bitmap, format, true, Pool.Managed);
 		}
 
 		/// <summary>
@@ -225,11 +207,8 @@ namespace FDK
 					}
 					using (var stream = new MemoryStream())
 					{
-						bitmap.Save(stream, ImageFormat.Bmp);
+						bitmap.Save(stream, ImageFormat.Png);
 						stream.Seek(0L, SeekOrigin.Begin);
-#if TEST_Direct3D9Ex
-						pool = poolvar;
-#endif
 						// 中で更にメモリ読み込みし直していて無駄なので、Streamを使うのは止めたいところ
 						this.texture = Texture.FromStream(device, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0);
 					}
@@ -313,6 +292,7 @@ namespace FDK
 			bitmap.Save(ms,ImageFormat.Png);
 			byte[] img = ms.GetBuffer();
 			MakeTexture(device, img, format, b黒を透過する, pool);
+			ms.Dispose();
 		}
 		// メソッド
 
@@ -934,12 +914,6 @@ namespace FDK
 			new TransformedColoredTexturedVertex(),
 			new TransformedColoredTexturedVertex(),
 		};
-		private const Pool poolvar =                                                // 2011.4.25 yyagi
-#if TEST_Direct3D9Ex
-			Pool.Default;
-#else
-			Pool.Managed;
-#endif
 		//		byte[] _txData;
 		static object lockobj = new object();
 

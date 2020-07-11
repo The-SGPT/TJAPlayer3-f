@@ -1176,6 +1176,7 @@ namespace TJAPlayer3
 			TJAPlayer3.Skin.sound取消音.t再生する();
 			this.act難易度選択画面.選択済み[0] = false;
 			this.act難易度選択画面.選択済み[1] = false;
+			this.act難易度選択画面.b開いた直後 = true;
 			現在の選曲画面状況 = E選曲画面.難易度選択Out;
 		}
 

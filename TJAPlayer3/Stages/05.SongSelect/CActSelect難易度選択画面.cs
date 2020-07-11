@@ -73,8 +73,19 @@ namespace TJAPlayer3
 
 			#region [ 初めての進行描画 ]
 			//-----------------
-			if (this.b初めての進行描画)
+			if (base.b初めての進行描画)
 			{
+				base.b初めての進行描画 = false;
+			}
+
+			if (b開いた直後) {
+
+				for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+				{
+					this.ct難易度拡大用[nPlayer].n現在の値 = 0;
+					this.ct難易度拡大用[nPlayer].t時間Reset();
+				}
+				b開いた直後 = false;
 			}
 			//-----------------
 			#endregion
@@ -359,6 +370,7 @@ namespace TJAPlayer3
 		internal int[] 確定された難易度 = new int[2];
 		internal int[] 裏カウント = new int[2];
 		internal bool 裏表示 = false;
+		internal bool b開いた直後 = true;
 		private CCounter ct分岐表示用タイマー;
 		internal CCounter[] ct難易度拡大用 = { new CCounter(0, 180, 1, TJAPlayer3.Timer), new CCounter(0, 180, 1, TJAPlayer3.Timer) };
 		//-----------------
