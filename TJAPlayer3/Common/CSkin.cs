@@ -1155,11 +1155,47 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Difficulty_BarEtc_XY))
 							{
-								Difficulty_Bar_XY = strParam.Split(',').Select(int.Parse).ToArray();
+								Difficulty_BarEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(Difficulty_BarEtc_Padding))
 							{
-								Difficulty_Bar_Padding = int.Parse(strParam);
+								Difficulty_BarEtc_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_Anc_XY))
+							{
+								Difficulty_Anc_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_AncEtc_XY))
+							{
+								Difficulty_AncEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_AncBox_XY))
+							{
+								Difficulty_AncBox_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_AncBoxEtc_XY))
+							{
+								Difficulty_AncBoxEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Difficulty_Anc_Padding))
+							{
+								Difficulty_Anc_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_AncEtc_Padding))
+							{
+								Difficulty_Anc_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_AncBox_Padding))
+							{
+								Difficulty_Anc_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_AncBoxEtc_Padding))
+							{
+								Difficulty_Anc_Padding = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Difficulty_Mark_Y))
+							{
+								Difficulty_Mark_Y = int.Parse(strParam);
 							}
 							#endregion
 
@@ -2543,11 +2579,23 @@ namespace TJAPlayer3
 		public int[] SongSelect_Counter_XY = { 1145, 55 };
 
 		#region[Difficulty]
-		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 600 , 125 , 25};
+		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
 		public int[] Difficulty_Bar_XY = new int[2] { 440, 90 };
 		public int Difficulty_Bar_Padding = 100;
 		public int[] Difficulty_BarEtc_XY = new int[2] { 225, 150 };
 		public int Difficulty_BarEtc_Padding = 75;
+
+		public int[] Difficulty_Anc_XY = new int[2] { 441, -10 };
+		public int Difficulty_Anc_Padding = 100;
+		public int[] Difficulty_AncBox_XY = new int[2] { 441, 138 };
+		public int Difficulty_AncBox_Padding = 100;
+
+		public int[] Difficulty_AncEtc_XY = new int[2] { 210, 0 };
+		public int Difficulty_AncEtc_Padding = 75;
+		public int[] Difficulty_AncBoxEtc_XY = new int[2] { 210, 105 };
+		public int Difficulty_AncBoxEtc_Padding = 75;
+
+		public int Difficulty_Mark_Y = 600;
 		#endregion
 		#endregion
 		#region SongLoading

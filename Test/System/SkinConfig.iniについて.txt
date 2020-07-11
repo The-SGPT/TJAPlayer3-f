@@ -71,21 +71,32 @@ SongSelect_BackBoxText_Y_Diff=0
 //Box_Center_HeaderのY座標を相対的に変更する
 SongSelect_Box_Center_Header_Y_Diff=0
 
-//難易度選択のBarの基準XY
+//難易度選択のBarの基準XY,間隔
 Difficulty_Bar_XY=440,90
-
-//難易度選択のBarの間隔
 Difficulty_Bar_Padding=100
 
-//難易度選択のオプション関係のBarの基準XY
-Difficulty_Bar_XY=225,150
+//難易度選択のオプション関係のBarの基準XY,間隔
+Difficulty_BarEtc_XY=225,150
+Difficulty_BarEtc_Padding=75
 
-//難易度選択のオプション関係のBarの間隔
-Difficulty_Bar_Padding=75
+//難易度選択のアンカーの基準XY,間隔
+Difficulty_Anc_XY=441,-10
+Difficulty_Anc_Padding=100
+Difficulty_AncBox_XY=441,138
+Difficulty_AncBox_Padding=100
 
-//後ろのDifficulty_Center_Barに関するいろいろなパラメーター(幅や座標)(説明が面倒なので使ってみて察してください)
-Difficulty_Bar_Center_X_WH_WH_Y_Y=643,387,439,880,600,125,25
+//難易度選択のオプション関係のアンカーの基準XY,間隔
+Difficulty_AncEtc_XY=210,0
+Difficulty_AncEtc_Padding=75
+Difficulty_AncBoxEtc_XY=210,105
+Difficulty_AncBoxEtc_Padding=75
 
+//後ろのDifficulty_Center_Barに関するいろいろなパラメーター(幅や座標)
+//(中心X,拡大前のWidth,拡大前のHeight,拡大後のWidth,拡大後のHeight,拡大前のY座標,拡大後のY座標)
+Difficulty_Bar_Center_X_WH_WH_Y_Y=643,387,439,880,540,125,25
+
+//後ろの難易度マークのY座標
+Difficulty_Mark_Y=600
 
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=350,350
