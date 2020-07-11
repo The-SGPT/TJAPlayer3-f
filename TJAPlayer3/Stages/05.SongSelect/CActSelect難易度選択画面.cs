@@ -15,7 +15,6 @@ namespace TJAPlayer3
 {
 	/// <summary>
 	/// 難易度選択画面。
-	/// この難易度選択画面はAC7～AC14のような方式であり、WiiまたはAC15移行の方式とは異なる。
 	/// </summary>
 	internal class CActSelect難易度選択画面 : CActivity
 	{
@@ -32,7 +31,6 @@ namespace TJAPlayer3
 				this.ct分岐表示用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.Timer);
 				選択済み = new bool[2] { false, false };
 				裏カウント = new int[2] { 0, 0 };
-				this.nスクロールタイマ = -1;
 			}
 			finally { 
 			
@@ -77,12 +75,13 @@ namespace TJAPlayer3
 			//-----------------
 			if (this.b初めての進行描画)
 			{
-				this.nスクロールタイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 			}
 			//-----------------
 			#endregion
 
 			this.ct分岐表示用タイマー.t進行Loop();
+			this.ct難易度拡大用[0].t進行();
+			this.ct難易度拡大用[1].t進行();
 
 			// 描画。
 
@@ -97,7 +96,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].Opacity = 100;
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
-						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D描画(TJAPlayer3.app.Device, i * 1075 - 30, 300);
+						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, 600);
 					}
 				}else if (現在の選択行[i] >= 3)
                 {
@@ -107,7 +106,8 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[4].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
-							TJAPlayer3.Tx.Difficulty_Mark[4].t2D描画(TJAPlayer3.app.Device, i * 1075 - 30, 300);
+							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
+							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, 600);
 						}
 					}
 					else
@@ -116,14 +116,15 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
-							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D描画(TJAPlayer3.app.Device, i * 1075 - 30, 300);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, 600);
 						}
 					}
 				}
 			}
 			#endregion
 			#region[難易度選択裏バー描画]
-				if (TJAPlayer3.Tx.Difficulty_Center_Bar != null)
+			if (TJAPlayer3.Tx.Difficulty_Center_Bar != null)
 			{
 				int width = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3];
 				int height = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4];
@@ -196,7 +197,7 @@ namespace TJAPlayer3
 			for (int i = 0; i < 3; i++)
 			{
 				if (TJAPlayer3.Tx.Difficulty_Bar_Etc[i] != null)
-					TJAPlayer3.Tx.Difficulty_Bar_Etc[i].t2D描画(TJAPlayer3.app.Device, i * 75 + 225, 150);
+					TJAPlayer3.Tx.Difficulty_Bar_Etc[i].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_BarEtc_Padding + TJAPlayer3.Skin.Difficulty_BarEtc_XY[0], TJAPlayer3.Skin.Difficulty_BarEtc_XY[1]);
 			}
 
 			for (int i = 0; i < 4; i++)
@@ -210,7 +211,7 @@ namespace TJAPlayer3
 						else
 							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new SharpDX.Color4(0.5f, 0.5f, 0.5f, 1f);
 						if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
-							TJAPlayer3.Tx.Difficulty_Bar[4].t2D描画(TJAPlayer3.app.Device, i * 100 + 440, 90);
+							TJAPlayer3.Tx.Difficulty_Bar[4].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}
 				}
 				else
@@ -222,7 +223,7 @@ namespace TJAPlayer3
 						else
 							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new SharpDX.Color4(0.5f, 0.5f, 0.5f, 1f);
 						if (TJAPlayer3.Tx.Difficulty_Bar[i] != null)
-							TJAPlayer3.Tx.Difficulty_Bar[i].t2D描画(TJAPlayer3.app.Device, i * 100 + 440, 90);
+							TJAPlayer3.Tx.Difficulty_Bar[i].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}
 				}
 			}
@@ -343,7 +344,6 @@ namespace TJAPlayer3
 				else
 					TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベル[0] = 3;
 			}
-
 			return 0;
 		}
 
@@ -359,8 +359,8 @@ namespace TJAPlayer3
 		internal int[] 確定された難易度 = new int[2];
 		internal int[] 裏カウント = new int[2];
 		internal bool 裏表示 = false;
-		private long nスクロールタイマ;
 		private CCounter ct分岐表示用タイマー;
+		internal CCounter[] ct難易度拡大用 = { new CCounter(0, 180, 1, TJAPlayer3.Timer), new CCounter(0, 180, 1, TJAPlayer3.Timer) };
 		//-----------------
 		#endregion
 	}
