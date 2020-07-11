@@ -44,6 +44,13 @@ namespace TJAPlayer3
 			SineCounter.t時間Resetdb();
 		}
 
+		public void InitializeBPM(double bpm) 
+		{
+			Counter = new CCounter(0, TJAPlayer3.Skin.Game_PuchiChara[2] - 1, (int)(TJAPlayer3.Skin.Game_PuchiChara_Timer * bpm / TJAPlayer3.Skin.Game_PuchiChara[2]), TJAPlayer3.Timer);
+
+			SineCounter = new CCounter(1, 360, TJAPlayer3.Skin.Game_PuchiChara_SineTimer * bpm / 180, CSound管理.rc演奏用タイマ);
+		}
+
 		/// <summary>
 		/// ぷちキャラを描画する。(オーバーライドじゃないよ)
 		/// </summary>

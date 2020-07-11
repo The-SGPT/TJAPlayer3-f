@@ -268,7 +268,6 @@ namespace FDK
 			Byte[] _txData = File.ReadAllBytes(strファイル名);
 			MakeTexture(device, _txData, format, b黒を透過する, pool);
 		}
-
 		public CTexture(Device device, byte[] txData, Format format, bool b黒を透過する, Pool pool)
 			: this()
 		{

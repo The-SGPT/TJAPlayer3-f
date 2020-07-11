@@ -65,7 +65,7 @@ namespace TJAPlayer3
 				"(ScrollSpeed=x0.5 means half speed)" ) );
 			#endregion
 			#region [ 共通 Dark/Risky/PlaySpeed ]
-			l.Add( new CItemInteger( "演奏速度", 5, 40, TJAPlayer3.ConfigIni.n演奏速度,
+			l.Add( new CItemInteger( "演奏速度", 5, 400, TJAPlayer3.ConfigIni.n演奏速度,
 				"曲の演奏速度を、速くしたり遅くした\n" +
 				"りすることができます。\n" +
 				"（※一部のサウンドカードでは正しく\n" +
@@ -92,7 +92,7 @@ namespace TJAPlayer3
 				" \n" +
 				" \n" +
 				" ",
-				new string[] { "OFF", "完走!", "完走!激辛" }) );
+				new string[] { "OFF", "完走!", "完走!激辛", "特訓" }) );
 
 			l.Add(new CItemList("真打", CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
 
@@ -145,6 +145,7 @@ namespace TJAPlayer3
 						case 0: game = EGame.OFF; break;
 						case 1: game = EGame.完走叩ききりまショー; break;
 						case 2: game = EGame.完走叩ききりまショー激辛; break;
+						case 3: game = EGame.特訓モード; break;
 					}
 					TJAPlayer3.ConfigIni.eGameMode = game;
 					break;

@@ -11,7 +11,6 @@ using System.Runtime.InteropServices;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
-using Microsoft.VisualBasic;
 
 namespace TJAPlayer3
 {

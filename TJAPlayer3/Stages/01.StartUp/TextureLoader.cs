@@ -42,6 +42,7 @@ namespace TJAPlayer3
 		const string FAILED = @"15_Failed\";
 		const string RUNNER = @"16_Runner\";
 		const string PUCHICHARA = @"18_PuchiChara\";
+		const string TRAINING = @"19_Training\";
 		const string DANC = @"17_DanC\";
 
 		// InGame_Effects
@@ -607,6 +608,17 @@ namespace TJAPlayer3
 			#region PuichiChara
 			PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
 			#endregion
+			#region Training
+			Tokkun_DownBG = TxC(GAME + TRAINING + @"Down.png");
+			Tokkun_BigTaiko = TxC(GAME + TRAINING + @"BigTaiko.png");
+			Tokkun_ProgressBar = TxC(GAME + TRAINING + @"ProgressBar_Red.png");
+			Tokkun_ProgressBarWhite = TxC(GAME + TRAINING + @"ProgressBar_White.png");
+			Tokkun_GoGoPoint = TxC(GAME + TRAINING + @"GoGoPoint.png");
+			Tokkun_Background_Up = TxC(GAME + TRAINING + @"Background_Up.png");
+			Tokkun_BigNumber = TxC(GAME + TRAINING + @"BigNumber.png");
+			Tokkun_SmallNumber = TxC(GAME + TRAINING + @"SmallNumber.png");
+			Tokkun_Speed_Measure = TxC(GAME + TRAINING + @"Speed_Measure.png");
+			#endregion
 			#endregion
 
 			#region 6_結果発表
@@ -856,11 +868,14 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region 踊り子
-			for (int i = 0; i < Dancer.Length; i++)
+			if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
 			{
-				for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
+				for (int i = 0; i < Dancer.Length; i++)
 				{
-					TJAPlayer3.tテクスチャの解放(ref Dancer[i][p]);
+					for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
+					{
+						TJAPlayer3.tテクスチャの解放(ref Dancer[i][p]);
+					}
 				}
 			}
 			#endregion
@@ -1035,6 +1050,17 @@ namespace TJAPlayer3
 			#endregion
 			#region PuchiChara
 			TJAPlayer3.tテクスチャの解放(ref PuchiChara);
+			#endregion
+			#region Training
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_DownBG);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_BigTaiko);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_ProgressBar);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_ProgressBarWhite);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_GoGoPoint);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_Background_Up);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_BigNumber);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_SmallNumber);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_Speed_Measure);
 			#endregion
 			#endregion
 
@@ -1352,6 +1378,17 @@ namespace TJAPlayer3
 		#endregion
 		#region PuchiChara
 		public CTexture PuchiChara;
+		#endregion
+		#region Training
+		public CTexture Tokkun_DownBG,
+			Tokkun_BigTaiko,
+			Tokkun_ProgressBar,
+			Tokkun_ProgressBarWhite,
+			Tokkun_GoGoPoint,
+			Tokkun_Background_Up,
+			Tokkun_BigNumber,
+			Tokkun_SmallNumber,
+			Tokkun_Speed_Measure;
 		#endregion
 		#endregion
 

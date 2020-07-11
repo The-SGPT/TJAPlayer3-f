@@ -35,6 +35,9 @@ namespace TJAPlayer3
 		SOUND曲決定音,
 		SOUND成績発表,
 		SOUNDDANするカッ,
+		SOUND特訓再生,
+		SOUND特訓停止,
+		SOUND特訓スクロール,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -323,6 +326,9 @@ namespace TJAPlayer3
 		public Cシステムサウンド sound曲決定音 = null;
 		public Cシステムサウンド sound成績発表 = null;
 		public Cシステムサウンド soundDanするカッ = null;
+		public Cシステムサウンド sound特訓再生音 = null;
+		public Cシステムサウンド sound特訓停止音 = null;
+		public Cシステムサウンド sound特訓スクロール音 = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -401,6 +407,15 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.SOUNDDANするカッ:
 						return this.soundDanするカッ;
+
+					case Eシステムサウンド.SOUND特訓再生:
+						return this.sound特訓再生音;
+
+					case Eシステムサウンド.SOUND特訓停止:
+						return this.sound特訓停止音;
+
+					case Eシステムサウンド.SOUND特訓スクロール:
+						return this.sound特訓スクロール音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -476,6 +491,15 @@ namespace TJAPlayer3
 
 					case 19:
 						return this.soundDanするカッ;
+
+					case 20:
+						return this.sound特訓再生音;
+
+					case 21:
+						return this.sound特訓停止音;
+
+					case 22:
+						return this.sound特訓スクロール音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -631,6 +655,11 @@ namespace TJAPlayer3
 			this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, ESoundGroup.Voice);
 			this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, ESoundGroup.Voice);
 			this.soundDanするカッ = new Cシステムサウンド(@"Sounds\Dan_Select.ogg", false, false, ESoundGroup.SoundEffect);
+
+			this.sound特訓再生音 = new Cシステムサウンド(@"Sounds\Resume.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds\Pause.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds\Scroll.ogg", false, false, ESoundGroup.SoundEffect);
+
 			ReloadSkin();
 			tReadSkinConfig();
 		}
@@ -2149,6 +2178,56 @@ namespace TJAPlayer3
 								Game_PuchiChara_SineTimer = double.Parse(strParam);
 							}
 							#endregion
+							#region Training
+							else if (strCommand == nameof(Game_Training_ScrollTime))
+							{
+								Game_Training_ScrollTime = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_ProgressBar_X))
+							{
+								Game_Training_ProgressBar_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_ProgressBar_Y))
+							{
+								Game_Training_ProgressBar_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_GoGoPoint_Y))
+							{
+								Game_Training_GoGoPoint_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_MaxMeasureCount_X))
+							{
+								Game_Training_MaxMeasureCount_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_MaxMeasureCount_Y))
+							{
+								Game_Training_MaxMeasureCount_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_X))
+							{
+								Game_Training_CurrentMeasureCount_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_Y))
+							{
+								Game_Training_CurrentMeasureCount_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_SpeedDisplay_X))
+							{
+								Game_Training_SpeedDisplay_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_SpeedDisplay_Y))
+							{
+								Game_Training_SpeedDisplay_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_SmallNumber_Width))
+							{
+								Game_Training_SmallNumber_Width = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_Training_BigNumber_Width))
+							{
+								Game_Training_BigNumber_Width = int.Parse(strParam);
+							}
+							#endregion
 							#region Background
 
 							else if (strCommand == nameof(this.Background_Scroll_PatternY))
@@ -2695,6 +2774,20 @@ namespace TJAPlayer3
 		public int[] Game_DanC_ExamUnit_Size = new int[] { 30, 36 };
 		public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
 		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
+		#endregion
+		#region Training
+		public int Game_Training_ScrollTime = 350;
+		public int Game_Training_ProgressBar_X = 333;
+		public int Game_Training_ProgressBar_Y = 378;
+		public int Game_Training_GoGoPoint_Y = 396;
+		public int Game_Training_MaxMeasureCount_X = 284;
+		public int Game_Training_MaxMeasureCount_Y = 377;
+		public int Game_Training_CurrentMeasureCount_X = 254;
+		public int Game_Training_CurrentMeasureCount_Y = 370;
+		public int Game_Training_SpeedDisplay_X = 115;
+		public int Game_Training_SpeedDisplay_Y = 370;
+		public int Game_Training_SmallNumber_Width = 17;
+		public int Game_Training_BigNumber_Width = 20;
 		#endregion
 		#region Background
 		public int[] Background_Scroll_PatternY = new int[] { 0, 0 };
