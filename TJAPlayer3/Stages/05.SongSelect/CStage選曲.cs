@@ -636,21 +636,24 @@ namespace TJAPlayer3
 								}
 								else
 								{
-									if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[0] == 6)
+									if (!(TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 									{
-										TJAPlayer3.Skin.sound決定音.t再生する();
-										this.act難易度選択画面.選択済み[0] = true;
-										this.act難易度選択画面.確定された難易度[0] = (int)Difficulty.Edit;
-									}
-									else
-									{
-
-
-										if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[0] - 3])
+										if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[0] == 6)
 										{
 											TJAPlayer3.Skin.sound決定音.t再生する();
 											this.act難易度選択画面.選択済み[0] = true;
-											this.act難易度選択画面.確定された難易度[0] = this.act難易度選択画面.現在の選択行[0] - 3;
+											this.act難易度選択画面.確定された難易度[0] = (int)Difficulty.Edit;
+										}
+										else
+										{
+
+
+											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[0] - 3])
+											{
+												TJAPlayer3.Skin.sound決定音.t再生する();
+												this.act難易度選択画面.選択済み[0] = true;
+												this.act難易度選択画面.確定された難易度[0] = this.act難易度選択画面.現在の選択行[0] - 3;
+											}
 										}
 									}
 								}
@@ -673,22 +676,23 @@ namespace TJAPlayer3
 								}
 								else
 								{
-									if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[1] == 6)
+									if (!(TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 									{
-										TJAPlayer3.Skin.sound決定音.t再生する();
-										this.act難易度選択画面.選択済み[1] = true;
-										this.act難易度選択画面.確定された難易度[1] = (int)Difficulty.Edit;
-									}
-									else
-									{
-
-
-										if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[1] - 3])
+										if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[1] == 6)
 										{
 											TJAPlayer3.Skin.sound決定音.t再生する();
-
 											this.act難易度選択画面.選択済み[1] = true;
-											this.act難易度選択画面.確定された難易度[1] = this.act難易度選択画面.現在の選択行[1] - 3;
+											this.act難易度選択画面.確定された難易度[1] = (int)Difficulty.Edit;
+										}
+										else
+										{
+											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[1] - 3])
+											{
+												TJAPlayer3.Skin.sound決定音.t再生する();
+
+												this.act難易度選択画面.選択済み[1] = true;
+												this.act難易度選択画面.確定された難易度[1] = this.act難易度選択画面.現在の選択行[1] - 3;
+											}
 										}
 									}
 								}
