@@ -217,6 +217,7 @@
     <Compile Include="Stages\07.Game\CAct演奏演奏情報.cs" />
     <Compile Include="Stages\07.Game\CLagLogger.cs" />
     <Compile Include="Stages\07.Game\CStage演奏画面共通.cs" />
+    <Compile Include="Stages\07.Game\Taiko\CAct演奏Drums特訓モード.cs" />
     <Compile Include="Stages\07.Game\Taiko\Dan_Cert.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏DrumsRunner.cs" />
     <Compile Include="Stages\07.Game\Taiko\CAct演奏DrumsFooter.cs" />

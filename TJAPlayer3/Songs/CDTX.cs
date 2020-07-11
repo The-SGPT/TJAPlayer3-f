@@ -404,18 +404,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			public bool bWAVを使うチャンネルである
-			{
-				get
-				{
-					switch (this.nチャンネル番号)
-					{
-						case 0x01:
-							return true;
-					}
-					return false;
-				}
-			}
 			public bool b自動再生音チャンネルである
 			{
 				get
@@ -562,7 +550,7 @@ namespace TJAPlayer3
 			{
 				int nDuration = 0;
 
-				if (this.bWAVを使うチャンネルである)       // WAV
+				if (this.nチャンネル番号 == 0x01)       // WAV
 				{
 					CDTX.CWAV wc;
 					TJAPlayer3.DTX[0].listWAV.TryGetValue(this.n整数値_内部番号, out wc);
@@ -1306,7 +1294,17 @@ namespace TJAPlayer3
 							//    wc.rSound[ 0 ].n総演奏時間ms
 							//);
 							// wc.rSound[ i ].t再生位置を変更する( wc.rSound[ i ].t時刻から位置を返す( nAbsTimeFromStartPlaying ) );
-							wc.rSound[i].t再生位置を変更する(nAbsTimeFromStartPlaying);  // WASAPI/ASIO用
+
+							// WASAPI/ASIO用↓
+							if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE)
+							{
+								if (wc.rSound[i].b一時停止中) wc.rSound[i].t再生を再開する(nAbsTimeFromStartPlaying);
+								else wc.rSound[i].t再生位置を変更する(nAbsTimeFromStartPlaying);
+							}
+							else
+							{
+								wc.rSound[i].t再生を一時停止する();
+							}
 						}
 					}
 				}
@@ -2472,7 +2470,7 @@ namespace TJAPlayer3
 				#region [ チップの種類を分類し、対応するフラグを立てる ]
 				foreach (CChip chip in this.listChip)
 				{
-					if ((chip.bWAVを使うチャンネルである && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.listこのWAVを使用するチャンネル番号の集合.Contains(chip.nチャンネル番号))
+					if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.listこのWAVを使用するチャンネル番号の集合.Contains(chip.nチャンネル番号))
 					{
 						cwav.listこのWAVを使用するチャンネル番号の集合.Add(chip.nチャンネル番号);
 
@@ -2590,54 +2588,54 @@ namespace TJAPlayer3
 				OTCMedley obj = JsonConvert.DeserializeObject<OTCMedley>(入力文字列);
 				
 				if (obj.Jouken != null)
-                    for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
-                    {
-                        if (!string.IsNullOrEmpty(obj.Jouken[joukenindex].Type) && !string.IsNullOrEmpty(obj.Jouken[joukenindex].Range) && obj.Jouken[joukenindex].Value[0] != null)
-                        {
-                            Exam.Type examType;
-                            Exam.Range examRange;
+					for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
+					{
+						if (!string.IsNullOrEmpty(obj.Jouken[joukenindex].Type) && !string.IsNullOrEmpty(obj.Jouken[joukenindex].Range) && obj.Jouken[joukenindex].Value[0] != null)
+						{
+							Exam.Type examType;
+							Exam.Range examRange;
 							int[] examValue;
-                            switch (obj.Jouken[joukenindex].Type)
-                            {
-                                case "gauge":
-                                    examType = Exam.Type.Gauge;
-                                    break;
-                                case "judgeperfect":
-                                    examType = Exam.Type.JudgePerfect;
-                                    break;
-                                case "judgegood":
-                                    examType = Exam.Type.JudgeGood;
-                                    break;
-                                case "judgebad":
-                                    examType = Exam.Type.JudgeBad;
-                                    break;
-                                case "score":
-                                    examType = Exam.Type.Score;
-                                    break;
-                                case "roll":
-                                    examType = Exam.Type.Roll;
-                                    break;
-                                case "hit":
-                                    examType = Exam.Type.Hit;
-                                    break;
-                                case "combo":
-                                    examType = Exam.Type.Combo;
-                                    break;
-                                default:
-                                    examType = Exam.Type.Gauge;
-                                    break;
-                            }
-                            switch (obj.Jouken[joukenindex].Range)
-                            {
-                                case "more":
-                                    examRange = Exam.Range.More;
-                                    break;
-                                case "less":
-                                    examRange = Exam.Range.Less;
-                                    break;
-                                default:
-                                    examRange = Exam.Range.More;
-                                    break;
+							switch (obj.Jouken[joukenindex].Type)
+							{
+								case "gauge":
+									examType = Exam.Type.Gauge;
+									break;
+								case "judgeperfect":
+									examType = Exam.Type.JudgePerfect;
+									break;
+								case "judgegood":
+									examType = Exam.Type.JudgeGood;
+									break;
+								case "judgebad":
+									examType = Exam.Type.JudgeBad;
+									break;
+								case "score":
+									examType = Exam.Type.Score;
+									break;
+								case "roll":
+									examType = Exam.Type.Roll;
+									break;
+								case "hit":
+									examType = Exam.Type.Hit;
+									break;
+								case "combo":
+									examType = Exam.Type.Combo;
+									break;
+								default:
+									examType = Exam.Type.Gauge;
+									break;
+							}
+							switch (obj.Jouken[joukenindex].Range)
+							{
+								case "more":
+									examRange = Exam.Range.More;
+									break;
+								case "less":
+									examRange = Exam.Range.Less;
+									break;
+								default:
+									examRange = Exam.Range.More;
+									break;
 							}
 							if (obj.Jouken[joukenindex].Value[1] != null)
 							{
@@ -2670,8 +2668,8 @@ namespace TJAPlayer3
 							}
 
 							Dan_C[joukenindex] = new Dan_C(examType, examValue, examRange);
-                        }
-                    }
+						}
+					}
 				
 				this.b譜面が存在する[(int)Difficulty.Dan] = true;
 
@@ -2716,10 +2714,10 @@ namespace TJAPlayer3
 				// チップを配置。
 
 				this.listChip.Add(chip1);
-                #endregion
+				#endregion
 
-                #region[一応、TJAで最初に入ってるやつ]
-                #region[BPM]
+				#region[一応、TJAで最初に入ってるやつ]
+				#region[BPM]
 				double dbBPM = Convert.ToDouble(120);
 				this.BPM = dbBPM;
 				this.BASEBPM = dbBPM;
@@ -2990,8 +2988,8 @@ namespace TJAPlayer3
 				this.n内部番号DELAY1to++;
 			}
 
-            #region[4/4拍子にする]
-            string[] strArray = "4/4".Split('/');
+			#region[4/4拍子にする]
+			string[] strArray = "4/4".Split('/');
 			WarnSplitLength("#MEASURE subsplit", strArray, 2);
 
 			double[] dbLength = new double[2];
@@ -3017,11 +3015,11 @@ namespace TJAPlayer3
 
 			this.listChip.Add(chipme);
 
-            //lbMaster.Items.Add( ";拍子変更 " + strArray[0] + "/" + strArray[1] );
-            #endregion
+			//lbMaster.Items.Add( ";拍子変更 " + strArray[0] + "/" + strArray[1] );
+			#endregion
 
-            #region[scrollを1にする]
-            double dbSCROLL = Convert.ToDouble(1);
+			#region[scrollを1にする]
+			double dbSCROLL = Convert.ToDouble(1);
 			this.dbNowScroll = dbSCROLL;
 			this.dbNowScrollY = 0.0;
 
@@ -3040,8 +3038,8 @@ namespace TJAPlayer3
 					break;
 			}
 
-            //チップ追加して割り込んでみる。
-            var chipsc = new CChip();
+			//チップ追加して割り込んでみる。
+			var chipsc = new CChip();
 
 			chipsc.nチャンネル番号 = 0x9D;
 			chipsc.n発声位置 = ((this.n現在の小節数) * 384) - 1;
@@ -3061,10 +3059,10 @@ namespace TJAPlayer3
 			#endregion
 
 			t入力tccファイル(obj.Courses[cindex].Single);
-        }
+		}
 
 
-        private void t入力tci(string 入力文字列, double 再生速度,int nBGMAdjust)
+		private void t入力tci(string 入力文字列, double 再生速度,int nBGMAdjust)
 		{
 			if (!string.IsNullOrEmpty(入力文字列))
 			{
@@ -9532,7 +9530,7 @@ namespace TJAPlayer3
 
 				#region [ 無限定義への対応 → 内部番号の取得。]
 				//-----------------
-				if (chip.bWAVを使うチャンネルである)
+				if (chip.nチャンネル番号 == 0x01)
 				{
 					chip.n整数値_内部番号 = this.n無限管理WAV[nオブジェクト数値];  // これが本当に一意なWAV番号となる。（無限定義の場合、chip.n整数値 は一意である保証がない。）
 				}

@@ -142,6 +142,7 @@ namespace TJAPlayer3
 
 		public void t歌詞テクスチャを生成する( Bitmap bmplyric )
 		{
+			TJAPlayer3.tテクスチャの解放(ref this.tx歌詞テクスチャ);
 			this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric, false );
 		}
 
