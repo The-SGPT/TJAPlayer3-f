@@ -916,7 +916,7 @@ namespace TJAPlayer3
 										switch (this.act曲リスト.r現在選択中の曲.eノード種別)
 										{
 											case C曲リストノード.Eノード種別.SCORE:
-												if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
+												if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && (TJAPlayer3.ConfigIni.nPlayerCount >= 2 || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)))
 												{
 													if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null)
 													{
