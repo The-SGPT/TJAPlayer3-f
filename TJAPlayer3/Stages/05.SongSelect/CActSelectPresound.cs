@@ -27,7 +27,6 @@ namespace TJAPlayer3
 				this.long再生位置 = -1;
 				if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
 				{
-					//this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
 					this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
 				}
 			}

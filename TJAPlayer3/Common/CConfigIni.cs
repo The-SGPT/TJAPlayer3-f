@@ -643,7 +643,6 @@ namespace TJAPlayer3
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
 		public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
 		public int n演奏速度;
-		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
 		private bool _applyLoudnessMetadata;
@@ -969,7 +968,6 @@ namespace TJAPlayer3
 			this.bSTAGEFAILED有効 = true;
 			this.bAVI有効 = false;
 			this.bBGA有効 = true;
-			this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms = 1000;
 			this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = 100;
 			//this.bWave再生位置自動調整機能有効 = true;
 			this.bWave再生位置自動調整機能有効 = false;
@@ -1301,9 +1299,6 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			#endregion
 			#region [ プレビュー音 ]
-			sw.WriteLine( "; 曲選択からプレビュー音の再生までのウェイト[ms]" );
-			sw.WriteLine( "PreviewSoundWait={0}", this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms );
-			sw.WriteLine();
 			sw.WriteLine( "; 曲選択からプレビュー画像表示までのウェイト[ms]" );
 			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 			sw.WriteLine();
@@ -1922,10 +1917,6 @@ namespace TJAPlayer3
 											}
 											#endregion
 											#region [ プレビュー音 ]
-											else if( str3.Equals( "PreviewSoundWait" ) )
-											{
-												this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms );
-											}
 											else if( str3.Equals( "PreviewImageWait" ) )
 											{
 												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
