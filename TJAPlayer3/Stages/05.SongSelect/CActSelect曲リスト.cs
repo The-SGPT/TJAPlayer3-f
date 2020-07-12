@@ -352,17 +352,25 @@ namespace TJAPlayer3
 		{
 			if (this.r現在選択中の曲 != null)
 			{
-				this.n目標のスクロールカウンタ += 500;
+				for (int i = 0; i < 7; i++)
+					this.r現在選択中の曲 = r次の曲(r現在選択中の曲);
 			}
+			this.t現在選択中の曲を元に曲バーを再構成する();
+			this.t選択曲が変更された(false);
 			this.b選択曲が変更された = true;
+			TJAPlayer3.stage選曲.t選択曲変更通知();
 		}
 		public void tかなり前に移動()
 		{
 			if (this.r現在選択中の曲 != null)
 			{
-				this.n目標のスクロールカウンタ -= 500;
+				for (int i = 0; i < 7; i++)
+					this.r現在選択中の曲 = r前の曲(r現在選択中の曲);
 			}
+			this.t現在選択中の曲を元に曲バーを再構成する();
+			this.t選択曲が変更された(false);
 			this.b選択曲が変更された = true;
+			TJAPlayer3.stage選曲.t選択曲変更通知();
 		}
 		public void t難易度レベルをひとつ進める(int nPlayer)
 		{

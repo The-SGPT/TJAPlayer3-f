@@ -1359,12 +1359,12 @@ namespace TJAPlayer3
 		}
 		private void tカーソルをかなり下へ移動する()
 		{
-			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
 			this.act曲リスト.tかなり次に移動();
 		}
 		private void tカーソルをかなり上へ移動する()
 		{
-			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
 			this.act曲リスト.tかなり前に移動();
 		}
 		private void t曲をランダム選択する()

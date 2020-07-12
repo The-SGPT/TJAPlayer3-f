@@ -5,6 +5,7 @@ using System.Diagnostics;
 using FDK;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace TJAPlayer3
 {
@@ -20,14 +21,14 @@ namespace TJAPlayer3
 		{
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
+			this.tサウンドの停止MT();
 			if ((cスコア != null) && ((!(cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.b再生中))
 			{
-				this.tサウンドの停止MT();
 				this.tBGMフェードイン開始();
 				this.long再生位置 = -1;
 				if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
 				{
-					this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
+					this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.Timer);
 				}
 			}
 		}
@@ -38,19 +39,23 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			this.sound = null;
+			token = new CancellationTokenSource();
 			this.str現在のファイル名 = "";
 			this.ct再生待ちウェイト = null;
 			this.ctBGMフェードアウト用 = null;
 			this.ctBGMフェードイン用 = null;
 			this.long再生位置 = -1;
 			this.long再生開始時のシステム時刻 = -1;
-			this.token = new CancellationTokenSource();
 			base.On活性化();
 		}
 		public override void On非活性化()
 		{
 			this.tサウンドの停止MT();
-			this.token.Cancel();
+			if (token != null) {
+				token.Cancel();
+				token.Dispose();
+				token = null;
+			}
 			this.ct再生待ちウェイト = null;
 			this.ctBGMフェードイン用 = null;
 			this.ctBGMフェードアウト用 = null;
@@ -78,6 +83,7 @@ namespace TJAPlayer3
 						this.ctBGMフェードアウト用.t停止();
 					}
 				}
+
 				this.t進行処理_プレビューサウンド();
 
 				if (this.sound != null)
@@ -134,8 +140,6 @@ namespace TJAPlayer3
 		}
 		private async void tプレビューサウンドの作成()
 		{
-			this.tサウンドの停止MT();
-			this.long再生位置 = -1;
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 			if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト)
 			{
@@ -145,9 +149,15 @@ namespace TJAPlayer3
 					// 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------
 					// 2019.03.22 kairera0467 簡易マルチスレッド化
 					Task<CSound> task = Task.Run<CSound>(() => {
-						return this.tプレビューサウンドの作成MT(strPreviewFilename, token.Token);
+						token = new CancellationTokenSource();
+						return this.tプレビューサウンドの作成MT(strPreviewFilename);
 					});
-					this.sound = await task;
+					CSound tmps = await task;
+
+					token.Token.ThrowIfCancellationRequested();
+					this.tサウンドの停止MT();
+
+					this.sound = tmps;
 					//------------
 
 					// 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
@@ -158,8 +168,7 @@ namespace TJAPlayer3
 										   ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
 					TJAPlayer3.SongGainController.Set(cスコア.譜面情報.SongVol, loudnessMetadata, this.sound);
 
-					token.Token.ThrowIfCancellationRequested();
-
+					this.long再生位置 = -1;
 					this.sound.t再生を開始する(true);
 					if (this.long再生位置 == -1)
 					{
@@ -187,10 +196,10 @@ namespace TJAPlayer3
 		}
 		private void t進行処理_プレビューサウンド()
 		{
-			if ((this.ct再生待ちウェイト != null) && !this.ct再生待ちウェイト.b停止中)
+			if ((this.ct再生待ちウェイト != null) && this.ct再生待ちウェイト.b進行中)
 			{
 				this.ct再生待ちウェイト.t進行();
-				if (!this.ct再生待ちウェイト.b終了値に達してない)
+				if (this.ct再生待ちウェイト.b終了値に達した)
 				{
 					this.ct再生待ちウェイト.t停止();
 					if (!TJAPlayer3.stage選曲.bスクロール中)
@@ -210,8 +219,7 @@ namespace TJAPlayer3
 			{
 				if (token != null)
 				{
-					token.Token.ThrowIfCancellationRequested();
-					//token.Cancel();
+					token.Cancel();
 				}
 				this.sound.t再生を停止する();
 				TJAPlayer3.Sound管理.tサウンドを破棄する(this.sound);
@@ -225,7 +233,7 @@ namespace TJAPlayer3
 		/// <param name="path">サウンドファイルのパス</param>
 		/// <param name="token">中断用トークン</param>
 		/// <returns></returns>
-		private CSound tプレビューサウンドの作成MT(string path, CancellationToken token)
+		private CSound tプレビューサウンドの作成MT(string path)
 		{
 			try
 			{

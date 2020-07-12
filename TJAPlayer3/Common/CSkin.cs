@@ -38,6 +38,7 @@ namespace TJAPlayer3
 		SOUND特訓再生,
 		SOUND特訓停止,
 		SOUND特訓スクロール,
+		SOUND選曲スキップ,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -329,6 +330,7 @@ namespace TJAPlayer3
 		public Cシステムサウンド sound特訓再生音 = null;
 		public Cシステムサウンド sound特訓停止音 = null;
 		public Cシステムサウンド sound特訓スクロール音 = null;
+		public Cシステムサウンド sound選曲スキップ音 = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -416,6 +418,9 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.SOUND特訓スクロール:
 						return this.sound特訓スクロール音;
+
+					case Eシステムサウンド.SOUND選曲スキップ:
+						return this.sound選曲スキップ音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -500,6 +505,9 @@ namespace TJAPlayer3
 
 					case 22:
 						return this.sound特訓スクロール音;
+
+					case 23:
+						return this.sound選曲スキップ音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -659,6 +667,7 @@ namespace TJAPlayer3
 			this.sound特訓再生音 = new Cシステムサウンド(@"Sounds\Resume.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds\Pause.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds\Scroll.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds\Skip.ogg", false, false, ESoundGroup.SoundEffect);
 
 			ReloadSkin();
 			tReadSkinConfig();
