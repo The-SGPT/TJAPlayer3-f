@@ -426,10 +426,7 @@ namespace TJAPlayer3
 				this._font = new Font(TJAPlayer3.ConfigIni.FontName, 28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
 			}
 
-			if (TJAPlayer3.ConfigIni.FontName=="ＤＦＰ勘亭流" || TJAPlayer3.ConfigIni.FontName.ToLower() == "kanteiryu-xg" )
-				drawstr = drawstr.Replace("-", "ー").Replace("ー", "↔").Replace("・", "．");
-			else
-				drawstr = drawstr.Replace("・", "．");
+			drawstr = drawstr.Replace("・", "．");
 			//StreamWriter stream = stream = new StreamWriter("Test.txt", false);
 
 			//try
