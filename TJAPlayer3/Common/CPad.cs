@@ -144,22 +144,6 @@ namespace TJAPlayer3
 			}
 			return false;
 		}
-		public bool b押されたDGB( Eパッド pad )
-		{
-			if( !this.b押された( E楽器パート.DRUMS, pad ) && !this.b押された( E楽器パート.GUITAR, pad ) )
-			{
-				return this.b押された( E楽器パート.BASS, pad );
-			}
-			return true;
-		}
-		public bool b押されたGB( Eパッド pad )
-		{
-			if( !this.b押された( E楽器パート.GUITAR, pad ) )
-			{
-				return this.b押された( E楽器パート.BASS, pad );
-			}
-			return true;
-		}
 		public bool b押されている( E楽器パート part, Eパッド pad )
 		{
 			if( part != E楽器パート.UNKNOWN )
@@ -202,14 +186,6 @@ namespace TJAPlayer3
 				}
 			}
 			return false;
-		}
-		public bool b押されているGB( Eパッド pad )
-		{
-			if( !this.b押されている( E楽器パート.GUITAR, pad ) )
-			{
-				return this.b押されている( E楽器パート.BASS, pad );
-			}
-			return true;
 		}
 
 

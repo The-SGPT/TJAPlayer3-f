@@ -539,7 +539,6 @@ namespace TJAPlayer3
 
 			public CKeyAssignPad Bass = new CKeyAssignPad();
 			public CKeyAssignPad Drums = new CKeyAssignPad();
-			public CKeyAssignPad Guitar = new CKeyAssignPad();
 			public CKeyAssignPad Taiko = new CKeyAssignPad();
 			public CKeyAssignPad System = new CKeyAssignPad();
 			public CKeyAssignPad this[ int index ]
@@ -550,9 +549,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							return this.Drums;
-
-						case (int) EKeyConfigPart.GUITAR:
-							return this.Guitar;
 
 						case (int) EKeyConfigPart.BASS:
 							return this.Bass;
@@ -571,10 +567,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							this.Drums = value;
-							return;
-
-						case (int) EKeyConfigPart.GUITAR:
-							this.Guitar = value;
 							return;
 
 						case (int) EKeyConfigPart.BASS:
@@ -2180,10 +2172,6 @@ namespace TJAPlayer3
 											//else if ( str3.Equals( "JudgeDispPriorityDrums" ) )
 											//{
 											//    this.e判定表示優先度.Drums = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
-											//}
-											//else if ( str3.Equals( "JudgeDispPriorityGuitar" ) )
-											//{
-											//    this.e判定表示優先度.Guitar = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Guitar );
 											//}
 											//else if ( str3.Equals( "JudgeDispPriorityBass" ) )
 											//{
