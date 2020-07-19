@@ -46,8 +46,6 @@ namespace TJAPlayer3
 			public CScoreIni.C演奏記録 HiScoreBass;
 			public CScoreIni.C演奏記録 HiSkillBass;
 			public CScoreIni.C演奏記録 LastPlayDrums;   // #23595 2011.1.9 ikanick
-			public CScoreIni.C演奏記録 LastPlayGuitar;  //
-			public CScoreIni.C演奏記録 LastPlayBass;    //
 			public CScoreIni.C演奏記録 this[ int index ]
 			{
 				get
@@ -75,12 +73,6 @@ namespace TJAPlayer3
 						// #23595 2011.1.9 ikanick
 						case 6:
 							return this.LastPlayDrums;
-
-						case 7:
-							return this.LastPlayGuitar;
-
-						case 8:
-							return this.LastPlayBass;
 						//------------
 					}
 					throw new IndexOutOfRangeException();
@@ -116,14 +108,6 @@ namespace TJAPlayer3
 						case 6:
 							this.LastPlayDrums = value;
 							return;
-
-						case 7:
-							this.LastPlayGuitar = value;
-							return;
-
-						case 8:
-							this.LastPlayBass = value;
-							return;
 						//------------------
 					}
 					throw new IndexOutOfRangeException();
@@ -141,8 +125,6 @@ namespace TJAPlayer3
 			HiScoreBass = 4,
 			HiSkillBass = 5,
 			LastPlayDrums = 6,  // #23595 2011.1.9 ikanick
-			LastPlayGuitar = 7, //
-			LastPlayBass = 8,   //
 		}
 		public enum ERANK : int		// #24459 yyagi
 		{
@@ -301,8 +283,6 @@ namespace TJAPlayer3
 			stセクション.HiScoreBass = new C演奏記録();
 			stセクション.HiSkillBass = new C演奏記録();
 			stセクション.LastPlayDrums = new C演奏記録();
-			stセクション.LastPlayGuitar = new C演奏記録();
-			stセクション.LastPlayBass = new C演奏記録();
 		}
 
 		/// <summary>
@@ -420,14 +400,6 @@ namespace TJAPlayer3
 								{
 									section = Eセクション種別.LastPlayDrums;
 								}
-								else if (str2.Equals("LastPlay.Guitar"))
-								{
-									section = Eセクション種別.LastPlayGuitar;
-								}
-								else if (str2.Equals("LastPlay.Bass"))
-								{
-									section = Eセクション種別.LastPlayBass;
-								}
 								//----------------------------------------------------
 								else
 								{
@@ -460,8 +432,6 @@ namespace TJAPlayer3
 										case Eセクション種別.HiScoreBass:
 										case Eセクション種別.HiSkillBass:
 										case Eセクション種別.LastPlayDrums:// #23595 2011.1.9 ikanick
-										case Eセクション種別.LastPlayGuitar:
-										case Eセクション種別.LastPlayBass:
 											{
 												c演奏記録 = this.stセクション[ (int) section ];
 												if( !item.Equals( "Score" ) )
@@ -835,11 +805,11 @@ namespace TJAPlayer3
 			writer.WriteLine( "History4={0}", this.stファイル.History[ 4 ] );
 			writer.WriteLine( "BGMAdjust={0}", this.stファイル.BGMAdjust );
 			writer.WriteLine();
-			for( int i = 0; i < 9; i++ )
+			for( int i = 0; i < 7; i++ )
 			{
 				if (i == 0 || i == 1 || i == 6)
 				{
-					string[] strArray = { "HiScore.Drums", "HiSkill.Drums", "HiScore.Guitar", "HiSkill.Guitar", "HiScore.Bass", "HiSkill.Bass", "LastPlay.Drums", "LastPlay.Guitar", "LastPlay.Bass" };
+					string[] strArray = { "HiScore.Drums", "HiSkill.Drums", "HiScore.Guitar", "HiSkill.Guitar", "HiScore.Bass", "HiSkill.Bass", "LastPlay.Drums" };
 					writer.WriteLine("[{0}]", strArray[i]);
 					writer.WriteLine("Score={0}", this.stセクション[i].nスコア);
 					writer.WriteLine("PlaySkill={0}", this.stセクション[i].db演奏型スキル値);
@@ -899,7 +869,7 @@ namespace TJAPlayer3
 		}
 		internal void t全演奏記録セクションの整合性をチェックし不整合があればリセットする()
 		{
-			for( int i = 0; i < 9; i++ )
+			for( int i = 0; i < 7; i++ )
 			{
 				if( !this.b整合性がある( (Eセクション種別) i ) )
 					this.stセクション[ i ] = new C演奏記録();
