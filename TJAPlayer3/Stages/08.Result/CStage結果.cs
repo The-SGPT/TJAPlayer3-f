@@ -104,33 +104,33 @@ namespace TJAPlayer3
 				string str = TJAPlayer3.DTX[0].strファイル名の絶対パス + ".score.ini";
 				CScoreIni ini = new CScoreIni( str );
 
-				bool[] b今までにフルコンボしたことがある = new bool[] { false, false, false };
+				bool b今までにフルコンボしたことがある = false;
 
 				for( int i = 0; i < 1; i++ )
 				{
 					// フルコンボチェックならびに新記録ランクチェックは、ini.Record[] が、スコアチェックや演奏型スキルチェックの IF 内で書き直されてしまうよりも前に行う。(2010.9.10)
 					
-					b今までにフルコンボしたことがある[ i ] = ini.stセクション[ i * 2 ].bフルコンボである | ini.stセクション[ i * 2 + 1 ].bフルコンボである;
+					b今までにフルコンボしたことがある = ini.stセクション.HiScoreDrums.bフルコンボである | ini.stセクション.HiSkillDrums.bフルコンボである;
 
 					// #24459 上記の条件だと[HiSkill.***]でのランクしかチェックしていないので、BestRankと比較するよう変更。
-					if ( this.nランク値[ i ] >= 0 && ini.stファイル.BestRank[ i ] > this.nランク値[ i ] )		// #24459 2011.3.1 yyagi update BestRank
+					if ( this.nランク値.Drums >= 0 && ini.stファイル.BestRank > this.nランク値.Drums )		// #24459 2011.3.1 yyagi update BestRank
 					{
-						this.b新記録ランク[ i ] = true;
-						ini.stファイル.BestRank[ i ] = this.nランク値[ i ];
+						this.b新記録ランク.Drums = true;
+						ini.stファイル.BestRank = this.nランク値.Drums;
 					}
 
 					// 新記録スコアチェック
-					if( ( this.st演奏記録[0].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション[ i * 2 ].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
+					if( ( this.st演奏記録[0].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション.HiScoreDrums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] ) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
 					{
-						this.b新記録スコア[ i ] = true;
-						ini.stセクション[ i * 2 ] = this.st演奏記録[0];
+						this.b新記録スコア.Drums = true;
+						ini.stセクション.HiScoreDrums = this.st演奏記録[0];
 					}
 
 					// 新記録スキルチェック
-					if (this.st演奏記録[0].db演奏型スキル値 > ini.stセクション[(i * 2) + 1].db演奏型スキル値)
+					if (this.st演奏記録[0].db演奏型スキル値 > ini.stセクション.HiSkillDrums.db演奏型スキル値)
 					{
-						this.b新記録スキル[ i ] = true;
-						ini.stセクション[(i * 2) + 1] = this.st演奏記録[0];
+						this.b新記録スキル.Drums = true;
+						ini.stセクション.HiSkillDrums = this.st演奏記録[0];
 					}
 
 					// ラストプレイ #23595 2011.1.9 ikanick
@@ -141,10 +141,10 @@ namespace TJAPlayer3
 
 					// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
 					//        11.02.05 bオート to t更新条件を取得する use      ikanick
-					bool[] b更新が必要か否か = new bool[ 3 ];
-					CScoreIni.t更新条件を取得する( out b更新が必要か否か[ 0 ], out b更新が必要か否か[ 1 ], out b更新が必要か否か[ 2 ] );
+					bool b更新が必要か否か = false;
+					CScoreIni.t更新条件を取得する(out b更新が必要か否か);
 
-					if (b更新が必要か否か[ i ])
+					if (b更新が必要か否か)
 					{
 						switch ( i )
 						{
@@ -152,7 +152,7 @@ namespace TJAPlayer3
 								ini.stファイル.ClearCountDrums++;
 								break;
 							default:
-								throw new Exception("クリア回数増加のk(0-2)が範囲外です。");
+								throw new Exception("クリア回数増加のk(0)が範囲外です。");
 						}
 					}
 					//---------------------------------------------------------------------/
@@ -169,24 +169,24 @@ namespace TJAPlayer3
 
 				{ 
 					Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
-					bool[] b更新が必要か否か = new bool[3];
-					CScoreIni.t更新条件を取得する(out b更新が必要か否か[0], out b更新が必要か否か[1], out b更新が必要か否か[2]);
-					for (int m = 0; m < 3; m++)
+					bool b更新が必要か否か = false;
+					CScoreIni.t更新条件を取得する(out b更新が必要か否か);
+					for (int m = 0; m < 1; m++)
 					{
-						if (b更新が必要か否か[m])
+						if (b更新が必要か否か)
 						{
 							// FullCombo した記録を FullCombo なしで超えた場合、FullCombo マークが消えてしまう。
 							// → FullCombo は、最新記録と関係なく、一度達成したらずっとつくようにする。(2010.9.11)
-							cスコア.譜面情報.フルコンボ[m] = this.st演奏記録[0].bフルコンボである | b今までにフルコンボしたことがある[m];
+							cスコア.譜面情報.フルコンボ.Drums = this.st演奏記録[0].bフルコンボである | b今までにフルコンボしたことがある;
 
-							if (this.b新記録スキル[m])
+							if (this.b新記録スキル.Drums)
 							{
-								cスコア.譜面情報.最大スキル[m] = this.st演奏記録[0].db演奏型スキル値;
+								cスコア.譜面情報.最大スキル.Drums = this.st演奏記録[0].db演奏型スキル値;
 							}
 
-							if (this.b新記録ランク[m])
+							if (this.b新記録ランク.Drums)
 							{
-								cスコア.譜面情報.最大ランク[m] = this.nランク値[m];
+								cスコア.譜面情報.最大ランク.Drums = this.nランク値.Drums;
 							}
 							cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
 							cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
@@ -406,33 +406,11 @@ namespace TJAPlayer3
 						string strPart = ( (E楽器パート) ( i ) ).ToString();
 						string strRank = ( (CScoreIni.ERANK) ( this.nランク値[ i ] ) ).ToString();
 						string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strPart + "_" + strRank + ".png";
-						//Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
+
 						TJAPlayer3.app.SaveResultScreen( strFullPath );
 					}
 				}
 			}
-			#region [ #24609 2011.4.11 yyagi; リザルトの手動保存ロジックは、CDTXManiaに移管した。]
-//			else
-//			{
-//				// リザルト画像を手動保存するときは、dtxファイル名.yyMMddHHmmss_SS.png という形式で保存。(楽器名無し)
-//				string strRank = ( (CScoreIni.ERANK) ( CDTXMania.stage結果.n総合ランク値 ) ).ToString();
-//				string strSavePath = CDTXMania.strEXEのあるフォルダ + "\\" + "Capture_img";
-//				if ( !Directory.Exists( strSavePath ) )
-//				{
-//					try
-//					{
-//						Directory.CreateDirectory( strSavePath );
-//					}
-//					catch
-//					{
-//					}
-//				}
-//				string strFullPath = strSavePath + "\\" + CDTXMania.DTX.TITLE +
-//					"." + datetime + "_" + strRank + ".png";
-//				// Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
-//				CDTXMania.app.SaveResultScreen( strFullPath );
-//			}
-			#endregion
 		}
 		#endregion
 		//-----------------
