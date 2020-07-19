@@ -41,7 +41,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actFO = new CActFIFOBlack() );
 		}
 
-		
 		// CStage 実装
 
 		public override void On活性化()
@@ -107,18 +106,12 @@ namespace TJAPlayer3
 
 				bool[] b今までにフルコンボしたことがある = new bool[] { false, false, false };
 
-				for( int i = 0; i < 3; i++ )
+				for( int i = 0; i < 1; i++ )
 				{
 					// フルコンボチェックならびに新記録ランクチェックは、ini.Record[] が、スコアチェックや演奏型スキルチェックの IF 内で書き直されてしまうよりも前に行う。(2010.9.10)
 					
 					b今までにフルコンボしたことがある[ i ] = ini.stセクション[ i * 2 ].bフルコンボである | ini.stセクション[ i * 2 + 1 ].bフルコンボである;
 
-					#region [deleted by #24459]
-			//		if( this.nランク値[ i ] <= CScoreIni.tランク値を計算して返す( ini.stセクション[ ( i * 2 ) + 1 ] ) )
-			//		{
-			//			this.b新記録ランク[ i ] = true;
-					//		}
-					#endregion
 					// #24459 上記の条件だと[HiSkill.***]でのランクしかチェックしていないので、BestRankと比較するよう変更。
 					if ( this.nランク値[ i ] >= 0 && ini.stファイル.BestRank[ i ] > this.nランク値[ i ] )		// #24459 2011.3.1 yyagi update BestRank
 					{
@@ -143,7 +136,7 @@ namespace TJAPlayer3
 					// ラストプレイ #23595 2011.1.9 ikanick
 					// オートじゃなければプレイ結果を書き込む
 					if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
-						ini.stセクション[i + 6] = this.st演奏記録[0];
+						ini.stセクション.LastPlayDrums = this.st演奏記録[0];
 					}
 
 					// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
