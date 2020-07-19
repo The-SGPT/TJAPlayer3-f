@@ -2202,7 +2202,7 @@ for (int i = 0; i < 3; i++) {
 		}
 		private CScoreIni tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
 		{
-			bool bIsUpdatedDrums, bIsUpdatedGuitar, bIsUpdatedBass;
+			bool bIsUpdatedDrums;
 			string strFilename = DTX[0].strファイル名の絶対パス + ".score.ini";
 			CScoreIni ini = new CScoreIni( strFilename );
 			if( !File.Exists( strFilename ) )
@@ -2210,16 +2210,16 @@ for (int i = 0; i < 3; i++) {
 				ini.stファイル.Title = DTX[0].TITLE;
 				ini.stファイル.Name = DTX[0].strファイル名;
 				ini.stファイル.Hash = CScoreIni.tファイルのMD5を求めて返す( DTX[0].strファイル名の絶対パス );
-				for( int i = 0; i < 6; i++ )
+				for( int i = 0; i < 3; i++ )
 				{
-					ini.stセクション[ i ].nPerfectになる範囲ms = nPerfect範囲ms;
-					ini.stセクション[ i ].nGreatになる範囲ms = nGreat範囲ms;
-					ini.stセクション[ i ].nGoodになる範囲ms = nGood範囲ms;
-					ini.stセクション[ i ].nPoorになる範囲ms = nPoor範囲ms;
+					ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;
+					ini.stセクション[i].nGreatになる範囲ms = nGreat範囲ms;
+					ini.stセクション[i].nGoodになる範囲ms = nGood範囲ms;
+					ini.stセクション[i].nPoorになる範囲ms = nPoor範囲ms;
 				}
 			}
 			ini.stファイル.BGMAdjust = DTX[0].nBGMAdjust;
-			CScoreIni.t更新条件を取得する( out bIsUpdatedDrums, out bIsUpdatedGuitar, out bIsUpdatedBass );
+			CScoreIni.t更新条件を取得する(out bIsUpdatedDrums);
 			
 			if( bIsUpdatedDrums )
 			{
