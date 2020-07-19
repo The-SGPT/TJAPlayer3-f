@@ -58,9 +58,9 @@ namespace TJAPlayer3
 			public string Preimage;
 			public string Premovie;
 			public string Backgound;
-			public STRANK 最大ランク;
-			public STSKILL 最大スキル;
-			public STDGBVALUE<bool> フルコンボ;
+			public int 最大ランク;
+			public double 最大スキル;
+			public bool フルコンボ;
 			public int 演奏回数;
 			public STHISTORY 演奏履歴;
 			public bool レベルを非表示にする;
@@ -150,104 +150,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-
-			[Serializable]
-			[StructLayout( LayoutKind.Sequential )]
-			public struct STRANK
-			{
-				public int Drums;
-				public int Guitar;
-				public int Bass;
-				public int this[ int index ]
-				{
-					get
-					{
-						switch( index )
-						{
-							case 0:
-								return this.Drums;
-
-							case 1:
-								return this.Guitar;
-
-							case 2:
-								return this.Bass;
-						}
-						throw new IndexOutOfRangeException();
-					}
-					set
-					{
-						if ( ( value < (int)CScoreIni.ERANK.SS ) || ( ( value != (int)CScoreIni.ERANK.UNKNOWN ) && ( value > (int)CScoreIni.ERANK.E ) ) )
-						{
-							throw new ArgumentOutOfRangeException();
-						}
-						switch( index )
-						{
-							case 0:
-								this.Drums = value;
-								return;
-
-							case 1:
-								this.Guitar = value;
-								return;
-
-							case 2:
-								this.Bass = value;
-								return;
-						}
-						throw new IndexOutOfRangeException();
-					}
-				}
-			}
-
-			[Serializable]
-			[StructLayout( LayoutKind.Sequential )]
-			public struct STSKILL
-			{
-				public double Drums;
-				public double Guitar;
-				public double Bass;
-				public double this[ int index ]
-				{
-					get
-					{
-						switch( index )
-						{
-							case 0:
-								return this.Drums;
-
-							case 1:
-								return this.Guitar;
-
-							case 2:
-								return this.Bass;
-						}
-						throw new IndexOutOfRangeException();
-					}
-					set
-					{
-						if( ( value < 0.0 ) || ( value > 100.0 ) )
-						{
-							throw new ArgumentOutOfRangeException();
-						}
-						switch( index )
-						{
-							case 0:
-								this.Drums = value;
-								return;
-
-							case 1:
-								this.Guitar = value;
-								return;
-
-							case 2:
-								this.Bass = value;
-								return;
-						}
-						throw new IndexOutOfRangeException();
-					}
-				}
-			}
 		}
 
 		public bool bSongDBにキャッシュがあった;
@@ -268,11 +170,8 @@ namespace TJAPlayer3
 			this.譜面情報.Preimage = "";
 			this.譜面情報.Premovie = "";
 			this.譜面情報.Backgound = "";
-			this.譜面情報.最大ランク = new ST譜面情報.STRANK();
-			this.譜面情報.最大ランク.Drums =  (int)CScoreIni.ERANK.UNKNOWN;
-			this.譜面情報.最大ランク.Guitar = (int)CScoreIni.ERANK.UNKNOWN;
-			this.譜面情報.最大ランク.Bass =   (int)CScoreIni.ERANK.UNKNOWN;
-			this.譜面情報.フルコンボ = new STDGBVALUE<bool>();
+			this.譜面情報.最大ランク =  (int)CScoreIni.ERANK.UNKNOWN;
+			this.譜面情報.フルコンボ = false;
 			this.譜面情報.演奏回数 = new int();
 			this.譜面情報.演奏履歴 = new ST譜面情報.STHISTORY();
 			this.譜面情報.演奏履歴.行1 = "";
@@ -283,7 +182,7 @@ namespace TJAPlayer3
 			this.譜面情報.演奏履歴.行6 = "";
 			this.譜面情報.演奏履歴.行7 = "";
 			this.譜面情報.レベルを非表示にする = false;
-			this.譜面情報.最大スキル = new ST譜面情報.STSKILL();
+			this.譜面情報.最大スキル = new double();
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";
