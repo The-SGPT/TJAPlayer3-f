@@ -53,8 +53,8 @@ namespace TJAPlayer3
 					}
 				}
 
-				base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[0], TJAPlayer3.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
-				if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[1], TJAPlayer3.Skin.Game_Score_Y[1], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
+				base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[0], TJAPlayer3.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ] ), 0 , 256, 0);
+				if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[1], TJAPlayer3.Skin.Game_Score_Y[1], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ] ), 0 , 256, 1);
 
 				for( int i = 0; i < 256; i++ )
 				{
@@ -65,7 +65,7 @@ namespace TJAPlayer3
 							this.stScore[ i ].ctTimer.t進行();
 							if( this.stScore[ i ].ctTimer.b終了値に達した )
 							{
-								this.n現在表示中のスコア[ this.stScore[ i ].nPlayer ].Taiko += (long)this.stScore[ i ].nAddScore;
+								this.n現在表示中のスコア[ this.stScore[ i ].nPlayer ] += (long)this.stScore[ i ].nAddScore;
 								if( this.stScore[ i ].b表示中 == true )
 									this.n現在表示中のAddScore--;
 								this.stScore[ i ].ctTimer.t停止();

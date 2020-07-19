@@ -11,9 +11,9 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		protected STDGBVALUE<long>[] nスコアの増分;
-		protected STDGBVALUE<double>[] n現在の本当のスコア;
-		protected STDGBVALUE<long>[] n現在表示中のスコア;
+		protected long[] nスコアの増分;
+		protected double[] n現在の本当のスコア;
+		protected long[] n現在表示中のスコア;
 		//protected CTexture txScore;
 
   //      protected CTexture txScore_1P;
@@ -47,7 +47,7 @@ namespace TJAPlayer3
 
 		public long GetScore(int player)
 		{
-			return n現在表示中のスコア[player].Taiko;
+			return n現在表示中のスコア[player];
 		}
 
 		// コンストラクタ
@@ -104,22 +104,6 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		private float[,] n点数アニメ拡大率_座標 = new float[,]
-{
-						{1.14f,-5},
-						{1.20f,-6},
-						{1.23f,-8},
-						{1.25f,-9},
-						{1.23f,-8},
-						{1.20f,-6},
-						{1.14f,-5},
-						{1.08f,-4},
-						{1.04f,-2},
-						{1.02f,-1},
-						{1.01f,-1},
-						{1f, 0}
-		};
-
 		private float[] ScoreScale = new float[]
 		{
 			1.000f,
@@ -136,60 +120,33 @@ namespace TJAPlayer3
 			1.000f
 		};
 
-		public double Get( E楽器パート part, int player )
+		public double Get( int player )
 		{
-			return this.n現在の本当のスコア[ player ][ (int) part ];
+			return this.n現在の本当のスコア[ player ];
 		}
-		public void Set( E楽器パート part, double nScore, int player )
+		public void Set( double nScore, int player )
 		{
-			//現状、TAIKOパートでの演奏記録を結果ステージに持っていけないので、ドラムパートにも加算することでお茶を濁している。
-			if( part == E楽器パート.TAIKO )
-				part = E楽器パート.DRUMS;
-
-			int nPart = (int) part;
-			if( this.n現在の本当のスコア[ player ][ nPart ] != nScore )
+			if( this.n現在の本当のスコア[ player ] != nScore )
 			{
-				this.n現在の本当のスコア[ player ][ nPart ] = nScore;
-				this.nスコアの増分[ player ][ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) / 20.0 );
-				this.nスコアの増分[ player ].Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) );
-				if( this.nスコアの増分[ player ][ nPart ] < 1L )
+				this.n現在の本当のスコア[ player ] = nScore;
+				this.nスコアの増分[ player ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ] - this.n現在表示中のスコア[ player ] ) ) / 20.0 );
+				if( this.nスコアの増分[ player ] < 1L )
 				{
-					this.nスコアの増分[ player ][ nPart ] = 1L;
+					this.nスコアの増分[ player ] = 1L;
 				}
-			}
-
-			if( part == E楽器パート.DRUMS )
-				part = E楽器パート.TAIKO;
-
-			nPart = (int) part;
-			if( this.n現在の本当のスコア[ player ][ nPart ] != nScore )
-			{
-				this.n現在の本当のスコア[ player ][ nPart ] = nScore;
-				this.nスコアの増分[ player ][ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) / 20.0 );
-				this.nスコアの増分[ player ].Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) );
-				if( this.nスコアの増分[ player ][ nPart ] < 1L )
-				{
-					this.nスコアの増分[ player ][ nPart ] = 1L;
-				}
-			}
-			
+			}			
 		}
+
 		/// <summary>
 		/// 点数を加える(各種AUTO補正つき)
 		/// </summary>
 		/// <param name="part"></param>
 		/// <param name="bAutoPlay"></param>
 		/// <param name="delta"></param>
-		public void Add( E楽器パート part, long delta, int player )
+		public void Add( long delta, int player )
 		{
 			double rev = 1.0;
-			switch ( part )
-			{
-				#region [ Unknown ]
-				case E楽器パート.UNKNOWN:
-					throw new ArgumentException();
-				#endregion
-			}
+
 			this.ctTimer = new CCounter( 0, 400, 1, TJAPlayer3.Timer );
 
 			for( int sc = 0; sc < 1; sc++ )
@@ -210,7 +167,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			this.Set( part, this.Get( part, player ) + delta * rev, player );
+			this.Set( this.Get( player ) + delta * rev, player );
 		}
 
 		public void BonusAdd( int player )
@@ -233,22 +190,24 @@ namespace TJAPlayer3
 				}
 			}
 
-			this.Set( E楽器パート.TAIKO, this.Get( E楽器パート.TAIKO, player ) + 10000, player );
+			this.Set( this.Get( player ) + 10000, player );
 		}
 
 		// CActivity 実装
 
 		public override void On活性化()
 		{
-			this.n現在表示中のスコア = new STDGBVALUE<long>[ 4 ];
-			this.n現在の本当のスコア = new STDGBVALUE<double>[ 4 ];
-			this.nスコアの増分 = new STDGBVALUE<long>[ 4 ];
-			for( int i = 0; i < 4; i++ )
+			this.n現在表示中のスコア = new long[ 4 ];
+			this.n現在の本当のスコア = new double[ 4 ];
+			this.nスコアの増分 = new long[ 4 ];
+
+			for (int i = 0; i < 4; i++)
 			{
-				this.n現在表示中のスコア[ i ][ i ] = 0L;
-				this.n現在の本当のスコア[ i ][ i ] = 0L;
-				this.nスコアの増分[ i ][ i ] = 0L;
+				this.n現在表示中のスコア[i] = 0L;
+				this.n現在の本当のスコア[i] = 0L;
+				this.nスコアの増分[i] = 0L;
 			}
+
 			for( int sc = 0; sc < 256; sc++ )
 			{
 				this.stScore[ sc ].b使用中 = false;
@@ -277,8 +236,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number.png" ) );
-	//            this.txScore_1P = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_Score_number_1P.png"));
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -286,8 +243,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txScore );
-	//            CDTXMania.tテクスチャの解放(ref this.txScore_1P);
 				base.OnManagedリソースの解放();
 			}
 		}
