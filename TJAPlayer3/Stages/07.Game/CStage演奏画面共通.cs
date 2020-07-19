@@ -1137,7 +1137,6 @@ namespace TJAPlayer3
 			switch ( pChip.e楽器パート )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.GUITAR:
 				case E楽器パート.BASS:
 					break;
 				case E楽器パート.TAIKO:
@@ -1347,7 +1346,6 @@ namespace TJAPlayer3
 			switch ( pChip.e楽器パート )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.GUITAR:
 				case E楽器パート.BASS:
 					break;
 				case E楽器パート.TAIKO:
@@ -1820,7 +1818,6 @@ namespace TJAPlayer3
 			switch ( part )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.GUITAR:
 				case E楽器パート.BASS:
 					break;
 
@@ -3625,7 +3622,7 @@ namespace TJAPlayer3
 						}
 						break;
 					case 0xDD: //SECTION //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < -10))
+						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
 						{
 							// 分岐毎にリセットしていたのでSECTIONの命令が来たらリセットする。
 							this.tBranchReset(nPlayer);

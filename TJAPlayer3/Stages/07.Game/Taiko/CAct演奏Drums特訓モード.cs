@@ -106,7 +106,7 @@ namespace TJAPlayer3
 						this.t演奏を停止する();
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp) || TJAPlayer3.Pad.b押されたDGB(Eパッド.LBlue))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS,Eパッド.LBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -120,7 +120,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown) || TJAPlayer3.Pad.b押されたDGB(Eパッド.RBlue))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS,Eパッド.RBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -134,7 +134,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if ( TJAPlayer3.Pad.b押されたDGB(Eパッド.LBlue2P))
+				if ( TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -144,7 +144,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.Pad.b押されたDGB(Eパッド.RBlue2P))
+				if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{

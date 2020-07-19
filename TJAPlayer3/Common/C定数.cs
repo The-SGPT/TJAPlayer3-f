@@ -154,15 +154,13 @@ namespace TJAPlayer3
 	public enum E楽器パート		// ここを修正するときは、セットで次の EKeyConfigPart も修正すること。
 	{
 		DRUMS	= 0,
-		GUITAR	= 1,
-		BASS	= 2,
-		TAIKO   = 3,
+		BASS	= 1,
+		TAIKO   = 2,
 		UNKNOWN	= 99
 	}
 	public enum EKeyConfigPart	// : E楽器パート
 	{
 		DRUMS	= E楽器パート.DRUMS,
-		GUITAR	= E楽器パート.GUITAR,
 		BASS	= E楽器パート.BASS,
 		TAIKO   = E楽器パート.TAIKO,
 		SYSTEM,
@@ -270,7 +268,6 @@ namespace TJAPlayer3
 	public struct STDGBVALUE<T>			// indexはE楽器パートと一致させること
 	{
 		public T Drums;
-		public T Guitar;
 		public T Bass;
 		public T Taiko;
 		public T Unknown;
@@ -282,9 +279,6 @@ namespace TJAPlayer3
 				{
 					case (int) E楽器パート.DRUMS:
 						return this.Drums;
-
-					case (int) E楽器パート.GUITAR:
-						return this.Guitar;
 
 					case (int) E楽器パート.BASS:
 						return this.Bass;
@@ -303,10 +297,6 @@ namespace TJAPlayer3
 				{
 					case (int) E楽器パート.DRUMS:
 						this.Drums = value;
-						return;
-
-					case (int) E楽器パート.GUITAR:
-						this.Guitar = value;
 						return;
 
 					case (int) E楽器パート.BASS:

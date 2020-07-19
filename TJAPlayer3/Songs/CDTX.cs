@@ -813,7 +813,6 @@ namespace TJAPlayer3
 		public struct STチップがある
 		{
 			public bool Drums;
-			public bool Guitar;
 			public bool Bass;
 
 			public bool HHOpen;
@@ -834,27 +833,24 @@ namespace TJAPlayer3
 							return this.Drums;
 
 						case 1:
-							return this.Guitar;
-
-						case 2:
 							return this.Bass;
 
-						case 3:
+						case 2:
 							return this.HHOpen;
 
-						case 4:
+						case 3:
 							return this.Ride;
 
-						case 5:
+						case 4:
 							return this.LeftCymbal;
 
-						case 6:
+						case 5:
 							return this.OpenGuitar;
 
-						case 7:
+						case 6:
 							return this.OpenBass;
 
-						case 8:
+						case 7:
 							return this.Branch;
 					}
 					throw new IndexOutOfRangeException();
@@ -868,34 +864,30 @@ namespace TJAPlayer3
 							return;
 
 						case 1:
-							this.Guitar = value;
-							return;
-
-						case 2:
 							this.Bass = value;
 							return;
 
-						case 3:
+						case 2:
 							this.HHOpen = value;
 							return;
 
-						case 4:
+						case 3:
 							this.Ride = value;
 							return;
 
-						case 5:
+						case 4:
 							this.LeftCymbal = value;
 							return;
 
-						case 6:
+						case 5:
 							this.OpenGuitar = value;
 							return;
 
-						case 7:
+						case 6:
 							this.OpenBass = value;
 							return;
 
-						case 8:
+						case 7:
 							this.Branch = value;
 							return;
 					}
@@ -1120,7 +1112,6 @@ namespace TJAPlayer3
 			this.db再生速度 = 1.0;
 			this.bチップがある = new STチップがある();
 			this.bチップがある.Drums = false;
-			this.bチップがある.Guitar = false;
 			this.bチップがある.Bass = false;
 			this.bチップがある.HHOpen = false;
 			this.bチップがある.Ride = false;
