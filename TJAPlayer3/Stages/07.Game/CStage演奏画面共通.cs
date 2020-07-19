@@ -2943,9 +2943,7 @@ namespace TJAPlayer3
 //Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
 				var time = pChip.n発声時刻ms - n現在時刻ms;
 				pChip.nバーからの距離dot.Drums = (int) ( time * ScrollSpeedDrums );
-				pChip.nバーからの距離dot.Guitar = (int) ( time * ScrollSpeedDrums );
-				pChip.nバーからの距離dot.Bass = (int) ( time * ScrollSpeedDrums );
-				pChip.nバーからの距離dot.Taiko = (int) (  time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+				pChip.nバーからの距離dot.Taiko = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
