@@ -275,7 +275,17 @@ namespace TJAPlayer3
 					#region [ キー入力: 決定 ]
 					// E楽器パート eInst = E楽器パート.UNKNOWN;
 					ESortAction eAction = ESortAction.END;
-					if (
+					if (false)
+					{
+						eInst = (E楽器パート)1;
+						eAction = ESortAction.Decide;
+					}
+					else if (false)
+					{
+						eInst = (E楽器パート)4;
+						eAction = ESortAction.Decide;
+					}
+					else if (
 						TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.Decide )	// #24756 2011.4.1 yyagi: Add condition "Drum-Decide" to enable CY in Sort Menu.
 						|| TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD )
 						|| TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC )
