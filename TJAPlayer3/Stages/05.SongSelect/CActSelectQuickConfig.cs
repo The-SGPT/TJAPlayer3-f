@@ -20,18 +20,6 @@ namespace TJAPlayer3
 
 		private void CActSelectQuickConfigMain(int nPlayer)
 		{
-/*
-•Target: Drums/Guitar/Bass 
-•Auto Mode: All ON/All OFF/CUSTOM 
-•Auto Lane: 
-•Scroll Speed: 
-•Play Speed: 
-•Risky: 
-•Hidden/Sudden: None/Hidden/Sudden/Both 
-•Conf SET: SET-1/SET-2/SET-3 
-•More... 
-•EXIT 
-*/
 			lci = new List<List<List<CItemBase>>>();									// この画面に来る度に、メニューを作り直す。
 			for ( int nConfSet = 0; nConfSet < 3; nConfSet++ )
 			{
@@ -79,7 +67,7 @@ namespace TJAPlayer3
 			#region [ 個別 Sud/Hid ]
 			l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom[nPlayer],
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
-				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
+				"Drums chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
 			l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
 				"",

@@ -792,7 +792,7 @@ namespace TJAPlayer3
 		}
 		protected override void t進行描画_DANGER()
 		{
-			this.actDANGER.t進行描画( this.actGauge.IsDanger(E楽器パート.DRUMS), false, false );
+			this.actDANGER.t進行描画( this.actGauge.IsDanger(E楽器パート.DRUMS) );
 		}
 
 		private void t進行描画_チップファイアD()
