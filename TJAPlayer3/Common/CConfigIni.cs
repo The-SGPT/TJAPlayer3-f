@@ -537,7 +537,6 @@ namespace TJAPlayer3
 				}
 			}
 
-			public CKeyAssignPad Bass = new CKeyAssignPad();
 			public CKeyAssignPad Drums = new CKeyAssignPad();
 			public CKeyAssignPad Taiko = new CKeyAssignPad();
 			public CKeyAssignPad System = new CKeyAssignPad();
@@ -549,9 +548,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							return this.Drums;
-
-						case (int) EKeyConfigPart.BASS:
-							return this.Bass;
 
 						case (int) EKeyConfigPart.TAIKO:
 							return this.Taiko;
@@ -567,10 +563,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							this.Drums = value;
-							return;
-
-						case (int) EKeyConfigPart.BASS:
-							this.Bass = value;
 							return;
 
 						case (int) EKeyConfigPart.TAIKO:
@@ -2172,10 +2164,6 @@ namespace TJAPlayer3
 											//else if ( str3.Equals( "JudgeDispPriorityDrums" ) )
 											//{
 											//    this.e判定表示優先度.Drums = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
-											//}
-											//else if ( str3.Equals( "JudgeDispPriorityBass" ) )
-											//{
-											//    this.e判定表示優先度.Bass = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Bass );
 											//}
 											else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
 											{

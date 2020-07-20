@@ -372,20 +372,8 @@ namespace TJAPlayer3
 		}
 
 		#region [ DAMAGE ]
-#if true       // DAMAGELEVELTUNING
 		#region [ DAMAGELEVELTUNING ]
 		// ----------------------------------
-		public float[ , ] fDamageGaugeDelta = {			// #23625 2011.1.10 ickw_284: tuned damage/recover factors
-			// drums,   guitar,  bass
-			{  0.004f,  0.006f,  0.006f,  0.004f },
-			{  0.002f,  0.003f,  0.003f,  0.002f },
-			{  0.000f,  0.000f,  0.000f,  0.000f },
-			{ -0.020f, -0.030f,	-0.030f, -0.020f },
-			{ -0.050f, -0.050f, -0.050f, -0.050f }
-		};
-		public float[] fDamageLevelFactor = {
-			0.5f, 1.0f, 1.5f
-		};
 
 		public float[,] dbゲージ増加量 = new float[2, 3];
 
@@ -401,8 +389,8 @@ namespace TJAPlayer3
 		};//おおよその値。
 
 		// ----------------------------------
-#endregion
-#endif
+		#endregion
+
 		public void Damage(int nHitCourse, E判定 e今回の判定, int nPlayer)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 		{
 			float fDamage;

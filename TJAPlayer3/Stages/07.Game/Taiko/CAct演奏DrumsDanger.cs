@@ -54,10 +54,8 @@ namespace TJAPlayer3
 		/// ドラム画面のDANGER描画
 		/// </summary>
 		/// <param name="bIsDangerDrums">DrumsのゲージがDangerかどうか(Guitar/Bassと共用のゲージ)</param>
-		/// <param name="bIsDangerGuitar">Guitarのゲージ(未使用)</param>
-		/// <param name="bIsDangerBass">Bassのゲージ(未使用)</param>
 		/// <returns></returns>
-		public override int t進行描画( bool bIsDangerDrums, bool bIsDangerGuitar, bool bIsDangerBass )
+		public override int t進行描画( bool bIsDangerDrums )
 		{
 			return 0;
 		}

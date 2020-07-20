@@ -42,10 +42,8 @@ namespace TJAPlayer3
 		/// DANGER描画
 		/// </summary>
 		/// <param name="bIsDangerDrums">DrumsがDangerならtrue</param>
-		/// <param name="bIsDamgerGuitar">GuitarがDangerならtrue</param>
-		/// <param name="bIsDangerBass">BassがDangerならtrue</param>
 		/// <returns></returns>
-		public abstract int t進行描画( bool bIsDangerDrums, bool bIsDamgerGuitar, bool bIsDangerBass );
+		public abstract int t進行描画( bool bIsDangerDrums );
 
 
 

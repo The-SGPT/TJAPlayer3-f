@@ -1137,7 +1137,6 @@ namespace TJAPlayer3
 			switch ( pChip.e楽器パート )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.BASS:
 					break;
 				case E楽器パート.TAIKO:
 					{
@@ -1346,7 +1345,6 @@ namespace TJAPlayer3
 			switch ( pChip.e楽器パート )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.BASS:
 					break;
 				case E楽器パート.TAIKO:
 					if( !bAutoPlay )
@@ -1818,7 +1816,6 @@ namespace TJAPlayer3
 			switch ( part )
 			{
 				case E楽器パート.DRUMS:
-				case E楽器パート.BASS:
 					break;
 
 				case E楽器パート.TAIKO:

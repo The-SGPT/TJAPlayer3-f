@@ -813,14 +813,7 @@ namespace TJAPlayer3
 		public struct STチップがある
 		{
 			public bool Drums;
-			public bool Bass;
-
-			public bool HHOpen;
-			public bool Ride;
-			public bool LeftCymbal;
-			public bool OpenGuitar;
-			public bool OpenBass;
-
+			
 			public bool Branch;
 
 			public bool this[int index]
@@ -833,24 +826,6 @@ namespace TJAPlayer3
 							return this.Drums;
 
 						case 1:
-							return this.Bass;
-
-						case 2:
-							return this.HHOpen;
-
-						case 3:
-							return this.Ride;
-
-						case 4:
-							return this.LeftCymbal;
-
-						case 5:
-							return this.OpenGuitar;
-
-						case 6:
-							return this.OpenBass;
-
-						case 7:
 							return this.Branch;
 					}
 					throw new IndexOutOfRangeException();
@@ -864,30 +839,6 @@ namespace TJAPlayer3
 							return;
 
 						case 1:
-							this.Bass = value;
-							return;
-
-						case 2:
-							this.HHOpen = value;
-							return;
-
-						case 3:
-							this.Ride = value;
-							return;
-
-						case 4:
-							this.LeftCymbal = value;
-							return;
-
-						case 5:
-							this.OpenGuitar = value;
-							return;
-
-						case 6:
-							this.OpenBass = value;
-							return;
-
-						case 7:
 							this.Branch = value;
 							return;
 					}
@@ -1082,14 +1033,6 @@ namespace TJAPlayer3
 		public int FixSENote;
 		public GaugeIncreaseMode GaugeIncreaseMode;
 
-
-
-#if TEST_NOTEOFFMODE
-		public STLANEVALUE<bool> b演奏で直前の音を消音する;
-//		public bool bHH演奏で直前のHHを消音する;
-//		public bool bGUITAR演奏で直前のGUITARを消音する;
-//		public bool bBASS演奏で直前のBASSを消音する;
-#endif
 		// コンストラクタ
 
 		public CDTX()
@@ -1112,12 +1055,7 @@ namespace TJAPlayer3
 			this.db再生速度 = 1.0;
 			this.bチップがある = new STチップがある();
 			this.bチップがある.Drums = false;
-			this.bチップがある.Bass = false;
-			this.bチップがある.HHOpen = false;
-			this.bチップがある.Ride = false;
-			this.bチップがある.LeftCymbal = false;
-			this.bチップがある.OpenGuitar = false;
-			this.bチップがある.OpenBass = false;
+			this.bチップがある.Branch = false;
 			this.strファイル名 = "";
 			this.strフォルダ名 = "";
 			this.strファイル名の絶対パス = "";
@@ -1154,12 +1092,6 @@ namespace TJAPlayer3
 			this.SongLoudnessMetadata = null;
 
 			GaugeIncreaseMode = GaugeIncreaseMode.Normal;
-
-#if TEST_NOTEOFFMODE
-			this.bHH演奏で直前のHHを消音する = true;
-			this.bGUITAR演奏で直前のGUITARを消音する = true;
-			this.bBASS演奏で直前のBASSを消音する = true;
-#endif
 
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
 			Dan_C = new Dan_C[3];
@@ -8146,8 +8078,6 @@ namespace TJAPlayer3
 
 			return true;
 		}
-
-		// SwapGuitarBassInfos_AutoFlags()は、CDTXからCConfigIniに移動。
 
 		// CActivity 実装
 
