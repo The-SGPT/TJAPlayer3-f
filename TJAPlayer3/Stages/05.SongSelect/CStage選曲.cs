@@ -485,10 +485,21 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, 0,new Rectangle(TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height));
 					}
 				}
-
 				// キー入力
 				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 )
                 {
+
+					if (actQuickConfig.bGotoDetailConfig)
+					{   // 詳細CONFIG呼び出し
+						actQuickConfig.tDeativatePopupMenu();
+						this.actPresound.tサウンドの停止MT();
+						this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
+						this.actFIFO.tフェードアウト開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+						TJAPlayer3.Skin.sound取消音.t再生する();
+						return 0;
+					}
+
 					#region[もし段位道場の確認状態だったら]
 					if (現在の選曲画面状況 == E選曲画面.Dan選択)
 					{//2020.05.25 Mr-Ojii 段位道場の確認を追加
