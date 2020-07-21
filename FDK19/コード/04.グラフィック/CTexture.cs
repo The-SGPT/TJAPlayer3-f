@@ -207,7 +207,7 @@ namespace FDK
 					}
 					using (var stream = new MemoryStream())
 					{
-						bitmap.Save(stream, ImageFormat.Png);
+						bitmap.Save(stream, ImageFormat.Bmp);
 						stream.Seek(0L, SeekOrigin.Begin);
 						// 中で更にメモリ読み込みし直していて無駄なので、Streamを使うのは止めたいところ
 						this.texture = Texture.FromStream(device, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0);
@@ -287,9 +287,8 @@ namespace FDK
 		}
 		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
 		{
-
 			MemoryStream ms = new MemoryStream();
-			bitmap.Save(ms,ImageFormat.Png);
+			bitmap.Save(ms,ImageFormat.Bmp);
 			byte[] img = ms.GetBuffer();
 			MakeTexture(device, img, format, b黒を透過する, pool);
 			ms.Dispose();
