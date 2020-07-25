@@ -3682,14 +3682,7 @@ namespace TJAPlayer3
 					case 0xE2:
 						if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
-							if (nPlayer == 0)
-							{
-								TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
-							}
-							else
-							{
-								TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
-							}
+							TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向, nPlayer);	
 							this.nJPOSSCROLL[ nPlayer ]++;
 							pChip.bHit = true;
 						}

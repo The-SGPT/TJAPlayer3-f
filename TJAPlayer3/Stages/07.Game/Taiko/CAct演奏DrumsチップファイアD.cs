@@ -323,7 +323,7 @@ namespace TJAPlayer3
 
 										Matrix mat = Matrix.Identity;
 										mat *= Matrix.Scaling( f倍率, f倍率, f倍率 );
-										mat *= Matrix.Translation( TJAPlayer3.Skin.nScrollFieldX[0] - SampleFramework.GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] - SampleFramework.GameWindowSize.Height / 2.0f), 0f );
+										mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - SampleFramework.GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
 										//mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
 										//mat *= Matrix.Translation( 0f, 0f, 0f );
 

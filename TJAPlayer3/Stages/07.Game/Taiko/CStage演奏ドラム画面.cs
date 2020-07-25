@@ -1420,10 +1420,7 @@ namespace TJAPlayer3
 					#region[ 両手待ち時 ]
 					if( pChip.eNoteState == ENoteState.wait && TJAPlayer3.ConfigIni.b両手判定待ち時間中に大音符を判定枠に合わせるか)
 					{
-						if (pChip.nPlayerSide == 0)
-							x = (TJAPlayer3.Skin.nScrollFieldX[0]);
-						else
-							x = (TJAPlayer3.Skin.nScrollFieldX[1]);
+						x = (TJAPlayer3.Skin.nScrollFieldX[pChip.nPlayerSide]);
 					}
 					#endregion
 

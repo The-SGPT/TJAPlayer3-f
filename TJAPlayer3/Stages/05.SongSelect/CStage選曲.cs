@@ -43,7 +43,7 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				return this.actPreimageパネル.bIsPlayingPremovie;
+				return false;
 			}
 		}
 		public bool bスクロール中
@@ -93,11 +93,8 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actFOtoNowLoading = new CActFIFOStart());
 			base.list子Activities.Add(this.act曲リスト = new CActSelect曲リスト());
 			base.list子Activities.Add(this.act難易度選択画面 = new CActSelect難易度選択画面());
-			base.list子Activities.Add(this.actステータスパネル = new CActSelectステータスパネル());
 			base.list子Activities.Add(this.act演奏履歴パネル = new CActSelect演奏履歴パネル());
-			base.list子Activities.Add(this.actPreimageパネル = new CActSelectPreimageパネル());
 			base.list子Activities.Add(this.actPresound = new CActSelectPresound());
-			base.list子Activities.Add(this.actArtistComment = new CActSelectArtistComment());
 			base.list子Activities.Add(this.actInformation = new CActSelectInformation());
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
 			base.list子Activities.Add(this.actQuickConfig = new CActSelectQuickConfig());
@@ -111,11 +108,7 @@ namespace TJAPlayer3
 
 		public void t選択曲変更通知()
 		{
-			this.actPreimageパネル.t選択曲が変更された();
 			this.actPresound.t選択曲が変更された();
-			this.act演奏履歴パネル.t選択曲が変更された();
-			this.actステータスパネル.t選択曲が変更された();
-			this.actArtistComment.t選択曲が変更された();
 		}
 
 		// CStage 実装
@@ -147,7 +140,6 @@ namespace TJAPlayer3
 
 				現在の選曲画面状況 = E選曲画面.通常;
 				完全に選択済み = false;
-				this.actステータスパネル.t選択曲が変更された();  // 最大ランクを更新
 												// Discord Presenceの更新
 				Discord.UpdatePresence("", Properties.Discord.Stage_SongSelect, TJAPlayer3.StartupTime);
 			}
@@ -1230,15 +1222,12 @@ namespace TJAPlayer3
 				}
 			}
 		}
-		private CActSelectArtistComment actArtistComment;
 		internal CActFIFOBlack actFIFO;
 		private CActFIFOBlack actFIfrom結果画面;
 		//private CActFIFOBlack actFOtoNowLoading;
 		private CActFIFOStart actFOtoNowLoading;
 		private CActSelectInformation actInformation;
-		private CActSelectPreimageパネル actPreimageパネル;
 		public CActSelectPresound actPresound;
-		private CActSelectステータスパネル actステータスパネル;
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
 		private CActSelect難易度選択画面 act難易度選択画面;

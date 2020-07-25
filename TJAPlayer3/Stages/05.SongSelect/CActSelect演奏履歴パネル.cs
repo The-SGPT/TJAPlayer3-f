@@ -65,58 +65,15 @@ namespace TJAPlayer3
 
 			base.b活性化してない = true;
 		}
-		public void t選択曲が変更された()
-		{
-			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
-			if( ( cスコア != null ) && !TJAPlayer3.stage選曲.bスクロール中 )
-			{
-				try
-				{
-					Bitmap image = new Bitmap( 800, 240 );
-					Graphics graphics = Graphics.FromImage( image );
-					graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-					for ( int i = 0; i < (int)Difficulty.Total; i++ )
-					{
-						if( ( cスコア.譜面情報.演奏履歴[ i ] != null ) && ( cスコア.譜面情報.演奏履歴[ i ].Length > 0 ) )
-						{
-							graphics.DrawString( cスコア.譜面情報.演奏履歴[ i ], this.ft表示用フォント, Brushes.Yellow, (float) 0f, (float) ( i * 36f ) );
-						}
-					}
-					graphics.Dispose();
-					if( this.tx文字列パネル != null )
-					{
-						this.tx文字列パネル.Dispose();
-					}
-					this.tx文字列パネル = new CTexture( TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat );
-					this.tx文字列パネル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
-					image.Dispose();
-				}
-				catch( CTextureCreateFailedException e )
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "演奏履歴文字列テクスチャの作成に失敗しました。" );
-					this.tx文字列パネル = null;
-				}
-			}
-		}
-
 
 		// CActivity 実装
 
 		public override void On活性化()
 		{
-			this.n本体X = 810;
-			this.n本体Y = 558;
-			this.ft表示用フォント = new Font( "Arial", 30f, FontStyle.Bold, GraphicsUnit.Pixel );
 			base.On活性化();
 		}
 		public override void On非活性化()
 		{
-			if( this.ft表示用フォント != null )
-			{
-				this.ft表示用フォント.Dispose();
-				this.ft表示用フォント = null;
-			}
 			this.ct登場アニメ用 = null;
 			base.On非活性化();
 		}
@@ -124,13 +81,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_play history panel.png" ) );
-				//this.txスコアボード[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_0.png" ) );
-				//this.txスコアボード[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_1.png" ) );
-				//this.txスコアボード[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_2.png" ) );
-				//this.txスコアボード[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_3.png" ) );
-				//this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_number.png" ) );
-				this.t選択曲が変更された();
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -138,13 +88,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				//CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
-	//            CDTXMania.tテクスチャの解放( ref this.txスコアボード[0] );
-	//            CDTXMania.tテクスチャの解放( ref this.txスコアボード[1] );
-	//            CDTXMania.tテクスチャの解放( ref this.txスコアボード[2] );
-	//            CDTXMania.tテクスチャの解放( ref this.txスコアボード[3] );
-	//            CDTXMania.tテクスチャの解放( ref this.tx文字 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -183,14 +126,6 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter ct登場アニメ用;
-		private CCounter ctスコアボード登場アニメ;
-		private Font ft表示用フォント;
-		private int n本体X;
-		private int n本体Y;
-		//private CTexture txパネル本体;
-		private CTexture tx文字列パネル;
-  //      private CTexture[] txスコアボード = new CTexture[4];
-  //      private CTexture tx文字;
 		//-----------------
 
 		[StructLayout(LayoutKind.Sequential)]
