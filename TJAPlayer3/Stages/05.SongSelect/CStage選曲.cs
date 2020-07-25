@@ -480,6 +480,21 @@ namespace TJAPlayer3
 				// キー入力
 				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 )
                 {
+					if (popupbool[0])
+					{
+						//クイックコンフィグの呼び出し
+						TJAPlayer3.Skin.sound決定音.t再生する();
+						this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 0);
+						popupbool[0] = false;
+						popupbool[1] = false;
+					}
+					else if (popupbool[1])
+					{
+						TJAPlayer3.Skin.sound決定音.t再生する();
+						this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 1);
+						popupbool[0] = false;
+						popupbool[1] = false;
+					}
 
 					if (actQuickConfig.bGotoDetailConfig)
 					{   // 詳細CONFIG呼び出し
@@ -538,7 +553,7 @@ namespace TJAPlayer3
 						#endregion
 					}
 					#endregion
-
+					
 					#region[難易度選択画面のキー入力]
 					else if (現在の選曲画面状況 == E選曲画面.難易度選択)
 					{//2020.06.02 Mr-Ojii 難易度選択画面の追加
@@ -621,7 +636,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Decide ]
-							if ((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.Decide) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed))||
+							if ((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.Decide) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed)) ||
 									(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))) && !this.act難易度選択画面.選択済み[0])
 							{
 								if (this.act難易度選択画面.現在の選択行[0] == 0)
@@ -630,8 +645,7 @@ namespace TJAPlayer3
 								}
 								else if (this.act難易度選択画面.現在の選択行[0] == 1)
 								{
-									TJAPlayer3.Skin.sound決定音.t再生する();
-									this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 0);
+									this.popupbool[0] = true;
 								}
 								else if (this.act難易度選択画面.現在の選択行[0] == 2)
 								{
@@ -662,7 +676,7 @@ namespace TJAPlayer3
 								}
 								this.難易度選択完了したか();
 							}
-							else if (((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.Decide) || TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1]) 
+							else if (((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.Decide) || TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1])
 							{
 								if (this.act難易度選択画面.現在の選択行[1] == 0)
 								{
@@ -670,8 +684,7 @@ namespace TJAPlayer3
 								}
 								else if (this.act難易度選択画面.現在の選択行[1] == 1)
 								{
-									TJAPlayer3.Skin.sound決定音.t再生する();
-									this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 1);
+									this.popupbool[1] = true;
 								}
 								else if (this.act難易度選択画面.現在の選択行[1] == 2)
 								{
@@ -765,7 +778,7 @@ namespace TJAPlayer3
 								{
 									this.act難易度選択画面.現在の選択行[0] = 0;
 								}
-								else 
+								else
 								{
 									this.act難易度選択画面.ct難易度拡大用[0].n現在の値 = 0;
 									this.act難易度選択画面.ct難易度拡大用[0].t時間Reset();
@@ -791,7 +804,7 @@ namespace TJAPlayer3
 								{
 									this.act難易度選択画面.現在の選択行[1] = 0;
 								}
-								else 
+								else
 								{
 									this.act難易度選択画面.ct難易度拡大用[1].n現在の値 = 0;
 									this.act難易度選択画面.ct難易度拡大用[1].t時間Reset();
@@ -836,7 +849,7 @@ namespace TJAPlayer3
 								}
 								this.actPresound.tサウンドの停止MT();
 							}
-						
+
 							#endregion
 							#region [ Shift-F1: CONFIG画面 ]
 							if ((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)) &&
@@ -1056,7 +1069,7 @@ namespace TJAPlayer3
 									//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
 									{
 										Debug.WriteLine("ドラムス難易度変更");
-										if(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+										if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
 											this.act曲リスト.t難易度レベルをひとつ戻す(1);
 										else
 											this.act曲リスト.t難易度レベルをひとつ戻す(0);
@@ -1525,6 +1538,8 @@ namespace TJAPlayer3
 		}
 
 		private int This_counter;
+
+		private bool[] popupbool = { false, false };
 
 		//-----------------
 		#endregion
