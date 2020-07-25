@@ -388,10 +388,6 @@ namespace TJAPlayer3
 				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[nPlayer]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 					break;
 			}
-
-			// 選曲ステージに変更通知を発出し、関係Activityの対応を行ってもらう。
-
-			TJAPlayer3.stage選曲.t選択曲変更通知();
 		}
 		/// <summary>
 		/// 不便だったから作った。
@@ -434,10 +430,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-
-			// 選曲ステージに変更通知を発出し、関係Activityの対応を行ってもらう。
-
-			TJAPlayer3.stage選曲.t選択曲変更通知();
 		}
 
 
