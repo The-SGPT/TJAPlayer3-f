@@ -142,45 +142,49 @@ namespace TJAPlayer3
 
 				int xdiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[0] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3] / 2;
 				int ydiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6];
-				for (int i = 0; i < width / 20 + 1; i++)
+
+
+				int wh = Math.Min(TJAPlayer3.Tx.Difficulty_Center_Bar.szテクスチャサイズ.Width / 3, TJAPlayer3.Tx.Difficulty_Center_Bar.szテクスチャサイズ.Height / 3);
+
+				for (int i = 0; i < width / wh + 1; i++)
 				{
-					for (int j = 0; j < height / 20 + 1; j++)
+					for (int j = 0; j < height / wh + 1; j++)
 					{
 						if (i == 0 && j == 0)
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 + ydiff, new Rectangle(0, 0, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, 0, wh, wh));
 						}
-						else if (i == 0 && j == (height / 20))
+						else if (i == 0 && j == (height / wh))
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 - (20 - height % 20) + ydiff, new Rectangle(0, 40, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(0, wh*2, wh, wh));
 						}
-						else if (i == (width / 20) && j == 0)
+						else if (i == (width / wh) && j == 0)
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 - (20 - width % 20) + xdiff, j * 20 + ydiff, new Rectangle(40, 0, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh*2, 0, wh, wh));
 						}
-						else if (i == (width / 20) && j == (height / 20))
+						else if (i == (width / wh) && j == (height / wh))
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 - (20 - width % 20) + xdiff, j * 20 - (20 - height % 20) + ydiff, new Rectangle(40, 40, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh*2, wh*2, wh, wh));
 						}
 						else if (i == 0)
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 + ydiff, new Rectangle(0, 20, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, wh, wh, wh));
 						}
 						else if (j == 0)
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 + ydiff, new Rectangle(20, 0, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, 0, wh, wh));
 						}
-						else if (i == (width / 20))
+						else if (i == (width / wh))
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 - (20 - width % 20) + xdiff, j * 20 + ydiff, new Rectangle(40, 20, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh*2, wh, wh, wh));
 						}
-						else if (j == (height / 20))
+						else if (j == (height / wh))
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 - (20 - height % 20) + ydiff, new Rectangle(20, 40, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh, wh*2, wh, wh));
 						}
 						else
 						{
-							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * 20 + xdiff, j * 20 + ydiff, new Rectangle(20, 20, 20, 20));
+							TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, wh, wh, wh));
 						}
 					}
 				}
