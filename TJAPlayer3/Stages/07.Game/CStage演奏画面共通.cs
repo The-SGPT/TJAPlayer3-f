@@ -1090,7 +1090,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				if ( chip現在処理中の連打チップ[ nPlayer ] != null )
+				if (chip現在処理中の連打チップ[nPlayer] != null)
 					chip現在処理中の連打チップ[ nPlayer ].bHit = true;
 				this.b連打中[ nPlayer ] = false;
 				this.actChara.b風船連打中 = false;
@@ -3110,6 +3110,7 @@ namespace TJAPlayer3
 								if( chip現在処理中の連打チップ[ nPlayer ] != null )
 								{
 									chip現在処理中の連打チップ[ nPlayer ].bHit = true;
+									chip現在処理中の連打チップ[nPlayer].bShow = true;
 									if (nPlayer == 0 && chip現在処理中の連打チップ[nPlayer].nBalloon > chip現在処理中の連打チップ[nPlayer].nRollCount && chip現在処理中の連打チップ[nPlayer].nRollCount > 0 && actChara.CharaAction_Balloon_Miss != null)
 									{
 										if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss > 0)
