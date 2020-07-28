@@ -55,8 +55,6 @@ namespace TJAPlayer3
 			public string アーティスト名;
 			public string コメント;
 			public string ジャンル;
-			public string Preimage;
-			public string Premovie;
 			public string Backgound;
 			public int 最大ランク;
 			public double 最大スキル;
@@ -167,8 +165,6 @@ namespace TJAPlayer3
 			this.譜面情報.アーティスト名 = "";
 			this.譜面情報.コメント = "";
 			this.譜面情報.ジャンル = "";
-			this.譜面情報.Preimage = "";
-			this.譜面情報.Premovie = "";
 			this.譜面情報.Backgound = "";
 			this.譜面情報.最大ランク =  (int)CScoreIni.ERANK.UNKNOWN;
 			this.譜面情報.フルコンボ = false;

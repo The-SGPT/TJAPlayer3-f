@@ -824,8 +824,6 @@ namespace TJAPlayer3
 			cスコア.譜面情報.アーティスト名 = br.ReadString();
 			cスコア.譜面情報.コメント = br.ReadString();
 			cスコア.譜面情報.ジャンル = br.ReadString();
-			cスコア.譜面情報.Preimage = br.ReadString();
-			cスコア.譜面情報.Premovie = br.ReadString();
 			cスコア.譜面情報.Backgound = br.ReadString();
 			cスコア.譜面情報.最大ランク = br.ReadInt32();
 			cスコア.譜面情報.最大スキル = br.ReadDouble();
@@ -938,7 +936,6 @@ namespace TJAPlayer3
 									c曲リストノード.arスコア.譜面情報.アーティスト名 = cdtx.ARTIST;
 									c曲リストノード.arスコア.譜面情報.コメント = cdtx.COMMENT;
 									c曲リストノード.arスコア.譜面情報.ジャンル = cdtx.GENRE;
-									c曲リストノード.arスコア.譜面情報.Preimage = cdtx.PREIMAGE;
 									c曲リストノード.arスコア.譜面情報.Backgound = ((cdtx.BACKGROUND != null) && (cdtx.BACKGROUND.Length > 0)) ? cdtx.BACKGROUND : cdtx.BACKGROUND_GR;
 									c曲リストノード.arスコア.譜面情報.レベルを非表示にする = cdtx.HIDDENLEVEL;
 									c曲リストノード.arスコア.譜面情報.Bpm = cdtx.BPM;
@@ -976,8 +973,6 @@ namespace TJAPlayer3
 										sb.Append(", artist=" + c曲リストノード.arスコア.譜面情報.アーティスト名);
 										sb.Append(", comment=" + c曲リストノード.arスコア.譜面情報.コメント);
 										sb.Append(", genre=" + c曲リストノード.arスコア.譜面情報.ジャンル);
-										sb.Append(", preimage=" + c曲リストノード.arスコア.譜面情報.Preimage);
-										sb.Append(", premovie=" + c曲リストノード.arスコア.譜面情報.Premovie);
 										sb.Append(", background=" + c曲リストノード.arスコア.譜面情報.Backgound);
 										sb.Append(", lvHide=" + c曲リストノード.arスコア.譜面情報.レベルを非表示にする);
 										sb.Append(", bpm=" + c曲リストノード.arスコア.譜面情報.Bpm);
@@ -1258,8 +1253,6 @@ namespace TJAPlayer3
 			bw.Write(node.arスコア.譜面情報.アーティスト名);
 			bw.Write(node.arスコア.譜面情報.コメント);
 			bw.Write(node.arスコア.譜面情報.ジャンル);
-			bw.Write(node.arスコア.譜面情報.Preimage);
-			bw.Write(node.arスコア.譜面情報.Premovie);
 			bw.Write(node.arスコア.譜面情報.Backgound);
 			bw.Write(node.arスコア.譜面情報.最大ランク);
 			bw.Write(node.arスコア.譜面情報.最大スキル);

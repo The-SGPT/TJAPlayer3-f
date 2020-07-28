@@ -33,7 +33,6 @@ namespace TJAPlayer3
 			base.eステージID = CStage.Eステージ.結果;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
-			base.list子Activities.Add( this.actResultImage = new CActResultImage() );
 			base.list子Activities.Add( this.actParameterPanel = new CActResultParameterPanel() );
 			base.list子Activities.Add( this.actSongBar = new CActResultSongBar() );
 			base.list子Activities.Add( this.actFI = new CActFIFOResult() );
@@ -268,10 +267,6 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.Tx.Result_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 				}
-				if ( this.actResultImage.On進行描画() == 0 )
-				{
-					this.bアニメが完了 = false;
-				}
 				if ( this.actParameterPanel.On進行描画() == 0 )
 				{
 					this.bアニメが完了 = false;
@@ -318,7 +313,6 @@ namespace TJAPlayer3
 				if ((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LC) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
 				{
 					this.actFI.tフェードイン完了();                 // #25406 2011.6.9 yyagi
-					this.actResultImage.tアニメを完了させる();
 					this.actParameterPanel.tアニメを完了させる();
 					this.actSongBar.tアニメを完了させる();
 					this.ct登場用.t停止();
@@ -361,7 +355,6 @@ namespace TJAPlayer3
 		private CActFIFOResult actFI;
 		private CActFIFOBlack actFO;
 		private CActResultParameterPanel actParameterPanel;
-		private CActResultImage actResultImage;
 		private CActResultSongBar actSongBar;
 		private bool bアニメが完了;
 		private bool bIsCheckedWhetherResultScreenShouldSaveOrNot;				// #24509 2011.3.14 yyagi
