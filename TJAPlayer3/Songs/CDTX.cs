@@ -925,7 +925,6 @@ namespace TJAPlayer3
 		public STLANEINT n可視チップ数;
 		public string PANEL;
 		public string PATH_WAV;
-		public string PREIMAGE;
 		public string strファイル名;
 		public string strファイル名の絶対パス;
 		public string strフォルダ名;
@@ -1046,7 +1045,6 @@ namespace TJAPlayer3
 			this.PANEL = "";
 			this.GENRE = "";
 			this.bLyrics = false;
-			this.PREIMAGE = "";
 			this.BACKGROUND = "";
 			this.BACKGROUND_GR = "";
 			this.PATH_WAV = "";

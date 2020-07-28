@@ -95,7 +95,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.act難易度選択画面 = new CActSelect難易度選択画面());
 			base.list子Activities.Add(this.act演奏履歴パネル = new CActSelect演奏履歴パネル());
 			base.list子Activities.Add(this.actPresound = new CActSelectPresound());
-			base.list子Activities.Add(this.actInformation = new CActSelectInformation());
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
 			base.list子Activities.Add(this.actQuickConfig = new CActSelectQuickConfig());
 			//base.list子Activities.Add( this.act難易度選択画面 = new CActSelect難易度選択画面() );
@@ -399,7 +398,6 @@ namespace TJAPlayer3
 				if( TJAPlayer3.Tx.SongSelect_Header != null )
 					TJAPlayer3.Tx.SongSelect_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
-				this.actInformation.On進行描画();
 				if( TJAPlayer3.Tx.SongSelect_Footer != null )
 					TJAPlayer3.Tx.SongSelect_Footer.t2D描画( TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.SongSelect_Footer.sz画像サイズ.Height );
 
@@ -1241,7 +1239,6 @@ namespace TJAPlayer3
 		private CActFIFOBlack actFIfrom結果画面;
 		//private CActFIFOBlack actFOtoNowLoading;
 		private CActFIFOStart actFOtoNowLoading;
-		private CActSelectInformation actInformation;
 		public CActSelectPresound actPresound;
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
