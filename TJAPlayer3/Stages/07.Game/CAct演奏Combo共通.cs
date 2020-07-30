@@ -532,17 +532,6 @@ namespace TJAPlayer3
 		protected virtual void tコンボ表示_ベース( int nCombo値, int nジャンプインデックス )
 		{
 		}
-		protected void tコンボ表示_ギター( int nCombo値, int n表示中央X, int n表示中央Y, int nジャンプインデックス )
-		{
-
-		}
-		protected void tコンボ表示_ベース( int nCombo値, int n表示中央X, int n表示中央Y, int nジャンプインデックス )
-		{
-
-		}
-		protected void tコンボ表示_ギターベース( int nCombo値, int n表示中央X, int n表示中央Y, int nジャンプインデックス )
-		{
-		}
 
 
 		// CActivity 実装
@@ -682,11 +671,8 @@ namespace TJAPlayer3
 						switch( i )
 						{
 							case 0:
-								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, 0 );
-								break;
-
 							case 1:
-								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, 1 );
+								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, i );
 								break;
 
 							case 2:

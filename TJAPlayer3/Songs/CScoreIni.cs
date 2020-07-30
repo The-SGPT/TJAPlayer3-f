@@ -859,18 +859,18 @@ namespace TJAPlayer3
 			}
 			return (int)ERANK.E;
 		}
-		internal static double tゲーム型スキルを計算して返す( int nLevel, int nTotal, int nPerfect, int nCombo, E楽器パート inst)
+		internal static double tゲーム型スキルを計算して返す( int nLevel, int nTotal, int nPerfect, int nCombo)
 		{
 			double ret;
 			if( ( nTotal == 0 ) || ( ( nPerfect == 0 ) && ( nCombo == 0 ) ) )
 				ret = 0.0;
 
 			ret = ( ( nLevel * ( ( nPerfect * 0.8 + nCombo * 0.2 ) / ( (double) nTotal ) ) ) / 2.0 );
-			ret *= dbCalcReviseValForDrGtBsAutoLanes( inst);
+			ret *= dbCalcReviseValForDrGtBsAutoLanes();
 
 			return ret;
 		}
-		internal static double t演奏型スキルを計算して返す( int nTotal, int nPerfect, int nGreat, int nGood, int nPoor, int nMiss, E楽器パート inst)
+		internal static double t演奏型スキルを計算して返す( int nTotal, int nPerfect, int nGreat, int nGood, int nPoor, int nMiss)
 		{
 			if( nTotal == 0 )
 				return 0.0;
@@ -879,10 +879,10 @@ namespace TJAPlayer3
 			double y = ( ( nPerfect * 1.0 + nGreat * 0.8 + nGood * 0.5 + nPoor * 0.2 + nMiss * 0.0 + nAuto * 0.0 ) * 100.0 ) / ( (double) nTotal );
 			double ret = ( 100.0 * ( ( Math.Pow( 1.03, y ) - 1.0 ) / ( Math.Pow( 1.03, 100.0 ) - 1.0 ) ) );
 
-			ret *= dbCalcReviseValForDrGtBsAutoLanes(inst);
+			ret *= dbCalcReviseValForDrGtBsAutoLanes();
 			return ret;
 		}
-		internal static double dbCalcReviseValForDrGtBsAutoLanes( E楽器パート inst)
+		internal static double dbCalcReviseValForDrGtBsAutoLanes()
 		{
 			//削除
 			return 1.0;

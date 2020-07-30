@@ -347,7 +347,7 @@ namespace TJAPlayer3
 							case (int) EKeyConfigPad.BD:
 								return this.padBD_B;
 
-							case (int) EKeyConfigPad.HT:
+							case (int) EKeyConfigPad.Pick:
 								return this.padHT_Pick;
 
 							case (int) EKeyConfigPad.LT:

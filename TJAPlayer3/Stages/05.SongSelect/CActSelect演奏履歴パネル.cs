@@ -4,7 +4,6 @@ using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using SharpDX;
 using FDK;
 
 using Rectangle = System.Drawing.Rectangle;

@@ -11,8 +11,6 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using FDK;
 using FDK.ExtensionMethods;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace TJAPlayer3
 {
@@ -253,7 +251,6 @@ namespace TJAPlayer3
 		{
 			public double db移動時間;
 			public int n移動距離px;
-			public int n移動方向; //移動方向は0(左)、1(右)の2つだけ。
 			public int n内部番号;
 			public int n表記上の番号;
 
@@ -390,32 +387,7 @@ namespace TJAPlayer3
 			public bool IsFixedSENote;
 			public bool IsHitted = false;
 			public bool IsMissed = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-			public bool bBPMチップである
-			{
-				get
-				{
-					if (this.nチャンネル番号 == 3 || this.nチャンネル番号 == 8)
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
-			}
-			public bool b自動再生音チャンネルである
-			{
-				get
-				{
-					int num = this.nチャンネル番号;
-					if ((((num != 1) && ((0x61 > num) || (num > 0x69))) && ((0x70 > num) || (num > 0x79))) && ((0x80 > num) || (num > 0x89)))
-					{
-						return ((0x90 <= num) && (num <= 0x92));
-					}
-					return true;
-				}
-			}
+
 			public bool b演奏終了後も再生が続くチップである;	// #32248 2013.10.14 yyagi
 			public CCounter RollDelay; // 18.9.22 AioiLight Add 連打時に赤くなるやつのタイマー
 			public CCounter RollInputTime; // 18.9.22 AioiLight Add  連打入力後、RollDelayが作動するまでのタイマー
@@ -494,7 +466,7 @@ namespace TJAPlayer3
 					"??", "??", "??", "??", "??", "??", "??", "??", 
 
 					//システム(移動予定)
-					"SCROLL", "DELAY", "ゴーゴータイム開始", "ゴーゴータイム終了", "??", "??", "??", "??",
+					"SCROLL", "DELAY", "GOGOSTART", "GOGOEND", "??", "??", "??", "??",
 					"??", "??", "??", "??", "??", "??", "??", "??",
 
 					"??", "??", "??", "??", "??", "??", "??", "??",
@@ -505,7 +477,7 @@ namespace TJAPlayer3
 
 					//太鼓1P、システム(現行)
 					"??", "??", "??", "太鼓_赤", "太鼓_青", "太鼓_赤(大)", "太鼓_青(大)", "太鼓_黄",
-					"太鼓_黄(大)", "太鼓_風船", "太鼓_連打末端", "太鼓_芋", "??", "SCROLL", "ゴーゴータイム開始", "ゴーゴータイム終了",
+					"太鼓_黄(大)", "太鼓_風船", "太鼓_連打末端", "太鼓_芋", "??", "SCROLL", "GOGOSTART", "GOGOEND",
 
 					"??", "??", "??", "??", "??", "??", "??", "??",
 					"??", "??", "??", "??", "??", "??", "??", "太鼓 AD-LIB",
@@ -851,10 +823,7 @@ namespace TJAPlayer3
 		{
 			public int n小節番号;
 			public int n文字数;
-			public double db発声時刻;
-			public double dbBMS時刻;
 			public int nコース = 0;
-			public int nタイプ;
 		}
 
 		// プロパティ
@@ -983,7 +952,6 @@ namespace TJAPlayer3
 		private List<int> listBalloon_Normal;
 		private List<int> listBalloon_Expert;
 		private List<int> listBalloon_Master;
-		private List<int> listBalloon; //旧構文用
 
 		public List<Bitmap> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
 		public List<STLYRIC> listLyric2;
@@ -1057,16 +1025,10 @@ namespace TJAPlayer3
 			this.strファイル名 = "";
 			this.strフォルダ名 = "";
 			this.strファイル名の絶対パス = "";
-			this.n無限管理WAV = new int[36 * 36];
-			this.n無限管理BPM = new int[36 * 36];
-			this.n無限管理PAN = new int[36 * 36];
 			this.n無限管理SIZE = new int[36 * 36];
 			this.listBalloon_Normal_数値管理 = 0;
 			this.listBalloon_Expert_数値管理 = 0;
 			this.listBalloon_Master_数値管理 = 0;
-			this.nRESULTIMAGE用優先順位 = new int[7];
-			this.nRESULTMOVIE用優先順位 = new int[7];
-			this.nRESULTSOUND用優先順位 = new int[7];
 
 			this.nBGMAdjust = 0;
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
@@ -1694,22 +1656,10 @@ namespace TJAPlayer3
 				#region [ 初期化 ]
 				for (int j = 0; j < 36 * 36; j++)
 				{
-					this.n無限管理WAV[j] = -j;
-					this.n無限管理BPM[j] = -j;
-					this.n無限管理PAN[j] = -10000 - j;
 					this.n無限管理SIZE[j] = -j;
 				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
-				this.bstackIFからENDIFをスキップする = new Stack<bool>();
-				this.bstackIFからENDIFをスキップする.Push(false);
-				this.n現在の乱数 = 0;
-				for (int k = 0; k < 7; k++)
-				{
-					this.nRESULTIMAGE用優先順位[k] = 0;
-					this.nRESULTMOVIE用優先順位[k] = 0;
-					this.nRESULTSOUND用優先順位[k] = 0;
-				}
 				#endregion
 				#region [ 入力/行解析 ]
 				#region[初期化]
@@ -1722,7 +1672,6 @@ namespace TJAPlayer3
 				CharEnumerator ce = str全入力文字列.GetEnumerator();
 				if (ce.MoveNext())
 				{
-					this.n現在の行数 = 1;
 					if (this.listChip.Count == 0)
 					{
 						try
@@ -1749,9 +1698,6 @@ namespace TJAPlayer3
 			//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 			//Trace.TraceInformation( "抜き出し時間:             {0}", span.ToString() );
 			//timeBeginLoad = DateTime.Now;
-			this.n無限管理WAV = null;
-			this.n無限管理BPM = null;
-			this.n無限管理PAN = null;
 			this.n無限管理SIZE = null;
 			//this.t入力_行解析ヘッダ( str1 );
 			if (!this.bヘッダのみ)
@@ -2448,22 +2394,10 @@ namespace TJAPlayer3
 				this.db再生速度 = 再生速度;
 				for (int j = 0; j < 36 * 36; j++)
 				{
-					this.n無限管理WAV[j] = -j;
-					this.n無限管理BPM[j] = -j;
-					this.n無限管理PAN[j] = -10000 - j;
 					this.n無限管理SIZE[j] = -j;
 				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
-				this.bstackIFからENDIFをスキップする = new Stack<bool>();
-				this.bstackIFからENDIFをスキップする.Push(false);
-				this.n現在の乱数 = 0;
-				for (int k = 0; k < 7; k++)
-				{
-					this.nRESULTIMAGE用優先順位[k] = 0;
-					this.nRESULTMOVIE用優先順位[k] = 0;
-					this.nRESULTSOUND用優先順位[k] = 0;
-				}
 				this.dbNowScroll = 1.0;
 				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
 				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
@@ -2711,7 +2645,7 @@ namespace TJAPlayer3
 							n内部番号 = this.n内部番号WAV1to,
 							n表記上の番号 = this.n内部番号WAV1to,
 							nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-							n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+							n位置 = 0,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
@@ -2791,7 +2725,7 @@ namespace TJAPlayer3
 						n内部番号 = this.n内部番号WAV1to,
 						n表記上の番号 = 1,
 						nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-						n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+						n位置 = 0,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strファイル名 = this.strBGM_PATH,
@@ -2956,22 +2890,10 @@ namespace TJAPlayer3
 				this.db再生速度 = 再生速度;
 				for (int j = 0; j < 36 * 36; j++)
 				{
-					this.n無限管理WAV[j] = -j;
-					this.n無限管理BPM[j] = -j;
-					this.n無限管理PAN[j] = -10000 - j;
 					this.n無限管理SIZE[j] = -j;
 				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
-				this.bstackIFからENDIFをスキップする = new Stack<bool>();
-				this.bstackIFからENDIFをスキップする.Push(false);
-				this.n現在の乱数 = 0;
-				for (int k = 0; k < 7; k++)
-				{
-					this.nRESULTIMAGE用優先順位[k] = 0;
-					this.nRESULTMOVIE用優先順位[k] = 0;
-					this.nRESULTSOUND用優先順位[k] = 0;
-				}
 				this.dbNowScroll = 1.0;
 				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
 				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
@@ -3041,7 +2963,7 @@ namespace TJAPlayer3
 						n内部番号 = this.n内部番号WAV1to,
 						n表記上の番号 = 1,
 						nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-						n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+						n位置 = 0,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strファイル名 = this.strBGM_PATH,
@@ -4256,7 +4178,6 @@ namespace TJAPlayer3
 					if (n譜面数 > 1)
 					{
 						//2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
-						this.listBalloon.Clear();
 						this.listBalloon_Normal.Clear();
 						this.listBalloon_Expert.Clear();
 						this.listBalloon_Master.Clear();
@@ -4997,6 +4918,8 @@ namespace TJAPlayer3
 				double db移動時刻 = Convert.ToDouble(strArray[0]);
 				int n移動px = Convert.ToInt32(strArray[1]);
 				int n移動方向 = Convert.ToInt32(strArray[2]);
+				if (n移動方向 == 0)
+					n移動px = -n移動px;
 
 				//チップ追加して割り込んでみる。
 				var chip = new CChip();
@@ -5011,7 +4934,7 @@ namespace TJAPlayer3
 
 				// チップを配置。
 
-				this.listJPOSSCROLL.Add(this.n内部番号JSCROLL1to, new CJPOSSCROLL() { n内部番号 = this.n内部番号JSCROLL1to, n表記上の番号 = 0, db移動時間 = db移動時刻, n移動距離px = n移動px, n移動方向 = n移動方向 });
+				this.listJPOSSCROLL.Add(this.n内部番号JSCROLL1to, new CJPOSSCROLL() { n内部番号 = this.n内部番号JSCROLL1to, n表記上の番号 = 0, db移動時間 = db移動時刻, n移動距離px = n移動px });
 				this.listChip.Add(chip);
 				this.n内部番号JSCROLL1to++;
 			}
@@ -5056,7 +4979,7 @@ namespace TJAPlayer3
 					n内部番号 = this.n内部番号WAV1to,
 					n表記上の番号 = this.n内部番号WAV1to,
 					nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-					n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+					n位置 = 0,
 					SongVol = this.SongVol,
 					SongLoudnessMetadata = this.SongLoudnessMetadata,
 					strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
@@ -5900,7 +5823,7 @@ namespace TJAPlayer3
 							n内部番号 = this.n内部番号WAV1to,
 							n表記上の番号 = 1,
 							nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-							n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+							n位置 = 0,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strファイル名 = this.strBGM_PATH,
@@ -6211,6 +6134,12 @@ namespace TJAPlayer3
 					return 10;
 				case "B":
 					return 11;
+				case "C":
+					return 12;
+				case "D":
+					return 13;
+				case "E":
+					return 14;
 				case "F":
 					return 15;
 				default:
@@ -6773,874 +6702,6 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
-		/// コア部分。譜面分岐時の処理実装にあたって分離。
-		/// </summary>
-		private void tSenotes_Core(List<CChip> list音符のみのリスト)
-		{
-			int nCount = 0;
-			int dkdkCount = 0;
-
-			foreach (CChip pChip in list音符のみのリスト)
-			{
-				int dbUnitTime = (int)(((60.0 / pChip.dbBPM) / 4.0) * 1000.0);
-				int nUnit4 = dbUnitTime * 4;
-				int nUnit6 = dbUnitTime * 3;
-				int nUnit8 = dbUnitTime * 2;
-				int nUnit16 = dbUnitTime;
-
-				float fUnitTime = (((60.0f / (float)pChip.dbBPM) / 4.0f) * 1000.0f);
-				//float fUnitTime = (float)Math.Round( ( ( ( 60.0f / (float)pChip.dbBPM ) / 4.0f ) * 1000.0f ), 0 );
-				float fUnit4 = fUnitTime * 4.0f;
-				float fUnit8 = fUnitTime * 2.0f;
-				float fUnit16 = fUnitTime;
-
-				if (pChip.dbBPM < 120)
-				{
-					nUnit4 = (dbUnitTime * 4) / 2;
-					nUnit8 = (dbUnitTime * 2) / 2;
-					nUnit16 = dbUnitTime / 2;
-
-					fUnit4 = fUnitTime * 4.0f;
-					fUnit8 = fUnitTime * 2.0f;
-					fUnit16 = fUnitTime;
-				}
-
-				if (nCount == 0)
-				{
-					nCount++;
-					continue;
-				}
-
-				double db1個前の発生時刻ms = list音符のみのリスト[nCount - 1].n発声時刻ms * 1;
-
-				#region[ float ]
-				/*
-				if( nCount == 1 )
-				{
-					//nCount - 1は一番最初のノーツになる。
-
-					if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms >= fUnit4 )
-					{
-						//2番目のノーツと1番目のノーツの間隔が4分かそれ以上
-						if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-						else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 3;
-
-						if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms < fUnit4 )
-						{
-							if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms < fUnit8 )
-							{
-								//16分なら「ド」
-								if( pChip.nチャンネル番号 == 0x93 )
-									pChip.nSenote = 1;
-							}
-							else
-							{
-								if (pChip.nチャンネル番号 != 0x93)
-									break;
-
-								if( dkdkCount == 0 )
-								{
-									pChip.nSenote = 1;
-									dkdkCount++;
-								}
-								else if( dkdkCount == 1 )
-								{
-									pChip.nSenote = 2;
-									dkdkCount = 0;
-								}
-									
-							}
-						}
-						else
-						{
-							//次も4分なら「ドン」か「カッ」
-							if( pChip.nチャンネル番号 == 0x93 )
-							{
-								pChip.nSenote = 0;
-							}
-							else if( pChip.nチャンネル番号 == 0x94 )
-							{
-								pChip.nSenote = 3;
-							}
-						}
-					}
-					else if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms < fUnit4 && pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms > fUnit16 )
-					{
-						//2番目のチップと1番目のチップの間隔が4分以下でかつ16分以上
-						if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 1;
-						else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 4;
-
-
-
-						if( pChip.nチャンネル番号 == 0x93 )
-						{
-							pChip.nSenote = 1;
-						}
-						else if( pChip.nチャンネル番号 == 0x94 )
-						{
-							pChip.nSenote = 4;
-						}
-							//
-							//if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x93)
-							//    list音符のみのリスト[nCount - 1].nSenote = 0;
-							//else if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x94)
-							//    list音符のみのリスト[nCount - 1].nSenote = 3;
-
-						if (list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms >= fUnit4)
-						{
-							//3番目のチップと2番目のチップの間隔が4分以上
-							if( pChip.nチャンネル番号 == 0x93 )
-							{
-								pChip.nSenote = 0;
-							}
-							else if( pChip.nチャンネル番号 == 0x94 )
-							{
-								pChip.nSenote = 3;
-							}
-						}
-					}
-					else if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms <= fUnit16 )
-					{
-						//2番目のチップと1番目のチップの間隔が16分かそれ以下
-						if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 1;
-						else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-							list音符のみのリスト[ nCount - 1 ].nSenote = 4;
-
-						if (pChip.nチャンネル番号 == 0x93)
-						{
-							pChip.nSenote = 1;
-						}
-						else if (pChip.nチャンネル番号 == 0x94)
-						{
-							pChip.nSenote = 4;
-						}
-
-						//1番目のチップが0x93
-						if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-						{
-							//3番目のチップと2番目のチップの間隔が16分
-							if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms == fUnit16 )
-							{
-								if( list音符のみのリスト[ nCount + 1 ].nチャンネル番号 == 0x93 )
-								{
-									pChip.nSenote = 2;
-								}
-							}
-						}
-
-
-					}
-
-					nCount++;
-					continue;
-				}
-
-				double db2個前の発声時刻ms = list音符のみのリスト[ nCount - 2 ].n発声時刻ms * 1;
-
-				#region[新しいやつ]
-				if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms >= fUnit4 )
-				{
-					//現在のチップと1つ前のチップの間隔が4分以上
-					dkdkCount = 0;
-					if( pChip.nチャンネル番号 == 0x93 )
-					{
-						pChip.nSenote = 0;
-						//break;
-					}
-					else if( pChip.nチャンネル番号 == 0x94 )
-					{
-						pChip.nSenote = 3;
-					}
-
-					if( nCount + 1 >= list音符のみのリスト.Count )
-						break;
-
-					//次のチップと現在のチップの間が4分以下
-					if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms < fUnit4 )
-					{
-						if( pChip.nチャンネル番号 == 0x93 )
-							pChip.nSenote = 1;
-						else if( pChip.nチャンネル番号 == 0x94 )
-							pChip.nSenote = 4;
-					}
-				}
-				else if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms < fUnit4 && pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms > fUnit16 )
-				{
-					//現在のチップと1つ前のチップの間隔が4分以下かつ16分以上
-					dkdkCount = 0;
-					if( pChip.nチャンネル番号 == 0x93 )
-					{
-						pChip.nSenote = 1;
-					}
-					else if( pChip.nチャンネル番号 == 0x94 )
-					{
-						pChip.nSenote = 4;
-					}
-
-					if( nCount + 1 >= list音符のみのリスト.Count )
-						break;
-
-
-					if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms >= fUnit4 )
-					{
-						//次のチップと現在のチップの間隔が4分以上
-						if( pChip.nチャンネル番号 == 0x93 )
-							pChip.nSenote = 0;
-						else if( pChip.nチャンネル番号 == 0x94 )
-							pChip.nSenote = 3;
-					}
-					else if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms < fUnit4 && list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms > fUnit16 )
-					{
-						//次のチップと現在のチップの間隔が4分以下
-						if( pChip.nチャンネル番号 == 0x93 )
-							pChip.nSenote = 1;
-						else if( pChip.nチャンネル番号 == 0x94 )
-							pChip.nSenote = 4;
-
-						if( nCount + 2 >= list音符のみのリスト.Count )
-							break;
-
-						//次のチップが0x93
-						//if( list音符のみのリスト[ nCount + 1 ].nチャンネル番号 == 0x93 )
-						//{
-						//    if( list音符のみのリスト[ nCount + 2 ].n発声時刻ms - list音符のみのリスト[ nCount + 1 ].n発声時刻ms < nUnit8 )
-						//    {
-						//        list音符のみのリスト[ nCount + 1 ].nSenote = 2;
-						//    }
-						//}
-					}
-					else if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms <= fUnit16 )
-					{
-						//次のチップと現在のチップの間隔が16分以下
-						//そうなると1つ前のチップは「ドン」か「カッ」になる
-						//if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-						//    list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-						//else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-						//    list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-					}
-				}
-				else if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms <= fUnit16 )
-				{
-					//現在のノーツと1つ前のノーツの間隔が16分かそれ以下
-					if( pChip.nチャンネル番号 == 0x93 )
-					{
-						pChip.nSenote = 1;
-					}
-					else if( pChip.nチャンネル番号 == 0x94 )
-					{
-						pChip.nSenote = 4;
-					}
-
-					
-					try
-					{
-						if( nCount + 1 >= list音符のみのリスト.Count ) //一番最後のノーツだった時のエラー対策。
-							break;
-
-						//後ろが4分
-						if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms >= fUnit4 )
-						{
-							dkdkCount = 0;
-							if( pChip.nチャンネル番号 == 0x93 )
-							{
-								pChip.nSenote = 0;
-							}
-							else if( pChip.nチャンネル番号 == 0x94 )
-							{
-								pChip.nSenote = 3;
-							}
-						}
-						else if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms <= fUnit8 && list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms > fUnit16 )
-						{
-							//次のノーツと現在のノーツの間隔が8分かそれ以下でかつ16分以上
-							dkdkCount = 0;
-							if( pChip.nチャンネル番号 == 0x93 )
-							{
-								pChip.nSenote = 0;
-							}
-							else if( pChip.nチャンネル番号 == 0x94 )
-							{
-								pChip.nSenote = 3;
-							}
-						}
-						else if( list音符のみのリスト[ nCount + 1 ].f発声時刻ms - pChip.f発声時刻ms <= fUnit16 )
-						{
-							if( pChip.nチャンネル番号 == 0x93 )
-							{
-								pChip.nSenote = 1;
-
-								if( nCount + 2 >= list音符のみのリスト.Count )
-									break;
-
-								if( pChip.f発声時刻ms - list音符のみのリスト[ nCount - 1 ].f発声時刻ms == fUnit16 )
-								{
-									//1つ前のノーツと現在のノーツの間隔が16分
-									if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-									{
-										//チャンネル番号が0x93
-										if( dkdkCount == 0 )
-										{
-											pChip.nSenote = 2;
-											dkdkCount = 1;
-										}
-										else
-										{
-											pChip.nSenote = 1;
-											dkdkCount = 0;
-										}
-									}
-									
-								}
-								else
-								{
-									if (pChip.nチャンネル番号 == 0x93)
-										pChip.nSenote = 1;
-									else
-										pChip.nSenote = 4;
-								}
-							}
-							else if( pChip.nチャンネル番号 == 0x94 )
-							{
-								pChip.nSenote = 4;
-							}
-						}
-					}
-					catch( Exception ex )
-					{
-
-					}
-
-
-				}
-				#endregion
-				*/
-				#endregion
-
-				#region[ ミリ秒 ]
-
-				if (nCount == 1)
-				{
-					#region[ 一番最初 ]
-					//nCount - 1は一番最初のノーツになる。
-
-					if (pChip.n発声時刻ms - list音符のみのリスト[0].n発声時刻ms >= nUnit4)
-					{
-						//2番目のノーツと1番目のノーツの間隔が4分かそれ以上
-						if (list音符のみのリスト[0].nチャンネル番号 == 0x93)
-							list音符のみのリスト[0].nSenote = 0;
-						else if (list音符のみのリスト[0].nチャンネル番号 == 0x94)
-							list音符のみのリスト[0].nSenote = 3;
-
-						if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit4)
-						{
-							if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit8)
-							{
-
-
-
-								//16分なら「ド」
-								if (pChip.nチャンネル番号 == 0x93)
-									pChip.nSenote = 1;
-							}
-							else
-							{
-								if (pChip.nチャンネル番号 == 0x93)
-								{
-									pChip.nSenote = 0;
-								}
-								else if (pChip.nチャンネル番号 == 0x94)
-								{
-									pChip.nSenote = 3;
-								}
-							}
-						}
-						else
-						{
-							//次も4分なら「ドン」か「カッ」
-							if (pChip.nチャンネル番号 == 0x93)
-							{
-								pChip.nSenote = 0;
-							}
-							else if (pChip.nチャンネル番号 == 0x94)
-							{
-								pChip.nSenote = 3;
-							}
-						}
-					}
-					else if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms < nUnit4 && pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms > nUnit16)
-					{
-						//2番目のチップと1番目のチップの間隔が4分以下でかつ16分以上
-						if (list音符のみのリスト[0].nチャンネル番号 == 0x93)
-							list音符のみのリスト[0].nSenote = 1;
-						else if (list音符のみのリスト[0].nチャンネル番号 == 0x94)
-							list音符のみのリスト[0].nSenote = 4;
-
-
-
-						if (pChip.nチャンネル番号 == 0x93)
-						{
-							pChip.nSenote = 1;
-						}
-						else if (pChip.nチャンネル番号 == 0x94)
-						{
-							pChip.nSenote = 4;
-						}
-
-						if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms >= nUnit4)
-						{
-							//3番目のチップと2番目のチップの間隔が4分以上
-							if (pChip.nチャンネル番号 == 0x93)
-							{
-								pChip.nSenote = 0;
-							}
-							else if (pChip.nチャンネル番号 == 0x94)
-							{
-								pChip.nSenote = 3;
-							}
-						}
-						if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit4)
-						{
-							//3番目のチップと2番目のチップの間隔が4分以下
-							if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms <= nUnit8)
-							{
-
-								if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit8)
-								{
-									if (list音符のみのリスト[0].nチャンネル番号 == 0x93)
-										list音符のみのリスト[0].nSenote = 0;
-									else if (list音符のみのリスト[0].nチャンネル番号 == 0x94)
-										list音符のみのリスト[0].nSenote = 3;
-								}
-
-
-
-
-								//16分なら「ド」
-								if (pChip.nチャンネル番号 == 0x93)
-									pChip.nSenote = 1;
-							}
-							else
-							{
-								if (pChip.nチャンネル番号 == 0x93)
-								{
-									pChip.nSenote = 1;
-								}
-								else if (pChip.nチャンネル番号 == 0x94)
-								{
-									pChip.nSenote = 4;
-								}
-							}
-						}
-					}
-					else if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms <= nUnit16)
-					{
-						//2番目のチップと1番目のチップの間隔が16分かそれ以下
-						if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x93)
-							list音符のみのリスト[nCount - 1].nSenote = 1;
-						else if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x94)
-							list音符のみのリスト[nCount - 1].nSenote = 4;
-
-						if (pChip.nチャンネル番号 == 0x93)
-						{
-							pChip.nSenote = 1;
-						}
-						else if (pChip.nチャンネル番号 == 0x94)
-						{
-							pChip.nSenote = 4;
-						}
-
-						//1番目のチップが0x93
-						if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x93)
-						{
-							//3番目のチップと2番目のチップの間隔が16分
-							if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms == nUnit16)
-							{
-								if (list音符のみのリスト[nCount + 1].nチャンネル番号 == 0x93)
-								{
-									pChip.nSenote = 2;
-								}
-							}
-						}
-
-
-					}
-
-					nCount++;
-					continue;
-
-					#endregion
-				}
-
-				double db2個前の発声時刻ms = list音符のみのリスト[nCount - 2].n発声時刻ms * 1;
-
-				#region[新しいやつ]
-				if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms >= nUnit4)
-				{
-					//現在のチップと1つ前のチップの間隔が4分以上
-					dkdkCount = 0;
-					if (pChip.nチャンネル番号 == 0x93)
-					{
-						pChip.nSenote = 0;
-					}
-					else if (pChip.nチャンネル番号 == 0x94)
-					{
-						pChip.nSenote = 3;
-					}
-
-					if (nCount + 1 >= list音符のみのリスト.Count)
-						break;
-
-					//次のチップと現在のチップの間が4分以下
-					if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit6)
-					{
-						if (pChip.nチャンネル番号 == 0x93)
-							pChip.nSenote = 1;
-						else if (pChip.nチャンネル番号 == 0x94)
-							pChip.nSenote = 4;
-
-						//12、16分があるなら「ドン」か「カッ」に変える
-
-						if (list音符のみのリスト[nCount + 2].n発声時刻ms - list音符のみのリスト[nCount + 1].n発声時刻ms <= nUnit16)
-						{
-							if (pChip.nチャンネル番号 == 0x93)
-								pChip.nSenote = 1;
-							else if (pChip.nチャンネル番号 == 0x94)
-								pChip.nSenote = 4;
-						}
-						if (list音符のみのリスト[nCount + 2].n発声時刻ms - list音符のみのリスト[nCount + 1].n発声時刻ms < nUnit8)
-						{
-							if (pChip.nチャンネル番号 == 0x93)
-								pChip.nSenote = 0;
-							else if (pChip.nチャンネル番号 == 0x94)
-								pChip.nSenote = 3;
-						}
-					}
-					//else
-					//{
-					//    if( pChip.nチャンネル番号 == 0x93 )
-					//    {
-					//        pChip.nSenote = 0;
-					//    }
-					//    else if( pChip.nチャンネル番号 == 0x94 )
-					//    {
-					//        pChip.nSenote = 3;
-					//    }
-					//}
-				}
-				else if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms < nUnit4 && pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms > nUnit16)
-				{
-					//現在のチップと1つ前のチップの間隔が4分以下かつ16分以上
-					dkdkCount = 0;
-					if (pChip.nチャンネル番号 == 0x93)
-					{
-						pChip.nSenote = 1;
-					}
-					else if (pChip.nチャンネル番号 == 0x94)
-					{
-						pChip.nSenote = 4;
-					}
-
-					if (nCount + 1 >= list音符のみのリスト.Count)
-						break;
-
-
-					if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms >= nUnit4)
-					{
-						//次のチップと現在のチップの間隔が4分以上
-						if (pChip.nチャンネル番号 == 0x93)
-							pChip.nSenote = 0;
-						else if (pChip.nチャンネル番号 == 0x94)
-							pChip.nSenote = 3;
-					}
-					else if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit4 && list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms > nUnit16)
-					{
-						//次のチップと現在のチップの間隔が4分以下
-						if (pChip.nチャンネル番号 == 0x93)
-							pChip.nSenote = 1;
-						else if (pChip.nチャンネル番号 == 0x94)
-							pChip.nSenote = 4;
-
-						if (nCount + 2 >= list音符のみのリスト.Count)
-							break;
-
-						//次のチップが0x93
-						//if( list音符のみのリスト[ nCount + 1 ].nチャンネル番号 == 0x93 )
-						//{
-						//    if( list音符のみのリスト[ nCount + 2 ].n発声時刻ms - list音符のみのリスト[ nCount + 1 ].n発声時刻ms < nUnit8 )
-						//    {
-						//        list音符のみのリスト[ nCount + 1 ].nSenote = 2;
-						//    }
-						//}
-
-						//12、16分があるなら「ドン」か「カッ」に変える
-						if (list音符のみのリスト[nCount + 2].n発声時刻ms - list音符のみのリスト[nCount + 1].n発声時刻ms < nUnit8)
-						{
-							if (pChip.nチャンネル番号 == 0x93)
-								pChip.nSenote = 0;
-							else if (pChip.nチャンネル番号 == 0x94)
-								pChip.nSenote = 3;
-
-							if (list音符のみのリスト[nCount - 1].n発声時刻ms - list音符のみのリスト[nCount - 2].n発声時刻ms >= nUnit8)
-							{
-								if (pChip.nチャンネル番号 == 0x93)
-									pChip.nSenote = 1;
-								else if (pChip.nチャンネル番号 == 0x94)
-									pChip.nSenote = 4;
-							}
-
-
-						}
-					}
-					else if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms <= nUnit16)
-					{
-						//次のチップと現在のチップの間隔が16分以下
-						//そうなると1つ前のチップは「ドン」か「カッ」になる
-						//if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-						//    list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-						//else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-						//    list音符のみのリスト[ nCount - 1 ].nSenote = 3;
-					}
-					else
-					{
-						if (pChip.nチャンネル番号 == 0x93)
-							pChip.nSenote = 0;
-						else if (pChip.nチャンネル番号 == 0x94)
-							pChip.nSenote = 3;
-					}
-				}
-				else if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms <= nUnit16)
-				{
-					//現在のノーツと1つ前のノーツの間隔が16分かそれ以下
-					if (pChip.nチャンネル番号 == 0x93)
-					{
-						pChip.nSenote = 1;
-					}
-					else if (pChip.nチャンネル番号 == 0x94)
-					{
-						pChip.nSenote = 4;
-					}
-
-
-					try
-					{
-						if (nCount + 1 >= list音符のみのリスト.Count) //一番最後のノーツだった時のエラー対策。
-							break;
-
-						//後ろが4分
-						if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms >= nUnit4)
-						{
-							dkdkCount = 0;
-							if (pChip.nチャンネル番号 == 0x93)
-							{
-								pChip.nSenote = 0;
-							}
-							else if (pChip.nチャンネル番号 == 0x94)
-							{
-								pChip.nSenote = 3;
-							}
-						}
-						else if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms <= nUnit4 && list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms >= nUnit8)
-						{
-							//次のノーツと現在のノーツの間隔が8分かそれ以下でかつ16分以上
-							dkdkCount = 0;
-							if (pChip.nチャンネル番号 == 0x93)
-							{
-								pChip.nSenote = 0;
-							}
-							else if (pChip.nチャンネル番号 == 0x94)
-							{
-								pChip.nSenote = 3;
-							}
-						}
-						else if (list音符のみのリスト[nCount + 1].n発声時刻ms - pChip.n発声時刻ms < nUnit8)
-						{
-							if (pChip.nチャンネル番号 == 0x93)
-							{
-								pChip.nSenote = 1;
-
-								if (nCount + 2 >= list音符のみのリスト.Count)
-									break;
-
-
-								//2015.03.31 kairera0467　「コ」を調節する部分。ただし動作があやしすぎるため、いったん封印。
-								if (pChip.n発声時刻ms - list音符のみのリスト[nCount - 1].n発声時刻ms <= nUnit16)
-								{
-									//1つ前のノーツと現在のノーツの間隔が16分
-									if (list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x93)
-									{
-										//チャンネル番号が0x93
-										//if( dkdkCount == 0 )
-										//{
-										//    pChip.nSenote = 2;
-										//    dkdkCount = 1;
-										//}
-										//else
-										//{
-										//    pChip.nSenote = 1;
-										//    dkdkCount = 0;
-										//}
-									}
-
-								}
-							}
-							else if (pChip.nチャンネル番号 == 0x94)
-							{
-								pChip.nSenote = 4;
-							}
-						}
-					}
-					catch (Exception ex)
-					{
-						Trace.TraceError(ex.ToString());
-						Trace.TraceError("例外が発生しましたが処理を継続します。 (1503896a-0dfb-4643-87f1-bd821a125137)");
-					}
-				}
-				else
-				{
-					if (pChip.nチャンネル番号 == 0x93)
-					{
-						pChip.nSenote = 0;
-					}
-					else if (pChip.nチャンネル番号 == 0x94)
-					{
-						pChip.nSenote = 3;
-					}
-				}
-				#endregion
-
-				#endregion
-
-				#region[古いやつ]
-				////2つ前と1つ前のチップのSenoteを決めていく。
-				////連打、大音符などはチップ配置の際に決めます。
-				//if (( db1個前の発生時刻ms - db2個前の発声時刻ms ) >= nUnit4)
-				//{
-				//    //2つ前の音符と1つ前の音符の間が4分以上でかつ、その音符がドンなら2つ前のSenoteは「ドン」で確定。
-				//    //同時にdkdkをリセット
-				//    dkdkCount = false;
-				//    if( list音符のみのリスト[nCount - 2].nチャンネル番号 == 0x93 )
-				//        list音符のみのリスト[nCount - 2].nSenote = 0;
-				//    else if( list音符のみのリスト[nCount - 2].nチャンネル番号 == 0x94 )
-				//        list音符のみのリスト[nCount - 2].nSenote = 3;
-
-				//    if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) >= nUnit4 )
-				//    {
-				//        //1つ前の音符と現在の音符の間が4分以上かつ、その音符がドンなら1つ前の音符は「ドン」で確定。
-				//        if( list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x93 )
-				//            list音符のみのリスト[nCount - 1].nSenote = 0;
-				//        else if( list音符のみのリスト[nCount - 1].nチャンネル番号 == 0x94 )
-				//            list音符のみのリスト[nCount - 1].nSenote = 3;
-				//    }
-				//    else if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) <= nUnit4 )
-				//    {
-				//        //4分
-				//        if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) >= nUnit8 )
-				//        {
-				//            dkdkCount = false;
-				//            //1つ前の音符と現在の音符の間が8分以内で16分以上でかつ、その音符が赤なら1つ前の音符は「ド」で確定。
-				//            if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-				//                list音符のみのリスト[ nCount - 1 ].nSenote = 2;
-				//            else if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x94 )
-				//                list音符のみのリスト[ nCount - 1 ].nSenote = 4;
-				//        }
-				//        else if( ( db1個前の発生時刻ms - db2個前の発声時刻ms ) <= nUnit8 )
-				//        {
-				//            dkdkCount = false;
-				//            if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//            {
-				//                list音符のみのリスト[ nCount - 2 ].nSenote = 1;
-
-				//                //ドコドン
-				//                if( list音符のみのリスト[ nCount - 1 ].nチャンネル番号 == 0x93 )
-				//                {
-				//                    if( pChip.nチャンネル番号 == 0x93 )
-				//                        pChip.nSenote = dkdkCount ? 2 : 1;
-				//                    if( dkdkCount == false )
-				//                        dkdkCount = true;
-				//                    else
-				//                        dkdkCount = false;
-				//                }
-				//            }
-				//            else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//                list音符のみのリスト[ nCount - 2 ].nSenote = 4;
-				//        }
-
-				//    }
-				//}
-				//else if ( ( db1個前の発生時刻ms - db2個前の発声時刻ms ) <= nUnit4 && ( db1個前の発生時刻ms - db2個前の発声時刻ms ) >= nUnit8)
-				//{
-				//    //2つ前の音符と1つ前の音符の間が8分以上でかつ、16分以内
-
-				//    if( ( db1個前の発生時刻ms - db2個前の発声時刻ms ) >= nUnit8 && ( db1個前の発生時刻ms - db2個前の発声時刻ms ) > nUnit16 )
-				//    {
-				//        //2つ前の音符と1つ前の音符の間が8分以上でかつ、16分以内なら「ド」
-				//        if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//        {
-				//            list音符のみのリスト[ nCount - 2 ].nSenote = 1;
-				//        }
-				//        else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//        {
-				//            list音符のみのリスト[ nCount - 2 ].nSenote = 4;
-				//        }
-				//    }
-				//    else if( ( db1個前の発生時刻ms - db2個前の発声時刻ms ) < nUnit8 )
-				//    {
-				//        //2つ前の音符と1つ前の音符の間が16分以内なら「ド」で確定
-				//        if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//        {
-				//            list音符のみのリスト[ nCount - 2 ].nSenote = 1;
-				//        }
-				//        else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//            list音符のみのリスト[ nCount - 2 ].nSenote = 4;
-				//    }
-
-				//    if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) >= nUnit16 )
-				//    {
-				//        if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) >= nUnit8 )
-				//        {
-				//            if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//            {
-				//                list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-				//            }
-				//            else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//                list音符のみのリスト[ nCount - 1 ].nSenote = 3;
-				//        }
-				//    }
-				//}
-				//else if ( ( db1個前の発生時刻ms - db2個前の発声時刻ms ) >= nUnit16 && ( db1個前の発生時刻ms - db2個前の発声時刻ms ) <= nUnit8 )
-				//{
-				//    //2つ前の音符と1つ前の音符の間が16分以上
-				//    if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//    {
-				//        list音符のみのリスト[ nCount - 2 ].nSenote = 1;
-				//    }
-				//    else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//        list音符のみのリスト[ nCount - 2 ].nSenote = 4;
-
-				//    if( ( pChip.n発声時刻ms - db1個前の発生時刻ms ) >= nUnit8 )
-				//    {
-				//        if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x93 )
-				//        {
-				//            list音符のみのリスト[ nCount - 1 ].nSenote = 0;
-				//        }
-				//        else if( list音符のみのリスト[ nCount - 2 ].nチャンネル番号 == 0x94 )
-				//            list音符のみのリスト[ nCount - 1 ].nSenote = 3;
-				//    }
-
-
-				//}
-				#endregion
-
-				nCount++;
-			}
-		}
-
-		/// <summary>
 		/// コア部分Ver2。TJAP2から移植しただけ。
 		/// </summary>
 		/// <param name="list音符のみのリスト"></param>
@@ -8103,7 +7164,6 @@ namespace TJAPlayer3
 			this.listAVIPAN = new Dictionary<int, CAVIPAN>();
 			this.listDS = new Dictionary<int, CDirectShow>();
 			this.listChip = new List<CChip>();
-			this.listBalloon = new List<int>();
 			this.listBalloon_Normal = new List<int>();
 			this.listBalloon_Expert = new List<int>();
 			this.listBalloon_Master = new List<int>();
@@ -8196,10 +7256,6 @@ namespace TJAPlayer3
 				this.listChip.Clear();
 			}
 
-			if (this.listBalloon != null)
-			{
-				this.listBalloon.Clear();
-			}
 			if (this.listBalloon_Normal != null)
 			{
 				this.listBalloon_Normal.Clear();
@@ -8260,10 +7316,6 @@ namespace TJAPlayer3
 		//-----------------
 
 		private bool bヘッダのみ;
-		private Stack<bool> bstackIFからENDIFをスキップする;
-
-		private int n現在の行数;
-		private int n現在の乱数;
 
 		private int nPolyphonicSounds = 4;                          // #28228 2012.5.1 yyagi
 
@@ -8273,13 +7325,7 @@ namespace TJAPlayer3
 		private int n内部番号DELAY1to;
 		private int n内部番号BRANCH1to;
 		private int n内部番号WAV1to;
-		private int[] n無限管理BPM;
-		private int[] n無限管理PAN;
 		private int[] n無限管理SIZE;
-		private int[] n無限管理WAV;
-		private int[] nRESULTIMAGE用優先順位;
-		private int[] nRESULTMOVIE用優先順位;
-		private int[] nRESULTSOUND用優先順位;
 
 		[JsonObject("infomation")]
 		private class OTCInfomation

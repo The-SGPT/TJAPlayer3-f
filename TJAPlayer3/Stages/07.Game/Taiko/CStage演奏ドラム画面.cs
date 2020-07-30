@@ -24,14 +24,13 @@ namespace TJAPlayer3
 			base.eステージID = CStage.Eステージ.演奏;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
-			base.list子Activities.Add( this.actCombo = new CAct演奏DrumsコンボDGB() );
+			base.list子Activities.Add( this.actCombo = new CAct演奏Combo共通() );
 			base.list子Activities.Add( this.actDANGER = new CAct演奏DrumsDanger() );
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
 			base.list子Activities.Add( this.Rainbow = new Rainbow() );
 			base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
 			base.list子Activities.Add( this.actTaikoLaneFlash = new TaikoLaneFlash() );
-			base.list子Activities.Add( this.actLaneFlushGB = new CAct演奏DrumsレーンフラッシュGB() );
 			base.list子Activities.Add( this.actScore = new CAct演奏Drumsスコア() );
 			base.list子Activities.Add( this.actStatusPanels = new CAct演奏Drumsステータスパネル() );
 			base.list子Activities.Add( this.act譜面スクロール速度 = new CAct演奏スクロール速度() );
@@ -264,15 +263,6 @@ namespace TJAPlayer3
 			this.ct手つなぎ = new CCounter( 0, 60, 20, TJAPlayer3.Timer );
 			this.ShownLyric2 = 0;
 
-			//try
-			//{
-			//    this.stream = new StreamWriter("noteTest.txt", false);
-			//}
-			//catch (Exception ex)
-			//{
-			//    this.stream.Close();
-			//    this.stream = new StreamWriter("noteTest.txt", false);
-			//}
 			// Discord Presence の更新
 			var difficultyName = TJAPlayer3.DifficultyNumberToEnum(TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
 			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].strファイル名 : "",
@@ -426,7 +416,7 @@ namespace TJAPlayer3
 				if ( TJAPlayer3.ConfigIni.eGameMode != EGame.OFF )
 					this.actGame.On進行描画();
 
-				this.t進行描画_譜面スクロール速度();
+				this.act譜面スクロール速度.On進行描画();
 				this.t進行描画_チップアニメ();
 
 				if(TJAPlayer3.ConfigIni.ShowRunner)
@@ -492,7 +482,7 @@ namespace TJAPlayer3
 
 
 				if( !TJAPlayer3.ConfigIni.bNoInfo )
-					this.t進行描画_判定文字列();
+					this.actJudgeString.t進行描画();
 
 				this.t進行描画_演奏情報();
 				
@@ -612,21 +602,6 @@ namespace TJAPlayer3
 		private bool bフィルイン中;
 		private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
 		private CCounter ct手つなぎ;
-		private CTexture txヒットバーGB;
-		private CTexture txレーンフレームGB;
-		//private CTexture tx太鼓ノーツ;
-		//private CTexture txHand;
-		//private CTexture txSenotes;
-		//private CTexture tx小節線;
-		//private CTexture tx小節線_branch;
-
-		private CTexture tx判定数表示パネル;
-		private CTexture tx判定数小文字;
-		//private CTexture txNamePlate; //ちょっと描画順で都合が悪くなるので移動。
-		//private CTexture txNamePlate2P; //ちょっと描画順で都合が悪くなるので移動。
-		//private CTexture txPlayerNumber;
-
-		private CTexture txMovie; //2016.08.30 kairera0467 ウィンドウ表示
 
 		public float nGauge = 0.0f;
 
@@ -638,28 +613,6 @@ namespace TJAPlayer3
 		private readonly ST文字位置[] st小文字位置;
 		private readonly ST文字位置[] st大文字位置;
 		//-----------------
-
-		private bool bフィルイン区間の最後のChipである( CDTX.CChip pChip )
-		{
-			if( pChip == null )
-			{
-				return false;
-			}
-			int num = pChip.n発声位置;
-			for( int i = listChip[0].IndexOf( pChip ) + 1; i < listChip[0].Count; i++ )
-			{
-				pChip = listChip[0][ i ];
-				if( ( pChip.nチャンネル番号 == 0x53 ) && ( pChip.n整数値 == 2 ) )
-				{
-					return true;
-				}
-				if( ( ( pChip.nチャンネル番号 >= 0x11 ) && ( pChip.nチャンネル番号 <= 0x1C ) ) && ( ( pChip.n発声位置 - num ) > 0x18 ) )
-				{
-					return false;
-				}
-			}
-			return true;
-		}
 
 		protected override E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane )
 		{
@@ -1248,7 +1201,7 @@ namespace TJAPlayer3
 					int pad = nPad;	// 以下、nPad の代わりに pad を用いる。（成りすまし用）
 					// BAD or TIGHT 時の処理。
 					if( TJAPlayer3.ConfigIni.bTight && !b連打中[nUsePlayer]) // 18/8/13 - 連打時にこれが発動すると困る!!! (AioiLight)
-						this.tチップのヒット処理_BadならびにTight時のMiss(chipNoHit.nコース, E楽器パート.DRUMS );
+						this.tチップのヒット処理_BadならびにTight時のMiss(chipNoHit.nコース );
 					//-----------------------------
 					#endregion
 				}
