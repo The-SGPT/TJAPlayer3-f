@@ -484,14 +484,14 @@ namespace TJAPlayer3
 					{
 						//クイックコンフィグの呼び出し
 						TJAPlayer3.Skin.sound決定音.t再生する();
-						this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 0);
+						this.actQuickConfig.tActivatePopupMenu(0);
 						popupbool[0] = false;
 						popupbool[1] = false;
 					}
 					else if (popupbool[1])
 					{
 						TJAPlayer3.Skin.sound決定音.t再生する();
-						this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 1);
+						this.actQuickConfig.tActivatePopupMenu(1);
 						popupbool[0] = false;
 						popupbool[1] = false;
 					}
@@ -518,7 +518,7 @@ namespace TJAPlayer3
 						}
 						#endregion
 						#region[Decide]
-						if (((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
+						if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
 										(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))))
 						{
 							if (DanSelectingRow == 1)
@@ -538,14 +538,14 @@ namespace TJAPlayer3
 						}
 						#endregion
 						#region [ Up ]
-						if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
+						if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
 						{
 							TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 							DanSelectingRow = 0;
 						}
 						#endregion
 						#region [ Down ]
-						if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
+						if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
 						{
 							TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 							DanSelectingRow = 1;
@@ -581,7 +581,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F2))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 0);
+								this.actQuickConfig.tActivatePopupMenu(0);
 							}
 							#endregion
 							#region [ F3 1PオートON/OFF ]
@@ -632,11 +632,11 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F7))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 1);
+								this.actQuickConfig.tActivatePopupMenu(1);
 							}
 							#endregion
 							#region [ Decide ]
-							if (((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed)) ||
+							if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) ||
 									(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))) && !this.act難易度選択画面.選択済み[0])
 							{
 								if (this.act難易度選択画面.現在の選択行[0] == 0)
@@ -676,7 +676,7 @@ namespace TJAPlayer3
 								}
 								this.難易度選択完了したか();
 							}
-							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1])
+							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1])
 							{
 								if (this.act難易度選択画面.現在の選択行[1] == 0)
 								{
@@ -716,7 +716,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Right ]
-							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue)) && !this.act難易度選択画面.選択済み[0])
+							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(Eパッド.RBlue)) && !this.act難易度選択画面.選択済み[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[0]++;
@@ -742,7 +742,7 @@ namespace TJAPlayer3
 										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
 								}
 							}
-							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P) && !this.act難易度選択画面.選択済み[1])
+							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && !this.act難易度選択画面.選択済み[1])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[1]++;
@@ -770,7 +770,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Left ]
-							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue)) && !this.act難易度選択画面.選択済み[0])
+							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(Eパッド.LBlue)) && !this.act難易度選択画面.選択済み[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[0]--;
@@ -796,7 +796,7 @@ namespace TJAPlayer3
 										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
 								}
 							}
-							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P) && !this.act難易度選択画面.選択済み[1])
+							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && !this.act難易度選択画面.選択済み[1])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[1]--;
@@ -867,7 +867,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F2))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 0);
+								this.actQuickConfig.tActivatePopupMenu(0);
 							}
 							#endregion
 							#region [ F3 1PオートON/OFF ]
@@ -918,13 +918,13 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F7))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								this.actQuickConfig.tActivatePopupMenu(E楽器パート.DRUMS, 1);
+								this.actQuickConfig.tActivatePopupMenu(1);
 							}
 							#endregion
 							if (this.act曲リスト.r現在選択中の曲 != null)
 							{
 								#region [ Decide ]
-								if (((TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
+								if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
 										(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))))
 								{
 									if (this.act曲リスト.r現在選択中の曲 != null)
@@ -993,7 +993,7 @@ namespace TJAPlayer3
 								#endregion
 								#region [ Up ]
 								this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
-								if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 								{
 									this.tカーソルを上へ移動する();
 								}
@@ -1004,7 +1004,7 @@ namespace TJAPlayer3
 								#endregion
 								#region [ Down ]
 								this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
-								if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 								{
 									this.tカーソルを下へ移動する();
 								}
@@ -1017,7 +1017,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Space))
 								{
 									TJAPlayer3.Skin.sound変更音.t再生する();
-									this.actSortSongs.tActivatePopupMenu(E楽器パート.DRUMS, ref this.act曲リスト);
+									this.actSortSongs.tActivatePopupMenu(ref this.act曲リスト);
 								}
 								#endregion
 								#region [ 上: 難易度変更(上) ]

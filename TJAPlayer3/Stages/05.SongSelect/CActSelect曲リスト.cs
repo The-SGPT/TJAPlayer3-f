@@ -216,14 +216,13 @@ namespace TJAPlayer3
 		}
 
 
-		public delegate void DGSortFunc(List<C曲リストノード> songList, E楽器パート eInst, int order, params object[] p);
+		public delegate void DGSortFunc(List<C曲リストノード> songList, int order, params object[] p);
 		/// <summary>
 		/// 主にCSong管理.cs内にあるソート機能を、delegateで呼び出す。
 		/// </summary>
 		/// <param name="sf">ソート用に呼び出すメソッド</param>
-		/// <param name="eInst">ソート基準とする楽器</param>
 		/// <param name="order">-1=降順, 1=昇順</param>
-		public void t曲リストのソート(DGSortFunc sf, E楽器パート eInst, int order, params object[] p)
+		public void t曲リストのソート(DGSortFunc sf, int order, params object[] p)
 		{
 			List<C曲リストノード> songList = GetSongListWithinMe(this.r現在選択中の曲);
 			if (songList == null)
@@ -233,7 +232,7 @@ namespace TJAPlayer3
 			else
 			{
 				//				CDTXMania.Songs管理.t曲リストのソート3_演奏回数の多い順( songList, eInst, order );
-				sf(songList, eInst, order, p);
+				sf(songList, order, p);
 				//				this.r現在選択中の曲 = CDTXMania
 				this.t現在選択中の曲を元に曲バーを再構成する();
 			}
@@ -543,7 +542,6 @@ namespace TJAPlayer3
 			_titleTextures.ItemRemoved += OnTitleTexturesOnItemRemoved;
 			_titleTextures.ItemUpdated += OnTitleTexturesOnItemUpdated;
 
-			this.e楽器パート = E楽器パート.DRUMS;
 			this.b登場アニメ全部完了 = false;
 			this.n目標のスクロールカウンタ = 0;
 			this.n現在のスクロールカウンタ = 0;
@@ -2238,7 +2236,6 @@ namespace TJAPlayer3
 		private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
 			new LurchTable<TitleTextureKey, CTexture>(LurchTableOrder.Access, 2500);
 
-		private E楽器パート e楽器パート;
 		private Font ft曲リスト用フォント;
 		private long nスクロールタイマ;
 		private int n現在のスクロールカウンタ;

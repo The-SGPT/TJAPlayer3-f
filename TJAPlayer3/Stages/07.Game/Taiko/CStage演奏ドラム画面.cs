@@ -366,7 +366,7 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 				}
 				#endregion
-				if ( ( ( TJAPlayer3.ConfigIni.nRisky != 0 && this.actGauge.IsFailed( E楽器パート.TAIKO ) ) || this.actGame.st叩ききりまショー.ct残り時間.b終了値に達した ) && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
+				if ( ( ( TJAPlayer3.ConfigIni.nRisky != 0 && this.actGauge.IsFailed( 0 ) ) || this.actGame.st叩ききりまショー.ct残り時間.b終了値に達した ) && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
 					this.actStageFailed.Start();
 					TJAPlayer3.DTX[0].t全チップの再生停止();
@@ -616,7 +616,7 @@ namespace TJAPlayer3
 
 		protected override E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane )
 		{
-			E判定 eJudgeResult = tチップのヒット処理( nHitTime, pChip, E楽器パート.DRUMS, bCorrectLane, 0 );
+			E判定 eJudgeResult = tチップのヒット処理( nHitTime, pChip, bCorrectLane, 0 );
 			// #24074 2011.01.23 add ikanick
 			if( pChip.nコース == this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) && pChip.bShow == true && eJudgeResult != E判定.AutoPerfect )
 				this.actGame.t叩ききりまショー_判定から各数値を増加させる( eJudgeResult, (int)( nHitTime - pChip.n発声時刻ms ) );
@@ -671,7 +671,7 @@ namespace TJAPlayer3
 			}
 			else if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17 )
 			{
-				this.tチップのヒット処理( nHitTime, pChip, E楽器パート.TAIKO, true, nInput, nPlayer );
+				this.tチップのヒット処理( nHitTime, pChip, true, nInput, nPlayer );
 				return true;
 			}
 			else
@@ -690,7 +690,7 @@ namespace TJAPlayer3
 			{
 				return false;
 			}
-			this.tチップのヒット処理( nHitTime, pChip, E楽器パート.TAIKO, true, nInput, nPlayer );
+			this.tチップのヒット処理( nHitTime, pChip, true, nInput, nPlayer );
 			if( ( e判定 != E判定.Poor ) && ( e判定 != E判定.Miss ) )
 			{
 				TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, e判定, b両手入力, nPlayer );
@@ -745,7 +745,7 @@ namespace TJAPlayer3
 		}
 		protected override void t進行描画_DANGER()
 		{
-			this.actDANGER.t進行描画( this.actGauge.IsDanger(E楽器パート.DRUMS) );
+			this.actDANGER.t進行描画( this.actGauge.IsDanger(0) );
 		}
 
 		private void t進行描画_チップファイアD()
@@ -773,7 +773,7 @@ namespace TJAPlayer3
 			for( int nPad = 0; nPad < (int) Eパッド.MAX; nPad++ )		// #27029 2012.1.4 from: <10 to <=10; Eパッドの要素が１つ（HP）増えたため。
 																		//		  2012.1.5 yyagi: (int)Eパッド.MAX に変更。Eパッドの要素数への依存を無くすため。
 			{
-				List<STInputEvent> listInputEvent = TJAPlayer3.Pad.GetEvents( E楽器パート.DRUMS, (Eパッド) nPad );
+				List<STInputEvent> listInputEvent = TJAPlayer3.Pad.GetEvents((Eパッド) nPad );
 
 				if( ( listInputEvent == null ) || ( listInputEvent.Count == 0 ) )
 					continue;
@@ -1288,7 +1288,7 @@ namespace TJAPlayer3
 
 							int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
 
-							this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
+							this.tチップのヒット処理(pChip.n発声時刻ms, pChip, true, nLane + n大音符, nPlayer);
 							this.tサウンド再生(pChip, nPlayer);
 							return;
 						}
@@ -1942,7 +1942,7 @@ namespace TJAPlayer3
 			{
 				//時間内でかつ0x9Aじゃないならならヒット処理
 				if( pChip.nチャンネル番号 != 0x18 && ( nPlayer == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] ) )
-					this.tチップのヒット処理( pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
+					this.tチップのヒット処理( pChip.n発声時刻ms, pChip, false, 0, nPlayer );
 			}
 			#endregion
 		}
@@ -2094,7 +2094,7 @@ namespace TJAPlayer3
 					this.actAVI.tPauseControl();
 
 					this.bPAUSE = true;
-					this.actPauseMenu.tActivatePopupMenu( E楽器パート.DRUMS , 0);
+					this.actPauseMenu.tActivatePopupMenu(0);
 				}
 
 			}

@@ -658,10 +658,6 @@ namespace TJAPlayer3
 			return E判定.Miss;
 		}
 
-		protected CDTX.CChip r空うちChip( E楽器パート part, Eパッド pad )
-		{
-			return null;
-		}
 		protected CDTX.CChip r指定時刻に一番近いChip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
 			//sw2.Start();
@@ -1105,15 +1101,11 @@ namespace TJAPlayer3
 			return tチップのヒット処理( nHitTime, pChip, true );
 		}
 		protected abstract E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane );
-		protected E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode )		// E楽器パート screenmode
+		protected E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane, int nNowInput )
 		{
-			return tチップのヒット処理( nHitTime, pChip, screenmode, true, 1, 0 );
+			return tチップのヒット処理( nHitTime, pChip, bCorrectLane, nNowInput, 0 );
 		}
-		protected E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode, bool bCorrectLane, int nNowInput )
-		{
-			return tチップのヒット処理( nHitTime, pChip, screenmode, bCorrectLane, nNowInput, 0 );
-		}
-		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode, bool bCorrectLane, int nNowInput, int nPlayer )
+		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane, int nNowInput, int nPlayer )
 		{
 			//unsafeコードにつき、デバッグ中の変更厳禁!
 			bool bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
@@ -2958,7 +2950,7 @@ namespace TJAPlayer3
 							{
 								pChip.IsMissed = true;
 								pChip.eNoteState = ENoteState.bad;
-								this.tチップのヒット処理(n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer);
+								this.tチップのヒット処理(n現在時刻ms, pChip, false, 0, nPlayer);
 							}
 						}
 					}
@@ -2985,7 +2977,7 @@ namespace TJAPlayer3
 						   //( ( pChip.n発声時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSound管理.rc演奏用タイマ.n現在時刻ms ) ) )
 						{
 							if( bAutoPlay )
-								this.tチップのヒット処理( n現在時刻ms, cChipCurrentlyInProcess, E楽器パート.TAIKO, false, 0, nPlayer );
+								this.tチップのヒット処理( n現在時刻ms, cChipCurrentlyInProcess, false, 0, nPlayer );
 						}
 					}
 				}
@@ -3762,7 +3754,7 @@ namespace TJAPlayer3
 						{
 							if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss )
 							{
-								this.tチップのヒット処理( n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
+								this.tチップのヒット処理( n現在時刻ms, pChip, false, 0, nPlayer );
 							}
 						}
 					}

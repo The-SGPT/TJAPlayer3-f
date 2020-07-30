@@ -25,11 +25,10 @@ namespace TJAPlayer3
 			for ( int nConfSet = 0; nConfSet < 3; nConfSet++ )
 			{
 				lci.Add( new List<CItemBase>() );									// ConfSet用の3つ分の枠。
-				for ( int nInst = 0; nInst < 1; nInst++ )
-				{
-					lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
-					lci[ nConfSet ] = MakeListCItemBase( nConfSet );
-				}
+
+				lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
+				lci[ nConfSet ] = MakeListCItemBase( nConfSet );
+				
 			}
 			base.Initialize( lci[ nCurrentConfigSet ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
 		}
@@ -48,11 +47,11 @@ namespace TJAPlayer3
 		}
 
 		// メソッド
-		public override void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
+		public override void tActivatePopupMenu(int nPlayer)
 		{
 			this.CAct演奏PauseMenuMain();
 			this.bやり直しを選択した = false;
-			base.tActivatePopupMenu( einst , 0);
+			base.tActivatePopupMenu(0);
 		}
 		//public void tDeativatePopupMenu()
 		//{

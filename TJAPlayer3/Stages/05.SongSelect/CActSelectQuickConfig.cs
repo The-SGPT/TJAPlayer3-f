@@ -20,22 +20,15 @@ namespace TJAPlayer3
 
 		private void CActSelectQuickConfigMain(int nPlayer)
 		{
-			lci = new List<List<List<CItemBase>>>();									// この画面に来る度に、メニューを作り直す。
+			lci = new List<List<CItemBase>>();									// この画面に来る度に、メニューを作り直す。
 			for ( int nConfSet = 0; nConfSet < 3; nConfSet++ )
 			{
-				lci.Add( new List<List<CItemBase>>() );									// ConfSet用の3つ分の枠。
-				for ( int nInst = 0; nInst < 3; nInst++ )
-				{
-					lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
-					lci[ nConfSet ][ nInst ] = MakeListCItemBase( nConfSet, nInst ,nPlayer);
-				}
+				lci.Add(MakeListCItemBase(nConfSet, nPlayer));									// ConfSet用の3つ分の枠。				
 			}
-			base.Initialize( lci[ 0 ][ 0 ], true, (nPlayer+1).ToString() + QuickCfgTitle, 0 );	// ConfSet=0, nInst=Drums
+			base.Initialize( lci[ 0 ], true, (nPlayer+1).ToString() + QuickCfgTitle, 0 );	// ConfSet=0
 		}
 
-
-
-		private List<CItemBase> MakeListCItemBase( int nConfigSet, int nInst,int nPlayer )
+		private List<CItemBase> MakeListCItemBase( int nConfigSet,int nPlayer )
 		{
 			this.nPlayer = nPlayer;
 			List<CItemBase> l = new List<CItemBase>();
@@ -94,10 +87,10 @@ namespace TJAPlayer3
 		}
 
 		// メソッド
-		public override void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
+		public override void tActivatePopupMenu(int nPlayer)
 		{
 			this.CActSelectQuickConfigMain(nPlayer);
-			base.tActivatePopupMenu( einst ,nPlayer);
+			base.tActivatePopupMenu(nPlayer);
 		}
 
 		//public void tDeativatePopupMenu()
@@ -164,10 +157,7 @@ namespace TJAPlayer3
 		/// <param name="index">設定値(index)</param>
 		private void SetValueToAllTarget( int order, int index )
 		{
-			for ( int i = 0; i < 3; i++ )
-			{
-				lci[ nCurrentConfigSet ][ i ][ order ].SetIndex( index );
-			}
+			lci[ nCurrentConfigSet ][ order ].SetIndex( index );
 		}
 
 		// CActivity 実装
@@ -213,7 +203,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private int nCurrentConfigSet = 0;
-		private List<List<List<CItemBase>>> lci;		// DrGtBs, ConfSet, 選択肢一覧。都合、3次のListとなる。
+		private List<List<CItemBase>> lci;		// DrGtBs, ConfSet, 選択肢一覧。都合、3次のListとなる。
 		private enum EOrder : int
 		{
 			ScrollSpeed = 0,

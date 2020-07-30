@@ -1205,11 +1205,11 @@ namespace TJAPlayer3
 			}
 			else if (TJAPlayer3.ConfigIni.nDefaultSongSort == 1)
 			{
-				t曲リストのソート9_ジャンル順(ノードリスト, E楽器パート.TAIKO, 1, 0);
+				t曲リストのソート9_ジャンル順(ノードリスト, 1, 0);
 			}
 			else if (TJAPlayer3.ConfigIni.nDefaultSongSort == 2)
 			{
-				t曲リストのソート9_ジャンル順(ノードリスト, E楽器パート.TAIKO, 2, 0);
+				t曲リストのソート9_ジャンル順(ノードリスト, 2, 0);
 			}
 			//-----------------------------
 			#endregion
@@ -1337,7 +1337,7 @@ namespace TJAPlayer3
 
 		public static void t曲リストのソート1_絶対パス順(List<C曲リストノード> ノードリスト)
 		{
-			t曲リストのソート1_絶対パス順(ノードリスト, E楽器パート.TAIKO, 1, 0);
+			t曲リストのソート1_絶対パス順(ノードリスト, 1, 0);
 
 			foreach (C曲リストノード c曲リストノード in ノードリスト)
 			{
@@ -1348,7 +1348,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		public static void t曲リストのソート1_絶対パス順(List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p)
+		public static void t曲リストのソート1_絶対パス順(List<C曲リストノード> ノードリスト, int order, params object[] p)
 		{
 			var comparer = new ComparerChain<C曲リストノード>(
 				new C曲リストノードComparerノード種別(),
@@ -1359,7 +1359,7 @@ namespace TJAPlayer3
 			tとじるノードの等間隔追加(ノードリスト);
 		}
 
-		public static void t曲リストのソート2_タイトル順(List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p)
+		public static void t曲リストのソート2_タイトル順(List<C曲リストノード> ノードリスト, int order, params object[] p)
 		{
 			var comparer = new ComparerChain<C曲リストノード>(
 				new C曲リストノードComparerノード種別(),
@@ -1370,7 +1370,7 @@ namespace TJAPlayer3
 			tとじるノードの等間隔追加(ノードリスト);
 		}
 
-		public static void t曲リストのソート9_ジャンル順(List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p)
+		public static void t曲リストのソート9_ジャンル順(List<C曲リストノード> ノードリスト, int order, params object[] p)
 		{
 			try
 			{

@@ -87,21 +87,21 @@ namespace TJAPlayer3
 			{
 				base.b初めての進行描画 = false;
 			}
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue))
+			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue))
 				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 4, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed))
+			if (TJAPlayer3.Pad.b押された(Eパッド.LRed))
 				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 3, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed))
+			if (TJAPlayer3.Pad.b押された(Eパッド.RRed))
 				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 2, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue))
+			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue))
 				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 1, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P))
+			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P))
 				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 1, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P))
+			if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P))
 				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 2, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P))
+			if (TJAPlayer3.Pad.b押された(Eパッド.RRed2P))
 				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 3, y);
-			if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P))
+			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P))
 				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 4, y);
 
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
