@@ -36,7 +36,7 @@ namespace TJAPlayer3
 			{
 				CDTX.CChip pChip = dTX.listChip[i];
 
-				if (pChip.n整数値_内部番号 > measureCount) measureCount = pChip.n整数値_内部番号;
+				if (pChip.n整数値_内部番号 > measureCount && pChip.nチャンネル番号 == 0x50) measureCount = pChip.n整数値_内部番号;
 
 				if (pChip.nチャンネル番号 == 0x9E && !bIsInGoGo)
 				{
@@ -310,6 +310,8 @@ namespace TJAPlayer3
 		{
 			CDTX dTX = TJAPlayer3.DTX[0];
 
+			TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠Reset();
+
 			this.nスクロール後ms = CSound管理.rc演奏用タイマ.n現在時刻ms;
 
 			TJAPlayer3.stage演奏ドラム画面.actAVI.tReset();
@@ -338,6 +340,8 @@ namespace TJAPlayer3
 		public void t演奏を再開する()
 		{
 			CDTX dTX = TJAPlayer3.DTX[0];
+
+			TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠Reset();
 
 			this.bスクロール中 = false;
 			CSound管理.rc演奏用タイマ.n現在時刻ms = this.nスクロール後ms;
