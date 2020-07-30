@@ -42,7 +42,6 @@ namespace TJAPlayer3
 		public virtual void tActivatePopupMenu(int nPlayer)
 		{
 			nItemSelecting = -1;        // #24757 2011.4.1 yyagi: Clear sorting status in each stating menu.
-			this.eInst = E楽器パート.DRUMS;
 			this.bIsActivePopupMenu = true;
 			this.bIsSelectingIntItem = false;
 			this.bGotoDetailConfig = false;
@@ -263,14 +262,12 @@ namespace TJAPlayer3
 					#endregion
 
 					#region [ キー入力: 決定 ]
-					// E楽器パート eInst = E楽器パート.UNKNOWN;
 					ESortAction eAction = ESortAction.END;
 					if (
 						TJAPlayer3.Pad.b押された(Eパッド.LRed )
 						|| TJAPlayer3.Pad.b押された( Eパッド.RRed )
 						|| ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) )
 					{
-						eInst = E楽器パート.DRUMS;
 						eAction = ESortAction.Decide;
 					}
 					if ( eAction == ESortAction.Decide )	// 決定
@@ -381,7 +378,6 @@ namespace TJAPlayer3
 		protected bool bEsc有効;
 
 		internal int n現在の選択行;
-		internal E楽器パート eInst = E楽器パート.UNKNOWN;
 
 		//private CTexture txPopupMenuBackground;
 		//private CTexture txCursor;

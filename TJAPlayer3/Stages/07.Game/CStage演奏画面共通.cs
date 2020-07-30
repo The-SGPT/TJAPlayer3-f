@@ -1126,8 +1126,6 @@ namespace TJAPlayer3
 			E判定 eJudgeResult = E判定.AutoPerfect;
 			switch ( pChip.e楽器パート )
 			{
-				case E楽器パート.DRUMS:
-					break;
 				case E楽器パート.TAIKO:
 					{
 						//連打が短すぎると発声されない
@@ -1334,8 +1332,6 @@ namespace TJAPlayer3
 			}
 			switch ( pChip.e楽器パート )
 			{
-				case E楽器パート.DRUMS:
-					break;
 				case E楽器パート.TAIKO:
 					if( !bAutoPlay )
 					{
@@ -2759,17 +2755,13 @@ namespace TJAPlayer3
 			}
 			if( !this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE && ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
-				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.UpArrow ) )
-				{	// UpArrow(scrollspeed up)
-					ドラムスクロール速度アップ(0);
-				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.DownArrow ) )
-				{	// DownArrow (scrollspeed down)
-					ドラムスクロール速度ダウン(0);
-				}
-				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) )
+				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) )
 				{	// del (debug info)
 					TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
+				}
+				else if ((keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)))
+				{   // escape (exit)
+					this.t演奏中止();
 				}
 			}
 
@@ -2937,8 +2929,6 @@ namespace TJAPlayer3
 						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 
-				int instIndex = (int) pChip.e楽器パート;
-
 				if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 				{
 					if (pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B)//|| pChip.nチャンネル番号 == 0x9A )
@@ -2956,7 +2946,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				if ( pChip.nバーからの距離dot[ instIndex ] < -150 )
+				if ( pChip.nバーからの距離dot[(int)pChip.e楽器パート] < -150 )
 				{
 					if( !( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
 					{
@@ -3164,7 +3154,7 @@ namespace TJAPlayer3
 #region [ 50: 小節線 ]
 					case 0x50:	// 小節線
 						{
-							if ( !pChip.bHit && ( pChip.nバーからの距離dot.Taiko < 0 ) )
+							if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 							{
 								this.actChara.b演奏中 = true;
 								if( this.actPlayInfo.NowMeasure[nPlayer] == 0 )
@@ -3749,8 +3739,7 @@ namespace TJAPlayer3
 					bool bRollChip = pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19;
 					if( bRollChip && ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) )
 					{
-						int instIndex = (int) pChip.e楽器パート;
-						if( pChip.nバーからの距離dot[instIndex] < -40 )
+						if( pChip.nバーからの距離dot[(int)pChip.e楽器パート] < -40 )
 						{
 							if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss )
 							{

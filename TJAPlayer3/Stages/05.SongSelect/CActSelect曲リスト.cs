@@ -351,7 +351,7 @@ namespace TJAPlayer3
 		{
 			if (this.r現在選択中の曲 != null)
 			{
-				for (int i = 0; i < 7; i++)
+				for (int i = 0; i < TJAPlayer3.ConfigIni.SongSelectSkipCount; i++)
 					this.r現在選択中の曲 = r次の曲(r現在選択中の曲);
 			}
 			this.t現在選択中の曲を元に曲バーを再構成する();
@@ -363,7 +363,7 @@ namespace TJAPlayer3
 		{
 			if (this.r現在選択中の曲 != null)
 			{
-				for (int i = 0; i < 7; i++)
+				for (int i = 0; i < TJAPlayer3.ConfigIni.SongSelectSkipCount; i++)
 					this.r現在選択中の曲 = r前の曲(r現在選択中の曲);
 			}
 			this.t現在選択中の曲を元に曲バーを再構成する();
