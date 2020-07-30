@@ -538,7 +538,6 @@ namespace TJAPlayer3
 			}
 
 			public CKeyAssignPad Drums = new CKeyAssignPad();
-			public CKeyAssignPad Taiko = new CKeyAssignPad();
 			public CKeyAssignPad System = new CKeyAssignPad();
 			public CKeyAssignPad this[ int index ]
 			{
@@ -548,9 +547,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							return this.Drums;
-
-						case (int) EKeyConfigPart.TAIKO:
-							return this.Taiko;
 
 						case (int) EKeyConfigPart.SYSTEM:
 							return this.System;
@@ -563,10 +559,6 @@ namespace TJAPlayer3
 					{
 						case (int) EKeyConfigPart.DRUMS:
 							this.Drums = value;
-							return;
-
-						case (int) EKeyConfigPart.TAIKO:
-							this.Taiko = value;
 							return;
 
 						case (int) EKeyConfigPart.SYSTEM:
@@ -719,6 +711,7 @@ namespace TJAPlayer3
 
 		public bool RandomPresence;
 		public bool OpenOneSide;
+		public int SongSelectSkipCount;
 
 		// 各画像の表示・非表示設定
 		public bool ShowChara;
@@ -739,6 +732,7 @@ namespace TJAPlayer3
 		public int nDefaultSongSort;
 
 		public EGame eGameMode;
+		public int TokkunSkipMeasures;
 		public bool bSuperHard = false;
 		public bool bJust;
 
@@ -964,6 +958,7 @@ namespace TJAPlayer3
 			this.FontNamed = "MS UI Gothic";
 			this.RandomPresence = true;
 			this.OpenOneSide = false;
+			this.SongSelectSkipCount = 7;
 			this.ApplyLoudnessMetadata = true;
 
 			// 2018-08-28 twopointzero:
@@ -1066,6 +1061,7 @@ namespace TJAPlayer3
 			this.bHispeedRandom = false;
 			this.nDefaultSongSort = 2;
 			this.eGameMode = EGame.OFF;
+			this.TokkunSkipMeasures = 5;
 			this.bEndingAnime = false;
 			this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
 			ShinuchiMode[0] = false;
@@ -1433,6 +1429,10 @@ namespace TJAPlayer3
 			sw.WriteLine("; Box Open One Side.(0:No, 1:Yes)");     //
 			sw.WriteLine("EnableOpenOneSide={0}", this.OpenOneSide ? 1 : 0);    //
 			sw.WriteLine();
+			sw.WriteLine("; 選曲画面でPgUp/PgDnを押下した際のスキップ曲数");   // 2020.03.24 Mr-Ojii
+			sw.WriteLine("; Number of songs to be skipped when PgUp/PgDn is pressed on the song selection screen.");     //
+			sw.WriteLine("SongSelectSkipCount={0}", this.SongSelectSkipCount);    //
+			sw.WriteLine();
 			sw.WriteLine("; 閉じるノードの差し込み間隔");   // 2020.06.12 Mr-Ojii
 			sw.WriteLine("; BackBoxes Interval.");     //
 			sw.WriteLine("BackBoxInterval={0}", this.n閉じる差し込み間隔);
@@ -1519,6 +1519,9 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine( "; ゲーム(0:OFF, 1:完走!叩ききりまショー!, 2:完走!叩ききりまショー!(激辛), 3:特訓モード)" );
 			sw.WriteLine( "GameMode={0}", (int) this.eGameMode );
+			sw.WriteLine();
+			sw.WriteLine("; 特訓モード時にPgUp/PgDnで何小節飛ばすか");
+			sw.WriteLine("TokkunSkipMeasures={0}", this.TokkunSkipMeasures);
 			sw.WriteLine();
 			sw.WriteLine( "; JUST(0:OFF, 1:ON)" );
 			sw.WriteLine( "Just={0}", this.bJust ? 1 : 0 );
@@ -2103,6 +2106,10 @@ namespace TJAPlayer3
 											{
 												this.OpenOneSide = C変換.bONorOFF(str4[0]);
 											}
+											else if (str3.Equals("SongSelectSkipCount"))
+											{
+												this.SongSelectSkipCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.SongSelectSkipCount);
+											}
 											else if (str3.Equals("BackBoxInterval"))
 											{
 												this.n閉じる差し込み間隔 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
@@ -2232,6 +2239,10 @@ namespace TJAPlayer3
 											else if( str3.Equals( "GameMode" ) )
 											{
 												this.eGameMode = (EGame) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eGameMode );
+											}
+											else if (str3.Equals("TokkunSkipMeasures"))
+											{
+												this.TokkunSkipMeasures = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunSkipMeasures);
 											}
 											else if( str3.Equals( "JudgeCountDisplay" ) )
 											{

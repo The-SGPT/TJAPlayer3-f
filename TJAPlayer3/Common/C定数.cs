@@ -126,7 +126,6 @@ namespace TJAPlayer3
 	public enum EKeyConfigPart	// : E楽器パート
 	{
 		DRUMS	= E楽器パート.DRUMS,
-		TAIKO   = E楽器パート.TAIKO,
 		SYSTEM,
 		UNKNOWN	= E楽器パート.UNKNOWN
 	}

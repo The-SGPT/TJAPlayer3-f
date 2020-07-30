@@ -1285,9 +1285,6 @@ namespace TJAPlayer3
 			string str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			return new string(new char[] { str[n / 36], str[n % 36] });
 		}
-		public void tギターとベースのランダム化(E楽器パート part, Eランダムモード eRandom)
-		{
-		}
 		public void t太鼓チップのランダム化(Eランダムモード eRandom)
 		{
 			//2016.02.11 kairera0467
