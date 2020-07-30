@@ -2761,6 +2761,8 @@ namespace TJAPlayer3
 				}
 				else if ((keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)))
 				{   // escape (exit)
+					CSound管理.rc演奏用タイマ.t再開();
+					TJAPlayer3.Timer.t再開();
 					this.t演奏中止();
 				}
 			}
