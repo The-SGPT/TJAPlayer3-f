@@ -39,10 +39,10 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public virtual void tActivatePopupMenu( E楽器パート einst ,int nPlayer)
+		public virtual void tActivatePopupMenu(int nPlayer)
 		{
-			nItemSelecting = -1;		// #24757 2011.4.1 yyagi: Clear sorting status in each stating menu.
-			this.eInst = einst;
+			nItemSelecting = -1;        // #24757 2011.4.1 yyagi: Clear sorting status in each stating menu.
+			this.eInst = E楽器パート.DRUMS;
 			this.bIsActivePopupMenu = true;
 			this.bIsSelectingIntItem = false;
 			this.bGotoDetailConfig = false;
@@ -266,8 +266,8 @@ namespace TJAPlayer3
 					// E楽器パート eInst = E楽器パート.UNKNOWN;
 					ESortAction eAction = ESortAction.END;
 					if (
-						TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.LRed )
-						|| TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.RRed )
+						TJAPlayer3.Pad.b押された(Eパッド.LRed )
+						|| TJAPlayer3.Pad.b押された( Eパッド.RRed )
 						|| ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) )
 					{
 						eInst = E楽器パート.DRUMS;
@@ -280,14 +280,14 @@ namespace TJAPlayer3
 					#endregion
 					#region [ キー入力: 前に移動 ]
 					this.ctキー反復用.Up.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.UpArrow ), new CCounter.DGキー処理( this.t前に移動 ) );
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue))
+					if (TJAPlayer3.Pad.b押された(Eパッド.LBlue))
 					{
 						this.t前に移動();
 					}
 					#endregion
 					#region [ キー入力: 次に移動 ]
 					this.ctキー反復用.Down.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.t次に移動 ) );
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue))
+					if (TJAPlayer3.Pad.b押された( Eパッド.RBlue))
 					{
 						this.t次に移動();
 					}

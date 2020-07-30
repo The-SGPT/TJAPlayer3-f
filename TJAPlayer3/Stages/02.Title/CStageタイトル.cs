@@ -147,12 +147,12 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
 
-					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを上へ移動する));
+					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押されている(Eパッド.LBlue) || TJAPlayer3.Pad.b押されている(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを上へ移動する));
 
-					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押されている(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを下へ移動する));
+					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押されている(Eパッド.RBlue) || TJAPlayer3.Pad.b押されている(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを下へ移動する));
 
 
-					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
+					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
 						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{

@@ -310,7 +310,7 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
+				if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
 				{
 					this.actFI.tフェードイン完了();                 // #25406 2011.6.9 yyagi
 					this.actParameterPanel.tアニメを完了させる();
@@ -326,7 +326,7 @@ namespace TJAPlayer3
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 						this.eフェードアウト完了時の戻り値 = E戻り値.完了;
 					}
-					if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
+					if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						//							this.actFO.tフェードアウト開始();
@@ -374,17 +374,14 @@ namespace TJAPlayer3
 			string datetime = DateTime.Now.ToString( "yyyyMMddHHmmss" );
 			if ( bIsAutoSave )
 			{
-				// リザルト画像を自動保存するときは、dtxファイル名.yyMMddHHmmss_DRUMS_SS.png という形式で保存。
-				for ( int i = 0; i < 1; i++ )
-				{
-					if ( this.b新記録ランク == true || this.b新記録スキル == true )
-					{
-						string strPart = ( (E楽器パート) ( i ) ).ToString();
-						string strRank = ( (CScoreIni.ERANK) ( this.nランク値 ) ).ToString();
-						string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strPart + "_" + strRank + ".png";
+				// リザルト画像を自動保存するときは、dtxファイル名.yyMMddHHmmss_SS.png という形式で保存。
 
-						TJAPlayer3.app.SaveResultScreen( strFullPath );
-					}
+				if (this.b新記録ランク == true || this.b新記録スキル == true)
+				{
+					string strRank = ((CScoreIni.ERANK)(this.nランク値)).ToString();
+					string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strRank + ".png";
+
+					TJAPlayer3.app.SaveResultScreen(strFullPath);
 				}
 			}
 		}

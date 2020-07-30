@@ -327,7 +327,7 @@ namespace TJAPlayer3
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 					}
 				}
-				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed) || (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if ( this.n現在のメニュー番号 == 2 )
 					{
@@ -367,22 +367,22 @@ namespace TJAPlayer3
 				
 				if (this.actList.b要素値にフォーカス中)
 				{
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
 				}
 				else
 				{
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}

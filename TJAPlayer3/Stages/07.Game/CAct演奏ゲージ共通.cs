@@ -63,14 +63,14 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public bool IsFailed( E楽器パート part )	// 閉店状態になったかどうか
+		public bool IsFailed( int nPlayer )	// 閉店状態になったかどうか
 		{
 			if ( bRisky ) {
 				return ( nRiskyTimes <= 0 );
 			}
-			return this.db現在のゲージ値[ (int) part ] <= GAUGE_MIN;
+			return this.db現在のゲージ値[ nPlayer ] <= GAUGE_MIN;
 		}
-		public bool IsDanger( E楽器パート part )	// DANGERかどうか
+		public bool IsDanger( int nPlayer )	// DANGERかどうか
 		{
 			if ( bRisky )
 			{
@@ -84,7 +84,7 @@ namespace TJAPlayer3
 						return ( nRiskyTimes <= 2 );
 				}
 			}
-			return ( this.db現在のゲージ値[ (int) part ] <= GAUGE_DANGER );
+			return ( this.db現在のゲージ値[ nPlayer ] <= GAUGE_DANGER );
 		}
 
 		public double dbゲージ値	// Drums専用

@@ -28,10 +28,10 @@ namespace TJAPlayer3
 
 
 		// メソッド
-		public void tActivatePopupMenu( E楽器パート einst, ref CActSelect曲リスト ca )
+		public void tActivatePopupMenu( ref CActSelect曲リスト ca )
 		{
 			this.act曲リスト = ca;
-			base.tActivatePopupMenu( einst ,0);
+			base.tActivatePopupMenu(0);
 		}
 		//public void tDeativatePopupMenu()
 		//{
@@ -47,13 +47,13 @@ namespace TJAPlayer3
 			{
 				case EOrder.Path:
 					this.act曲リスト.t曲リストのソート(
-						CSongs管理.t曲リストのソート1_絶対パス順, eInst, nSortOrder
+						CSongs管理.t曲リストのソート1_絶対パス順, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された(true);
 					break;
 				case EOrder.Title:
 					this.act曲リスト.t曲リストのソート(
-						CSongs管理.t曲リストのソート2_タイトル順, eInst, nSortOrder
+						CSongs管理.t曲リストのソート2_タイトル順, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された(true);
 					break;
@@ -106,7 +106,7 @@ namespace TJAPlayer3
 					this.act曲リスト.t曲リストのソート(
 						//CDTXMania.Songs管理.t曲リストのソート7_更新日時順, eInst, nSortOrder,
 						//this.act曲リスト.n現在のアンカ難易度レベル
-						CSongs管理.t曲リストのソート9_ジャンル順, eInst, nSortOrder, 0
+						CSongs管理.t曲リストのソート9_ジャンル順, nSortOrder, 0
 					);
 					this.act曲リスト.t選択曲が変更された( true );
 					break;
