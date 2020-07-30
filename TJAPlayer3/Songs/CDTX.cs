@@ -6129,14 +6129,6 @@ namespace TJAPlayer3
 					return 7; //2017.01.30 DD 芋連打を風船連打扱いに
 				case "A": //2017.08.22 kairera0467 手つなぎ
 					return 10;
-				case "B":
-					return 11;
-				case "C":
-					return 12;
-				case "D":
-					return 13;
-				case "E":
-					return 14;
 				case "F":
 					return 15;
 				default:
