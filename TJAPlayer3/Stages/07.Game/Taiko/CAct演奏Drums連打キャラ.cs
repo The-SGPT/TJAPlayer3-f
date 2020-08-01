@@ -139,7 +139,7 @@ namespace TJAPlayer3
 			{
 		//        for (int i = 0; i < this.nTex枚数; i++)
 		//        {
-					//CDTXMania.tテクスチャの解放( ref this.txChara[ i ] );
+					//CDTXMania.t安全にDisposeする( ref this.txChara[ i ] );
 		//        }
 				base.OnManagedリソースの解放();
 			}

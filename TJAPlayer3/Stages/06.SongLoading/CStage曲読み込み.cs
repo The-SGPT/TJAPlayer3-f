@@ -177,10 +177,10 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				TJAPlayer3.tテクスチャの解放( ref this.tx背景 );
-				TJAPlayer3.tテクスチャの解放( ref this.txタイトル );
-				//CDTXMania.tテクスチャの解放( ref this.txSongnamePlate );
-				TJAPlayer3.tテクスチャの解放( ref this.txサブタイトル );
+				TJAPlayer3.t安全にDisposeする( ref this.tx背景 );
+				TJAPlayer3.t安全にDisposeする( ref this.txタイトル );
+				//CDTXMania.t安全にDisposeする( ref this.txSongnamePlate );
+				TJAPlayer3.t安全にDisposeする( ref this.txサブタイトル );
 				base.OnManagedリソースの解放();
 			}
 		}

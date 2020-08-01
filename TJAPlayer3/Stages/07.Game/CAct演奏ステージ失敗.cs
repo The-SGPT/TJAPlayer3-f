@@ -112,10 +112,10 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txStageFailed );
-				//CDTXMania.tテクスチャの解放( ref this.txGameFailed );
-	//            CDTXMania.tテクスチャの解放( ref this.txBlack );
-	//            CDTXMania.tテクスチャの解放( ref this.tx数字 );
+				//CDTXMania.t安全にDisposeする( ref this.txStageFailed );
+				//CDTXMania.t安全にDisposeする( ref this.txGameFailed );
+	//            CDTXMania.t安全にDisposeする( ref this.txBlack );
+	//            CDTXMania.t安全にDisposeする( ref this.tx数字 );
 				base.OnManagedリソースの解放();
 			}
 		}

@@ -101,15 +101,15 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.tテクスチャの解放(ref this.tx連打枠);
-			//CDTXMania.tテクスチャの解放(ref this.tx連打数字);
+			//CDTXMania.t安全にDisposeする(ref this.tx連打枠);
+			//CDTXMania.t安全にDisposeする(ref this.tx連打数字);
 
-			//CDTXMania.tテクスチャの解放(ref this.txキャラクター);
-			//CDTXMania.tテクスチャの解放(ref this.txキャラクター_風船終了);
+			//CDTXMania.t安全にDisposeする(ref this.txキャラクター);
+			//CDTXMania.t安全にDisposeする(ref this.txキャラクター_風船終了);
 
 			//for (int i = 0; i < 6; i++)
 			//{
-			//    CDTXMania.tテクスチャの解放(ref this.tx風船枠[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.tx風船枠[i]);
 			//}
 
 			base.OnManagedリソースの解放();

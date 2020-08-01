@@ -703,8 +703,8 @@ namespace TJAPlayer3
 			}
 
 			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
-			TJAPlayer3.tテクスチャの解放(ref this.txEnumeratingSongs);
-			TJAPlayer3.tテクスチャの解放(ref this.txSongNotFound);
+			TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
+			TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
 			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
 			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
 			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
@@ -712,31 +712,31 @@ namespace TJAPlayer3
 			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
 			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
 
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_JPOP );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_アニメ );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_ゲーム );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_ナムコ );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_クラシック );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_どうよう );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_バラエティ );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー_ボカロ );
-			//CDTXMania.tテクスチャの解放( ref this.tx曲バー );
-			//CDTXMania.tテクスチャの解放( ref this.tx譜面分岐曲バー用 );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_JPOP );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_アニメ );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ゲーム );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ナムコ );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_クラシック );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_どうよう );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_バラエティ );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ボカロ );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲バー );
+			//CDTXMania.t安全にDisposeする( ref this.tx譜面分岐曲バー用 );
 
 			//for( int i = 0; i < 5; i++ )
 			//   {
-			//       CDTXMania.tテクスチャの解放( ref this.tx曲バー_難易度[ i ] );
+			//       CDTXMania.t安全にDisposeする( ref this.tx曲バー_難易度[ i ] );
 			//   }
 
-			//   CDTXMania.tテクスチャの解放( ref this.tx難易度パネル );
-			//   CDTXMania.tテクスチャの解放( ref this.txバー中央 );
-			//   CDTXMania.tテクスチャの解放( ref this.tx難易度星 );
-			//   CDTXMania.tテクスチャの解放( ref this.tx譜面分岐中央パネル用 );
-			//   CDTXMania.tテクスチャの解放( ref this.tx上部ジャンル名 );
-			//   CDTXMania.tテクスチャの解放( ref this.txレベル数字フォント );
+			//   CDTXMania.t安全にDisposeする( ref this.tx難易度パネル );
+			//   CDTXMania.t安全にDisposeする( ref this.txバー中央 );
+			//   CDTXMania.t安全にDisposeする( ref this.tx難易度星 );
+			//   CDTXMania.t安全にDisposeする( ref this.tx譜面分岐中央パネル用 );
+			//   CDTXMania.t安全にDisposeする( ref this.tx上部ジャンル名 );
+			//   CDTXMania.t安全にDisposeする( ref this.txレベル数字フォント );
 
-			//   CDTXMania.tテクスチャの解放( ref this.txカーソル左 );
-			//   CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
+			//   CDTXMania.t安全にDisposeする( ref this.txカーソル左 );
+			//   CDTXMania.t安全にDisposeする( ref this.txカーソル右 );
 
 			base.OnManagedリソースの解放();
 		}

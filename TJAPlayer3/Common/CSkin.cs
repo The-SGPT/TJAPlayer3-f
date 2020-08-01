@@ -39,6 +39,7 @@ namespace TJAPlayer3
 		SOUND特訓停止,
 		SOUND特訓スクロール,
 		SOUND選曲スキップ,
+		SOUND音色選択,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -331,6 +332,7 @@ namespace TJAPlayer3
 		public Cシステムサウンド sound特訓停止音 = null;
 		public Cシステムサウンド sound特訓スクロール音 = null;
 		public Cシステムサウンド sound選曲スキップ音 = null;
+		public Cシステムサウンド sound音色選択音 = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -421,6 +423,9 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.SOUND選曲スキップ:
 						return this.sound選曲スキップ音;
+
+					case Eシステムサウンド.SOUND音色選択:
+						return this.sound音色選択音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -508,6 +513,9 @@ namespace TJAPlayer3
 
 					case 23:
 						return this.sound選曲スキップ音;
+
+					case 24:
+						return this.sound音色選択音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -602,6 +610,7 @@ namespace TJAPlayer3
 			InitializeSkinPathRoot();
 			ReloadSkinPaths();
 			PrepareReloadSkin();
+			SEloader(out this.SENames);
 		}
 		public CSkin()
 		{
@@ -610,12 +619,62 @@ namespace TJAPlayer3
 			bUseBoxDefSkin = true;
 			ReloadSkinPaths();
 			PrepareReloadSkin();
+			SEloader(out this.SENames);
 		}
 		private string InitializeSkinPathRoot()
 		{
 			strSystemSkinRoot = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System" + System.IO.Path.DirectorySeparatorChar);
 			return strSystemSkinRoot;
 		}
+
+
+		/// <summary>
+		/// 音色用文字列の読み込み用
+		/// </summary>
+		public void SEloader(out string[] Name)
+		{
+			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds\Taiko\"));
+			string strファイル名 = CSkin.Path(@"Sounds\Taiko\SElist.csv");
+
+			if (!File.Exists(strファイル名))
+			{
+				string[] splitstr = new string[this.SECount];
+				for (int i = 0; i < this.SECount; i++)
+					splitstr[i] = "無名";
+				Name = splitstr;
+			}
+			else
+			{
+				Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+				StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+				string str = reader.ReadToEnd();
+				reader.Close();
+				str = str.Replace(',', '\n');
+				string[] splitstr = str.Split('\n');
+
+				if (splitstr.Length < this.SECount)//SEの数より配列数が少なかったとき
+				{
+					string[] splitstrtmp = new string[this.SECount];
+					
+					for (int i = 0; i < splitstrtmp.Length; i++) 
+					{
+						if (i < splitstr.Length)
+						{
+							splitstrtmp[i] = splitstr[i];
+						}
+						else 
+						{
+							splitstrtmp[i] = "無名";
+						}
+					}
+					splitstr = splitstrtmp;
+				}
+				Name = splitstr;
+			}
+
+			return;
+		}
+
 
 		/// <summary>
 		/// Skin(Sounds)を再読込する準備をする(再生停止,Dispose,ファイル名再設定)。
@@ -668,6 +727,7 @@ namespace TJAPlayer3
 			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds\Pause.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds\Scroll.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds\Skip.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound音色選択音 = new Cシステムサウンド(@"Sounds\Timbre.ogg", false, false, ESoundGroup.SoundEffect);
 
 			ReloadSkin();
 			tReadSkinConfig();
@@ -2605,6 +2665,9 @@ namespace TJAPlayer3
 		public int Difficulty_AncBoxEtc_Padding = 75;
 
 		public int Difficulty_Mark_Y = 600;
+
+		public int[] ChangeSE_Box_X = { 220, 1050 };
+		public int[] ChangeSE_Box_Y = { 740, 740 };
 		#endregion
 		#endregion
 		#region SongLoading
@@ -2891,6 +2954,9 @@ namespace TJAPlayer3
 		public int Text_Correction_X = 0;
 		public int Text_Correction_Y = 0;
 		#endregion
+		public int SECount = 0;
+		public int[] NowSENum = { 0, 0 };
+		public string[] SENames;
 		#endregion
 	}
 }

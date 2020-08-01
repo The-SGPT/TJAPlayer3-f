@@ -187,6 +187,7 @@
     <Compile Include="Stages\04.Config\CActConfigKeyAssign.cs" />
     <Compile Include="Stages\04.Config\CActConfigList.cs" />
     <Compile Include="Stages\04.Config\CStageコンフィグ.cs" />
+    <Compile Include="Stages\05.SongSelect\CActSelectChangeSE.cs" />
     <Compile Include="Stages\05.SongSelect\CActSelectPopupMenu.cs" />
     <Compile Include="Stages\05.SongSelect\CActSelectPresound.cs" />
     <Compile Include="Stages\05.SongSelect\CActSelectQuickConfig.cs" />

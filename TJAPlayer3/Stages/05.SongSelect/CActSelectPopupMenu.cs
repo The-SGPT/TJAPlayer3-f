@@ -212,8 +212,8 @@ namespace TJAPlayer3
 				this.font.On非活性化();
 				this.font = null;
 
-				//CDTXMania.tテクスチャの解放( ref this.txCursor );
-				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
+				//CDTXMania.t安全にDisposeする( ref this.txCursor );
+				//CDTXMania.t安全にDisposeする( ref this.txPopupMenuBackground );
 				for ( int i = 0; i < 4; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
@@ -233,8 +233,8 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
-				//CDTXMania.tテクスチャの解放( ref this.txCursor );
+				//CDTXMania.t安全にDisposeする( ref this.txPopupMenuBackground );
+				//CDTXMania.t安全にDisposeする( ref this.txCursor );
 				TJAPlayer3.t安全にDisposeする( ref this.prvFont );
 			}
 			base.OnManagedリソースの解放();

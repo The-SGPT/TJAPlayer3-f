@@ -1223,10 +1223,6 @@ for (int i = 0; i < 3; i++) {
 				return null;
 			}
 		}
-		public static void tテクスチャの解放(ref CTexture tx)
-		{
-			TJAPlayer3.t安全にDisposeする(ref tx);
-		}
 		public static CTexture tテクスチャの生成(byte[] txData)
 		{
 			return tテクスチャの生成(txData, false);
@@ -1358,6 +1354,20 @@ for (int i = 0; i < 3; i++) {
 			obj = null;
 		}
 
+		public static void t安全にDisposeする<T>(ref T[] array) where T : class, IDisposable //2020.08.01 Mr-Ojii twopointzero氏のソースコードをもとに追加
+		{
+			if (array == null)
+			{
+				return;
+			}
+
+			for (var i = 0; i < array.Length; i++)
+			{
+				array[i]?.Dispose();
+				array[i] = null;
+			}
+		}
+
 		/// <summary>
 		/// そのフォルダの連番画像の最大値を返す。
 		/// </summary>
@@ -1365,6 +1375,19 @@ for (int i = 0; i < 3; i++) {
 		{
 			int num = 0;
 			while (File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
+			{
+				num++;
+			}
+			return num;
+		}
+
+		/// <summary>
+		/// そのフォルダの連番フォルダの最大値を返す。
+		/// </summary>
+		public static int t連番フォルダの個数を数える(string ディレクトリ名, string プレフィックス = "")
+		{
+			int num = 0;
+			while (Directory.Exists(ディレクトリ名 + プレフィックス + num))
 			{
 				num++;
 			}
