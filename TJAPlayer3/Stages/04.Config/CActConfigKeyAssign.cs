@@ -95,8 +95,8 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txカーソル );
-				//CDTXMania.tテクスチャの解放( ref this.txHitKeyダイアログ );
+				//CDTXMania.t安全にDisposeする( ref this.txカーソル );
+				//CDTXMania.t安全にDisposeする( ref this.txHitKeyダイアログ );
 				base.On非活性化();
 			}
 		}

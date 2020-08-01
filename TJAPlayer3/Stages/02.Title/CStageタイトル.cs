@@ -85,7 +85,7 @@ namespace TJAPlayer3
 			{
 				for (int i = 0; i < texttexture.Length; i++)
 				{
-					TJAPlayer3.tテクスチャの解放(ref texttexture[i]);
+					TJAPlayer3.t安全にDisposeする(ref texttexture[i]);
 				}
 				base.OnManagedリソースの解放();
 			}

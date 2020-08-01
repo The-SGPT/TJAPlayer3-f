@@ -108,33 +108,33 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.tテクスチャの解放(ref this.txLane);
-			//CDTXMania.tテクスチャの解放(ref this.txLaneB);
-			//CDTXMania.tテクスチャの解放(ref this.txゴーゴー);
-			//CDTXMania.tテクスチャの解放(ref this.tx普通譜面[0]);
-			//CDTXMania.tテクスチャの解放(ref this.tx玄人譜面[0]);
-			//CDTXMania.tテクスチャの解放(ref this.tx達人譜面[0]);
-			//CDTXMania.tテクスチャの解放(ref this.tx普通譜面[1]);
-			//CDTXMania.tテクスチャの解放(ref this.tx玄人譜面[1]);
-			//CDTXMania.tテクスチャの解放(ref this.tx達人譜面[1]);
+			//CDTXMania.t安全にDisposeする(ref this.txLane);
+			//CDTXMania.t安全にDisposeする(ref this.txLaneB);
+			//CDTXMania.t安全にDisposeする(ref this.txゴーゴー);
+			//CDTXMania.t安全にDisposeする(ref this.tx普通譜面[0]);
+			//CDTXMania.t安全にDisposeする(ref this.tx玄人譜面[0]);
+			//CDTXMania.t安全にDisposeする(ref this.tx達人譜面[0]);
+			//CDTXMania.t安全にDisposeする(ref this.tx普通譜面[1]);
+			//CDTXMania.t安全にDisposeする(ref this.tx玄人譜面[1]);
+			//CDTXMania.t安全にDisposeする(ref this.tx達人譜面[1]);
 
-			//CDTXMania.tテクスチャの解放(ref this.tx枠線);
-			//CDTXMania.tテクスチャの解放(ref this.tx判定枠);
-			////CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトLower );
+			//CDTXMania.t安全にDisposeする(ref this.tx枠線);
+			//CDTXMania.t安全にDisposeする(ref this.tx判定枠);
+			////CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトLower );
 
-			//CDTXMania.tテクスチャの解放(ref this.txゴーゴー炎);
+			//CDTXMania.t安全にDisposeする(ref this.txゴーゴー炎);
 
 			//for (int i = 0; i < 29; i++)
 			//{
-			//    CDTXMania.tテクスチャの解放(ref this.txゴーゴースプラッシュ[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.txゴーゴースプラッシュ[i]);
 			//}
 
 			//for (int i = 0; i < 15; i++)
 			//{
-			//    CDTXMania.tテクスチャの解放(ref this.txArアタックエフェクトLower_A[i]);
-			//    CDTXMania.tテクスチャの解放(ref this.txArアタックエフェクトLower_B[i]);
-			//    CDTXMania.tテクスチャの解放(ref this.txArアタックエフェクトLower_C[i]);
-			//    CDTXMania.tテクスチャの解放(ref this.txArアタックエフェクトLower_D[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_A[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_B[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_C[i]);
+			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_D[i]);
 			//}
 
 			base.OnManagedリソースの解放();

@@ -386,11 +386,11 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.tテクスチャの解放( ref this.tx残り時間数字 );
-			//CDTXMania.tテクスチャの解放( ref this.tx加算時間数字 );
-			//CDTXMania.tテクスチャの解放( ref this.txタイマー枠 );
-			//CDTXMania.tテクスチャの解放( ref this.txタイマー針 );
-			//CDTXMania.tテクスチャの解放( ref this.tx背景黒 );
+			//CDTXMania.t安全にDisposeする( ref this.tx残り時間数字 );
+			//CDTXMania.t安全にDisposeする( ref this.tx加算時間数字 );
+			//CDTXMania.t安全にDisposeする( ref this.txタイマー枠 );
+			//CDTXMania.t安全にDisposeする( ref this.txタイマー針 );
+			//CDTXMania.t安全にDisposeする( ref this.tx背景黒 );
 			base.OnManagedリソースの解放();
 		}
 

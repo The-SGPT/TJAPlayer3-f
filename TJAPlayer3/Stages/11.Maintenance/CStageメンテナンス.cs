@@ -72,10 +72,10 @@ namespace TJAPlayer3
 			{
 				for (int i = 0; i < moji.Length; i++)
 				{
-					TJAPlayer3.tテクスチャの解放(ref moji[i]);
+					TJAPlayer3.t安全にDisposeする(ref moji[i]);
 				}
-				TJAPlayer3.tテクスチャの解放(ref don);
-				TJAPlayer3.tテクスチャの解放(ref ka);
+				TJAPlayer3.t安全にDisposeする(ref don);
+				TJAPlayer3.t安全にDisposeする(ref ka);
 				base.OnManagedリソースの解放();
 			}
 

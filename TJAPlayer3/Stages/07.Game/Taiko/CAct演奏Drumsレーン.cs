@@ -49,12 +49,12 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 0 ] );
-			//CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 0 ] );
-			//CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 0 ] );
-			//CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 1 ] );
-			//CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 1 ] );
-			//CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 1 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx普通譜面[ 0 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx玄人譜面[ 0 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx達人譜面[ 0 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx普通譜面[ 1 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx玄人譜面[ 1 ] );
+			//CDTXMania.t安全にDisposeする( ref this.tx達人譜面[ 1 ] );
 
 			base.OnManagedリソースの解放();
 		}

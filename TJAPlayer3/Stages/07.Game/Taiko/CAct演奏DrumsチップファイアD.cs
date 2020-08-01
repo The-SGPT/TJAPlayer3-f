@@ -233,11 +233,11 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper );
-				//CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper_big );
-	//            CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 0 ] );
-	//            CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 1 ] );
-				//CDTXMania.tテクスチャの解放( ref this.tx紙吹雪 );
+				//CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトUpper );
+				//CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトUpper_big );
+	//            CDTXMania.t安全にDisposeする( ref this.tx大音符花火[ 0 ] );
+	//            CDTXMania.t安全にDisposeする( ref this.tx大音符花火[ 1 ] );
+				//CDTXMania.t安全にDisposeする( ref this.tx紙吹雪 );
 				base.OnManagedリソースの解放();
 			}
 		}
