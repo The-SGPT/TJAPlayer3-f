@@ -4124,8 +4124,11 @@ namespace TJAPlayer3
 				//if(dTX.listChip[i].bHit) フラグが付いてなくてもすべてのチップをリセットする。(必要がある).2020.04.23.akasoko26
 
 				dTX.listChip[i].bHit = false;
-				dTX.listChip[i].bShow = true;
-				dTX.listChip[i].b可視 = true;
+				if (dTX.listChip[i].nチャンネル番号 != 0x50)//2020.08.01 Mr-Ojii BARLINEOFF/ONのための変更
+				{
+					dTX.listChip[i].bShow = true;
+					dTX.listChip[i].b可視 = true;
+				}
 				dTX.listChip[i].IsHitted = false;
 				dTX.listChip[i].IsMissed = false;
 				dTX.listChip[i].eNoteState = ENoteState.none;

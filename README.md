@@ -16,12 +16,7 @@ masterブランチでほぼすべての開発を行います。
 このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。
 
 ## 追加命令について
-Testフォルダ内の「[追加命令について.md](https://github.com/Mr-Ojii/TJAPlayer3-f/blob/master/Test/追加命令について.md)」で説明いたします。
-
-## 複数文字コードの対応について
-Shift-JIS, UTF-8 BOMあり/なし は読み込めることを確認しました。  
-読み込みに失敗して、文字化けするファイルがありましたら、Discord鯖に投げてもらえると助かります。  
-GitHub Issuesでもいいですが、Issuesが増えすぎても嫌なので。
+Testフォルダ内の「[追加機能について.md](https://github.com/Mr-Ojii/TJAPlayer3-f/blob/master/Test/追加機能について.md)」で説明いたします。
 
 ## 推奨環境
 Windows7以降  
