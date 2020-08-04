@@ -336,7 +336,6 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Chara_Balloon_Breaking[CharaAction_Balloon_Breaking[nPlayer].n現在の値]?.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.Game_Chara_Balloon_X[nPlayer], TJAPlayer3.Skin.Game_Chara_Balloon_Y[nPlayer]);
 						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.Game_PuchiChara_BalloonX[nPlayer], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[nPlayer], false, nPlayer, 255, true);
 					}
-
 				}
 			}
 		}
