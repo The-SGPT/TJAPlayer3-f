@@ -75,7 +75,10 @@ namespace TJAPlayer3
 				NullCheckAndRender(ref TJAPlayer3.Tx.Mob[i]);
 			}
 
-			NullCheckAndRender(ref TJAPlayer3.Tx.PuchiChara);
+			for (int i = 0; i < 2; i++)
+			{
+				NullCheckAndRender(ref TJAPlayer3.Tx.PuchiChara[i]);
+			}
 			
 		}
 
