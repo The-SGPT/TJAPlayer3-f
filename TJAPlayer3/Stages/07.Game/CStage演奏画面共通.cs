@@ -3685,7 +3685,7 @@ namespace TJAPlayer3
 								{
 									if ((cwav.rSound[i] != null) && cwav.rSound[i].b再生中)
 									{
-										return false;
+										break;
 									}
 								}
 							}
