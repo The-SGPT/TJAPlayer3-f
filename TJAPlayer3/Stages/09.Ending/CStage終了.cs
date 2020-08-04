@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using DirectShowLib;
+using SharpDX.Direct3D9;
 using FDK;
+using SharpDX;
+using System.Drawing;
 
 namespace TJAPlayer3
 {
@@ -62,6 +65,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
+				TJAPlayer3.t安全にDisposeする(ref this.BackSurface);
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -80,8 +84,8 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 				}
 				this.ct時間稼ぎ.t進行();
-				if (TJAPlayer3.Tx.Title_Background != null)
-					TJAPlayer3.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
+				if (this.BackSurface != null)
+					this.BackSurface.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
 
 				double t = this.ct時間稼ぎ.n現在の値, c = -1300, b = 1300, d = 3000;
@@ -131,12 +135,24 @@ namespace TJAPlayer3
 			return 0;
 		}
 
+		public void MakeBackTexture() {
+			TJAPlayer3.t安全にDisposeする(ref this.BackSurface);
+			using (Surface pSurface = TJAPlayer3.app.Device.GetRenderTarget(0))
+			{
+				using (DataStream datastream = Surface.ToStream(pSurface, ImageFileFormat.Bmp))
+				{
+					this.BackSurface = TJAPlayer3.tテクスチャの生成(new Bitmap(datastream));
+				}
+			}
+		}
+
 
 		// その他
 
 		#region [ private ]
 		//-----------------
 		private CCounter ct時間稼ぎ;
+		private CTexture BackSurface;
 		//-----------------
 		#endregion
 	}

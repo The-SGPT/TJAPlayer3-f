@@ -4325,11 +4325,21 @@ namespace TJAPlayer3
 			var workingIndex = 0;
 			for (int i = 0; i < input.Length; i++)
 			{
-				if (input[i] == ',') // カンマにぶち当たった
+				if (input[i].Equals(',')) // カンマにぶち当たった
 				{
-					if (input[i - 1] == '\\') // 1文字前がバックスラッシュ
+					if (i - 1 >= 0)//2020.08.04 Mr-Ojii &&演算子でも、例外が起きるので...
 					{
-						input = input.Remove(i - 1, 1);
+						if (input[i - 1].Equals('\\')) // 1文字前がバックスラッシュ
+						{
+							input = input.Remove(i - 1, 1);
+						}
+						else
+						{
+							// workingIndexから今の位置までをリストにブチ込む
+							result.Add(input.Substring(workingIndex, i - workingIndex));
+							// workingIndexに今の位置+1を代入
+							workingIndex = i + 1;
+						}
 					}
 					else
 					{

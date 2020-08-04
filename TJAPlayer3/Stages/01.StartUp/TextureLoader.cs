@@ -609,7 +609,11 @@ namespace TJAPlayer3
 			DanC_Screen = TxC(GAME + DANC + @"Screen.png");
 			#endregion
 			#region PuichiChara
-			PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
+			PuchiChara = new CTexture[2];
+			for (int i = 0; i < 2; i++)
+			{
+				PuchiChara[i] = TxC(GAME + PUCHICHARA + i.ToString() + @".png");
+			}
 			#endregion
 			#region Training
 			Tokkun_DownBG = TxC(GAME + TRAINING + @"Down.png");
@@ -1229,7 +1233,7 @@ namespace TJAPlayer3
 		public CTexture DanC_Screen;
 		#endregion
 		#region PuchiChara
-		public CTexture PuchiChara;
+		public CTexture[] PuchiChara;
 		#endregion
 		#region Training
 		public CTexture Tokkun_DownBG,
