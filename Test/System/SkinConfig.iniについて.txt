@@ -98,9 +98,26 @@ Difficulty_Bar_Center_X_WH_WH_Y_Y=643,387,439,880,540,125,25
 //後ろの難易度マークのY座標
 Difficulty_Mark_Y=600
 
+//SEの変更時のダイアログが出てくる座標(下中央基準)
+ChangeSE_Box_X=220,1050
+ChangeSE_Box_Y=740,740
+
+//ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく)
+Background_Scroll_PatternY=0,0
+
+//2P側のキャラのモーションを指定するコンフィグ
+Game_Chara_Motion_Normal_2P=0
+Game_Chara_Motion_Clear_2P=0
+Game_Chara_Motion_GoGo_2P=0
+
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=350,350
 Result_Crown_Y=200,560
 
-//ゲームのBGAの上背景の上下に動くとこの動きパターン。(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく)
-Background_Scroll_PatternY=0,0
+
+
+//以下のパラメータはもともと存在していましたが、変更を加えました。
+//何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)
+Game_Chara_Beat_Normal=1,1
+Game_Chara_Beat_Clear=2,2
+Game_Chara_Beat_GoGo=2,2

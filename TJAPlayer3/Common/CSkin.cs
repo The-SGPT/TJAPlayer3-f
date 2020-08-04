@@ -1250,6 +1250,14 @@ namespace TJAPlayer3
 							{
 								Difficulty_Mark_Y = int.Parse(strParam);
 							}
+							else if (strCommand == nameof(ChangeSE_Box_X))
+							{
+								ChangeSE_Box_X = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(ChangeSE_Box_Y))
+							{
+								ChangeSE_Box_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
 							#endregion
 
 							#endregion
