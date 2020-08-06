@@ -503,11 +503,7 @@ namespace TJAPlayer3
 					if (actQuickConfig.bGotoDetailConfig)
 					{   // 詳細CONFIG呼び出し
 						actQuickConfig.tDeativatePopupMenu();
-						this.actPresound.tサウンドの停止MT();
-						this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
-						this.actFIFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-						TJAPlayer3.Skin.sound取消音.t再生する();
+						this.GotoConfig();
 						return 0;
 					}
 
@@ -573,11 +569,7 @@ namespace TJAPlayer3
 							if ((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)) &&
 								TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F1))
 							{   // [SHIFT] + [F1] CONFIG
-								this.actPresound.tサウンドの停止MT();
-								this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
-								this.actFIFO.tフェードアウト開始();
-								base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-								TJAPlayer3.Skin.sound取消音.t再生する();
+								this.GotoConfig();
 								return 0;
 							}
 							#endregion
@@ -847,11 +839,7 @@ namespace TJAPlayer3
 							if ((TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift)) &&
 								TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F1))
 							{   // [SHIFT] + [F1] CONFIG
-								this.actPresound.tサウンドの停止MT();
-								this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
-								this.actFIFO.tフェードアウト開始();
-								base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-								TJAPlayer3.Skin.sound取消音.t再生する();
+								this.GotoConfig();
 								return 0;
 							}
 							#endregion
@@ -1127,6 +1115,17 @@ namespace TJAPlayer3
 		//-----------------
 		internal E選曲画面 現在の選曲画面状況 = E選曲画面.通常;
 		private int DanSelectingRow = 0;
+
+		private void GotoConfig()
+		{
+			actChangeSE.tDeativateChangeSE(0);
+			actChangeSE.tDeativateChangeSE(1);
+			this.actPresound.tサウンドの停止MT();
+			this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
+			this.actFIFO.tフェードアウト開始();
+			base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+			TJAPlayer3.Skin.sound取消音.t再生する();
+		}
 
 		private void 難易度選択完了したか() {
 			if (!完全に選択済み)

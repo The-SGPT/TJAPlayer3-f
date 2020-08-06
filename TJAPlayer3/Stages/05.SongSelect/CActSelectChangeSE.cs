@@ -266,7 +266,7 @@ namespace TJAPlayer3
 		/// <param name="nPlayer">プレイヤー番号</param>
 		public void tActivateChangeSE(int nPlayer)
 		{
-			if (TJAPlayer3.Skin.SECount != 0)
+			if (TJAPlayer3.Skin.SECount != 0 && ePhase[nPlayer] == EChangeSEPhase.Inactive)
 			{
 				ePhase[nPlayer] = EChangeSEPhase.AnimationIn;
 				ct登場退場アニメ用[nPlayer].t時間Reset();
@@ -280,9 +280,11 @@ namespace TJAPlayer3
 		/// <param name="nPlayer">プレイヤー番号</param>
 		public void tDeativateChangeSE(int nPlayer)
 		{
-			ePhase[nPlayer] = EChangeSEPhase.AnimationOut;
-			ct登場退場アニメ用[nPlayer].t時間Reset();
-			ct登場退場アニメ用[nPlayer].n現在の値 = 0;
+			if (ePhase[nPlayer] == EChangeSEPhase.Active) {
+				ePhase[nPlayer] = EChangeSEPhase.AnimationOut;
+				ct登場退場アニメ用[nPlayer].t時間Reset();
+				ct登場退場アニメ用[nPlayer].n現在の値 = 0; 
+			}
 		}
 
 
