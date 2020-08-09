@@ -262,7 +262,7 @@ namespace TJAPlayer3
 
 			// Discord Presence の更新
 			var difficultyName = TJAPlayer3.DifficultyNumberToEnum(TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
-			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].strファイル名 : "",
+			Discord.UpdatePresence(TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION : "",
 				Properties.Discord.Stage_InGame + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""),
 				0,
 				Discord.GetUnixTime() + (long)TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms / 1000,
@@ -417,7 +417,7 @@ namespace TJAPlayer3
 				if( TJAPlayer3.ConfigIni.ShowChara )
 					this.actChara.On進行描画();
 
-				if(TJAPlayer3.ConfigIni.ShowMob)
+				if(TJAPlayer3.ConfigIni.ShowMob && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 					this.actMob.On進行描画();
 
 				if ( TJAPlayer3.ConfigIni.eGameMode != EGame.OFF )
@@ -445,6 +445,7 @@ namespace TJAPlayer3
 
 				this.actLaneTaiko.ゴーゴー炎();
 
+				this.actDan.On進行描画();
 
 				for ( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 				{
@@ -452,7 +453,6 @@ namespace TJAPlayer3
 					this.t進行描画_チップ_連打( i );
 				}
 
-				this.actDan.On進行描画();
 
 				this.actMtaiko.On進行描画();
 				//if (this.txNamePlate != null)
@@ -472,6 +472,11 @@ namespace TJAPlayer3
 					this.t進行描画_コンボ();
 				if( !TJAPlayer3.ConfigIni.bNoInfo )
 					this.t進行描画_スコア();
+
+				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+				{
+					actTokkun.On進行描画();
+				}
 
 
 				this.Rainbow.On進行描画();
@@ -504,12 +509,6 @@ namespace TJAPlayer3
 					actChara.OnDraw_Balloon();
 
 				this.t全体制御メソッド();
-
-
-				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-				{
-					actTokkun.On進行描画();
-				}
 
 				this.actPauseMenu.t進行描画();
 

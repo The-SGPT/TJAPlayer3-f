@@ -897,6 +897,7 @@ namespace TJAPlayer3
 		public string strファイル名;
 		public string strファイル名の絶対パス;
 		public string strフォルダ名;
+		public string EXTENSION;
 		public string SUBTITLE;
 		public string TITLE;
 		public bool SUBTITLEDisp;
@@ -1005,6 +1006,7 @@ namespace TJAPlayer3
 		public CDTX()
 		{
 			this.nPlayerSide = 0;
+			this.EXTENSION = "";
 			this.TITLE = "";
 			this.SUBTITLE = "";
 			this.SUBTITLEDisp = false;
@@ -1547,6 +1549,7 @@ namespace TJAPlayer3
 			{
 				try
 				{
+					this.EXTENSION = Path.GetExtension(strファイル名);
 					this.nPlayerSide = nPlayerSide;
 					this.bSession譜面を読み込む = bSession;
 					if (nReadVersion != 0)
