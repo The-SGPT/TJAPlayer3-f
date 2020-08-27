@@ -32,7 +32,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
 			base.list子Activities.Add( this.actTaikoLaneFlash = new TaikoLaneFlash() );
 			base.list子Activities.Add( this.actScore = new CAct演奏Drumsスコア() );
-			base.list子Activities.Add( this.actStatusPanels = new CAct演奏Drumsステータスパネル() );
 			base.list子Activities.Add( this.act譜面スクロール速度 = new CAct演奏スクロール速度() );
 			base.list子Activities.Add( this.actAVI = new CAct演奏AVI() );
 			base.list子Activities.Add( this.actPanel = new CAct演奏パネル文字列() );
@@ -57,7 +56,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
 			base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
 			base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
-			base.list子Activities.Add(this.actFooter = new CAct演奏DrumsFooter());
 			base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
 			base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
 			base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
@@ -404,11 +402,11 @@ namespace TJAPlayer3
 					actDancer.On進行描画();
 				}
 
-				if(!bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
-					this.actFooter.On進行描画();
+				if(!bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
+					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szテクスチャサイズ.Height);
 
 				//this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
-				
+
 
 				//this.t進行描画_DANGER();
 				//this.t進行描画_判定ライン();
