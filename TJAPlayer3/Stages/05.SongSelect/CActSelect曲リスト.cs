@@ -2313,62 +2313,6 @@ namespace TJAPlayer3
 
 			return list[index - 1];
 		}
-		private void tスキル値の描画(int x, int y, int nスキル値)
-		{
-			if (nスキル値 <= 0 || nスキル値 > 100)      // スキル値 0 ＝ 未プレイ なので表示しない。
-				return;
-
-			int color = (nスキル値 == 100) ? 3 : (nスキル値 / 25);
-
-			int n百の位 = nスキル値 / 100;
-			int n十の位 = (nスキル値 % 100) / 10;
-			int n一の位 = (nスキル値 % 100) % 10;
-
-
-			// 百の位の描画。
-
-			if (n百の位 > 0)
-				this.tスキル値の描画_１桁描画(x, y, n百の位, color);
-
-
-			// 十の位の描画。
-
-			if (n百の位 != 0 || n十の位 != 0)
-				this.tスキル値の描画_１桁描画(x + 7, y, n十の位, color);
-
-
-			// 一の位の描画。
-
-			this.tスキル値の描画_１桁描画(x + 14, y, n一の位, color);
-		}
-		private void tスキル値の描画_１桁描画(int x, int y, int n数値, int color)
-		{
-			//int dx = ( n数値 % 5 ) * 9;
-			//int dy = ( n数値 / 5 ) * 12;
-
-			//switch( color )
-			//{
-			//	case 0:
-			//		if( this.txスキル数字 != null )
-			//			this.txスキル数字.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 45 + dx, 24 + dy, 9, 12 ) );
-			//		break;
-
-			//	case 1:
-			//		if( this.txスキル数字 != null )
-			//			this.txスキル数字.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 45 + dx, dy, 9, 12 ) );
-			//		break;
-
-			//	case 2:
-			//		if( this.txスキル数字 != null )
-			//			this.txスキル数字.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( dx, 24 + dy, 9, 12 ) );
-			//		break;
-
-			//	case 3:
-			//		if( this.txスキル数字 != null )
-			//			this.txスキル数字.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( dx, dy, 9, 12 ) );
-			//		break;
-			//}
-		}
 		private void tバーの初期化()
 		{
 			C曲リストノード song = this.r現在選択中の曲;
