@@ -30,7 +30,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				this.ct時間稼ぎ = new CCounter();
+				this.ctAnimation = new CCounter();
 				Discord.UpdatePresence("", "Ending", TJAPlayer3.StartupTime);
 				base.On活性化();
 			}
@@ -80,23 +80,24 @@ namespace TJAPlayer3
 				if( base.b初めての進行描画 )
 				{
 					TJAPlayer3.Skin.soundゲーム終了音.t再生する();
-					this.ct時間稼ぎ.t開始( 0, 3000, 1, TJAPlayer3.Timer );
+					this.ctAnimation.t開始( 0, 3000, 1, TJAPlayer3.Timer );
 					base.b初めての進行描画 = false;
 				}
-				this.ct時間稼ぎ.t進行();
+				this.ctAnimation.t進行();
 				if (this.BackSurface != null)
 					this.BackSurface.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
-
-				double t = this.ct時間稼ぎ.n現在の値, c = -1300, b = 1300, d = 3000;
+                #region[幕のアニメーションの計算]
+                double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = 3000;
 				int x;
 				t = t / d - 1;
 				x =(int)( -c * (Math.Pow(t, 4) - 1) + b);
+                #endregion
 
-				if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)
+                if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)
 				{
 					const double n = 1500.0;
-					double t2 = Math.Min(Math.Max(this.ct時間稼ぎ.n現在の値 - 1000,0),n) ,c2 = 1000, b2 = -1000, d2 = n;
+					double t2 = Math.Min(Math.Max(this.ctAnimation.n現在の値 - 1000, 0), n), c2 = 1000, b2 = -1000, d2 = n;
 					int y;
 					t2 = t2 / d2;
 					if (t2 < 1.0 / 2.75)
@@ -127,7 +128,7 @@ namespace TJAPlayer3
 				else if(TJAPlayer3.Tx.Exit_Background!=null)
 					TJAPlayer3.Tx.Exit_Background.t2D描画(TJAPlayer3.app.Device, x, 0);
 
-				if (this.ct時間稼ぎ.b終了値に達した && !TJAPlayer3.Skin.soundゲーム終了音.b再生中)
+				if (this.ctAnimation.b終了値に達した && !TJAPlayer3.Skin.soundゲーム終了音.b再生中)
 				{
 					return 1;
 				}
@@ -151,7 +152,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private CCounter ct時間稼ぎ;
+		private CCounter ctAnimation;
 		private CTexture BackSurface;
 		//-----------------
 		#endregion

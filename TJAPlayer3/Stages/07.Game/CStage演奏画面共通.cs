@@ -2882,11 +2882,6 @@ namespace TJAPlayer3
 				this.actChara.b演奏中 = false;
 			}
 
-			//double speed = 264.0;	// BPM150の時の1小節の長さ[dot]
-			const double speed = 324.0;	// BPM150の時の1小節の長さ[dot]
-
-			double ScrollSpeedDrums = ((this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) * speed ) * 0.5 * 37.5 / 60000.0;
-
 			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
 			CDTX dTX = TJAPlayer3.DTX[nPlayer];
@@ -2908,7 +2903,7 @@ namespace TJAPlayer3
 				CDTX.CChip pChip = dTX.listChip[ nCurrentTopChip ];
 //Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
 				var time = pChip.n発声時刻ms - n現在時刻ms;
-				pChip.nバーからの距離dot.Drums = (int) ( time * ScrollSpeedDrums );
+				pChip.nバーからの距離dot.Drums = (int) ( time );
 				pChip.nバーからの距離dot.Taiko = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
@@ -4251,12 +4246,9 @@ namespace TJAPlayer3
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.演奏中断;
 		}
 
-		protected abstract void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );
-		protected abstract void t進行描画_チップ本体_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );
 		protected abstract void t進行描画_チップ_Taiko( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer );
 		protected abstract void t進行描画_チップ_Taiko連打( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer );
 
-		protected abstract void t進行描画_チップ_フィルイン( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );
 		protected abstract void t進行描画_チップ_小節線( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer );
 		protected void t進行描画_チップアニメ()
 		{

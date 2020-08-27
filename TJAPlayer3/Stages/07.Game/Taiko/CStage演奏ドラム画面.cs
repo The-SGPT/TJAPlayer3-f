@@ -1612,11 +1612,6 @@ namespace TJAPlayer3
 			int nノート末端座標 = 0;
 			int n先頭発声位置 = 0;
 
-			// 2016.11.2 kairera0467
-			// 黄連打音符を赤くするやつの実装方法メモ
-			//前面を黄色、背面を変色後にしたものを重ねて、打数に応じて前面の透明度を操作すれば、色を操作できるはず。
-			//ただしテクスチャのαチャンネル部分が太くなるなどのデメリットが出る。備えよう。
-
 			#region[ 作り直したもの ]
 			if( pChip.b可視 )
 			{
@@ -1696,20 +1691,10 @@ namespace TJAPlayer3
 					}
 				}
 
-
-				if( pChip.nチャンネル番号 == 0x15 && pChip.n発声時刻ms < 5000 )
-				{
-
-				}
-				if( pChip.nチャンネル番号 == 0x18 && pChip.n発声時刻ms < 5000 )
-				{
-
-				}
-
 				//if( CDTXMania.ConfigIni.eScrollMode != EScrollMode.Normal )
 					x -= 10;
 
-				if( ( 1400 > x ))
+				if (1400 > Math.Min(x, x末端))
 				{
 					if( TJAPlayer3.Tx.Notes != null )
 					{
@@ -1813,17 +1798,6 @@ namespace TJAPlayer3
 							int index = x末端 - x; //連打の距離
 							if ( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 							{
-								#region[末端をテクスチャ側で中央に持ってくる場合の方式]
-
-								//CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
-								//CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128.0f;
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
-								//CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, num9, 130, 130));
-								//CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-
-								#endregion
 								#region[末端をテクスチャ側でつなげる場合の方式]
 
 								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
@@ -1858,17 +1832,6 @@ namespace TJAPlayer3
 
 							if( TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == Eステルスモード.OFF )
 							{
-								#region[末端をテクスチャ側で中央に持ってくる場合の方式]
-
-								//CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
-								//CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128f;
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
-								//CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
-								//CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
-								//CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-
-								#endregion
 								#region[末端をテクスチャ側でつなげる場合の方式]
 
 								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
@@ -1916,19 +1879,7 @@ namespace TJAPlayer3
 						{
 							//大きい連打か小さい連打かの区別方法を考えてなかったよちくしょう
 							TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-							int n = 0;
-							switch( pChip.n連打音符State )
-							{
-								case 5:
-									n = 910;
-									break;
-								case 6:
-									n = 1300;
-									break;
-								default:
-									n = 910;
-									break;
-							}
+
 							if( pChip.n連打音符State != 7 )
 							{
 								//if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
@@ -1956,16 +1907,6 @@ namespace TJAPlayer3
 			#endregion
 		}
 
-		protected override void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip )
-		{
-		}
-		protected override void t進行描画_チップ本体_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip )
-		{
-		}
-		protected override void t進行描画_チップ_フィルイン( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip )
-		{
-
-		}
 		protected override void t進行描画_チップ_小節線( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer )
 		{
 			if( pChip.nコース != this.n現在のコース[ nPlayer ] )

@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using FDK;
-using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace TJAPlayer3
