@@ -130,7 +130,6 @@ namespace TJAPlayer3
 				this.n確定された曲の難易度 = new int[4];
 				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
-				this.ftフォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel);
 				for (int i = 0; i < 2; i++)
 					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 
@@ -157,11 +156,6 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				if( this.ftフォント != null )
-				{
-					this.ftフォント.Dispose();
-					this.ftフォント = null;
-				}
 				for( int i = 0; i < 2; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
@@ -466,10 +460,6 @@ namespace TJAPlayer3
 					TJAPlayer3.Skin.bgm選曲画面.t再生する();
 					this.bBGM再生済み = true;
 				}
-
-
-				if( this.ctDiffSelect移動待ち != null )
-					this.ctDiffSelect移動待ち.t進行();
 
 				if (現在の選曲画面状況 == E選曲画面.Dan選択) {
 					if (TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null) {
@@ -1228,7 +1218,6 @@ namespace TJAPlayer3
 		internal CCounter ct難易度選択画面INバー拡大用タイマー;
 		internal CCounter ct難易度選択画面OUT用タイマー;
 		internal E戻り値 eフェードアウト完了時の戻り値;
-		private Font ftフォント;
 		//private CTexture tx下部パネル;
 		//private CTexture tx上部パネル;
 		//private CTexture tx背景;
@@ -1236,7 +1225,6 @@ namespace TJAPlayer3
   //      private CTexture[] tx難易度別背景 = new CTexture[5];
   //      private CTexture tx難易度名;
   //      private CTexture tx下部テキスト;
-		private CCounter ctDiffSelect移動待ち;
 
 		private struct STCommandTime		// #24063 2011.1.16 yyagi コマンド入力時刻の記録用
 		{

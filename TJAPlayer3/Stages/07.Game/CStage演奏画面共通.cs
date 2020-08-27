@@ -182,7 +182,6 @@ namespace TJAPlayer3
 			this.b演奏にマウスを使った = false;
 
 			base.On活性化();
-			this.tステータスパネルの選択();
 			this.tパネル文字列の設定();
 			//this.演奏判定ライン座標();
 			this.bIsGOGOTIME = new bool[]{ false, false, false, false };
@@ -431,7 +430,6 @@ namespace TJAPlayer3
 		public CAct演奏演奏情報 actPlayInfo;
 		public CAct演奏スコア共通 actScore;
 		public CAct演奏ステージ失敗 actStageFailed;
-		protected CAct演奏ステータスパネル共通 actStatusPanels;
 		protected CAct演奏スクロール速度 act譜面スクロール速度;
 		protected CAct演奏Drums連打 actRoll;
 		protected CAct演奏Drums風船 actBalloon;
@@ -441,7 +439,6 @@ namespace TJAPlayer3
 		protected CAct演奏Combo音声 actComboVoice;
 		protected CAct演奏PauseMenu actPauseMenu;
 		public CAct演奏Drumsチップエフェクト actChipEffects;
-		public CAct演奏DrumsFooter actFooter;
 		public CAct演奏DrumsRunner actRunner;
 		public CAct演奏DrumsMob actMob;
 		public Dan_Cert actDan;
@@ -859,14 +856,6 @@ namespace TJAPlayer3
 				this.nHand[ nPlayer ]++;
 			else
 				this.nHand[ nPlayer ] = 0;
-		}
-
-		protected void tステータスパネルの選択()
-		{
-			if ( TJAPlayer3.stage選曲.r確定された曲 != null )
-			{
-				this.actStatusPanels.tラベル名からステータスパネルを決定する( TJAPlayer3.stage選曲.r確定された曲.ar難易度ラベル[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] );
-			}
 		}
 
 		protected bool tRollProcess( CDTX.CChip pChip, double dbProcess_time, int num, int sort, int Input, int nPlayer )
@@ -2855,10 +2844,6 @@ namespace TJAPlayer3
 		protected void t進行描画_スコア()
 		{
 			this.actScore.On進行描画();
-		}
-		protected void t進行描画_ステータスパネル()
-		{
-			this.actStatusPanels.On進行描画();
 		}
 		protected bool t進行描画_チップ( int nPlayer )
 		{

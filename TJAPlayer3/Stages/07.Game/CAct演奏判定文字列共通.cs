@@ -18,30 +18,18 @@ namespace TJAPlayer3
 			public bool b使用中;
 			public CCounter ct進行;
 			public E判定 judge;
-			public float fX方向拡大率;
-			public float fY方向拡大率;
 			public int n相対X座標;
 			public int n相対Y座標;
 			public int n透明度;
-			public int nLag;								// #25370 2011.2.1 yyagi
 			public int nPlayer;                             // 2017.08.15 kairera0467
 		}
 
 		protected readonly ST判定文字列[] st判定文字列;
-		[StructLayout( LayoutKind.Sequential )]
+		[StructLayout(LayoutKind.Sequential)]
 		protected struct ST判定文字列
 		{
-			public int n画像番号;
 			public Rectangle rc;
 		}
-
-		protected readonly STlag数値[] stLag数値;			// #25370 2011.2.1 yyagi
-		[StructLayout( LayoutKind.Sequential )]
-		protected struct STlag数値
-		{
-			public Rectangle rc;
-		}
-
 		
 		//protected CTexture tx判定文字列;
 
@@ -62,15 +50,7 @@ namespace TJAPlayer3
 			for ( int i = 0; i < 7; i++ )
 			{
 				this.st判定文字列[ i ] = new ST判定文字列();
-				this.st判定文字列[ i ].n画像番号 = i / 3;
 				this.st判定文字列[ i ].rc = r[i];
-			}
-
-			this.stLag数値 = new STlag数値[ 12 * 2 ];		// #25370 2011.2.1 yyagi
-			for ( int i = 0; i < 12; i++ )
-			{
-				this.stLag数値[ i      ].rc = new Rectangle( ( i % 4 ) * 15     , ( i / 4 ) * 19     , 15, 19 );	// plus numbers
-				this.stLag数値[ i + 12 ].rc = new Rectangle( ( i % 4 ) * 15 + 64, ( i / 4 ) * 19 + 64, 15, 19 );	// minus numbers
 			}
 			base.b活性化してない = true;
 		}
@@ -102,12 +82,9 @@ namespace TJAPlayer3
 						this.st状態[j].ct進行 = new CCounter(0, 300, 1, TJAPlayer3.Timer);
 						this.st状態[j].b使用中 = true;
 						this.st状態[j].judge = judge;
-						this.st状態[j].fX方向拡大率 = 1f;
-						this.st状態[j].fY方向拡大率 = 1f;
 						this.st状態[j].n相対X座標 = 0;
 						this.st状態[j].n相対Y座標 = 0;
 						this.st状態[j].n透明度 = 0xff;
-						this.st状態[j].nLag = lag;
 						this.st状態[j].nPlayer = player;
 						break;
 					}
