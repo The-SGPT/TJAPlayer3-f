@@ -98,9 +98,21 @@ Difficulty_Bar_Center_X_WH_WH_Y_Y=643,387,439,880,540,125,25
 //後ろの難易度マークのY座標
 Difficulty_Mark_Y=600
 
-//SEの変更時のダイアログが出てくる座標(下中央基準)
+//SEの変更時のダイアログの座標(下中央基準)
 ChangeSE_Box_X=220,1050
 ChangeSE_Box_Y=740,740
+
+//演奏オプションのダイアログの座標(下中央基準)
+PlayOption_Box_X=220,1050
+PlayOption_Box_Y=750,750
+
+//演奏オプションのBoxの画像のセクション(単位はpx)(上から順にHeader,List,Footerである)
+PlayOption_Box_Section_Y=0,72,118
+
+//演奏オプションの文字列の座標調整用(PlayOption_Box_X,PlayOption_Box_Yからの相対座標を指定)
+//(Nameは左上基準、Listは中央上基準である)
+PlayOption_Name_XY_Diff=-150,-2
+PlayOption_List_XY_Diff=90,-2
 
 //ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく)
 Background_Scroll_PatternY=0,0
@@ -113,8 +125,6 @@ Game_Chara_Motion_GoGo_2P=0
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=350,350
 Result_Crown_Y=200,560
-
-
 
 //以下のパラメータはもともと存在していましたが、変更を加えました。
 //何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)

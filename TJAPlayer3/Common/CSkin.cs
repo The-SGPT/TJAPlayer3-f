@@ -1258,6 +1258,26 @@ namespace TJAPlayer3
 							{
 								ChangeSE_Box_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
+							else if (strCommand == nameof(PlayOption_Box_X))
+							{
+								PlayOption_Box_X = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(PlayOption_Box_Y))
+							{
+								PlayOption_Box_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(PlayOption_Box_Section_Y))
+							{
+								PlayOption_Box_Section_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(PlayOption_Name_XY_Diff))
+							{
+								PlayOption_Name_XY_Diff = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(PlayOption_List_XY_Diff))
+							{
+								PlayOption_List_XY_Diff = strParam.Split(',').Select(int.Parse).ToArray();
+							}
 							#endregion
 
 							#endregion
@@ -2633,6 +2653,11 @@ namespace TJAPlayer3
 
 		public int[] ChangeSE_Box_X = { 220, 1050 };
 		public int[] ChangeSE_Box_Y = { 740, 740 };
+		public int[] PlayOption_Box_X = { 220, 1050 };
+		public int[] PlayOption_Box_Y = { 750, 750 };
+		public int[] PlayOption_Box_Section_Y = { 0, 72, 118 };
+		public int[] PlayOption_Name_XY_Diff = { -150, -2 };
+		public int[] PlayOption_List_XY_Diff = { 90, -2 };
 		#endregion
 		#endregion
 		#region SongLoading

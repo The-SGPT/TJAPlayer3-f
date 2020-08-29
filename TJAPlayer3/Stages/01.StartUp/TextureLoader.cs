@@ -192,6 +192,8 @@ namespace TJAPlayer3
 			ChangeSE_Box = TxC(SONGSELECT + DIFFICULITY + @"ChangeSE_Box.png");
 			ChangeSE_Note = TxC(SONGSELECT + DIFFICULITY + @"ChangeSE_Note.png");
 			ChangeSE_Num = TxC(SONGSELECT + DIFFICULITY + @"ChangeSE_Num.png");
+			PlayOption_List = TxC(SONGSELECT + DIFFICULITY + @"PlayOption_List.png");
+			PlayOption_Active = TxC(SONGSELECT + DIFFICULITY + @"PlayOption_Active.png");
 
 			for (int i = 0; i < Difficulty_Bar.Length; i++)
 			{
@@ -732,6 +734,8 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Box);
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Note);
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Num);
+			TJAPlayer3.t安全にDisposeする(ref PlayOption_List);
+			TJAPlayer3.t安全にDisposeする(ref PlayOption_Active);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Anc);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Anc_Same);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Anc_Box);
@@ -1082,7 +1086,9 @@ namespace TJAPlayer3
 			Difficulty_Center_Bar,
 			ChangeSE_Box,
 			ChangeSE_Note,
-			ChangeSE_Num;
+			ChangeSE_Num,
+			PlayOption_List,
+			PlayOption_Active;
 		public CTexture[] Difficulty_Bar = new CTexture[5],
 			Difficulty_Bar_Etc = new CTexture[3],
 			Difficulty_Anc = new CTexture[2],

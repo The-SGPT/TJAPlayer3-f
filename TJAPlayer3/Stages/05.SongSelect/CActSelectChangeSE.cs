@@ -18,12 +18,8 @@ namespace TJAPlayer3
 		}
 		public override void On活性化()
 		{
-			if (!string.IsNullOrEmpty(TJAPlayer3.Skin.Game_Lyric_FontName))
-			{
-				this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
-			}
 			if (this.b活性化してる)
-				return;
+				return;		
 
 			base.On活性化();
 		}
@@ -38,6 +34,8 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
+
+				this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
 				this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
@@ -67,6 +65,10 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
+
+				if (this.Font != null)
+					this.Font.Dispose();
+
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)

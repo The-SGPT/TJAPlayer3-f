@@ -16,8 +16,7 @@ namespace TJAPlayer3
 		public Eパネル種別 eパネル種別;
 		public enum Eパネル種別
 		{
-			通常,
-			その他
+			通常
 		}
 
 		public E種別 e種別;

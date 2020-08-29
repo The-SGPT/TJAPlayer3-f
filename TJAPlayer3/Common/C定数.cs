@@ -109,7 +109,7 @@ namespace TJAPlayer3
 		RBlue2P = 64,
 		UNKNOWN = 4096
 	}
-	public enum Eランダムモード
+	public enum ERandomMode
 	{
 		OFF,
 		RANDOM,
@@ -205,7 +205,7 @@ namespace TJAPlayer3
 		potato
 	}
 
-	public enum Eステルスモード
+	public enum EStealthMode
 	{
 		OFF = 0,
 		DORON = 1,

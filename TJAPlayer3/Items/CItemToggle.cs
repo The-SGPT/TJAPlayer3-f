@@ -34,20 +34,6 @@ namespace TJAPlayer3
 			: this() {
 			this.t初期化(str項目名, b初期状態, str説明文jp, str説明文en);
 		}
-		public CItemToggle(string str項目名, bool b初期状態, CItemBase.Eパネル種別 eパネル種別)
-			: this()
-		{
-			this.t初期化( str項目名, b初期状態, eパネル種別 );
-		}
-		public CItemToggle(string str項目名, bool b初期状態, CItemBase.Eパネル種別 eパネル種別, string str説明文jp)
-			: this() {
-			this.t初期化(str項目名, b初期状態, eパネル種別, str説明文jp);
-		}
-		public CItemToggle(string str項目名, bool b初期状態, CItemBase.Eパネル種別 eパネル種別, string str説明文jp, string str説明文en)
-			: this() {
-			this.t初期化(str項目名, b初期状態, eパネル種別, str説明文jp, str説明文en);
-		}
-
 
 		// CItemBase 実装
 

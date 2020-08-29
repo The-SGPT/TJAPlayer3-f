@@ -113,7 +113,7 @@ namespace TJAPlayer3
 			public bool b演奏にマウスを使用した;
 			public double dbゲーム型スキル値;
 			public double db演奏型スキル値;
-			public Eランダムモード eRandom;
+			public ERandomMode eRandom;
 			public Eダメージレベル eダメージレベル;
 			public float f譜面スクロール速度;
 			public string Hash;
@@ -152,7 +152,7 @@ namespace TJAPlayer3
 
 			public C演奏記録()
 			{
-				this.eRandom = Eランダムモード.OFF;
+				this.eRandom = ERandomMode.OFF;
 				this.f譜面スクロール速度 = new float();
 				this.f譜面スクロール速度 = 1f;
 				this.n演奏速度分子 = 20;
