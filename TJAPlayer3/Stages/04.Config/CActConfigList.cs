@@ -68,12 +68,12 @@ namespace TJAPlayer3
 
 			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-			this.iSystemReturnToMenu = new CItemBase( "<< Return To Menu", CItemBase.Eパネル種別.その他,
+			this.iSystemReturnToMenu = new CItemBase( "<< Return To Menu",
 				"左側のメニューに戻ります。",
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iSystemReturnToMenu );
 
-			this.iSystemReloadDTX = new CItemBase( "曲データ再読込み", CItemBase.Eパネル種別.通常,
+			this.iSystemReloadDTX = new CItemBase( "曲データ再読込み",
 				"曲データの一覧情報を取得し直します。",
 				"Reload song data." );
 			this.list項目リスト.Add( this.iSystemReloadDTX );
@@ -297,7 +297,7 @@ namespace TJAPlayer3
 			this.list項目リスト.Add( this.iLogOutputLog );
 
 			// #24820 2013.1.3 yyagi
-			this.iSystemSoundType = new CItemList("SoundType", CItemList.Eパネル種別.通常, TJAPlayer3.ConfigIni.nSoundDeviceType,
+			this.iSystemSoundType = new CItemList("SoundType", TJAPlayer3.ConfigIni.nSoundDeviceType,
 				"サウンドの出力方式:\n" +
 				"WASAPI(排他), ASIO, DSound(DirectSound)\n" +
 				"の中からサウンド出力方式を選択\n" +
@@ -349,7 +349,7 @@ namespace TJAPlayer3
 
 			// #24820 2013.1.17 yyagi
 			string[] asiodevs = CEnumerateAllAsioDevices.GetAllASIODevices();
-			this.iSystemASIODevice = new CItemList( "ASIO device", CItemList.Eパネル種別.通常, TJAPlayer3.ConfigIni.nASIODevice,
+			this.iSystemASIODevice = new CItemList( "ASIO device", TJAPlayer3.ConfigIni.nASIODevice,
 				"ASIOデバイス:\n" +
 				"ASIO使用時のサウンドデバイスを\n" +
 				"選択します。\n" +
@@ -470,7 +470,7 @@ namespace TJAPlayer3
 
 
 
-			this.iSystemSkinSubfolder = new CItemList("Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
+			this.iSystemSkinSubfolder = new CItemList("Skin (全体)", nSkinIndex,
 				"スキン切替：\n" +
 				"スキンを切り替えます。\n",
 				//"CONFIGURATIONを抜けると、設定した\n" +
@@ -493,7 +493,7 @@ namespace TJAPlayer3
 			//this.list項目リスト.Add( this.iSystemUseBoxDefSkin );
 
 
-			this.iSystemGoToKeyAssign = new CItemBase( "System Keys", CItemBase.Eパネル種別.通常,
+			this.iSystemGoToKeyAssign = new CItemBase( "System Keys",
 			"システムのキー入力に関する項目を設\n定します。",
 			"Settings for the system key/pad inputs." );
 			this.list項目リスト.Add( this.iSystemGoToKeyAssign );
@@ -511,7 +511,7 @@ namespace TJAPlayer3
 
 			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-			this.iDrumsReturnToMenu = new CItemBase( "<< Return To Menu", CItemBase.Eパネル種別.その他,
+			this.iDrumsReturnToMenu = new CItemBase( "<< Return To Menu",
 				"左側のメニューに戻ります。",
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iDrumsReturnToMenu );
@@ -574,19 +574,19 @@ namespace TJAPlayer3
 				"Set 0 to disable Risky mode." );
 			this.list項目リスト.Add( this.iSystemRisky );
 
-			this.iTaikoRandom1P = new CItemList( "1P Random", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom[0],
+			this.iTaikoRandom1P = new CItemList( "1P Random", (int) TJAPlayer3.ConfigIni.eRandom[0],
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" } );
 			this.list項目リスト.Add( this.iTaikoRandom1P );
 
-			this.iTaikoRandom2P = new CItemList("2P Random", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eRandom[1],
+			this.iTaikoRandom2P = new CItemList("2P Random", (int)TJAPlayer3.ConfigIni.eRandom[1],
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" });
 			this.list項目リスト.Add(this.iTaikoRandom2P);
 
-			this.iTaikoStealthP1 = new CItemList( "1P Stealth", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH[0],
+			this.iTaikoStealthP1 = new CItemList( "1P Stealth", (int) TJAPlayer3.ConfigIni.eSTEALTH[0],
 				"DORON:ドロン\n"+
 				"STEALTH:ステルス",
 				"DORON:Hidden for NoteImage.\n"+
@@ -594,7 +594,7 @@ namespace TJAPlayer3
 				new string[] { "OFF", "DORON", "STEALTH" } );
 			this.list項目リスト.Add( this.iTaikoStealthP1 );
 
-			this.iTaikoStealthP2 = new CItemList("2P Stealth", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eSTEALTH[1],
+			this.iTaikoStealthP2 = new CItemList("2P Stealth", (int)TJAPlayer3.ConfigIni.eSTEALTH[1],
 				"DORON:ドロン\n" +
 				"STEALTH:ステルス",
 				"DORON:Hidden for NoteImage.\n" +
@@ -652,14 +652,14 @@ namespace TJAPlayer3
 			//    "");
 			//this.list項目リスト.Add(this.iTaikoHispeedRandom);
 
-			this.iTaikoDefaultCourse = new CItemList( "DefaultCourse", CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.nDefaultCourse,
+			this.iTaikoDefaultCourse = new CItemList( "DefaultCourse", TJAPlayer3.ConfigIni.nDefaultCourse,
 				"デフォルトで選択される難易度\n" +
 				" \n" +
 				" ",
 				new string[] { "Easy", "Normal", "Hard", "Oni", "Edit" });
 			this.list項目リスト.Add(this.iTaikoDefaultCourse);
 
-			this.iTaikoScoreMode = new CItemList("ScoreMode", CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.nScoreMode,
+			this.iTaikoScoreMode = new CItemList("ScoreMode", TJAPlayer3.ConfigIni.nScoreMode,
 				"スコア計算方法\n" +
 				"TYPE-A: 旧配点\n" +
 				"TYPE-B: 旧筐体配点\n" +
@@ -670,11 +670,11 @@ namespace TJAPlayer3
 				new string[] { "TYPE-A", "TYPE-B", "TYPE-C"});
 			this.list項目リスト.Add(this.iTaikoScoreMode);
 
-			ShinuchiMode1P = new CItemToggle("1PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[0], CItemBase.Eパネル種別.通常,
+			ShinuchiMode1P = new CItemToggle("1PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[0],
 				"真打モードを有効にする。",
 				"Turn on fixed score mode.");
 			this.list項目リスト.Add(this.ShinuchiMode1P);
-			ShinuchiMode2P = new CItemToggle("2PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[1], CItemBase.Eパネル種別.通常,
+			ShinuchiMode2P = new CItemToggle("2PShinuchiMode", TJAPlayer3.ConfigIni.ShinuchiMode[1],
 				"真打モードを有効にする。",
 				"Turn on fixed score mode.");
 			this.list項目リスト.Add(this.ShinuchiMode2P);
@@ -686,7 +686,7 @@ namespace TJAPlayer3
 				"");
 			this.list項目リスト.Add(this.iTaikoBranchGuide);
 
-			this.iTaikoBranchAnime = new CItemList("BranchAnime", CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.nBranchAnime,
+			this.iTaikoBranchAnime = new CItemList("BranchAnime", TJAPlayer3.ConfigIni.nBranchAnime,
 				"譜面分岐時のアニメーション\n" +
 				"TYPE-A: 太鼓7～太鼓14\n" +
 				"TYPE-B: 太鼓15～\n" +
@@ -697,7 +697,7 @@ namespace TJAPlayer3
 				new string[] { "TYPE-A", "TYPE-B" });
 			this.list項目リスト.Add(this.iTaikoBranchAnime);
 
-			this.iTaikoGameMode = new CItemList("GameMode", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eGameMode,
+			this.iTaikoGameMode = new CItemList("GameMode", (int)TJAPlayer3.ConfigIni.eGameMode,
 				"ゲームモード\n" +
 				"(1人プレイ専用)\n" +
 				"TYPE-A: 完走!叩ききりまショー!\n" +
@@ -721,7 +721,7 @@ namespace TJAPlayer3
 				"(SinglePlay Only)");
 			this.list項目リスト.Add( this.iTaikoJudgeCountDisp );
 			
-			this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG", CItemBase.Eパネル種別.通常,
+			this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG",
 				"ドラムのキー入力に関する項目を設\n"+
 				"定します。",
 				"Settings for the drums key/pad inputs." );
@@ -918,7 +918,7 @@ namespace TJAPlayer3
 
 			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-			this.iKeyAssignSystemReturnToMenu = new CItemBase( "<< ReturnTo Menu", CItemBase.Eパネル種別.その他,
+			this.iKeyAssignSystemReturnToMenu = new CItemBase( "<< ReturnTo Menu",
 				"左側のメニューに戻ります。",
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iKeyAssignSystemReturnToMenu );
@@ -938,7 +938,7 @@ namespace TJAPlayer3
 
 			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-			this.iKeyAssignDrumsReturnToMenu = new CItemBase( "<< ReturnTo Menu", CItemBase.Eパネル種別.その他,
+			this.iKeyAssignDrumsReturnToMenu = new CItemBase( "<< ReturnTo Menu",
 				"左側のメニューに戻ります。",
 				"Return to left menu.");
 			this.list項目リスト.Add(this.iKeyAssignDrumsReturnToMenu);
@@ -1326,14 +1326,8 @@ namespace TJAPlayer3
 
 				#region [ 現在の行の項目パネル枠を描画。]
 				//-----------------
-				switch( this.list項目リスト[ nItem ].eパネル種別 )
-				{
-					case CItemBase.Eパネル種別.通常:
-					case CItemBase.Eパネル種別.その他:
-						if ( TJAPlayer3.Tx.Config_ItemBox != null )
-							TJAPlayer3.Tx.Config_ItemBox.t2D描画( TJAPlayer3.app.Device, x, y );
-						break;
-				}
+				if ( TJAPlayer3.Tx.Config_ItemBox != null )
+					TJAPlayer3.Tx.Config_ItemBox.t2D描画( TJAPlayer3.app.Device, x, y );
 				//-----------------
 				#endregion
 				#region [ 現在の行の項目名を描画。]
@@ -1786,10 +1780,10 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
 			//CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
 			TJAPlayer3.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
-			TJAPlayer3.ConfigIni.eRandom[0] = (Eランダムモード)this.iTaikoRandom1P.n現在選択されている項目番号;
-			TJAPlayer3.ConfigIni.eRandom[1] = (Eランダムモード)this.iTaikoRandom2P.n現在選択されている項目番号;
-			TJAPlayer3.ConfigIni.eSTEALTH[0] = (Eステルスモード)this.iTaikoStealthP1.n現在選択されている項目番号;
-			TJAPlayer3.ConfigIni.eSTEALTH[1] = (Eステルスモード)this.iTaikoStealthP2.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eRandom[0] = (ERandomMode)this.iTaikoRandom1P.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eRandom[1] = (ERandomMode)this.iTaikoRandom2P.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eSTEALTH[0] = (EStealthMode)this.iTaikoStealthP1.n現在選択されている項目番号;
+			TJAPlayer3.ConfigIni.eSTEALTH[1] = (EStealthMode)this.iTaikoStealthP2.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.eGameMode = (EGame)this.iTaikoGameMode.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.bJust = this.iTaikoJust.bON;
 			TJAPlayer3.ConfigIni.bJudgeCountDisplay = this.iTaikoJudgeCountDisp.bON;

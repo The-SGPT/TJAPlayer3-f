@@ -27,7 +27,7 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.b風船連打中 = new bool[] { false, false };
+			this.b風船連打中 = new bool[2] { false, false };
 			this.b演奏中 = false;
 
 			// ふうせん系アニメーションの総再生時間は画像枚数 x Tick間隔なので、

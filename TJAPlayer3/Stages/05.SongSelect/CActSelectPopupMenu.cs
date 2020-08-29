@@ -51,12 +51,6 @@ namespace TJAPlayer3
 			this.bIsActivePopupMenu = false;
 		}
 
-
-		protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title )
-		{
-			Initialize( menulist, showAllItems, title, 0 );
-		}
-
 		protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
 		{
 			ConditionallyInitializePrvFont();

@@ -613,7 +613,7 @@ namespace TJAPlayer3
 		public int nウインドウwidth;				// #23510 2010.10.31 yyagi add
 		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
 		public Dictionary<int, string> dicJoystick;
-		public Eランダムモード[] eRandom;
+		public ERandomMode[] eRandom;
 		public Eダメージレベル eダメージレベル;
 		public CKeyAssign KeyAssign;
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
@@ -726,7 +726,7 @@ namespace TJAPlayer3
 		public bool bスクロールモードを上書き = false;
 
 		public bool bHispeedRandom;
-		public Eステルスモード[] eSTEALTH = new Eステルスモード[4];
+		public EStealthMode[] eSTEALTH = new EStealthMode[4];
 		public bool bNoInfo;
 
 		public int nDefaultSongSort;
@@ -985,12 +985,12 @@ namespace TJAPlayer3
 			this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
 			this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
 			this.bログ出力 = true;
-			this.eRandom = new Eランダムモード[2];
+			this.eRandom = new ERandomMode[2];
 			this.n譜面スクロール速度 = new int[2];
 			this.nInputAdjustTimeMs = 0;
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
-			this.eRandom[0] = Eランダムモード.OFF;
-			this.eRandom[1] = Eランダムモード.OFF;
+			this.eRandom[0] = ERandomMode.OFF;
+			this.eRandom[1] = ERandomMode.OFF;
 			this.n譜面スクロール速度[0] = 9;
 			this.n譜面スクロール速度[1] = 9;
 
@@ -1050,8 +1050,8 @@ namespace TJAPlayer3
 			ShowMob = true;
 			ShowPuchiChara = true;
 
-			this.eSTEALTH[0] = Eステルスモード.OFF;
-			this.eSTEALTH[1] = Eステルスモード.OFF;
+			this.eSTEALTH[0] = EStealthMode.OFF;
+			this.eSTEALTH[1] = EStealthMode.OFF;
 			this.bNoInfo = false;
 			
 			//this.bNoMP3Streaming = false;
@@ -2222,19 +2222,19 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "1PTaikoRandom" ) )
 											{
-												this.eRandom[0] = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0] );
+												this.eRandom[0] = (ERandomMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0] );
 											}
 											else if (str3.Equals("2PTaikoRandom"))
 											{
-												this.eRandom[1] = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1] );
+												this.eRandom[1] = (ERandomMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1] );
 											}
 											else if( str3.Equals( "1PTaikoStealth" ) )
 											{
-												this.eSTEALTH[0] = (Eステルスモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH[0] );
+												this.eSTEALTH[0] = (EStealthMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH[0] );
 											}
 											else if (str3.Equals("2PTaikoStealth"))
 											{
-												this.eSTEALTH[1] = (Eステルスモード)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 3, (int)this.eSTEALTH[1]);
+												this.eSTEALTH[1] = (EStealthMode)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 3, (int)this.eSTEALTH[1]);
 											}
 											else if( str3.Equals( "GameMode" ) )
 											{

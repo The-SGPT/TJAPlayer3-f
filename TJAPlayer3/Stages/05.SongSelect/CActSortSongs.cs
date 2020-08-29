@@ -10,8 +10,8 @@ namespace TJAPlayer3
 		public CActSortSongs()
 		{
 			List<CItemBase> lci = new List<CItemBase>();
-			lci.Add( new CItemList( "絶対パス",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
-			lci.Add( new CItemList( "曲名",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
+			lci.Add( new CItemList( "絶対パス", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
+			lci.Add( new CItemList( "曲名", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
 			//lci.Add( new CItemList( "Level",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "99,98,97,...",	"1,2,3,..." } ) );
 			//lci.Add( new CItemList( "Best Rank",	CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "E,D,C,...",		"SS,S,A,..." } ) );
 			//lci.Add( new CItemList( "PlayCount",	CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "10,9,8,...",		"1,2,3,..." } ) );
@@ -20,10 +20,10 @@ namespace TJAPlayer3
 #if TEST_SORTBGM
 			lci.Add( new CItemList( "BPM",			CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "300,200,...",	"70,80,90,..." } ) );
 #endif
-			lci.Add( new CItemList( "ジャンル",			CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "AC15",	"AC8-14" } ) );
-			lci.Add( new CItemList( "戻る",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "", 				"" } ) );
+			lci.Add( new CItemList( "ジャンル", 0, "", "", new string[] { "AC15",	"AC8-14" } ) );
+			lci.Add( new CItemList( "戻る", 0, "", "", new string[] { "", 				"" } ) );
 			
-			base.Initialize( lci, false, "SORT MENU" );
+			base.Initialize( lci, false, "SORT MENU" , 0 );
 		}
 
 

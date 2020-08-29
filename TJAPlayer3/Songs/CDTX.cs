@@ -1058,41 +1058,23 @@ namespace TJAPlayer3
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
 			Dan_C = new Dan_C[3];
 		}
-		public CDTX(string str全入力文字列)
-			: this()
-		{
-			this.On活性化();
-			this.t入力_全入力文字列から(str全入力文字列);
-		}
 		public CDTX(string strファイル名, bool bヘッダのみ)
 			: this()
 		{
 			this.On活性化();
 			this.t入力(strファイル名, bヘッダのみ);
 		}
-		public CDTX(string str全入力文字列, double db再生速度, int nBGMAdjust)
-			: this()
-		{
-			this.On活性化();
-			this.t入力_全入力文字列から(str全入力文字列, str全入力文字列, db再生速度, nBGMAdjust);
-		}
 		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust)
 			: this()
 		{
 			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, 0, false);
+			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, false);
 		}
-		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion)
+		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
 			: this()
 		{
 			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nReadVersion, 0, false);
-		}
-		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion, int nPlayerSide, bool bSession)
-			: this()
-		{
-			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nReadVersion, nPlayerSide, bSession);
+			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nPlayerSide, bSession);
 		}
 
 
@@ -1287,7 +1269,7 @@ namespace TJAPlayer3
 			string str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			return new string(new char[] { str[n / 36], str[n % 36] });
 		}
-		public void t太鼓チップのランダム化(Eランダムモード eRandom)
+		public void t太鼓チップのランダム化(ERandomMode eRandom)
 		{
 			//2016.02.11 kairera0467
 			//なんだよこのクソ実装は(怒)
@@ -1295,7 +1277,7 @@ namespace TJAPlayer3
 
 			switch (eRandom)
 			{
-				case Eランダムモード.MIRROR:
+				case ERandomMode.MIRROR:
 					foreach (var chip in this.listChip)
 					{
 						switch (chip.nチャンネル番号)
@@ -1317,7 +1299,7 @@ namespace TJAPlayer3
 						}
 					}
 					break;
-				case Eランダムモード.RANDOM:
+				case ERandomMode.RANDOM:
 					foreach (var chip in this.listChip)
 					{
 						int n = rnd.Next(50);
@@ -1344,7 +1326,7 @@ namespace TJAPlayer3
 						}
 					}
 					break;
-				case Eランダムモード.SUPERRANDOM:
+				case ERandomMode.SUPERRANDOM:
 					foreach (var chip in this.listChip)
 					{
 						int n = rnd.Next(80);
@@ -1371,7 +1353,7 @@ namespace TJAPlayer3
 						}
 					}
 					break;
-				case Eランダムモード.HYPERRANDOM:
+				case ERandomMode.HYPERRANDOM:
 					foreach (var chip in this.listChip)
 					{
 						int n = rnd.Next(100);
@@ -1398,11 +1380,11 @@ namespace TJAPlayer3
 						}
 					}
 					break;
-				case Eランダムモード.OFF:
+				case ERandomMode.OFF:
 				default:
 					break;
 			}
-			if (eRandom != Eランダムモード.OFF)
+			if (eRandom != ERandomMode.OFF)
 			{
 				#region[ list作成 ]
 				//ひとまずチップだけのリストを作成しておく。
@@ -1537,158 +1519,101 @@ namespace TJAPlayer3
 
 		public void t入力(string strファイル名, bool bヘッダのみ)
 		{
-			this.t入力(strファイル名, bヘッダのみ, 1.0, 0, 0, 0, false);
+			this.t入力(strファイル名, bヘッダのみ, 1.0, 0, 0, false);
 		}
-		public void t入力(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion, int nPlayerSide, bool bSession)
+		public void t入力(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
 		{
 			this.bヘッダのみ = bヘッダのみ;
 			this.strファイル名の絶対パス = Path.GetFullPath(strファイル名);
 			this.strファイル名 = Path.GetFileName(this.strファイル名の絶対パス);
 			this.strフォルダ名 = Path.GetDirectoryName(this.strファイル名の絶対パス) + @"\";
 			//if ( this.e種別 != E種別.SMF )
+
+			try
 			{
-				try
+				this.EXTENSION = Path.GetExtension(strファイル名);
+				this.nPlayerSide = nPlayerSide;
+				this.bSession譜面を読み込む = bSession;
+				if (Path.GetExtension(strファイル名).Equals(".tci"))
 				{
-					this.EXTENSION = Path.GetExtension(strファイル名);
-					this.nPlayerSide = nPlayerSide;
-					this.bSession譜面を読み込む = bSession;
-					if (nReadVersion != 0)
-					{
-						//DTX方式
+					Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+					string tcistr = reader.ReadToEnd();
+					reader.Close();
 
-						//DateTime timeBeginLoad = DateTime.Now;
-						//TimeSpan span;
-						string[] files = Directory.GetFiles(this.strフォルダ名, "*.tja");
+					this.t入力tci(tcistr, db再生速度, nBGMAdjust);
 
-						Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
-						StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-						string str2 = reader.ReadToEnd();
-						reader.Close();
-
-						Encoding filesenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(files[0]);
-						//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
-						StreamReader reader2 = new StreamReader(files[0], filesenc);
-						string str3 = reader2.ReadToEnd();
-						reader2.Close();
-
-						//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-						//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
-						this.t入力_全入力文字列から(str2, str3, db再生速度, nBGMAdjust); 
-
-					}
-					else
-					{
-						if (Path.GetExtension(strファイル名).Equals(".tci"))
-						{
-							Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
-							StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-							string tcistr = reader.ReadToEnd();
-							reader.Close();
-
-							this.t入力tci(tcistr, db再生速度, nBGMAdjust);
-
-						}
-						else if (Path.GetExtension(strファイル名).Equals(".tcm"))
-						{
-							Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
-							StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-							string tcistr = reader.ReadToEnd();
-							reader.Close();
-
-							this.t入力tcm(tcistr, db再生速度, nBGMAdjust);
-
-						}
-						else
-						{
-							//次郎方式
-
-							//DateTime timeBeginLoad = DateTime.Now;
-							//TimeSpan span;
-
-							Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
-
-							StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-							string str2 = reader.ReadToEnd();
-							reader.Close();
-
-							//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
-							//StreamReader reader2 = new StreamReader( strファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
-							//string str3 = reader2.ReadToEnd();
-							//reader2.Close();
-							string str3 = str2;
-
-							//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-							//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
-
-							this.t入力_全入力文字列から(str2, str3, db再生速度, nBGMAdjust);
-						}
-					}
 				}
-				catch (Exception ex)
+				else if (Path.GetExtension(strファイル名).Equals(".tcm"))
 				{
-					//MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
-					Trace.TraceError("おや?エラーが出たようです。お兄様。");
-					Trace.TraceError(ex.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (79ff8639-9b3c-477f-bc4a-f2eea9784860)");
+					Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+					string tcistr = reader.ReadToEnd();
+					reader.Close();
+
+					this.t入力tcm(tcistr, db再生速度, nBGMAdjust);
+
 				}
+				else
+				{
+					//次郎方式
+					Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+
+					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
+					string str2 = reader.ReadToEnd();
+					reader.Close();
+
+					this.t入力_全入力文字列から(str2, db再生速度, nBGMAdjust);
+				}
+
+			}
+			catch (Exception ex)
+			{
+				//MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
+				Trace.TraceError("おや?エラーが出たようです。お兄様。");
+				Trace.TraceError(ex.ToString());
+				Trace.TraceError("例外が発生しましたが処理を継続します。 (79ff8639-9b3c-477f-bc4a-f2eea9784860)");
+
 			}
 		}
-		public void t入力_全入力文字列から(string str全入力文字列)
-		{
-			this.t入力_全入力文字列から(str全入力文字列, str全入力文字列, 1.0, 0);
-		}
-		public void t入力_全入力文字列から(string str全入力文字列, string str1, double db再生速度, int nBGMAdjust)
+		public void t入力_全入力文字列から( string str1, double db再生速度, int nBGMAdjust)
 		{
 			//DateTime timeBeginLoad = DateTime.Now;
 			//TimeSpan span;
 
-			if (!string.IsNullOrEmpty(str全入力文字列))
+			if (!string.IsNullOrEmpty(str1))
 			{
-				#region [ 改行カット ]
+				#region [ 入力/行解析 ]
+				#region[初期化]
 				this.db再生速度 = db再生速度;
-				str全入力文字列 = str全入力文字列.Replace(Environment.NewLine, "\n");
-				str全入力文字列 = str全入力文字列.Replace('\t', ' ');
-				str全入力文字列 = str全入力文字列 + "\n";
-				#endregion
-				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-				//Trace.TraceInformation( "改行カット時間:           {0}", span.ToString() );
-				//timeBeginLoad = DateTime.Now;
-				#region [ 初期化 ]
 				for (int j = 0; j < 36 * 36; j++)
 				{
 					this.n無限管理SIZE[j] = -j;
 				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
-				#endregion
-				#region [ 入力/行解析 ]
-				#region[初期化]
 				this.dbNowScroll = 1.0;
 				this.dbNowSCROLL_Normal = new double[] { 1.0, 0.0 };
 				this.dbNowSCROLL_Expert = new double[] { 1.0, 0.0 };
 				this.dbNowSCROLL_Master = new double[] { 1.0, 0.0 };
 				this.n現在のコース = 0;
 				#endregion
-				CharEnumerator ce = str全入力文字列.GetEnumerator();
-				if (ce.MoveNext())
+				if (this.listChip.Count == 0)
 				{
-					if (this.listChip.Count == 0)
+					try
 					{
-						try
-						{
-							this.t入力_V4(str1);
-						}
-						catch (Exception e)
-						{
-							Trace.WriteLine(e.ToString());
-						}
+						this.t入力_V4(str1);
 					}
-
-					#endregion
-
-					チップについての共通部分(nBGMAdjust);
-
+					catch (Exception e)
+					{
+						Trace.WriteLine(e.ToString());
+					}
 				}
+
+				#endregion
+
+				チップについての共通部分(nBGMAdjust);
+				
 			}
 		}
 
@@ -5759,7 +5684,11 @@ namespace TJAPlayer3
 			{
 				//this.TITLE = strCommandParam;
 				this.TITLE = InputText.Substring(InputText.IndexOf(":") + 1);
-				//tbTitle.Text = strCommandParam;
+                //tbTitle.Text = strCommandParam;
+                if (InputText.Contains("\n"))
+                {
+					Debug.Print("");
+                }
 			}
 			if (strCommandName.Equals("SUBTITLE"))
 			{

@@ -60,21 +60,10 @@ namespace TJAPlayer3
 
 				var strフォルダ名 = Path.GetDirectoryName(strDTXファイルパス) + @"\";
 
-				if (File.Exists(strフォルダ名 + @"set.def"))
-				{
-					var cdtx = new CDTX(strDTXファイルパス, true, 1.0, 0, 1);
-
-					this.str曲タイトル = cdtx.TITLE;
-					this.strサブタイトル = cdtx.SUBTITLE;
-
-					cdtx.On非活性化();
-				}
-				else
-				{
-					var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
-					this.str曲タイトル = 譜面情報.タイトル;
-					this.strサブタイトル = 譜面情報.strサブタイトル;
-				}
+				var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
+				this.str曲タイトル = 譜面情報.タイトル;
+				this.strサブタイトル = 譜面情報.strサブタイトル;
+				
 				
 
 				// For the moment, detect that we are performing
@@ -330,15 +319,9 @@ namespace TJAPlayer3
 
 						//if( CDTXMania.DTX == null )
 						{
-							TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 0, true );
+							TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, true );
 							if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
-							if( File.Exists( TJAPlayer3.DTX[0].strフォルダ名 + @"\\set.def" ) )
-							{
-								TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
-								if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-									TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, 1, true );
-							}
+								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 1, true );
 
 							Trace.TraceInformation( "----曲情報-----------------" );
 							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );
