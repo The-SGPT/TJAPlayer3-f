@@ -546,7 +546,21 @@ namespace TJAPlayer3
 							#region [ ESC ]
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))
 							{
-								難易度から選曲へ戻る();
+								if (this.actChangeSE.bIsActive[0])
+									this.actChangeSE.tDeativateChangeSE(0);
+								else if (this.actPlayOption.bIsActive[0])
+									this.actPlayOption.tDeativatePopupMenu(0);
+								else if (this.act難易度選択画面.選択済み[0] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								{
+									if (this.actChangeSE.bIsActive[1])
+										this.actChangeSE.tDeativateChangeSE(1);
+									else if (this.actPlayOption.bIsActive[1])
+										this.actPlayOption.tDeativatePopupMenu(1);
+									else
+										難易度から選曲へ戻る();
+								}
+								else
+									難易度から選曲へ戻る();
 							}
 							#endregion
 							#region [ Shift-F1: CONFIG画面 ]
