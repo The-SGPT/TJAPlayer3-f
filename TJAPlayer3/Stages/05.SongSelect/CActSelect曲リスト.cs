@@ -238,6 +238,16 @@ namespace TJAPlayer3
 			}
 		}
 
+		public void RandomSelect(C曲リストノード c曲) {
+			this.r現在選択中の曲 = c曲;
+			this.t現在選択中の曲を元に曲バーを再構成する();
+
+			this.t選択曲が変更された(false);                                 // #27648 項目数変更を反映させる
+            this.b選択曲が変更された = true;
+
+			TJAPlayer3.stage選曲.t選択曲変更通知();
+		}
+
 		public bool tBOXに入る()
 		{
 			

@@ -931,10 +931,7 @@ namespace TJAPlayer3
 												}
 												break;
 											case C曲リストノード.Eノード種別.RANDOM:
-												if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
-													TJAPlayer3.Skin.sound曲決定音.t再生する();
-												else
-													TJAPlayer3.Skin.sound決定音.t再生する();
+												TJAPlayer3.Skin.sound決定音.t再生する();
 												this.t曲をランダム選択する();
 												break;
 										}
@@ -1313,33 +1310,8 @@ namespace TJAPlayer3
 					Trace.TraceInformation( builder.ToString() );
 				}
 			}
-			this.r確定された曲 = song.listランダム用ノードリスト[ song.stackランダム演奏番号.Pop() ];
-			this.n確定された曲の難易度[0] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲, 0);
-			this.n確定された曲の難易度[1] = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲, 1);
-			this.r確定されたスコア = this.r確定された曲.arスコア;
-			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
-			this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
-			this.actFOtoNowLoading.tフェードアウト開始();					// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
-			base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト;
-			if( TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力 )
-			{
-				int[] numArray2 = song.stackランダム演奏番号.ToArray();
-				StringBuilder builder2 = new StringBuilder( 0x400 );
-				builder2.Append( "ランダムインデックスリスト残り: " );
-				if( numArray2.Length > 0 )
-				{
-					for( int n = 0; n < numArray2.Length; n++ )
-					{
-						builder2.Append( string.Format( "{0} ", numArray2[ n ] ) );
-					}
-				}
-				else
-				{
-					builder2.Append( "(なし)" );
-				}
-				Trace.TraceInformation( builder2.ToString() );
-			}
-			TJAPlayer3.Skin.bgm選曲画面.t停止する();
+			this.act曲リスト.RandomSelect(song.listランダム用ノードリスト[song.stackランダム演奏番号.Pop()]);
+
 		}
 		private void t曲を選択する()
 		{

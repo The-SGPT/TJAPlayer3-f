@@ -2730,7 +2730,6 @@ namespace TJAPlayer3
 							break;
 					}
 				}
-#if DEBUG
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F6 ) )
 				{
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
@@ -2739,7 +2738,6 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 				}
-#endif
 			}
 			if( !this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE && ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
