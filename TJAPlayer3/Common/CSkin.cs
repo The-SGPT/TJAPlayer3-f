@@ -40,6 +40,8 @@ namespace TJAPlayer3
 		SOUND特訓スクロール,
 		SOUND選曲スキップ,
 		SOUND音色選択,
+		SOUND難易度選択,
+		SOUND自己ベスト更新,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -333,6 +335,8 @@ namespace TJAPlayer3
 		public Cシステムサウンド sound特訓スクロール音 = null;
 		public Cシステムサウンド sound選曲スキップ音 = null;
 		public Cシステムサウンド sound音色選択音 = null;
+		public Cシステムサウンド sound難易度選択音 = null;
+		public Cシステムサウンド sound自己ベスト更新音 = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -426,6 +430,12 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.SOUND音色選択:
 						return this.sound音色選択音;
+
+					case Eシステムサウンド.SOUND難易度選択:
+						return this.sound難易度選択音;
+
+					case Eシステムサウンド.SOUND自己ベスト更新:
+						return this.sound自己ベスト更新音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -516,6 +526,12 @@ namespace TJAPlayer3
 
 					case 24:
 						return this.sound音色選択音;
+
+					case 25:
+						return this.sound難易度選択音;
+
+					case 26:
+						return this.sound自己ベスト更新音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -728,6 +744,8 @@ namespace TJAPlayer3
 			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds\Scroll.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds\Skip.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound音色選択音 = new Cシステムサウンド(@"Sounds\Timbre.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound難易度選択音 = new Cシステムサウンド(@"Sounds\DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound自己ベスト更新音 = new Cシステムサウンド(@"Sounds\NewRecord.ogg", false, false, ESoundGroup.Voice);
 
 			ReloadSkin();
 			tReadSkinConfig();

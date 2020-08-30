@@ -1134,11 +1134,10 @@ namespace TJAPlayer3
 							{
 								if( TJAPlayer3.ConfigIni.bAuto先生の連打 )
 								{
-									if(((CSound管理.rc演奏用タイマ.n現在時刻 * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > ( pChip.n発声時刻ms + ( 1000.0 / 15.0 ) * pChip.nRollCount ) )
+									if(((CSound管理.rc演奏用タイマ.n現在時刻 * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > ( pChip.n発声時刻ms + ( TJAPlayer3.ConfigIni.nAuto先生の連打速度 ) * pChip.nRollCount ) )
 									{
 										if( this.nHand[ nPlayer ] == 0 )
 											this.nHand[ nPlayer ]++;
-										else
 											this.nHand[ nPlayer ] = 0;
 
 										TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
