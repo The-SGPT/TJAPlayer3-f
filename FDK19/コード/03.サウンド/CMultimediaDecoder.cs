@@ -10,7 +10,7 @@ namespace FDK
 {
 	unsafe class CMultimediaDecoder
 	{
-		public int Decode(string filename, out byte[] buffer,
+		public int AudioDecode(string filename, out byte[] buffer,
 			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx)
 		{
 			if (!File.Exists(filename))
@@ -136,10 +136,6 @@ namespace FDK
 			Debug.Print("Frames=" + nFrame + "\n" + "Samples=" + nSample);
 			buffer = buflist.ToArray();
 			buflist.Clear();
-			using (BinaryWriter writer = new BinaryWriter(File.Open(@"D:\test.wav", FileMode.Create)))
-			{
-				writer.Write(buffer);
-			}
 
 			nPCMデータの先頭インデックス = 0;
 			totalPCMSize = buffer.Length;
