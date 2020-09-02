@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
 using SharpDX;
 
 namespace SampleFramework
@@ -212,6 +213,13 @@ namespace SampleFramework
 			Window.Paint += Window_Paint;
 
 			GraphicsDeviceManager = new GraphicsDeviceManager(this);
+#if DEBUG
+			FFmpeg.AutoGen.ffmpeg.RootPath = Environment.CurrentDirectory + @"\dll\ffmpeg\";
+#else
+			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\dll\ffmpeg\";
+#endif
+			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
+				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");
 		}
 
 		/// <summary>

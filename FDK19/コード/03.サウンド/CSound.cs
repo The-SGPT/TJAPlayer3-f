@@ -882,68 +882,6 @@ namespace FDK
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-			if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
-				 String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )	// caselessで文字列比較
-			{
-				tDirectSoundサウンドを作成するXaOggMp3( strファイル名, DirectSound );
-				return;
-			}
-
-			// すべてのファイルを DirectShow でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ DirectShow でデコードする。
-
-			byte[] byArrWAVファイルイメージ = null;
-			bool bファイルがWAVかつPCMフォーマットである = true;
-
-			{
-				#region [ ファイルがWAVかつPCMフォーマットか否か調べる。]
-				//-----------------
-				try
-				{
-					Stream str = File.Open(strファイル名, FileMode.Open, FileAccess.Read);
-					using ( var ws = new SoundStream( str ) )
-					{
-						if ( ws.Format.Encoding != WaveFormatEncoding.Pcm )
-							bファイルがWAVかつPCMフォーマットである = false;
-					}
-				}
-				catch
-				{
-					bファイルがWAVかつPCMフォーマットである = false;
-				}
-				//-----------------
-				#endregion
-
-				if ( bファイルがWAVかつPCMフォーマットである )
-				{
-					#region [ ファイルを読み込んで byArrWAVファイルイメージへ格納。]
-					//-----------------
-					var fs = File.Open( strファイル名, FileMode.Open, FileAccess.Read );
-					var br = new BinaryReader( fs );
-
-					byArrWAVファイルイメージ = new byte[ fs.Length ];
-					br.Read( byArrWAVファイルイメージ, 0, (int) fs.Length );
-
-					br.Close();
-					fs.Close();
-					//-----------------
-					#endregion
-				}
-				else
-				{
-					#region [ DirectShow でデコード変換し、 byArrWAVファイルイメージへ格納。]
-					//-----------------
-					CDStoWAVFileImage.t変換( strファイル名, out byArrWAVファイルイメージ );
-					//-----------------
-					#endregion
-				}
-			}
-
-			// あとはあちらで。
-
-			this.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, DirectSound );
-		}
-		public void tDirectSoundサウンドを作成するXaOggMp3( string strファイル名, DirectSound DirectSound )
-		{
 			try
 			{
 				this.e作成方法 = E作成方法.ファイルから;
@@ -969,8 +907,7 @@ namespace FDK
 			catch (Exception e)
 			{
 				string s = Path.GetFileName(strファイル名);
-				Trace.TraceWarning($"Failed to create DirectSound buffer by using BASS.DLL.({s}: {e.Message})");
-				Trace.TraceWarning("Retrying by using DirectShow decoder.");
+				Trace.TraceWarning($"Failed to create DirectSound buffer by using libav({s}: {e.Message})");
 			}
 			// すべてのファイルを DirectShow でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ DirectShow でデコードする。
 
@@ -1909,7 +1846,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strファイル名 ) );
 
 			//丸投げ
-			int rtn = sounddecoder.Decode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx);
+			int rtn = sounddecoder.AudioDecode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx);
 
 			//正常にDecodeできなかった場合、例外
 			if ( rtn < 0 )
