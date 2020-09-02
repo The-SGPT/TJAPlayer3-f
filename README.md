@@ -83,8 +83,18 @@ VisualStudio Community 2019
 * SharpDX
 * Newtonsoft.Json
 * FFmpeg.AutoGen
+* FFmpeg
 
 ライセンスは「Test/Licenses」に追加いたしました。
+
+## FFmpegについて
+このリポジトリにはあらかじめFFmpegライブラリが同梱されています。  
+同梱しているライブラリは[Zeranoe FFmpeg](http://ffmpeg.zeranoe.com/builds/)からのx86ライブラリです。  
+DLL群のみでもよいのですが、デバッグ用に残しておきたいので、exeも同梱しています(READMEも残してあります)。  
+バージョンは4.2.3です。(2020/09/03現在)
+
+DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
+LGPLやGPLに気を付けてくださいね。
 
 # 以下AioiLight様作成のReadmeです
 
