@@ -10,8 +10,13 @@ namespace FDK
 {
 	unsafe class CMultimediaDecoder
 	{
+		public CMultimediaDecoder() {
+			string i = ffmpeg.av_version_info();
+			Debug.Print("FFmpeg Version=" + i);
+		}
+
 		public int AudioDecode(string filename, out byte[] buffer,
-			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx)
+			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
 		{
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");
@@ -67,77 +72,107 @@ namespace FDK
 			int ret;
 			int nFrame = 0;
 			int nSample = 0;
+			int pos = 0;
 
-			List<byte> buflist = new List<byte>();
-
-			while (true)
+			using (MemoryStream ms = new MemoryStream())
 			{
-				if (ffmpeg.av_read_frame(format_context, &packet) < 0)
+				using (BinaryWriter bw = new BinaryWriter(ms))
 				{
-					Trace.TraceError("av_read_frame eof or error.\n");
-					break; // eof or error
-				}
-				if (packet.stream_index == audio_stream->index)
-				{
-					if (ffmpeg.avcodec_send_packet(codec_context, &packet) < 0)
+					if (enablechunk) 
 					{
-						Trace.TraceError("avcodec_send_packet error\n");
+						bw.Write(new byte[] { 0x52, 0x49, 0x46, 0x46 });        // 'RIFF'
+						bw.Write((UInt32)0);                                    // ファイルサイズ - 8 [byte]；今は不明なので後で上書きする。
+						bw.Write(new byte[] { 0x57, 0x41, 0x56, 0x45 });        // 'WAVE'
+						bw.Write(new byte[] { 0x66, 0x6D, 0x74, 0x20 });        // 'fmt '
+						bw.Write((UInt32)(16));  // fmtチャンクのサイズ[byte]
+						bw.Write((UInt16)1);					             // フォーマットID（リニアPCMなら1）
+						bw.Write((UInt16)codec_context->channels);                     // チャンネル数
+						bw.Write((UInt32)codec_context->sample_rate);                   // サンプリングレート
+						bw.Write((UInt32)(16 / 8 * codec_context->channels * codec_context->sample_rate));            // データ速度
+						bw.Write((UInt16)(codec_context->channels * 16 / 8));                   // ブロックサイズ
+						bw.Write((UInt16)16);                    // サンプルあたりのビット数
+						bw.Write(new byte[] { 0x64, 0x61, 0x74, 0x61 });        // 'data'
+						pos = (int)ms.Position;
 					}
-					if ((ret = ffmpeg.avcodec_receive_frame(codec_context, frame)) < 0)
+					while (true)
 					{
-						if (ret != ffmpeg.AVERROR(ffmpeg.EAGAIN))
+						if (ffmpeg.av_read_frame(format_context, &packet) < 0)
 						{
-							Trace.TraceError("avcodec_receive_frame error.\n");
-							break;
+							Trace.TraceError("av_read_frame eof or error.\n");
+							break; // eof or error
 						}
-					}
-					else
-					{
-						if (swr == null)
+						if (packet.stream_index == audio_stream->index)
 						{
-							swr = ffmpeg.swr_alloc();
-							if (swr == null)
+							if (ffmpeg.avcodec_send_packet(codec_context, &packet) < 0)
 							{
-								Trace.TraceError("swr_alloc error.\n");
-								break;
+								Trace.TraceError("avcodec_send_packet error\n");
 							}
-							ffmpeg.av_opt_set_int(swr, "in_channel_layout", (long)frame->channel_layout, 0);
-							ffmpeg.av_opt_set_int(swr, "out_channel_layout", (long)frame->channel_layout, 0);
-							ffmpeg.av_opt_set_int(swr, "in_sample_rate", frame->sample_rate, 0);
-							ffmpeg.av_opt_set_int(swr, "out_sample_rate", frame->sample_rate, 0);
-							ffmpeg.av_opt_set_sample_fmt(swr, "in_sample_fmt", (AVSampleFormat)frame->format, 0);
-							ffmpeg.av_opt_set_sample_fmt(swr, "out_sample_fmt", AVSampleFormat.AV_SAMPLE_FMT_S16, 0);
-							ret = ffmpeg.swr_init(swr);
-							if (ret < 0)
+							if ((ret = ffmpeg.avcodec_receive_frame(codec_context, frame)) < 0)
 							{
-								Trace.TraceError("swr_init error.\n");
-								break;
+								if (ret != ffmpeg.AVERROR(ffmpeg.EAGAIN))
+								{
+									Trace.TraceError("avcodec_receive_frame error.\n");
+									break;
+								}
 							}
-							swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
-							swr_buf = (byte*)ffmpeg.av_malloc((ulong)swr_buf_len);
+							else
+							{
+								if (swr == null)
+								{
+									swr = ffmpeg.swr_alloc();
+									if (swr == null)
+									{
+										Trace.TraceError("swr_alloc error.\n");
+										break;
+									}
+									ffmpeg.av_opt_set_int(swr, "in_channel_layout", (long)frame->channel_layout, 0);
+									ffmpeg.av_opt_set_int(swr, "out_channel_layout", (long)frame->channel_layout, 0);
+									ffmpeg.av_opt_set_int(swr, "in_sample_rate", frame->sample_rate, 0);
+									ffmpeg.av_opt_set_int(swr, "out_sample_rate", frame->sample_rate, 0);
+									ffmpeg.av_opt_set_sample_fmt(swr, "in_sample_fmt", (AVSampleFormat)frame->format, 0);
+									ffmpeg.av_opt_set_sample_fmt(swr, "out_sample_fmt", AVSampleFormat.AV_SAMPLE_FMT_S16, 0);
+									ret = ffmpeg.swr_init(swr);
+									if (ret < 0)
+									{
+										Trace.TraceError("swr_init error.\n");
+										break;
+									}
+									swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
+									swr_buf = (byte*)ffmpeg.av_malloc((ulong)swr_buf_len);
+								}
+
+								nFrame++;
+								nSample += frame->nb_samples;
+
+								//正常
+								ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
+
+								for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+								{
+									bw.Write(swr_buf[index]);
+								}
+
+							}
 						}
-
-						nFrame++;
-						nSample += frame->nb_samples;
-
-						//正常
-						ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
-
-						for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++) 
-						{
-							buflist.Add(swr_buf[index]);
-						}
-
+						ffmpeg.av_packet_unref(&packet);
 					}
+					if (enablechunk)
+					{
+						bw.Seek(4, SeekOrigin.Begin);
+						bw.Write((UInt32)ms.Length - 8);                    // ファイルサイズ - 8 [byte]
+
+						bw.Seek(pos, SeekOrigin.Begin);
+						bw.Write((UInt32)ms.Length - (pos + 4)); // dataチャンクサイズ [byte]
+					}
+
+					bw.Close();
+
+					Debug.Print("Frames=" + nFrame + "\n" + "Samples=" + nSample);
+					buffer = ms.ToArray();
 				}
-				ffmpeg.av_packet_unref(&packet);
 			}
 
-			Debug.Print("Frames=" + nFrame + "\n" + "Samples=" + nSample);
-			buffer = buflist.ToArray();
-			buflist.Clear();
-
-			nPCMデータの先頭インデックス = 0;
+			nPCMデータの先頭インデックス = pos;
 			totalPCMSize = buffer.Length;
 			wfx = new CWin32.WAVEFORMATEX(1, (ushort)codec_context->channels, (uint)codec_context->sample_rate, (uint)(16 / 8 * codec_context->channels * codec_context->sample_rate), (ushort)(codec_context->channels * 16 / 8), 16);
 

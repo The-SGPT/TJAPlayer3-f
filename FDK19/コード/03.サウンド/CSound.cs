@@ -894,7 +894,7 @@ namespace FDK
 				int nPCMサイズbyte;
 				CWin32.WAVEFORMATEX cw32wfx;
 				tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx);
+				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
 
 				wfx = WaveFormat.CreateCustomFormat((WaveFormatEncoding)cw32wfx.wFormatTag, (int)cw32wfx.nSamplesPerSec, cw32wfx.nChannels, (int)cw32wfx.nAvgBytesPerSec, cw32wfx.nBlockAlign, cw32wfx.wBitsPerSample);
 
@@ -1639,8 +1639,13 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			// BASSファイルストリームを作成。
 
 			this._hBassStream = Bass.BASS_StreamCreateFile( strファイル名, 0, 0, flags );
-			if( this._hBassStream == 0 )
-				throw new Exception( string.Format( "サウンドストリームの生成に失敗しました。(BASS_StreamCreateFile)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
+			if (this._hBassStream == 0) 
+			{
+				//ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
+				tオンメモリ方式でデコードする(strファイル名, out byArrWAVファイルイメージ, out _, out _, out _, true);
+				tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
+				return;
+			}
 			
 			nBytes = Bass.BASS_ChannelGetLength( this._hBassStream );
 			
@@ -1835,8 +1840,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		}
 
 		#region [ tオンメモリ方式でデコードする() ]
-		public void tオンメモリ方式でデコードする( string strファイル名, out byte[] buffer,
-			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx )
+		public void tオンメモリ方式でデコードする(string strファイル名, out byte[] buffer,
+			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
 		{
 			nPCMデータの先頭インデックス = 0;
 
@@ -1846,7 +1851,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strファイル名 ) );
 
 			//丸投げ
-			int rtn = sounddecoder.AudioDecode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx);
+			int rtn = sounddecoder.AudioDecode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx, enablechunk);
 
 			//正常にDecodeできなかった場合、例外
 			if ( rtn < 0 )
