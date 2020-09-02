@@ -441,7 +441,6 @@ namespace FDK
 			public uint nAvgBytesPerSec;
 			public ushort nBlockAlign;
 			public ushort wBitsPerSample;
-			public ushort cbSize;
 
 			public WAVEFORMATEX(
 				ushort _wFormatTag,
@@ -449,8 +448,8 @@ namespace FDK
 				uint _nSamplesPerSec,
 				uint _nAvgBytesPerSec,
 				ushort _nBlockAlign,
-				ushort _wBitsPerSample,
-				ushort _cbSize) : this()
+				ushort _wBitsPerSample)
+				: this()
 			{
 				wFormatTag = _wFormatTag;
 				nChannels = _nChannels;
@@ -458,7 +457,6 @@ namespace FDK
 				nAvgBytesPerSec = _nAvgBytesPerSec;
 				nBlockAlign = _nBlockAlign;
 				wBitsPerSample = _wBitsPerSample;
-				cbSize = _cbSize;
 			}
 		}
 		[StructLayout( LayoutKind.Sequential )]

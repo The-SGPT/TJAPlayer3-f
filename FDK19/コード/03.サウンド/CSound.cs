@@ -956,7 +956,7 @@ namespace FDK
 				int nPCMサイズbyte;
 				CWin32.WAVEFORMATEX cw32wfx;
 				tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
+				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx);
 
 				wfx = WaveFormat.CreateCustomFormat((WaveFormatEncoding)cw32wfx.wFormatTag, (int)cw32wfx.nSamplesPerSec, cw32wfx.nChannels, (int)cw32wfx.nAvgBytesPerSec, cw32wfx.nBlockAlign, cw32wfx.wBitsPerSample);
 
@@ -1899,111 +1899,24 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 		#region [ tオンメモリ方式でデコードする() ]
 		public void tオンメモリ方式でデコードする( string strファイル名, out byte[] buffer,
-			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx,
-			bool bIntegrateWaveHeader )
+			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx )
 		{
 			nPCMデータの先頭インデックス = 0;
-			//int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
 
-			SoundDecoder sounddecoder;
-			if (String.Compare(Path.GetExtension(strファイル名), ".ogg", true) == 0)
-			{
-				sounddecoder = new Cogg();
-			}
-			else if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 )
-			{
-				sounddecoder = new Cmp3();
-			}
-			else
-			{
-				throw new NotImplementedException();
-			}
+			CMultimediaDecoder sounddecoder = new CMultimediaDecoder();
 
 			if ( !File.Exists( strファイル名 ) )
-			{
-				throw new Exception( string.Format( "ファイルが見つかりませんでした。({0})", strファイル名 ) );
-			}
-			int nHandle = sounddecoder.Open( strファイル名 );
-			if ( nHandle < 0 )
-			{
-				throw new Exception( string.Format( "Open() に失敗しました。({0})({1})", nHandle, strファイル名 ) );
-			}
-			wfx = new CWin32.WAVEFORMATEX();
-			if ( sounddecoder.GetFormat( nHandle, ref wfx ) < 0 )
-			{
-				sounddecoder.Close( nHandle );
-				throw new Exception( string.Format( "GetFormat() に失敗しました。({0})", strファイル名 ) );
-			}
-			//totalPCMSize = (int) sounddecoder.nTotalPCMSize;		//  tデコード後のサイズを調べる()で既に取得済みの値を流用する。ms単位の高速化だが、チップ音がたくさんあると塵積で結構効果がある
-			totalPCMSize = (int) sounddecoder.GetTotalPCMSize( nHandle );
-			if ( totalPCMSize == 0 )
-			{
-				sounddecoder.Close( nHandle );
-				throw new Exception( string.Format( "GetTotalPCMSize() に失敗しました。({0})", strファイル名 ) );
-			}
-			totalPCMSize += ( ( totalPCMSize % 2 ) != 0 ) ? 1 : 0;
-			int wavheadersize = ( bIntegrateWaveHeader ) ? 44 : 0;
-			byte[] buffer_rawdata = new byte[ totalPCMSize ];
-			buffer = new byte[ wavheadersize + totalPCMSize ];
-			GCHandle handle = GCHandle.Alloc( buffer_rawdata, GCHandleType.Pinned );
-			try
-			{
-				if ( sounddecoder.Decode( nHandle, handle.AddrOfPinnedObject(), (uint) totalPCMSize, 0 ) < 0 )
-				{
-					buffer = null;
-					throw new Exception( string.Format( "デコードに失敗しました。({0})", strファイル名 ) );
-				}
-				if ( bIntegrateWaveHeader )
-				{
-					// wave headerを書き込む
+				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strファイル名 ) );
 
-					int wfx拡張領域_Length = 0;
-					var ms = new MemoryStream();
-					var bw = new BinaryWriter( ms );
-					bw.Write( new byte[] { 0x52, 0x49, 0x46, 0x46 } );		// 'RIFF'
-					bw.Write( (UInt32) totalPCMSize + 44 - 8 );				// ファイルサイズ - 8 [byte]；今は不明なので後で上書きする。
-					bw.Write( new byte[] { 0x57, 0x41, 0x56, 0x45 } );		// 'WAVE'
-					bw.Write( new byte[] { 0x66, 0x6D, 0x74, 0x20 } );		// 'fmt '
-					bw.Write( (UInt32) ( 16 + ( ( wfx拡張領域_Length > 0 ) ? ( 2/*sizeof(WAVEFORMATEX.cbSize)*/ + wfx拡張領域_Length ) : 0 ) ) );	// fmtチャンクのサイズ[byte]
-					bw.Write( (UInt16) wfx.wFormatTag );					// フォーマットID（リニアPCMなら1）
-					bw.Write( (UInt16) wfx.nChannels );						// チャンネル数
-					bw.Write( (UInt32) wfx.nSamplesPerSec );				// サンプリングレート
-					bw.Write( (UInt32) wfx.nAvgBytesPerSec );				// データ速度
-					bw.Write( (UInt16) wfx.nBlockAlign );					// ブロックサイズ
-					bw.Write( (UInt16) wfx.wBitsPerSample );				// サンプルあたりのビット数
-					//if ( wfx拡張領域_Length > 0 )
-					//{
-					//    bw.Write( (UInt16) wfx拡張領域.Length );			// 拡張領域のサイズ[byte]
-					//    bw.Write( wfx拡張領域 );							// 拡張データ
-					//}
-					bw.Write( new byte[] { 0x64, 0x61, 0x74, 0x61 } );		// 'data'
-					//int nDATAチャンクサイズ位置 = (int) ms.Position;
-					bw.Write( (UInt32) totalPCMSize );						// dataチャンクのサイズ[byte]
+			//丸投げ
+			int rtn = sounddecoder.Decode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx);
 
-					byte[] bs = ms.ToArray();
-
-					bw.Close();
-					ms.Close();
-
-					for ( int i = 0; i < bs.Length; i++ )
-					{
-						buffer[ i ] = bs[ i ];
-					}
-				}
-				int s = ( bIntegrateWaveHeader ) ? 44 : 0;
-				for ( int i = 0; i < totalPCMSize; i++ )
-				{
-					buffer[ i + s ] = buffer_rawdata[ i ];
-				}
-				totalPCMSize += wavheadersize;
-				nPCMデータの先頭インデックス = wavheadersize;
-			}
-			finally
-			{
-				handle.Free();
-				sounddecoder.Close( nHandle );
-				sounddecoder = null;
-			}
+			//正常にDecodeできなかった場合、例外
+			if ( rtn < 0 )
+				throw new Exception( string.Format( "Decoded Failed...({0})({1})", rtn, strファイル名 ) );
+			
+			sounddecoder = null;
+			
 		}
 		#endregion
 		#endregion

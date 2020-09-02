@@ -82,6 +82,7 @@ VisualStudio Community 2019
 * ReadJEnc
 * SharpDX
 * Newtonsoft.Json
+* FFmpeg.AutoGen
 
 ライセンスは「Test/Licenses」に追加いたしました。
 
