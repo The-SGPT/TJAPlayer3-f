@@ -621,15 +621,6 @@ namespace TJAPlayer3
 		private readonly ST文字位置[] st大文字位置;
 		//-----------------
 
-		protected override E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane )
-		{
-			E判定 eJudgeResult = tチップのヒット処理( nHitTime, pChip, bCorrectLane, 0 );
-			// #24074 2011.01.23 add ikanick
-			if( pChip.nコース == this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) && pChip.bShow == true && eJudgeResult != E判定.AutoPerfect )
-				this.actGame.t叩ききりまショー_判定から各数値を増加させる( eJudgeResult, (int)( nHitTime - pChip.n発声時刻ms ) );
-			return eJudgeResult;
-		}
-
 		private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, bool b両手入力, int nPlayer )
 		{
 			int nInput = 0;
@@ -1899,7 +1890,7 @@ namespace TJAPlayer3
 			if( pChip.n発声時刻ms < (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) && pChip.nノーツ終了時刻ms > (CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 			{
 				//時間内でかつ0x9Aじゃないならならヒット処理
-				if( pChip.nチャンネル番号 != 0x18 && ( nPlayer == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] ) )
+				if (pChip.nチャンネル番号 != 0x18 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
 					this.tチップのヒット処理( pChip.n発声時刻ms, pChip, false, 0, nPlayer );
 			}
 			#endregion
