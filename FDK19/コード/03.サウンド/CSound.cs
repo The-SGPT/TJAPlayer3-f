@@ -1845,7 +1845,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		{
 			nPCMデータの先頭インデックス = 0;
 
-			CMultimediaDecoder sounddecoder = new CMultimediaDecoder();
+			CAudioDecoder sounddecoder = new CAudioDecoder();
 
 			if ( !File.Exists( strファイル名 ) )
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strファイル名 ) );

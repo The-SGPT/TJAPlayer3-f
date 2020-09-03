@@ -8,9 +8,9 @@ using FFmpeg.AutoGen;
 
 namespace FDK
 {
-	unsafe class CMultimediaDecoder
+	unsafe class CAudioDecoder
 	{
-		public CMultimediaDecoder() {
+		public CAudioDecoder() {
 			string i = ffmpeg.av_version_info();
 			Debug.Print("FFmpeg Version=" + i);
 		}
