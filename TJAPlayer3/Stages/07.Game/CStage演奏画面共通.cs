@@ -625,14 +625,14 @@ namespace TJAPlayer3
 				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 				if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
 				{
-					if ( (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.nノーツ終了時刻ms )
+					if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 					{
 						return E判定.Perfect;
 					}
 				}
 				else if( pChip.nチャンネル番号 == 0x17 )
 				{
-					if ( (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.nノーツ終了時刻ms )
+					if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 					{
 						return E判定.Perfect;
 					}
@@ -1085,15 +1085,6 @@ namespace TJAPlayer3
 			return true;
 		}
 
-		protected E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip )
-		{
-			return tチップのヒット処理( nHitTime, pChip, true );
-		}
-		protected abstract E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane );
-		protected E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane, int nNowInput )
-		{
-			return tチップのヒット処理( nHitTime, pChip, bCorrectLane, nNowInput, 0 );
-		}
 		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, bool bCorrectLane, int nNowInput, int nPlayer )
 		{
 			//unsafeコードにつき、デバッグ中の変更厳禁!
@@ -3700,7 +3691,6 @@ namespace TJAPlayer3
 			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
 			CDTX dTX = TJAPlayer3.DTX[nPlayer];
-			bool bAutoPlay = configIni.b太鼓パートAutoPlay[nPlayer];
 
 			var n現在時刻ms = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 
@@ -4014,6 +4004,10 @@ namespace TJAPlayer3
 		{
 			TJAPlayer3.DTX[0].t全チップの再生停止とミキサーからの削除();
 			this.t数値の初期化( true, true );
+			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan) 
+			{
+				TJAPlayer3.stage演奏ドラム画面.actDan.Update();
+			}
 			this.actAVI.tReset();
 			this.actPanel.t歌詞テクスチャを削除する();
 			for (int i = 0; i < 2; i++)
