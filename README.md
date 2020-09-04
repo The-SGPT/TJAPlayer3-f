@@ -69,6 +69,8 @@ Testフォルダ内の「[追加機能について.md](https://github.com/Mr-Oji
 * Newtonsoft.Json
 * FFmpeg.AutoGen
 * FFmpeg
+* OpenTK
+* OpenAL Soft
 
 ライセンスは「Test/Licenses」に追加いたしました。
 
@@ -80,6 +82,11 @@ DLL群のみでもよいのですが、デバッグ用に残しておきたい�
 
 DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
 LGPLやGPLに気を付けてくださいね。
+
+## OpenAL Softについて
+このリポジトリにはあらかじめOpenAL Softライブラリが同梱されています。  
+同梱しているライブラリはx86ライブラリです。  
+バージョンは1.15.1です。(2020/09/04現在)
 
 # 以下AioiLight様作成のReadmeです
 
