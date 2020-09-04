@@ -135,7 +135,7 @@
     <Compile Include="コード\02.入力\IInputDevice.cs" />
     <Compile Include="コード\02.入力\SlimDXKeys.cs" />
     <Compile Include="コード\02.入力\STInputEvent.cs" />
-    <Compile Include="コード\03.サウンド\CMultimediaDecoder.cs" />
+    <Compile Include="コード\03.サウンド\CAudioDecoder.cs" />
     <Compile Include="コード\03.サウンド\CSound.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceASIO.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceDirectSound.cs" />
