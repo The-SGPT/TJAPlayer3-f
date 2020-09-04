@@ -28,8 +28,6 @@ namespace FDK
 			protected set;
 		}
 
-		public static readonly BufferFlags DefaultFlags = BufferFlags.Defer | BufferFlags.GetCurrentPosition2 | BufferFlags.GlobalFocus | BufferFlags.ControlVolume | BufferFlags.ControlPan | BufferFlags.ControlFrequency;
-
 		// CSoundTimer 用に公開しているプロパティ
 
 		public long n経過時間ms
@@ -196,22 +194,18 @@ namespace FDK
 		private CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
-			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound );
+			sound.tDirectSoundサウンドを作成する(byArrWAVファイルイメージ, this.DirectSound);
 			return sound;
 		}
 
 		// 既存のインスタンス（生成直後 or Dispose済み）に対してサウンドを生成する。
 		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
-			sound.tDirectSoundサウンドを作成する( strファイル名, this.DirectSound );
+			sound.tDirectSoundサウンドを作成する(strファイル名, this.DirectSound);
 		}
 		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
-			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound );
-		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, BufferFlags flags, CSound sound )
-		{
-			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound, flags );
+			sound.tDirectSoundサウンドを作成する(byArrWAVファイルイメージ, this.DirectSound);
 		}
 
 		#region [ Dispose-Finallizeパターン実装 ]

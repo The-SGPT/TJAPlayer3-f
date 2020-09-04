@@ -823,15 +823,6 @@ namespace FDK
 		}
 
 		/// <summary>
-		/// <para>DirectSoundのセカンダリバッファ作成時のフラグ。</para>
-		/// </summary>
-		public BufferFlags DirectSoundBufferFlags
-		{
-			get;
-			protected set;
-		}
-
-		/// <summary>
 		/// <para>全インスタンスリスト。</para>
 		/// <para>～を作成する() で追加され、t解放する() or Dispose() で解放される。</para>
 		/// </summary>
@@ -852,7 +843,6 @@ namespace FDK
 			this.n位置 = 0;
 			this._db周波数倍率 = 1.0;
 			this._db再生速度 = 1.0;
-			this.DirectSoundBufferFlags = CSoundDeviceDirectSound.DefaultFlags;
 //			this._cbRemoveMixerChannel = new WaitCallback( RemoveMixerChannelLater );
 			this._hBassStream = -1;
 			this._hTempoStream = 0;
@@ -900,7 +890,7 @@ namespace FDK
 
 				// セカンダリバッファを作成し、PCMデータを書き込む。
 				tDirectSoundサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-					(ref this.byArrWAVファイルイメージ, DirectSound, CSoundDeviceDirectSound.DefaultFlags, wfx,
+					(ref this.byArrWAVファイルイメージ, DirectSound, wfx,
 					  nPCMサイズbyte, nPCMデータの先頭インデックス);
 				return;
 			}
@@ -972,10 +962,6 @@ namespace FDK
 		}
 
 		public void tDirectSoundサウンドを作成する( byte[] byArrWAVファイルイメージ, DirectSound DirectSound )
-		{
-			this.tDirectSoundサウンドを作成する(  byArrWAVファイルイメージ, DirectSound, CSoundDeviceDirectSound.DefaultFlags );
-		}
-		public void tDirectSoundサウンドを作成する( byte[] byArrWAVファイルイメージ, DirectSound DirectSound, BufferFlags flags )
 		{
 			if( this.e作成方法 == E作成方法.Unknown )
 				this.e作成方法 = E作成方法.WAVファイルイメージから;
@@ -1079,11 +1065,11 @@ namespace FDK
 
 			// セカンダリバッファを作成し、PCMデータを書き込む。
 			tDirectSoundサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み(
-				ref byArrWAVファイルイメージ, DirectSound, flags, wfx, nPCMサイズbyte, nPCMデータの先頭インデックス );
+				ref byArrWAVファイルイメージ, DirectSound, wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
 		}
 
 		private void tDirectSoundサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-			( ref byte[] byArrWAVファイルイメージ, DirectSound DirectSound, BufferFlags flags, WaveFormat wfx,
+			( ref byte[] byArrWAVファイルイメージ, DirectSound DirectSound, WaveFormat wfx,
 			int nPCMサイズbyte, int nPCMデータの先頭インデックス )
 			{
 			this._Format = wfx;
@@ -1092,7 +1078,7 @@ namespace FDK
 			this.Buffer = new SecondarySoundBuffer( DirectSound, new SoundBufferDescription()
 			{
 				Format = ( wfx.Encoding == WaveFormatEncoding.Pcm ) ? wfx : (SharpDX.Multimedia.WaveFormatExtensible) wfx,
-				Flags = flags,
+				Flags = BufferFlags.Defer | BufferFlags.GetCurrentPosition2 | BufferFlags.GlobalFocus | BufferFlags.ControlVolume | BufferFlags.ControlPan | BufferFlags.ControlFrequency,
 				BufferBytes = nPCMサイズbyte,
 			} );
 			this.Buffer.Write( byArrWAVファイルイメージ, nPCMデータの先頭インデックス, nPCMサイズbyte, 0, LockFlags.None );
@@ -1100,7 +1086,6 @@ namespace FDK
 			// 作成完了。
 
 			this.eデバイス種別 = ESoundDeviceType.DirectSound;
-			this.DirectSoundBufferFlags = flags;
 			this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
 			this.DirectSound = DirectSound;
 
@@ -1433,9 +1418,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						else if( sounds[ i ].bDirectSoundである )
 						{
 							byte[] byArrWaveファイルイメージ = sounds[ i ].byArrWAVファイルイメージ;
-							var flags = sounds[ i ].DirectSoundBufferFlags;
 							sounds[ i ].Dispose( true, false );
-							( (CSoundDeviceDirectSound) device ).tサウンドを作成する( byArrWaveファイルイメージ, flags, sounds[ i ] );
+							( (CSoundDeviceDirectSound) device ).tサウンドを作成する( byArrWaveファイルイメージ, sounds[ i ] );
 						}
 						break;
 					#endregion
