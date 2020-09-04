@@ -10,9 +10,8 @@ namespace FDK
 {
 	unsafe class CAudioDecoder
 	{
-		public CAudioDecoder() {
-			string i = ffmpeg.av_version_info();
-			Debug.Print("FFmpeg Version=" + i);
+		public CAudioDecoder() 
+		{
 		}
 
 		public int AudioDecode(string filename, out byte[] buffer,
