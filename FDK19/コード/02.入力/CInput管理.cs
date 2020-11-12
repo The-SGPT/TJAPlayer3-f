@@ -4,6 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using OpenTK.Input;
 
 namespace FDK
 {
@@ -186,7 +187,7 @@ namespace FDK
 			}
 		}
 
-		public void KeyDownEvent(object sender, KeyEventArgs e)
+		public void KeyDownEvent(object sender, KeyboardKeyEventArgs e)
 		{
 			lock (this.objMidiIn排他用)
 			{
@@ -197,7 +198,7 @@ namespace FDK
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
 						{
-							tkey.Key押された受信(e.KeyCode);
+							tkey.Key押された受信(e.Key);
 							break;
 						}
 					}
@@ -205,7 +206,7 @@ namespace FDK
 			}
 		}
 
-		public void KeyUpEvent(object sender, KeyEventArgs e)
+		public void KeyUpEvent(object sender, KeyboardKeyEventArgs e)
 		{
 			lock (this.objMidiIn排他用)
 			{
@@ -216,7 +217,7 @@ namespace FDK
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
 						{
-							tkey.Key離された受信(e.KeyCode);
+							tkey.Key離された受信(e.Key);
 							break;
 						}
 					}

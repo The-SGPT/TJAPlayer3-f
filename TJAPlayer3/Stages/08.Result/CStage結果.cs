@@ -403,7 +403,7 @@ namespace TJAPlayer3
 					string strRank = ((CScoreIni.ERANK)(this.nランク値)).ToString();
 					string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strRank + ".png";
 
-					CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
+					CSaveScreen.CSaveFromDevice(strFullPath);
 				}
 			}
 		}

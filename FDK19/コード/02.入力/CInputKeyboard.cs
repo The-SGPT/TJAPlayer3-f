@@ -28,9 +28,9 @@ namespace FDK
 			this.listEventBuffer = new List<STInputEvent>(32);
 		}
 
-		public void Key押された受信(Keys Code)
+		public void Key押された受信(Key Code)
 		{
-			var key = DeviceConstantConverter.KeysToKey(Code);
+			var key = DeviceConstantConverter.TKKtoKey(Code);
 			if (SlimDXKey.Unknown == key)
 				return;   // 未対応キーは無視。
 
@@ -48,9 +48,9 @@ namespace FDK
 				this.bKeyStateForBuff[(int)key] = true;
 			}
 		}
-		public void Key離された受信(Keys Code)
+		public void Key離された受信(Key Code)
 		{
-			var key = DeviceConstantConverter.KeysToKey(Code);
+			var key = DeviceConstantConverter.TKKtoKey(Code);
 			if (SlimDXKey.Unknown == key)
 				return;   // 未対応キーは無視。
 

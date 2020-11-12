@@ -16,6 +16,7 @@ using DiscordRPC;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
+using System.ComponentModel;
 
 namespace TJAPlayer3
 {
@@ -263,7 +264,7 @@ namespace TJAPlayer3
 		{
 			get 
 			{
-				return this.Window.Focused;
+				return this.Focused;
 			}
 		}
 		public bool b次のタイミングで垂直帰線同期切り替えを行う
@@ -284,7 +285,7 @@ namespace TJAPlayer3
 		//		public static CTimer ct;
 		public IntPtr WindowHandle                  // 2012.10.24 yyagi; to add ASIO support
 		{
-			get { return base.Window.Handle; }
+			get { return base.WindowInfo.Handle; }
 		}
 
 		#endregion
@@ -301,64 +302,50 @@ namespace TJAPlayer3
 
 		public void t全画面_ウィンドウモード切り替え()
 		{
-			DeviceSettings settings = base.GraphicsDeviceManager.CurrentSettings.Clone();
-			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != settings.Windowed))
+			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != (this.WindowState == OpenTK.WindowState.Normal)))
 			{
-				settings.Windowed = ConfigIni.bウィンドウモード;
-
 				if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 				{
-					currentClientSize = this.Window.ClientSize;
-					ConfigIni.nウインドウwidth = this.Window.ClientSize.Width;
-					ConfigIni.nウインドウheight = this.Window.ClientSize.Height;
-					//					FDK.CTaskBar.ShowTaskBar( false );
+					currentClientSize = this.ClientSize;
+					ConfigIni.nウインドウwidth = this.ClientSize.Width;
+					ConfigIni.nウインドウheight = this.ClientSize.Height;
 				}
-				base.GraphicsDeviceManager.ChangeDevice(settings);
+				this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
 				if (ConfigIni.bウィンドウモード == true)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 				{
-					base.Window.ClientSize =
+					base.ClientSize =
 						new Size(currentClientSize.Width, currentClientSize.Height);
-					base.Window.Icon = Properties.Resources.tjap3;
-					//					FDK.CTaskBar.ShowTaskBar( true );
+					base.Icon = Properties.Resources.tjap3;
 				}
 			}
 		}
 
-		// Game 実装
+        // Game 実装
 
-		protected override void Initialize()
-		{
-			if (this.listトップレベルActivities != null)
-			{
-				foreach (CActivity activity in this.listトップレベルActivities)
-					activity.OnManagedリソースの作成();
-			}
-		}
-		protected override void LoadContent()
-		{
+        protected override void OnLoad(EventArgs e)
+        {
 			if (ConfigIni.bウィンドウモード)
 			{
-				if (!this.bマウスカーソル表示中)
+				if (!this.CursorVisible)
 				{
-					Cursor.Show();
-					this.bマウスカーソル表示中 = true;
+					this.CursorVisible = true;
 				}
 			}
-			else if (this.bマウスカーソル表示中)
+			else if (this.CursorVisible)
 			{
-				Cursor.Hide();
-				this.bマウスカーソル表示中 = false;
+				this.CursorVisible = false;
 			}
 
-			CAction.LoadContentAction(this.Device);
+			CAction.LoadContentAction();
 
 			if (this.listトップレベルActivities != null)
 			{
 				foreach (CActivity activity in this.listトップレベルActivities)
 					activity.OnUnmanagedリソースの作成();
 			}
+			base.OnLoad(e);
 		}
-		protected override void UnloadContent()
+		protected override void OnUnload(EventArgs e)
 		{
 			if (this.listトップレベルActivities != null)
 			{
@@ -366,23 +353,26 @@ namespace TJAPlayer3
 					activity.OnUnmanagedリソースの解放();
 			}
 		}
-		protected override void OnExiting(EventArgs e)
+		protected override void OnClosing(CancelEventArgs e)
 		{
 			this.t終了処理();
-			base.OnExiting(e);
+			base.OnClosing(e);
 		}
-		protected override void Update(GameTime gameTime)
+		protected override void OnUpdateFrame(OpenTK.FrameEventArgs e)
 		{
+			base.OnUpdateFrame(e);
 		}
-		protected override void Draw(GameTime gameTime)
+		protected override void OnRenderFrame(OpenTK.FrameEventArgs e)
 		{
+			base.OnRenderFrame(e);
+
 			Timer?.t更新();
 			CSound管理.rc演奏用タイマ?.t更新();
 			Input管理?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
 			FPS?.tカウンタ更新();
 
-			if (this.Device == null)
-				return;
+			//if (this.Device == null)
+			//	return;
 
 			// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 			#region [ スリープ ]
@@ -392,7 +382,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 
-			CAction.BeginScene(this.Device);
+			CAction.BeginScene();
 
 			if (r現在のステージ != null)
 			{
@@ -950,24 +940,23 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
 				}
 			}
-			CAction.EndScene(this.Device);  // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
-											// (つまり、Present()は、Draw()完了後に実行される)
+			this.SwapBuffers();
 			
 			CAction.Flush();// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行	
 
 #region [ 垂直基線同期切り替え ]
 			if (this.b次のタイミングで垂直帰線同期切り替えを行う)
 			{
-				bool bIsMaximized = this.Window.IsMaximized;                                            // #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
-				currentClientSize = this.Window.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
-				DeviceSettings currentSettings = app.GraphicsDeviceManager.CurrentSettings;
-				currentSettings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
-				app.GraphicsDeviceManager.ChangeDevice(currentSettings);
+				bool bIsMaximized = this.WindowState == OpenTK.WindowState.Maximized;                                            // #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
+				currentClientSize = this.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
+
+				this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
+
 				this.b次のタイミングで垂直帰線同期切り替えを行う = false;
-				base.Window.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
+				base.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
 				if (bIsMaximized)
 				{
-					this.Window.WindowState = FormWindowState.Maximized;                                // #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
+					this.WindowState = OpenTK.WindowState.Maximized;                                // #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
 				}
 			}
 #endregion
@@ -1159,7 +1148,6 @@ namespace TJAPlayer3
 
 #region [ private ]
 		//-----------------
-		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
 		private bool bネットワークに接続中 = false;
 		private long 前回のシステム時刻ms = long.MinValue;
@@ -1170,7 +1158,8 @@ namespace TJAPlayer3
 
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
-		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;
+		private OpenTK.Input.MouseButton mb = OpenTK.Input.MouseButton.Right;
+		private Stopwatch judgedoubleclock = new Stopwatch();
 		public static DateTime StartupTime
 		{
 			get;
@@ -1205,8 +1194,6 @@ namespace TJAPlayer3
 					Trace.TraceError("例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)");
 				}
 			}
-			this.Window.EnableSystemMenu = TJAPlayer3.ConfigIni.bIsEnabledSystemMenu;   // #28200 2011.5.1 yyagi
-																						// 2012.8.22 Config.iniが無いときに初期値が適用されるよう、この設定行をifブロック外に移動
 
 			//---------------------
 #endregion
@@ -1250,61 +1237,31 @@ namespace TJAPlayer3
 
 #region [ ウィンドウ初期化 ]
 			//---------------------
-			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
-			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
+			base.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
 
 
-			base.Window.Text = "";
+			base.Title = "";
 
-			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
+			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
 
 			if (!ConfigIni.bウィンドウモード)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
 			{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
 				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
 			}
-
-			base.Window.MaximizeBox = true;                         // #23510 2010.11.04 yyagi: to support maximizing window
-			base.Window.FormBorderStyle = FormBorderStyle.Sizable;  // #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
-																	// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
-			base.Window.ShowIcon = true;
-			base.Window.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
-			base.Window.KeyDown += new KeyEventHandler(this.Window_KeyDown);
-			base.Window.MouseUp += new MouseEventHandler(this.Window_MouseUp);
-			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);    // #23510 2010.11.13 yyagi: to go fullscreen mode
-			base.Window.ResizeEnd += new EventHandler(this.Window_ResizeEnd);                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+			
+			base.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
+			base.KeyDown += this.Window_KeyDown;
+			base.MouseDown += this.Window_MouseDown;
+			base.Resize += this.Window_ResizeEnd;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
 			//---------------------
 #endregion
 #region [ Direct3D9 デバイスの生成 ]
 			//---------------------
-			DeviceSettings settings = new DeviceSettings();
-			settings.Windowed = ConfigIni.bウィンドウモード;
+			this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
 
-			settings.BackBufferWidth = GameWindowSize.Width;
-			settings.BackBufferHeight = GameWindowSize.Height;
-			//			settings.BackBufferCount = 3;
-			settings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
-			//			settings.BackBufferFormat = Format.A8R8G8B8;
-			//			settings.MultisampleType = MultisampleType.FourSamples;
-			//			settings.MultisampleQuality = 4;
-			//			settings.MultisampleType = MultisampleType.None;
-			//			settings.MultisampleQuality = 0;
+			this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
 
-			try
-			{
-				base.GraphicsDeviceManager.ChangeDevice(settings);
-			}
-			catch (DeviceCreationException e)
-			{
-				Trace.TraceError(e.ToString());
-				MessageBox.Show(e.ToString(), "DTXMania failed to boot: DirectX9 Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Environment.Exit(-1);
-			}
-
-			base.IsFixedTimeStep = false;
-			//			base.TargetElapsedTime = TimeSpan.FromTicks( 10000000 / 75 );
-			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
-			base.InactiveSleepTime = TimeSpan.FromMilliseconds((float)(ConfigIni.n非フォーカス時スリープms));  // #23568 2010.11.3 yyagi: to support valiable sleep value when !IsActive
-																									// #23568 2010.11.4 ikanick changed ( 1 -> ConfigIni )
+			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 
 			//---------------------
 #endregion
@@ -1395,7 +1352,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				Input管理 = new CInput管理(base.Window.Handle);
+				Input管理 = new CInput管理(base.WindowInfo.Handle);
 				foreach (IInputDevice device in Input管理.list入力デバイス)
 				{
 					if ((device.e入力デバイス種別 == E入力デバイス種別.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
@@ -1408,8 +1365,8 @@ namespace TJAPlayer3
 						ConfigIni.dicJoystick.Add(key, device.GUID);
 					}
 				}
-				base.Window.KeyDown += new KeyEventHandler(Input管理.KeyDownEvent);
-				base.Window.KeyUp += new KeyEventHandler(Input管理.KeyUpEvent);
+				base.KeyDown += Input管理.KeyDownEvent;
+				base.KeyUp += Input管理.KeyUpEvent;
 				Trace.TraceInformation("DirectInput の初期化を完了しました。");
 			}
 			catch
@@ -1468,7 +1425,7 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.Unknown;
 						break;
 				}
-				Sound管理 = new CSound管理(base.Window.Handle,
+				Sound管理 = new CSound管理(base.WindowInfo.Handle,
 											soundDeviceType,
 											TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
 											// CDTXMania.ConfigIni.nASIOBufferSizeMs,
@@ -1619,15 +1576,15 @@ namespace TJAPlayer3
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
 			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
-			base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+			base.Title = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
 		public void ChangeWindowTitle(string Name, bool StringInitialize = true, bool Concat = true) {
 			if(StringInitialize)
 				this.ShowWindowTitleWithSoundType();
 			if (Concat)
-				Name = base.Window.Text + Name;
-			base.Window.Text = Name;
+				Name = base.Title + Name;
+			base.Title = Name;
 		}
 
 		private void t終了処理()
@@ -1907,9 +1864,6 @@ namespace TJAPlayer3
 
 				//---------------------
 #endregion
-#region [ DirectXの終了処理 ]
-				base.GraphicsDeviceManager.Dispose();
-#endregion
 				Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
 
 				this.b終了処理完了済み = true;
@@ -1979,62 +1933,56 @@ namespace TJAPlayer3
 		}
 #region [ Windowイベント処理 ]
 		//-----------------
-		private void Window_KeyDown( object sender, KeyEventArgs e )
+		private void Window_KeyDown( object sender, OpenTK.Input.KeyboardKeyEventArgs e )
 		{
-			if ( e.KeyCode == Keys.Menu )
-			{
-				e.Handled = true;
-				e.SuppressKeyPress = true;
-			}
-			else if ( ( e.KeyCode == Keys.Return ) && e.Alt )
+			if ( ( e.Key == OpenTK.Input.Key.Enter ) && e.Alt )
 			{
 				if ( ConfigIni != null )
 				{
 					ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
 					this.t全画面_ウィンドウモード切り替え();
 				}
-				e.Handled = true;
-				e.SuppressKeyPress = true;
 			}
 			else
 			{
 				for ( int i = 0; i < 0x10; i++ )
 				{
 					if ( ConfigIni.KeyAssign.System.Capture[ i ].コード > 0 &&
-						 e.KeyCode == DeviceConstantConverter.KeyToKeys( (SlimDXKeys.Key) ConfigIni.KeyAssign.System.Capture[ i ].コード ) )
+						 DeviceConstantConverter.TKKtoKey(e.Key) ==(SlimDXKeys.Key) ConfigIni.KeyAssign.System.Capture[ i ].コード )
 					{
 						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
 						string strFullPath =
 						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
 						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
-						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
+						CSaveScreen.CSaveFromDevice(strFullPath);
 					}
 				}
 			}
 		}
-		private void Window_MouseUp( object sender, MouseEventArgs e )
+		private void Window_MouseDown( object sender, OpenTK.Input.MouseButtonEventArgs e )
 		{
-			mb = e.Button;
-		}
-
-		private void Window_MouseDoubleClick( object sender, MouseEventArgs e)	// #23510 2010.11.13 yyagi: to go full screen mode
-		{
-			if ( mb.Equals(MouseButtons.Left) && ConfigIni.bIsAllowedDoubleClickFullscreen )	// #26752 2011.11.27 yyagi
+			if (mb.Equals(OpenTK.Input.MouseButton.Left) && ConfigIni.bIsAllowedDoubleClickFullscreen && judgedoubleclock.ElapsedMilliseconds < 1000)  // #26752 2011.11.27 yyagi
 			{
 				ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
 				this.t全画面_ウィンドウモード切り替え();
 			}
+			else
+			{
+				mb = e.Button;
+				judgedoubleclock.Restart();
+			}
 		}
+
 		private void Window_ResizeEnd(object sender, EventArgs e)				// #23510 2010.11.20 yyagi: to get resized window size
 		{
 			if ( ConfigIni.bウィンドウモード )
 			{
-				ConfigIni.n初期ウィンドウ開始位置X = base.Window.Location.X;	// #30675 2013.02.04 ikanick add
-				ConfigIni.n初期ウィンドウ開始位置Y = base.Window.Location.Y;	//
+				ConfigIni.n初期ウィンドウ開始位置X = base.X;	// #30675 2013.02.04 ikanick add
+				ConfigIni.n初期ウィンドウ開始位置Y = base.Y;	//
 			}
 
-			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Width : currentClientSize.Width;	// #23510 2010.10.31 yyagi add
-			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Height : currentClientSize.Height;
+			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? base.ClientSize.Width : currentClientSize.Width;	// #23510 2010.10.31 yyagi add
+			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.ClientSize.Height : currentClientSize.Height;
 		}
 #endregion
 #endregion
