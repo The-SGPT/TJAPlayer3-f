@@ -310,7 +310,6 @@ namespace FDK
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
 				LoadProjectionMatrix(Matrix4.Identity);
-				LoadViewMatrix(Matrix4.Identity);
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -407,7 +406,6 @@ namespace FDK
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
 			LoadProjectionMatrix(Matrix4.Identity);
-			LoadViewMatrix(Matrix4.Identity);
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -460,7 +458,6 @@ namespace FDK
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
 			LoadProjectionMatrix(Matrix4.Identity);
-			LoadViewMatrix(Matrix4.Identity);
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -561,7 +558,6 @@ namespace FDK
 			this.tレンダリングステートの設定(device);
 
 			LoadProjectionMatrix(matrix);
-			LoadViewMatrix(Matrix4.Identity);
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -664,13 +660,6 @@ namespace FDK
 		{
 			Matrix4 tmpmat = CAction.Projection;
 			GL.MatrixMode(MatrixMode.Projection);
-			GL.LoadMatrix(ref tmpmat);
-			GL.MultMatrix(ref mat);
-		}
-		private void LoadViewMatrix(Matrix4 mat)
-		{
-			Matrix4 tmpmat = CAction.ModelView;
-			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadMatrix(ref tmpmat);
 			GL.MultMatrix(ref mat);
 		}
