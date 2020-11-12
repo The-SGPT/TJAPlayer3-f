@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
-using SharpDX;
 using System.Threading;
 
 namespace FDK
