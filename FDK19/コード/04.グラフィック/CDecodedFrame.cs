@@ -10,7 +10,7 @@ namespace FDK
 	public class CDecodedFrame : IDisposable
 	{
 		public double Time;
-		public CTexture Tex;
+		public Bitmap Tex;
 
 		public void Dispose() 
 		{

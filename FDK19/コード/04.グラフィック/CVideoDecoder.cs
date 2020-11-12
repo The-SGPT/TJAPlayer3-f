@@ -173,7 +173,17 @@ namespace FDK
 							if (lastTexture != null)
 								lastTexture.Dispose();
 
-							lastTexture = cdecodedframe.Tex;
+							//参考:https://dobon.net/vb/bbs/log3-24/15246.html
+							using (Bitmap bitmap_tmp = new Bitmap(cdecodedframe.Tex.Width, cdecodedframe.Tex.Height))
+							{
+								using (Graphics g = Graphics.FromImage(bitmap_tmp))
+								{
+									g.DrawImage(cdecodedframe.Tex, 0, 0);
+								}
+
+								lastTexture = new CTexture(0, bitmap_tmp, false);
+								cdecodedframe.Dispose();
+							}
 						}
 						break;
 					}
@@ -231,7 +241,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = new CTexture(0, getframebuf(outframe)) });
+										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = getframe(outframe) });
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
@@ -267,13 +277,9 @@ namespace FDK
 			}
 		}
 
-		private byte[] getframebuf(AVFrame* frame) 
+		private Bitmap getframe(AVFrame* frame) 
 		{
-			byte[] buf = new byte[FrameSize.Width * FrameSize.Height * 4];
-
-			Marshal.Copy((IntPtr)(frame->data[0]), buf, 0, FrameSize.Width * FrameSize.Height * 4);
-
-			return buf;
+			return new Bitmap(frame->width, frame->height, frame->linesize[0], PixelFormat.Format32bppArgb, (IntPtr)frame->data[0]);
 		}
 
 		public Size FrameSize 

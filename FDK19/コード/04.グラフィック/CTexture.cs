@@ -127,12 +127,6 @@ namespace FDK
 			maketype = MakeType.filename;
 			MakeTexture(device, strファイル名);
 		}
-		public CTexture(int device, byte[] txData)
-			: this()
-		{
-			maketype = MakeType.bytearray;
-			MakeTexture(device, txData);
-		}
 		public CTexture(int device, Bitmap bitmap, bool b黒を透過する)
 			: this()
 		{
@@ -145,14 +139,7 @@ namespace FDK
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
-			this.filename = Path.GetFileName(strファイル名);
-			Byte[] _txData = File.ReadAllBytes(strファイル名);
-			MakeTexture(device, _txData);
-		}
-		public void MakeTexture(int device, byte[] txData)
-		{
-			Bitmap bitmap = new Bitmap(new MemoryStream(txData));
-			MakeTexture(device, bitmap, false);
+			MakeTexture(device, new Bitmap(strファイル名), false);
 		}
 		public void MakeTexture(int device, Bitmap bitmap, bool b黒を透過する)
 		{
