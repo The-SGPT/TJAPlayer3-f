@@ -12,9 +12,9 @@ namespace FDK
 		// メソッド
 
 		/// <returns>
-		///		対応する値がなければ SlimDX.DirectInput.Unknown を返す。
+		///		対応する値がなければ SlimDXKeys.Key.Unknown を返す。
 		/// </returns>
-		public static SlimDXKey TKKtoKey(OpenTK.Input.Key key)
+		public static SlimDXKey TKKtoKey(TKKey key)
 		{
 			if (_TKKtoKey.ContainsKey(key))
 			{
@@ -27,7 +27,7 @@ namespace FDK
 		}
 
 		/// <summary>
-		///		TKK (OpenTK.Input.Key) から SlimDX.DirectInput.Key への変換表。
+		///		TKK (OpenTK.Input.Key) から SlimDXKeys.Key への変換表。
 		/// </summary>
 		private static readonly Dictionary<TKKey, SlimDXKey> _TKKtoKey = new Dictionary<TKKey, SlimDXKey>() {
 			#region [ *** ]

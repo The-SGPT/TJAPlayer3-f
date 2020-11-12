@@ -1234,7 +1234,6 @@ namespace TJAPlayer3
 			//---------------------
 #endregion
 
-
 #region [ ウィンドウ初期化 ]
 			//---------------------
 			base.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
@@ -1248,24 +1247,15 @@ namespace TJAPlayer3
 			{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
 				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
 			}
-			
-			base.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
+			this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
+			this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
+
+			base.Icon = Properties.Resources.tjap3;
 			base.KeyDown += this.Window_KeyDown;
 			base.MouseDown += this.Window_MouseDown;
 			base.Resize += this.Window_ResizeEnd;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
 			//---------------------
 #endregion
-#region [ Direct3D9 デバイスの生成 ]
-			//---------------------
-			this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
-
-			this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
-
-			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
-
-			//---------------------
-#endregion
-
 			DTX[0] = null;
 			DTX[1] = null;
 
@@ -1348,7 +1338,7 @@ namespace TJAPlayer3
 #endregion
 #region [ Input管理 の初期化 ]
 			//---------------------
-			Trace.TraceInformation("DirectInput, MIDI入力の初期化を行います。");
+			Trace.TraceInformation("Input, MIDI入力の初期化を行います。");
 			Trace.Indent();
 			try
 			{
@@ -1367,11 +1357,11 @@ namespace TJAPlayer3
 				}
 				base.KeyDown += Input管理.KeyDownEvent;
 				base.KeyUp += Input管理.KeyUpEvent;
-				Trace.TraceInformation("DirectInput の初期化を完了しました。");
+				Trace.TraceInformation("Input の初期化を完了しました。");
 			}
 			catch
 			{
-				Trace.TraceError("DirectInput, MIDI入力の初期化に失敗しました。");
+				Trace.TraceError("Input, MIDI入力の初期化に失敗しました。");
 				throw;
 			}
 			finally
@@ -1735,22 +1725,22 @@ namespace TJAPlayer3
 				}
 				//---------------------
 #endregion
-#region [ DirectInput, MIDI入力の終了処理 ]
+#region [ Input, MIDI入力の終了処理 ]
 				//---------------------
 				if (Input管理 != null)
 				{
-					Trace.TraceInformation( "DirectInput, MIDI入力の終了処理を行います。" );
+					Trace.TraceInformation( "Input, MIDI入力の終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
 						Input管理.Dispose();
 						Input管理 = null;
-						Trace.TraceInformation( "DirectInput, MIDI入力の終了処理を完了しました。" );
+						Trace.TraceInformation( "Input, MIDI入力の終了処理を完了しました。" );
 					}
 					catch( Exception exception5 )
 					{
 						Trace.TraceError( exception5.ToString() );
-						Trace.TraceError( "DirectInput, MIDI入力の終了処理に失敗しました。" );
+						Trace.TraceError( "Input, MIDI入力の終了処理に失敗しました。" );
 					}
 					finally
 					{

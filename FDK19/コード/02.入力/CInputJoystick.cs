@@ -398,7 +398,7 @@ namespace FDK
 
 					for (int nWay = 0; nWay < 8; nWay++)
 					{
-						if (hatState.Position == (OpenTK.Input.HatPosition)nWay + 1)
+						if (hatState.Position == (HatPosition)nWay + 1)
 						{
 							if (this.bButtonState[8 + 128 + nWay] == false)
 							{

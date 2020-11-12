@@ -1622,7 +1622,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			}
 			catch ( InvalidDataException )
 			{
-				// DirectShowのデコードに失敗したら、次はACMでのデコードを試すことになるため、ここではエラーログを出さない。
+				// FFmpegのデコードに失敗したら、次はACMでのデコードを試すことになるため、ここではエラーログを出さない。
 				// Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : デコードに失敗しました。" );
 			}
 			catch ( Exception e )

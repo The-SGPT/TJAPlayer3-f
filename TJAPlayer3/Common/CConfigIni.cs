@@ -513,7 +513,7 @@ namespace TJAPlayer3
 		public bool b2P演奏時のSEの左右;
 		public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
 		public bool bIsAllowedDoubleClickFullscreen;	// #26752 2011.11.27 yyagi ダブルクリックしてもフルスクリーンに移行しない
-		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=ACM(にしたいが設計がきつそうならDirectShow), 1=ASIO, 2=WASAPI)
+		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=OpenAL, 1=ASIO, 2=WASAPI)
 		public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
 //		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
 		public int nASIODevice;						// #24820 2013.1.17 yyagi ASIOデバイス

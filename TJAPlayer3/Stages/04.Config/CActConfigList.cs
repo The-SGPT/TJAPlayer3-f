@@ -288,7 +288,7 @@ namespace TJAPlayer3
 				"　終了時に有効になります。",
 				"Sound output type:\n" +
 				"You can choose WASAPI(Exclusive)\n" +
-				", ASIO or DShow(DirectShow).\n" +
+				", ASIO or OpenAL.\n" +
 				"WASAPI can use only after Vista.\n" +
 				"ASIO can use on the\n" +
 				"\"ASIO-supported\" sound device.\n" +
