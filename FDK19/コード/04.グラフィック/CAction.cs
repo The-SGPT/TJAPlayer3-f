@@ -24,7 +24,8 @@ namespace FDK
 		{
 			get
 			{
-				return Matrix4.CreatePerspectiveFieldOfView(C変換.DegreeToRadian((float)60f), ((float)GameWindowSize.Width) / ((float)GameWindowSize.Height), 0.0000001f, 100f);
+				//60degだったものを調整
+				return Matrix4.CreatePerspectiveFieldOfView(C変換.DegreeToRadian((float)59.9f), ((float)GameWindowSize.Width) / ((float)GameWindowSize.Height), 0.0000001f, 100f);
 			}
 		}
 

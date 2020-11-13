@@ -330,8 +330,8 @@ namespace FDK
 				float f中央Y = ((float)rc画像内の描画領域.Height) / 2f;
 				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
-				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
+				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
+				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -355,16 +355,16 @@ namespace FDK
 
 				GL.Color4(this.color);
 
-				GL.TexCoord2(f右U値, f上V値);
+				GL.TexCoord2(f右U値, f下V値);
 				GL.Vertex3(-f中央X, -f中央Y, depth);
 
-				GL.TexCoord2(f左U値, f上V値);
+				GL.TexCoord2(f左U値, f下V値);
 				GL.Vertex3(f中央X, -f中央Y, depth);
 
-				GL.TexCoord2(f左U値, f下V値);
+				GL.TexCoord2(f左U値, f上V値);
 				GL.Vertex3(f中央X, f中央Y, depth);
 
-				GL.TexCoord2(f右U値, f下V値);
+				GL.TexCoord2(f右U値, f上V値);
 				GL.Vertex3(-f中央X, f中央Y, depth);
 
 				GL.End();
@@ -539,8 +539,8 @@ namespace FDK
 			float z = 0.0f;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
+			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
+			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -554,17 +554,17 @@ namespace FDK
 
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f右U値, f上V値);
-			GL.Vertex3(x, y, z);
-
-			GL.TexCoord2(f左U値, f上V値);
-			GL.Vertex3(-x, y, z);
-
-			GL.TexCoord2(f左U値, f下V値);
+			GL.TexCoord2(f右U値, f下V値);
 			GL.Vertex3(-x, -y, z);
 
-			GL.TexCoord2(f右U値, f下V値);
+			GL.TexCoord2(f左U値, f下V値);
 			GL.Vertex3(x, -y, z);
+
+			GL.TexCoord2(f左U値, f上V値);
+			GL.Vertex3(x, y, z);
+
+			GL.TexCoord2(f右U値, f上V値);
+			GL.Vertex3(-x, y, z);
 
 			GL.End();
 

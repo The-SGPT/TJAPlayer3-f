@@ -1963,8 +1963,10 @@ namespace TJAPlayer3
 			}
 		}
 
-		private void Window_ResizeEnd(object sender, EventArgs e)				// #23510 2010.11.20 yyagi: to get resized window size
+		private void Window_ResizeEnd(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
 		{
+			base.ClientSize = new Size((int)(((double)GameWindowSize.Width / GameWindowSize.Height) * ClientSize.Height + 0.5), ClientSize.Height);
+
 			if ( ConfigIni.bウィンドウモード )
 			{
 				ConfigIni.n初期ウィンドウ開始位置X = base.X;	// #30675 2013.02.04 ikanick add
