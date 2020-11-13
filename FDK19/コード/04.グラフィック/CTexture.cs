@@ -298,7 +298,7 @@ namespace FDK
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-				LoadProjectionMatrix(Matrix4.Identity);
+				ResetWorldMatrix();
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -346,8 +346,8 @@ namespace FDK
 				var matrix = Matrix4.Identity * Matrix4.CreateScale(this.vc);
 				matrix *= Matrix4.CreateRotationZ(this.fZ軸中心回転);
 				matrix *= Matrix4.CreateTranslation(vc3移動量);
-				
-				LoadProjectionMatrix(matrix);
+
+				ResetWorldMatrix();
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -394,7 +394,7 @@ namespace FDK
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-			LoadProjectionMatrix(Matrix4.Identity);
+			ResetWorldMatrix();
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -446,7 +446,7 @@ namespace FDK
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-			LoadProjectionMatrix(Matrix4.Identity);
+			ResetWorldMatrix();
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -546,7 +546,7 @@ namespace FDK
 
 			this.tレンダリングステートの設定(device);
 
-			LoadProjectionMatrix(matrix);
+			LoadWorldMatrix(matrix);
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -567,8 +567,6 @@ namespace FDK
 			GL.Vertex3(-x, y, z);
 
 			GL.End();
-
-			//device.SetTransform(TransformState.World, matrix);
 		}
 
 		#region [ IDisposable 実装 ]
@@ -645,11 +643,19 @@ namespace FDK
 		{
 			return sz指定サイズ;
 		}
-		private void LoadProjectionMatrix(Matrix4 mat)
+		private void ResetWorldMatrix() 
 		{
-			Matrix4 tmpmat = CAction.Projection;
-			GL.MatrixMode(MatrixMode.Projection);
+			Matrix4 tmpmat = CAction.ModelView;
+			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadMatrix(ref tmpmat);
+		}
+
+		private void LoadWorldMatrix(Matrix4 mat)
+		{
+			Matrix4 tmpmat = CAction.ModelView;
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.LoadMatrix(ref tmpmat);
+			mat *= Matrix4.CreateScale(-1, 1, 0);
 			GL.MultMatrix(ref mat);
 		}
 		private enum MakeType
