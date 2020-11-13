@@ -554,17 +554,17 @@ namespace FDK
 
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f右U値, f下V値);
-			GL.Vertex3(-x, -y, z);
-
-			GL.TexCoord2(f左U値, f下V値);
-			GL.Vertex3(x, -y, z);
-
-			GL.TexCoord2(f左U値, f上V値);
+			GL.TexCoord2(f右U値, f上V値);
 			GL.Vertex3(x, y, z);
 
-			GL.TexCoord2(f右U値, f上V値);
+			GL.TexCoord2(f左U値, f上V値);
 			GL.Vertex3(-x, y, z);
+
+			GL.TexCoord2(f左U値, f下V値);
+			GL.Vertex3(-x, -y, z);
+
+			GL.TexCoord2(f右U値, f下V値);
+			GL.Vertex3(x, -y, z);
 
 			GL.End();
 		}
